@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/import/create_new_receipt_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_completed_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/create_new_receipt_event.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/uncompleted_receipt_event.dart';
+
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 
 class ImportFunctionScreen extends StatelessWidget {
@@ -28,33 +31,30 @@ class ImportFunctionScreen extends StatelessWidget {
               icon: Icons.note_add,
               text: "TẠO PHIẾU MỚI",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreateNewReceiptScreen()),
-                );
+                BlocProvider.of<CreateReceiptBloc>(context)
+                    .add(GetAllItemEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/create_receipt_screen');
               }),
           IconCustomizedButton(
               icon: Icons.add_location_alt,
               text: "DS PHIẾU CHƯA HOÀN THÀNH",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const ListUncompletedGoodIssueScreen()),
-                );
+                BlocProvider.of<ExportingReceiptBloc>(context)
+                    .add(LoadUncompletedGoodsReceiptEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/importing_receipt_screen');
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) =>
+                //           const ListUncompletedGoodReceiptScreen()),
+                // );
               }),
           IconCustomizedButton(
               icon: Icons.list_alt_outlined,
               text: "DS PHIẾU ĐÃ HOÀN THÀNH",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const ListCompletedGoodIssueScreen()),
-                );
+                Navigator.pushNamed(context, '/imported_receipt_screen');
               }),
         ],
       )),

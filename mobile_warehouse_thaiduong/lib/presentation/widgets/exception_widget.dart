@@ -30,15 +30,21 @@ class ExceptionErrorState extends StatelessWidget {
           SizedBox(
             height: distanceTextImage * SizeConfig.ratioHeight,
           ),
-          FittedBox(
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontSize: 24 * SizeConfig.ratioFont,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
+            title == ""
+              ? const SizedBox(
+                  height: 1,
+                )
+              : FittedBox(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 20 * SizeConfig.ratioHeight,
+                        height: 1.5 *
+                            SizeConfig
+                                .ratioHeight), //do ko cho null dc nen cho fontSize nho xiu
+                    textAlign: TextAlign.center,
+                  ),
+                ),
           SizedBox(
             height: 15 * SizeConfig.ratioHeight,
           ),

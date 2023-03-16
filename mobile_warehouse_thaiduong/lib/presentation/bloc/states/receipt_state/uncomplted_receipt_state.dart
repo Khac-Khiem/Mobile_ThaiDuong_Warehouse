@@ -7,6 +7,13 @@ class ReceiptExportingState extends Equatable {
   List<Object?> get props => throw UnimplementedError();
 }
 
+class LoadingReceiptExportingState extends ReceiptExportingState {
+  DateTime timestamp;
+  LoadingReceiptExportingState(this.timestamp, );
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
 class LoadReceiptExportingStateFail extends ReceiptExportingState {
   DateTime timestamp;
   String detail;
@@ -20,6 +27,14 @@ class LoadReceiptExportingStateSuccess extends ReceiptExportingState {
   DateTime timestamp;
   List<GoodsReceipt> receipts;
   LoadReceiptExportingStateSuccess(this.timestamp, this.receipts);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
+
+class UpdateLotReceiptStateLoading extends ReceiptExportingState {
+  DateTime timestamp;
+  UpdateLotReceiptStateLoading(this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

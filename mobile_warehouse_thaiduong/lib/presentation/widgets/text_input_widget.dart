@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
-class TextInput extends StatelessWidget {
- 
-   String contentTextField;
-  TextInput({super.key, required this.contentTextField});
+class TextInputWidget extends StatelessWidget {
+  String contentTextField;
+  TextInputWidget({super.key, required this.contentTextField});
   @override
   Widget build(BuildContext context) {
     return Container(

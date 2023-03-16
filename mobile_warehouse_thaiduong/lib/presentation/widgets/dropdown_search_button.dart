@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
-class DropdownSearchButton extends StatelessWidget {
+class DropdownSearchButton extends StatefulWidget {
   String buttonName;
   double width, height;
   List<String> listItem;
@@ -19,11 +19,16 @@ class DropdownSearchButton extends StatelessWidget {
       required this.onChanged});
 
   @override
+  State<DropdownSearchButton> createState() => _DropdownSearchButtonState();
+}
+
+class _DropdownSearchButtonState extends State<DropdownSearchButton> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5 * SizeConfig.ratioHeight),
-      width: width * SizeConfig.ratioWidth,
-      height: height * SizeConfig.ratioHeight,
+      width: widget.width * SizeConfig.ratioWidth,
+      height: widget.height * SizeConfig.ratioHeight,
       padding: EdgeInsets.symmetric(vertical: 5 * SizeConfig.ratioHeight),
       decoration: BoxDecoration(
         color: Constants.buttonColor,
@@ -31,7 +36,7 @@ class DropdownSearchButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       child: DropdownSearch(
         dropdownSearchDecoration: InputDecoration(
-            labelText: buttonName,
+            labelText: widget.buttonName,
             labelStyle: TextStyle(
               color: Colors.black,
               fontSize: 25 * SizeConfig.ratioFont,
@@ -46,7 +51,7 @@ class DropdownSearchButton extends StatelessWidget {
         popupTitle: Padding(
           padding: const EdgeInsets.all(10),
           child: Text(
-           buttonName,
+           widget.buttonName,
             style: TextStyle(fontSize: 16 * SizeConfig.ratioFont),
             textAlign: TextAlign.center,
           ),
@@ -54,13 +59,13 @@ class DropdownSearchButton extends StatelessWidget {
         popupBackgroundColor: Colors.grey[200],
         popupShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        items: listItem,
+        items: widget.listItem,
 
-        selectedItem: reference,
+        selectedItem: widget.reference,
         //searchBoxDecoration: InputDecoration(),
         onChanged: (String? data) {
-          //onChanged;
-          reference == data;
+          widget.onChanged;
+          //widget.reference == data;
         },
         showSearchBox: true,
         //  autoFocusSearchBox: true,

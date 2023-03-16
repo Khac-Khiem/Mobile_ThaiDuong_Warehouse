@@ -3,6 +3,14 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class UncompletedReceiptLotEvent extends Equatable {}
 
+class LoadUncompletedReceiptLotEvent extends UncompletedReceiptLotEvent {
+  DateTime timestamp;
+  LoadUncompletedReceiptLotEvent(this.timestamp);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
+
 class LoadShelfIdEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
   LoadShelfIdEvent(this.timestamp);
@@ -10,6 +18,7 @@ class LoadShelfIdEvent extends UncompletedReceiptLotEvent {
   List<Object> get props => [timestamp];
 }
 
+// cập nhật view
 class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
   // String goodsReceiptLotId;
   // String itemId;
@@ -34,10 +43,11 @@ class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
   List<Object> get props => [];
 }
 
-class ConfirmReceiptChangedEvent extends UncompletedReceiptLotEvent {
+// post
+class PostReceiptChangedEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
   List<ItemLot> itemLots;
-  ConfirmReceiptChangedEvent(this.timestamp, this.itemLots);
+  PostReceiptChangedEvent(this.timestamp, this.itemLots);
   @override
   List<Object> get props => [timestamp];
 }

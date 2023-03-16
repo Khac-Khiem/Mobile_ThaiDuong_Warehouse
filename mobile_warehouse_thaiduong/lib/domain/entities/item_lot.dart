@@ -26,3 +26,13 @@ class ItemLot extends Equatable {
   // TODO: implement props
   List<Object?> get props => [lotId];
 }
+
+// lot view => post
+class ItemLotView extends Equatable {
+  String itemName;
+  double quantity;
+  ItemLotView(this.itemName, this.quantity);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

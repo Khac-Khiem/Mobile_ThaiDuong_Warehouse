@@ -5,7 +5,6 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/login_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/login_states.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/drawer_widget.dart';
 
@@ -58,6 +57,7 @@ class LoginScreen extends StatelessWidget {
                 BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
                     return SizedBox(
+                      
                       width: 300 * SizeConfig.ratioWidth,
                       child: TextField(
                         controller: userController,
@@ -149,11 +149,12 @@ class LoginScreen extends StatelessWidget {
                 CustomizedButton(
                   text: "Đăng nhập",
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainScreen()),
-                    );
+                    Navigator.pushNamed(context, '/main_screen');
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const MainScreen()),
+                    // );
                   },
                 )
               ]),

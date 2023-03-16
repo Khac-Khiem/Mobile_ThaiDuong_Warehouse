@@ -38,11 +38,12 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.input_outlined,
                     text: "NHẬP KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ImportFunctionScreen()),
-                      );
+                      Navigator.pushNamed(context, '/main_receipt_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const ImportFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.output,

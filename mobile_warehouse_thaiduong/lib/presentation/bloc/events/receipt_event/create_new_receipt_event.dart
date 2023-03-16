@@ -1,21 +1,31 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/goods_receipt.dart';
 import '../../../../domain/entities/item_lot.dart';
 
-class CreateReceiptEvent extends Equatable {
+abstract class CreateReceiptEvent extends Equatable {}
+
+class GetAllItemEvent extends CreateReceiptEvent {
+  DateTime timestamp;
+  GetAllItemEvent(this.timestamp);
   @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object> get props => [timestamp];
 }
 
-
 class AddLotToGoodsReceiptEvent extends CreateReceiptEvent {
-  ItemLot itemLot;
+  ItemLotView itemLot;
   AddLotToGoodsReceiptEvent(this.itemLot);
-   @override
+  @override
   List<Object> get props => [itemLot];
+}
+
+class UpdateLotReceiptEvent extends CreateReceiptEvent {
+  ItemLotView itemLotView;
+
+  UpdateLotReceiptEvent(this.itemLotView);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [itemLotView];
 }
 
 class PostNewReceiptEvent extends CreateReceiptEvent {

@@ -19,7 +19,7 @@ class GoodsIssueService {
         await http.post(Uri.parse(Constants.baseUrl + 'api/goodsreceipts/'),
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer $tokenId',
+              'Authorization': 'Bearer ',
             },
             body: jsonEncode(
               <String, dynamic>{
@@ -43,7 +43,7 @@ class GoodsIssueService {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
-        'Authorization': 'Bearer $tokenId',
+        'Authorization': 'Bearer ',
       },
     );
 
@@ -67,7 +67,7 @@ class GoodsIssueService {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
-        'Authorization': 'Bearer $tokenId',
+        'Authorization': 'Bearer ',
       },
     );
 

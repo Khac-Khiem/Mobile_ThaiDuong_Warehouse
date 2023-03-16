@@ -10,7 +10,7 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
   GoodsIssueRepoImpl(this.goodsIssueService);
   @override
   Future<ErrorPackageModel> addGoodsIssueEntry(
-      String goodsIssueId, GoodsIssueEntry goodsIssueEntry) {
+      String goodsIssueId, GoodsIssueEntry goodsIssueEntry) async {
     // TODO: implement addGoodsIssueEntry
     final status =
         goodsIssueService.addGoodsIssueEntry(goodsIssueId, goodsIssueEntry);
@@ -19,28 +19,28 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<ErrorPackageModel> addLotToGoodsIssue(
-      String goodsIssueId, List<GoodsIssueLot> lots) {
+      String goodsIssueId, List<GoodsIssueLot> lots) async {
     // TODO: implement addLotToGoodsIssue
     final status = goodsIssueService.addLotToGoodsIssue(goodsIssueId, lots);
     return status;
   }
 
   @override
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() {
+  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
     // TODO: implement getCompletedGoodsissue
     final goodsIssues = goodsIssueService.getCompletedGoodsissue();
     return goodsIssues;
   }
 
   @override
-  Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) {
+  Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId)async {
     // TODO: implement getGoodsIssueById
     final goodsIssue = goodsIssueService.getGoodsIssueById(goodsIssueId);
     return goodsIssue;
   }
 
   @override
-  Future<List<GoodsIssue>> getUncompletedGoodsIssue() {
+  Future<List<GoodsIssue>> getUncompletedGoodsIssue() async{
     // TODO: implement getUncompletedGoodsIssue
     final goodsIssues = goodsIssueService.getUncompletedGoodsIssue();
     return goodsIssues;
@@ -52,7 +52,7 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
       String purchaseOrderNumber,
       DateTime timestamp,
       String receiver,
-      List<GoodsIssueEntry> entries) {
+      List<GoodsIssueEntry> entries)async {
     // TODO: implement postNewGoodsIssue
     final status = goodsIssueService.postNewGoodsIssue(
         goodsIssueId, purchaseOrderNumber, timestamp, receiver, entries);
@@ -61,7 +61,7 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<ErrorPackage> updateGoodsIssueEntry(
-      String goodsIssueId, String itemEntryId, double newQuantity) {
+      String goodsIssueId, String itemEntryId, double newQuantity) async{
     // TODO: implement updateGoodsIssueEntry
     final status = goodsIssueService.updateGoodsIssueEntry(
         goodsIssueId, itemEntryId, newQuantity);
@@ -70,7 +70,7 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<ErrorPackage> updateGoodsIssueLot(
-      String goodsIssueId, String goodsIssueLotId, double newQuantity) {
+      String goodsIssueId, String goodsIssueLotId, double newQuantity)async {
     // TODO: implement updateGoodsIssueLot
     final status = goodsIssueService.updateGoodsIssueLot(
         goodsIssueId, goodsIssueLotId, newQuantity);

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 
-class ItemService {
+class LocationService {
   Future<List<String>> getAllLocationId() async {
     final res = await http.get(Uri.parse(Constants.baseUrl + 'api/items/'));
     if (res.statusCode == 200) {

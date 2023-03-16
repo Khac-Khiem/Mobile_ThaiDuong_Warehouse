@@ -38,12 +38,11 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
 }
 
 class GoodsReceiptModel extends GoodsReceipt {
-  GoodsReceiptModel(super.goodsReceiptId, super.purchaseOrderNumber, super.lots,
+  GoodsReceiptModel(super.goodsReceiptId, super.lots,
       super.timestamp, super.isConfirmed);
   factory GoodsReceiptModel.fromJson(Map<String, dynamic> json) {
     return GoodsReceiptModel(
       json['goodsReceiptId'],
-      json['purchaseOrderNumber'],
       json['lots'] == null
           ? []
           : (json["lots"] as List)

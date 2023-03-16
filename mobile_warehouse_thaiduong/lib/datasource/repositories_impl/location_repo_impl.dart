@@ -1,6 +1,9 @@
+import 'package:mobile_warehouse_thaiduong/datasource/service/location_service.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 
-class LocationRepoImpl implements LocationRepository{
+class LocationRepoImpl implements LocationRepository {
+  final LocationService locationService;
+  LocationRepoImpl(this.locationService);
   @override
   Future<List<String>> getAllLocationId() {
     // TODO: implement getAllLocationId
@@ -12,5 +15,4 @@ class LocationRepoImpl implements LocationRepository{
     // TODO: implement getAllWarehouseId
     throw UnimplementedError();
   }
-
 }

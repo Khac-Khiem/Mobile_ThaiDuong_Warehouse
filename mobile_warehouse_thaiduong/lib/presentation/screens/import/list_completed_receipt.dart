@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/completed_receipt_event.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/completed_receipt_lot_event.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/completed_receipt_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_picker.dart';
 import '../../../function.dart';
+import '../../widgets/exception_widget.dart';
 
-class ListCompletedGoodIssueScreen extends StatelessWidget {
-  const ListCompletedGoodIssueScreen({super.key});
+class ListCompletedReceiptScreen extends StatefulWidget {
+  const ListCompletedReceiptScreen({super.key});
 
+  @override
+  State<ListCompletedReceiptScreen> createState() =>
+      _ListCompletedReceiptScreenState();
+}
+
+class _ListCompletedReceiptScreenState
+    extends State<ListCompletedReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    DateTime date = DateFormat('yyyy-MM-dd')
+    bool showExpand = false;
+    DateTime startDate = DateFormat('yyyy-MM-dd')
+        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+    DateTime endDate = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     return Scaffold(
       appBar: AppBar(
@@ -37,9 +54,9 @@ class ListCompletedGoodIssueScreen extends StatelessWidget {
                     name: "Từ ngày",
                     fontColor: Colors.black,
                     fontWeight: FontWeight.normal,
-                    initDateTime: date,
+                    initDateTime: startDate,
                     okBtnClickedFunction: (pickedTime) {
-                      date = pickedTime;
+                      startDate = pickedTime;
                     },
                   ),
                 ),
@@ -52,9 +69,9 @@ class ListCompletedGoodIssueScreen extends StatelessWidget {
                     name: "Đến ngày",
                     fontColor: Colors.black,
                     fontWeight: FontWeight.normal,
-                    initDateTime: date,
+                    initDateTime: endDate,
                     okBtnClickedFunction: (pickedTime) {
-                      date = pickedTime;
+                      endDate = pickedTime;
                     },
                   ),
                 ),
@@ -66,22 +83,83 @@ class ListCompletedGoodIssueScreen extends StatelessWidget {
               color: Constants.mainColor,
               thickness: 1,
             ),
-            SizedBox(
-              height: 470 * SizeConfig.ratioHeight,
-              child: ListView.builder(
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        width: 350 * SizeConfig.ratioWidth,
-                        height: 80 * SizeConfig.ratioHeight,
-                        color: Constants.buttonColor,
-                      ),
-                    );
-                  }),
+            BlocBuilder<CompletedReceiptBloc, CompletedReceiptState>(
+              builder: (context, state) {
+                if (state is CompletedReceiptInitState) {
+                  return ExceptionErrorState(
+                    title: '',
+                    message: "Chọn thời gian để truy xuất",
+                  );
+                }
+                if (state is LoadReceiptCompletedStateSuccess) {
+                  return ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: const Icon(Icons.list),
+                          trailing: Icon(Icons.arrow_drop_down_sharp,
+                              size: 15 * SizeConfig.ratioFont),
+                          title: Text(state.receipts[index].goodsReceiptId),
+                          subtitle: Text(state.receipts[index].timestamp.toString()),
+                          onTap: () {
+                            BlocProvider.of<CompletedReceiptLotBloc>(context)
+                                .add(LoadReceiptLotEvent(DateTime.now()));
+                          },
+                        );
+                      });
+                  // return SizedBox(
+                  //     child: ExpansionPanelList(
+                  //   animationDuration: Duration(seconds: 2),
+                  //   dividerColor: Colors.black,
+                  //   elevation: 1,
+                  //   expansionCallback: (int index, bool isExpanded) {
+                  //     setState(() {
+                  //       showExpand = !isExpanded;
+                  //     });
+                  //   },
+                  //   expandedHeaderPadding: EdgeInsets.all(10),
+                  //   children: [
+                  //     ExpansionPanel(
+                  //       canTapOnHeader: true,
+                  //       headerBuilder: (BuildContext context, bool isExpanded) {
+                  //         return ListTile(
+                  //           title: Text(''),
+                  //         );
+                  //       },
+                  //       body: ListTile(
+                  //           title: Text(''),
+                  //           subtitle: const Text(
+                  //               'To delete this panel, tap the trash can icon'),
+                  //           trailing: const Icon(Icons.delete),
+                  //           onTap: () {
+                  //             setState(() {
+                  //               //_data.removeWhere((Item currentItem) => item == currentItem);
+                  //             });
+                  //           }),
+                  //       isExpanded: showExpand,
+                  //     )
+                  //   ],
+                  // ));
+                }
+                if (state is LoadReceiptCompletedStateFail) {
+                  return ExceptionErrorState(
+                    title: state.detail,
+                    message: "Vui lòng quay lại sau",
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
-            CustomizedButton(text: "Truy xuất", onPressed: () {})
+            CustomizedButton(
+                text: "Truy xuất",
+                onPressed: () {
+                  BlocProvider.of<CompletedReceiptBloc>(context).add(
+                      LoadCompletedGoodsReceiptEvent(
+                          DateTime.now(), startDate, endDate));
+                })
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class GoodsIssueLotEvent extends Equatable {}
@@ -23,9 +22,9 @@ class AddGoodsIssueLotEvent extends GoodsIssueLotEvent {
 
 class PostGoodsIssueLotEvent extends GoodsIssueLotEvent {
   DateTime timestamp;
-  PostGoodsIssueLotEvent(this.timestamp);
+  List<ItemLot> lots;
+  PostGoodsIssueLotEvent(this.timestamp, this.lots);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
-

@@ -60,13 +60,14 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            reference != widget.initDateTime.toString()
-                ? Text(widget.name,
-                    style: TextStyle(
-                        fontSize: 16 * SizeConfig.ratioFont,
-                        color: widget.fontColor,
-                        fontWeight: widget.fontWeight))
-                : Text(DateFormat('dd/MM/yyyy').format(widget.initDateTime),
+            // reference != widget.initDateTime.toString()
+            //     ? Text(widget.name,
+            //         style: TextStyle(
+            //             fontSize: 16 * SizeConfig.ratioFont,
+            //             color: widget.fontColor,
+            //             fontWeight: widget.fontWeight))
+            //     : 
+                Text(DateFormat('dd/MM/yyyy').format(widget.initDateTime),
                     style: TextStyle(
                         fontSize: 16 * SizeConfig.ratioFont,
                         color: widget.fontColor,

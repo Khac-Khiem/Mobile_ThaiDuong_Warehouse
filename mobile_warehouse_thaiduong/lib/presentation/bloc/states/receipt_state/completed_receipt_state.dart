@@ -1,42 +1,55 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 
-class ReceiptExportedState extends Equatable {
+abstract class CompletedReceiptState extends Equatable {}
+
+class CompletedReceiptInitState extends CompletedReceiptState {
+  DateTime timestamp;
+  CompletedReceiptInitState(this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
-class LoadReceiptExportedStateFail extends ReceiptExportedState {
+class LoadingReceiptCompletedState extends CompletedReceiptState {
+  DateTime timestamp;
+  LoadingReceiptCompletedState(this.timestamp);
+  @override
+
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
+
+class LoadReceiptCompletedStateFail extends CompletedReceiptState {
   DateTime timestamp;
   String detail;
-  LoadReceiptExportedStateFail(this.timestamp, this.detail);
+  LoadReceiptCompletedStateFail(this.timestamp, this.detail);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
-class LoadReceiptExportedStateSuccess extends ReceiptExportedState {
+class LoadReceiptCompletedStateSuccess extends CompletedReceiptState {
   DateTime timestamp;
   List<GoodsReceipt> receipts;
-  LoadReceiptExportedStateSuccess(this.timestamp, this.receipts);
+  LoadReceiptCompletedStateSuccess(this.timestamp, this.receipts);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
-class UpdateLotReceiptStateSuccess extends ReceiptExportedState {
+class UpdateLotReceiptCompletedStateSuccess extends CompletedReceiptState {
   DateTime timestamp;
-  UpdateLotReceiptStateSuccess(this.timestamp);
+  UpdateLotReceiptCompletedStateSuccess(this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
-class UpdateLotReceiptStateFail extends ReceiptExportedState {
+class UpdateLotReceiptCompletedStateFail extends CompletedReceiptState {
   DateTime timestamp;
   String detail;
-  UpdateLotReceiptStateFail(this.timestamp, this.detail);
+  UpdateLotReceiptCompletedStateFail(this.timestamp, this.detail);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

@@ -3,6 +3,13 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class CompletedReceiptLotEvent extends Equatable {}
 
+class LoadReceiptLotEvent extends CompletedReceiptLotEvent {
+  DateTime timestamp;
+  LoadReceiptLotEvent(this.timestamp);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
 class LoadShelfIdEvent extends CompletedReceiptLotEvent {
   DateTime timestamp;
   LoadShelfIdEvent(this.timestamp);

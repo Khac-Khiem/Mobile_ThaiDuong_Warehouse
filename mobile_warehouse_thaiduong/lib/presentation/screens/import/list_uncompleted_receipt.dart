@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/uncomplted_receipt_state.dart';
 import '../../../function.dart';
+import '../../bloc/events/receipt_event/uncompleted_receipt_lot_event.dart';
+import '../../widgets/exception_widget.dart';
 
-class ListUncompletedGoodIssueScreen extends StatelessWidget {
-  const ListUncompletedGoodIssueScreen({super.key});
+class ListUncompletedGoodReceiptScreen extends StatelessWidget {
+  const ListUncompletedGoodReceiptScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class ListUncompletedGoodIssueScreen extends StatelessWidget {
             ),
             Text(
               overflow: TextOverflow.ellipsis,
-              "Danh sách các lô hàng",
+              "Danh sách các đơn nhập",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 25 * SizeConfig.ratioFont,
@@ -45,20 +51,32 @@ class ListUncompletedGoodIssueScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
-            SizedBox(
-              height: 470 * SizeConfig.ratioHeight,
-              child: ListView.builder(
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        width: 350 * SizeConfig.ratioWidth,
-                        height: 80 * SizeConfig.ratioHeight,
-                        color: Constants.buttonColor,
-                      ),
-                    );
-                  }),
+            BlocBuilder<ExportingReceiptBloc, ReceiptExportingState>(
+              builder: (context, state) {
+                if (state is LoadReceiptExportingStateSuccess) {
+                  return ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                            leading: const Icon(Icons.list),
+                            trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
+                            title: Text(state.receipts[index].goodsReceiptId),
+                              subtitle: Text(state.receipts[index].timestamp.toString()),
+                          onTap: () {
+                            BlocProvider.of<ExportingReceiptLotBloc>(context)
+                                .add(LoadUncompletedReceiptLotEvent(DateTime.now()));
+                          },);
+                      });
+                }
+                if (state is LoadReceiptExportingStateFail) {
+                  return ExceptionErrorState(
+                    title: state.detail,
+                    message: "Vui lòng quay lại sau",
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
           ],
         ),

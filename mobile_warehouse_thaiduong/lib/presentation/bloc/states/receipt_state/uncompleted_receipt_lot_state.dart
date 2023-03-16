@@ -4,9 +4,9 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class UncompletedReceiptLotState extends Equatable {}
 
-class UncompletedReceiptLoadingState extends Equatable {
+class UncompletedReceiptLotLoadingState extends UncompletedReceiptLotState {
   DateTime timestamp;
-  UncompletedReceiptLoadingState(this.timestamp);
+  UncompletedReceiptLotLoadingState(this.timestamp);
   
   @override
   // TODO: implement props

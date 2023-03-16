@@ -28,11 +28,10 @@ class GoodsReceiptLot extends Equatable {
 
 class GoodsReceipt extends Equatable {
   String goodsReceiptId;
-  String? purchaseOrderNumber;
   List<GoodsReceiptLot>? lots;
   DateTime timestamp;
   bool isConfirmed;
-  GoodsReceipt(this.goodsReceiptId, this.purchaseOrderNumber, this.lots,
+  GoodsReceipt(this.goodsReceiptId, this.lots,
       this.timestamp, this.isConfirmed);
   @override
   // TODO: implement props
