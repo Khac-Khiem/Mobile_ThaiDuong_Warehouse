@@ -6,13 +6,11 @@ class LocationRepoImpl implements LocationRepository {
   LocationRepoImpl(this.locationService);
   @override
   Future<List<String>> getAllLocationId() {
-    // TODO: implement getAllLocationId
     throw UnimplementedError();
   }
 
   @override
   Future<List<String>> getAllWarehouseId() {
-    // TODO: implement getAllWarehouseId
     throw UnimplementedError();
   }
 }

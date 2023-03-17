@@ -12,32 +12,32 @@ class CreateNewIssueInitialState extends CreaNewIssueState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class LoadItemDataLoadingState extends CreaNewIssueState {
-  DateTime timestamp;
-  LoadItemDataLoadingState(this.timestamp);
+// class LoadItemDataLoadingState extends CreaNewIssueState {
+//   DateTime timestamp;
+//   LoadItemDataLoadingState(this.timestamp);
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
-class LoadItemDataSuccessState extends CreaNewIssueState {
-  DateTime timestamp;
-  List<Item> items;
-  LoadItemDataSuccessState(this.items, this.timestamp);
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+// class LoadItemDataSuccessState extends CreaNewIssueState {
+//   DateTime timestamp;
+//   List<Item> items;
+//   LoadItemDataSuccessState(this.items, this.timestamp);
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
-class LoadItemDataFailState extends CreaNewIssueState {
-  DateTime timestamp;
-  LoadItemDataFailState(this.timestamp);
+// class LoadItemDataFailState extends CreaNewIssueState {
+//   DateTime timestamp;
+//   LoadItemDataFailState(this.timestamp);
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
 class LoadDepartmentLoadingState extends CreaNewIssueState {
   DateTime timestamp;
@@ -56,25 +56,33 @@ class LoadDepartmentSuccessState extends CreaNewIssueState {
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
-
-class AddEntryToGoodsIssueLoading extends CreaNewIssueState {
+//-------------------
+class UpdateEntryToGoodsIssueLoading extends CreaNewIssueState {
   DateTime timestamp;
-  AddEntryToGoodsIssueLoading(this.timestamp);
+  UpdateEntryToGoodsIssueLoading(this.timestamp);
 
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
-class AddEntryToGoodsIssueSuccess extends CreaNewIssueState {
+class UpdateEntryToGoodsIssueSuccess extends CreaNewIssueState {
   DateTime timestamp;
-  IssueEntryView issueEntry;
-  AddEntryToGoodsIssueSuccess(this.timestamp, this.issueEntry);
+  List<IssueEntryView> issueEntries;
+  UpdateEntryToGoodsIssueSuccess(this.timestamp, this.issueEntries);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
+class UpdateEntryToGoodsIssueFailState extends CreaNewIssueState {
+  DateTime timestamp;
+  UpdateEntryToGoodsIssueFailState(this.timestamp);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
+//--------------------
 class PostNewGoodsIssueLoadingState extends CreaNewIssueState {
   DateTime timestamp;
   PostNewGoodsIssueLoadingState(this.timestamp);

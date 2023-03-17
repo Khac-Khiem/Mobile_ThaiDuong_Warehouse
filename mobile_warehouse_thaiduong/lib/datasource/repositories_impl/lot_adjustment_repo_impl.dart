@@ -8,13 +8,11 @@ class LotAjustmentRepoImpl implements LotAdjustmentRepository {
   LotAjustmentRepoImpl(this.lotAdjustmentService);
   @override
   Future<List<LotAdjustment>> getAllLotAdjustment() {
-    // TODO: implement getAllLotAdjustment
     throw UnimplementedError();
   }
 
   @override
   Future<ErrorPackage> postNewLotAdjustment() {
-    // TODO: implement postNewLotAdjustment
     throw UnimplementedError();
   }
 }

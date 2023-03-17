@@ -31,8 +31,8 @@ class ImportFunctionScreen extends StatelessWidget {
               icon: Icons.note_add,
               text: "TẠO PHIẾU MỚI",
               onPressed: () {
-                BlocProvider.of<CreateReceiptBloc>(context)
-                    .add(GetAllItemEvent(DateTime.now()));
+                // BlocProvider.of<CreateReceiptBloc>(context)
+                //     .add(GetAllItemEvent(DateTime.now()));
                 Navigator.pushNamed(context, '/create_receipt_screen');
               }),
           IconCustomizedButton(

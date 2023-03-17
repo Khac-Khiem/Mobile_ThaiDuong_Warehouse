@@ -7,9 +7,12 @@ import 'package:mobile_warehouse_thaiduong/datasource/service/item_service.dart'
 import 'package:mobile_warehouse_thaiduong/datasource/service/login_service.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/goods_receipt_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/item_repository.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_receipt_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/login_usecase.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
@@ -40,11 +43,14 @@ Future<void> initializeDependencies() async {
   injector
       .registerSingleton<GoodsReceiptUsecase>(GoodsReceiptUsecase(injector()));
 
+       injector
+      .registerSingleton<GoodsIssueUseCase>(GoodsIssueUseCase(injector(), injector()));
+
 // register bloc
   injector.registerSingleton<LoginBloc>(LoginBloc(injector()));
   injector.registerSingleton<CreateReceiptBloc>(CreateReceiptBloc(injector(), injector()));
-  // injector.registerSingleton<FillReceiptLotBloc>(
-  //     FillReceiptLotBloc(injector(), injector()));
+  injector.registerSingleton<FillReceiptLotBloc>(
+      FillReceiptLotBloc(injector(), injector()));
   injector.registerSingleton<ExportingReceiptBloc>(ExportingReceiptBloc(
     injector(),
   ));
@@ -57,4 +63,10 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<CompletedReceiptLotBloc>(CompletedReceiptLotBloc(
     injector(),
   ));
+  //  injector.registerSingleton<CreateIssueBloc>(CreateIssueBloc(
+  //   injector(),
+  // ));
+  //  injector.registerSingleton<FillInfoIssueEntryBloc>(FillInfoIssueEntryBloc(
+  //   injector(),injector()
+  // ));
 }

@@ -20,6 +20,6 @@ class DepartmentService {
     // } else {
     //   throw "Unable to retrieve posts.";
     // }
-    return [];
+    return [DepartmentModel('TP'),DepartmentModel('BTP'), DepartmentModel('VT')];
   }
 }

@@ -5,24 +5,29 @@ import '../../../../domain/entities/item_lot.dart';
 
 abstract class CreateReceiptEvent extends Equatable {}
 
-class GetAllItemEvent extends CreateReceiptEvent {
-  DateTime timestamp;
-  GetAllItemEvent(this.timestamp);
-  @override
-  List<Object> get props => [timestamp];
-}
+// class GetAllItemEvent extends CreateReceiptEvent {
+//   DateTime timestamp;
+//   List<ItemLotView> lots;
+//   int index;
+//   GetAllItemEvent(this.timestamp, this.lots, this.index);
+//   @override
+//   List<Object> get props => [timestamp];
+// }
 
 class AddLotToGoodsReceiptEvent extends CreateReceiptEvent {
-  ItemLotView itemLot;
-  AddLotToGoodsReceiptEvent(this.itemLot);
+  ItemLotView itemLotView;
+  List<ItemLotView> lots;
+  AddLotToGoodsReceiptEvent(this.itemLotView, this.lots);
   @override
-  List<Object> get props => [itemLot];
+  List<Object> get props => [itemLotView];
 }
 
 class UpdateLotReceiptEvent extends CreateReceiptEvent {
   ItemLotView itemLotView;
+  List<ItemLotView> lots;
+  int index;
 
-  UpdateLotReceiptEvent(this.itemLotView);
+  UpdateLotReceiptEvent(this.itemLotView, this.lots, this.index);
   @override
   // TODO: implement props
   List<Object?> get props => [itemLotView];

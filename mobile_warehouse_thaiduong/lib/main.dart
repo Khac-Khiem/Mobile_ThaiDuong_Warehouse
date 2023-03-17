@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/injector.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/router/app_router.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

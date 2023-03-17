@@ -8,14 +8,12 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
   GoodsReceiptRepoImpl(this.goodsReceiptService);
   @override
   Future<List<GoodsReceipt>> getCompletedGoodsReceipts() {
-    // TODO: implement getCompletedGoodsReceipts
     final goodsReceipts = goodsReceiptService.getCompletedGoodsReceipts();
     return goodsReceipts;
   }
 
   @override
   Future<List<GoodsReceipt>> getUnCompletedGoodsReceipts() {
-    // TODO: implement getUnCompletedGoodsReceipts
     final goodsReceipts = goodsReceiptService.getUnCompletedGoodsReceipts();
     return goodsReceipts;
   }
@@ -23,7 +21,6 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
   @override
   Future<ErrorPackage> postNewGoodsReceipt(String goodsReceiptId,
         List<GoodsReceiptLot> lots) {
-    // TODO: implement postNewGoodsReceipt
     final status = goodsReceiptService.postNewGoodsReceipt(
         goodsReceiptId, lots);
     return status;
@@ -39,7 +36,6 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
       String? locationId,
       DateTime? productionDate,
       DateTime? expirationDate) {
-    // TODO: implement updateDetailLotReceipt
     final status = goodsReceiptService.updateDetailLotReceipt(
         goodsReceiptLotId,
         itemId,

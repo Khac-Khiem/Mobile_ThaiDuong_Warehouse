@@ -1,5 +1,3 @@
-import 'package:mobile_warehouse_thaiduong/datasource/models/employee_model.dart';
-import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
