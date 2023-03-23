@@ -26,6 +26,7 @@ class StockcardFunctionScreen extends StatelessWidget {
           IconCustomizedButton(
               icon: Icons.qr_code_scanner_outlined, 
               text: "QUÉT MÃ SẢN PHẨM", onPressed: () {
+                
                   
               }),
           IconCustomizedButton(

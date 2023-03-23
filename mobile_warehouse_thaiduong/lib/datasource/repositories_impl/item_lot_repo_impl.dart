@@ -10,37 +10,43 @@ class ItemLotRepoImpl implements ItemLotRepository {
   ItemLotRepoImpl(this.itemLotService);
   @override
   Future<List<ItemLot>> getExpiredItemLots() {
-    throw UnimplementedError();
+   final itemLot = itemLotService.getExpiredItemLots();
+    return itemLot;
   }
 
   @override
   Future<List<ItemLot>> getIsolatedItemLots() {
-    throw UnimplementedError();
+    final itemLot = itemLotService.getIsolatedItemLots();
+    return itemLot;
   }
 
   @override
   Future<ItemLot> getItemLotById(String lotId) {
-    throw UnimplementedError();
+     final itemLot = itemLotService.getItemLotById(lotId);
+    return itemLot;
   }
 
   @override
   Future<List<ItemLot>> getItemLotsByItemId(String itemId) {
-    throw UnimplementedError();
+   final itemLot = itemLotService.getItemLotsByItemId(itemId);
+    return itemLot;
   }
 
   @override
   Future<List<ItemLot>> getItemLotsByLocation(String locationId) {
-    throw UnimplementedError();
+ final itemLot = itemLotService.getItemLotsByLocation(locationId);
+    return itemLot;
   }
 
   @override
   Future<List<ItemLot>> getUnderStockminItemLots() {
-    throw UnimplementedError();
+      final itemLot = itemLotService.getUnderStockminItemLots();
+    return itemLot;
   }
+
   //==
   @override
-  Future<ErrorPackage> addNewIsolationLot(
-      double isolationQuantity, String notes)async {
+  Future<ErrorPackage> addNewIsolationLot(double isolationQuantity, String notes ){
     final status = itemLotService.addNewIsolationLot(
        isolationQuantity, notes);
     return status;

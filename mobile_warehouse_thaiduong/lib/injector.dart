@@ -33,6 +33,7 @@ import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/location_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/login_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/lot_adjustment_usecase.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/adjustment_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
@@ -44,8 +45,13 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 
 import 'domain/repositories/login_repository.dart';
+import 'presentation/bloc/blocs/history_bloc.dart';
+import 'presentation/bloc/blocs/inventory_bloc.dart';
 import 'presentation/bloc/blocs/shelve_bloc.dart';
 import 'presentation/bloc/blocs/warning_bloc.dart';
+import 'presentation/bloc/blocs/isolation_bloc.dart';
+import 'presentation/bloc/blocs/history_bloc.dart';
+
 
 final injector = GetIt.instance;
 
@@ -126,4 +132,8 @@ Future<void> initializeDependencies() async {
   //==
   injector.registerSingleton<WarningBloc>(WarningBloc(injector(), injector()));
   injector.registerSingleton<ShelveBloc>(ShelveBloc(injector(),injector(), injector()));
+  injector.registerSingleton<InventoryBloc>(InventoryBloc(injector(), injector(), injector()));
+  injector.registerSingleton<AdjustmentBloc>(AdjustmentBloc(injector(), injector(), injector(),injector()));
+  //injector.registerSingleton<IsolationBloc>(IsolationBloc(injector(), injector(), injector(),injector(),injector(),));
+  injector.registerSingleton<HistoryBloc>(HistoryBloc(injector(), injector(), injector(),injector(),injector(),));
 }

@@ -36,7 +36,7 @@ class _WarningUnderStockminScreenSate extends State<WarningUnderStockminScreen> 
           ),
         ),
         body: Column(children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Text(
               overflow: TextOverflow.ellipsis,
               "Kho hàng",
@@ -55,9 +55,11 @@ class _WarningUnderStockminScreenSate extends State<WarningUnderStockminScreen> 
                     buttonName: "Chọn loại kho hàng",
                     height: 60,
                     width: 200,
-                    listItem: [],
+                    listItem: state.warehouse,
                     reference: warehouseId,
-                    onChanged: () {});
+                    onChanged: () {
+
+                    });
           //  DropdownButton<Warehouse>(
           //             hint: Text("Chọn loại kho hàng"),
           //             value: selectedWarehouse,

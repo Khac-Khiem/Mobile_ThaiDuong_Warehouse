@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/injector.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
@@ -132,13 +133,13 @@ class AppRoute {
       //                 create: (context) => injector()),
       //           ], child: const FillInfoEntryIssueScreen()));
       //--
-         case '/shelve_function_screen':
+         case '/shelves_function_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<ShelveBloc>(
                       create: (context) => injector()),
                 ], child: const ShelveFunctionScreen()));
-        case '/shelve_item_screen':
+        case '/search_item_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<ShelveBloc>(
@@ -156,7 +157,7 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<WarningBloc>(
                       create: (context) => injector()),
-                ], child: const WarningFunctionScreen()));
+                ], child:  WarningFunctionScreen()));
         case '/warning_expired_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [

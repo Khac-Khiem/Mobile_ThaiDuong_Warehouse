@@ -12,12 +12,12 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/adjustment_s
 import '../../../domain/usecases/location_usecase.dart';
 import '../../../domain/usecases/lot_adjustment_usecase.dart';
 
-class InventoryBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
+class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
   ItemUsecase itemUsecase;
   LotAdjustmentUsecase lotAdjustmentUsecase;
   InventoryUsecase inventoryUsecase;
   LocationUsecase locationUsecase;
-  InventoryBloc(this.inventoryUsecase, this.locationUsecase, this.itemUsecase,
+  AdjustmentBloc(this.inventoryUsecase, this.locationUsecase, this.itemUsecase,
       this.lotAdjustmentUsecase)
       : super(GetLotDetailLoadingState(DateTime.now())) {
     on<GetLotDetailEvent>((event, emit) async {

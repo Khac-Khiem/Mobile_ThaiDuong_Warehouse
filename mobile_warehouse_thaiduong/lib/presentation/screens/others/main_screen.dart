@@ -64,22 +64,25 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.warehouse,
                     text: "TỒN KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const StockcardFunctionScreen()),
-                      );
+                      Navigator.pushNamed(context, '/inventory_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const StockcardFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.fact_check_outlined,
                     text: "KIỂM KÊ",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BarcodeScannerScreen()),
-                      );
+                       Navigator.pushNamed(context, '/');
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => BarcodeScannerScreen()),
+                      // );
                     }),
               ],
             ),
@@ -90,22 +93,24 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.cabin,
                     text: "KỆ KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShelveFunctionScreen()),
-                      );
+                       Navigator.pushNamed(context, '/shelves_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const ShelveFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.history_outlined,
                     text: "LỊCH SỬ",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const HistoryFunctionScreen()),
-                      );
+                      Navigator.pushNamed(context, '/history_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const HistoryFunctionScreen()),
+                      // );
                     }),
               ],
             ),
@@ -116,23 +121,26 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.hourglass_disabled_outlined,
                     text: "CÁCH LY",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const IsolationFunctionScreen()),
-                      );
+                      Navigator.pushNamed(context, '/isolation_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const IsolationFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.warning_amber_outlined,
                     text: "CẢNH BÁO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const WarningFunctionScreen()),
-                      );
+                    Navigator.pushNamed(context, '/warning_function_screen');
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const WarningFunctionScreen()),
+                      // );
                     }),
               ],
             ),

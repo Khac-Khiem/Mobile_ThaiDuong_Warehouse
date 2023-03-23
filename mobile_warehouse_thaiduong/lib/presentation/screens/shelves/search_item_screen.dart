@@ -79,13 +79,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
           }
         }
       ),
-
-            // DropdownSearchButton(
-            //   buttonName: "Chọn mã sản phẩm", 
-            //   height: 60, width: 200, 
-            //   listItem: ["a"], 
-            //   reference: expiredDay, 
-            //   onChanged: (){})
           ],
         ),
         Row(

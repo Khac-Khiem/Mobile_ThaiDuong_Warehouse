@@ -56,7 +56,7 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                     buttonName: "Chọn loại kho hàng",
                     height: 60,
                     width: 200,
-                    listItem: [],
+                    listItem: state.locationId,
                     reference: warehouseId,
                     onChanged: () {}); 
                     
