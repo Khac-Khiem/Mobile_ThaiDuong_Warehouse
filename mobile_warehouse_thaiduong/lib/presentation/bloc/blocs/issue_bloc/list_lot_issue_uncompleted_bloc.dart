@@ -5,8 +5,10 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/list_completed_lots_issue_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/list_lot_issue_state.dart';
 
-class ListGoodsIssueLotUncompletedBloc extends Bloc<GoodsIssueLotEvent, GoodsIssueLotState> {
+class ListGoodsIssueLotUncompletedBloc extends 
+Bloc<GoodsIssueLotEvent, GoodsIssueLotState> {
   GoodsIssueUseCase goodsIssueUseCase;
-  ListGoodsIssueLotUncompletedBloc(this.goodsIssueUseCase):super(LoadingGoodsIssueLotsSuggestState(DateTime.now())){
+  ListGoodsIssueLotUncompletedBloc(this.goodsIssueUseCase)
+  :super(LoadingGoodsIssueLotsSuggestState(DateTime.now())){
   }
 }

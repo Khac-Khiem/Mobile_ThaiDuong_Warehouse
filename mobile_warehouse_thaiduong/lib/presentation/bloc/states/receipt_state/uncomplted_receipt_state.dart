@@ -9,7 +9,7 @@ class ReceiptExportingState extends Equatable {
 
 class LoadingReceiptExportingState extends ReceiptExportingState {
   DateTime timestamp;
-  LoadingReceiptExportingState(this.timestamp, );
+  LoadingReceiptExportingState(this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

@@ -62,7 +62,7 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
                             trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
                             title: Text(state.receipts[index].goodsReceiptId),
                               subtitle: Text(state.receipts[index].timestamp.toString()),
-                          onTap: () {
+                            onTap: () {
                             BlocProvider.of<ExportingReceiptLotBloc>(context)
                                 .add(LoadUncompletedReceiptLotEvent(DateTime.now()));
                           },);

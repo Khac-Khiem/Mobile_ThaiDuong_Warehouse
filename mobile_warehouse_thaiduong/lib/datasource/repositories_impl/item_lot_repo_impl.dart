@@ -1,6 +1,9 @@
 import 'package:mobile_warehouse_thaiduong/datasource/service/item_lot_service.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/item_lot_repository.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/isolation_events.dart';
+
+import '../../domain/entities/error_package.dart';
 
 class ItemLotRepoImpl implements ItemLotRepository {
   final ItemLotService itemLotService;
@@ -33,5 +36,13 @@ class ItemLotRepoImpl implements ItemLotRepository {
   @override
   Future<List<ItemLot>> getUnderStockminItemLots() {
     throw UnimplementedError();
+  }
+  //==
+  @override
+  Future<ErrorPackage> addNewIsolationLot(
+      double isolationQuantity, String notes)async {
+    final status = itemLotService.addNewIsolationLot(
+       isolationQuantity, notes);
+    return status;
   }
 }

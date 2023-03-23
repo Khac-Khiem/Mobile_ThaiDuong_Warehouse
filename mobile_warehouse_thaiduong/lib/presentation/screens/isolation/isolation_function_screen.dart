@@ -24,7 +24,8 @@ class IsolationFunctionScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconCustomizedButton(
-              icon: Icons.remove_moderator_outlined, text: "CÁCH LY HÀNG HÓA", onPressed: () {
+              icon: Icons.remove_moderator_outlined, 
+              text: "CÁCH LY HÀNG HÓA", onPressed: () {
                  Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -33,9 +34,8 @@ class IsolationFunctionScreen extends StatelessWidget {
                       );
               }),
           IconCustomizedButton(
-              icon: Icons.list_alt_outlined, text: "DANH SÁCH HÀNG HÓA ĐANG CÁCH LY", onPressed: () {}),
-         
-              
+              icon: Icons.list_alt_outlined, 
+              text: "DANH SÁCH HÀNG HÓA ĐANG CÁCH LY", onPressed: () {}),   
         ],
       )),
     );

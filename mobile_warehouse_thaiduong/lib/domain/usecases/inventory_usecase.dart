@@ -1,9 +1,9 @@
 import 'package:mobile_warehouse_thaiduong/domain/entities/inventory_log_entry.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/inventory_repository.dart';
 
-class Inventoryusecase {
+class InventoryUsecase {
   final InventoryRepository inventoryRepository;
-  Inventoryusecase(this.inventoryRepository);
+  InventoryUsecase(this.inventoryRepository);
   Future<List<InventoryLogEntry>> getInventoryByTime(
       String startDate, String endDate) async {
     final logEntries =
@@ -12,16 +12,17 @@ class Inventoryusecase {
   }
 
   Future<List<InventoryLogEntry>> getInventoryByItemClass(
-      String startDate, String endDate, String itemClassId) async {
+      DateTime startDate, DateTime endDate, String itemClassId) async {
     final logEntries = inventoryRepository.getInventoryByItemClass(
         startDate, endDate, itemClassId);
     return logEntries;
   }
 
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      String startDate, String endDate, String itemId) async {
+      DateTime startDate, DateTime endDate, String itemId ) async {
     final logEntries =
         inventoryRepository.getInventoryByItemId(startDate, endDate, itemId);
     return logEntries;
   }
+  
 }

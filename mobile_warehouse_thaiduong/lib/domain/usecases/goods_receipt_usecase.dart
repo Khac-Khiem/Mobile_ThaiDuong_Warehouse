@@ -44,4 +44,23 @@ class GoodsReceiptUsecase {
     final goodsReceipts = goodsReceiptRepository.getUnCompletedGoodsReceipts();
     return goodsReceipts;
   }
+  //==
+  Future<List<GoodsReceiptLot>> getGoodsReceiptsHistory(
+      String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) async {
+    final goodsReceipts = goodsReceiptRepository.getGoodsReceiptsHistory(
+        itemClass,
+        startDate,
+        endDate,
+        itemId,
+        department,
+        receiver,
+        purchaseOrderNumber);
+    return goodsReceipts;
+  }
 }

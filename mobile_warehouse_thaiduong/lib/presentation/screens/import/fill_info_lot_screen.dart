@@ -45,8 +45,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
         ),
       ),
       body: BlocConsumer<FillReceiptLotBloc, FillInfoReceiptLotState>(
-        listener: (context, state) {
-          
+        listener: (context, state) {  
         },
         builder: (context, state) {
           if (state is LoadItemDataSuccessState) {

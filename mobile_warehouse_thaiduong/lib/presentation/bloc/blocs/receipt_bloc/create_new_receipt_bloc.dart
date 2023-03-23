@@ -27,7 +27,6 @@ class CreateReceiptBloc extends Bloc<CreateReceiptEvent, CreateReceiptState> {
       emit(ReceiptLoadingState(DateTime.now()));
       try {
         event.lots.add(event.itemLotView);
-
         emit(UpdateLotReceiptStateSuccess(DateTime.now(), event.lots));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));

@@ -11,6 +11,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/shelve_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/warning_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/fill_info_lot_issue_screen.dart';
@@ -21,9 +23,19 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_comp
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_completed_receipt_lot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt_lot_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/material_inventory_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/home_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/login_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/shelves/shelves_function_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_function_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_under_stockmin.dart';
+
+import '../bloc/blocs/adjustment_bloc.dart';
+import '../screens/inventory/stockcard_function_screen.dart';
+import '../screens/shelves/search_item_screen.dart';
+import '../screens/shelves/search_shelf_screen.dart';
+import '../screens/warning/warning_expired_screen.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
@@ -119,6 +131,57 @@ class AppRoute {
       //             BlocProvider<FillInfoIssueEntryBloc>(
       //                 create: (context) => injector()),
       //           ], child: const FillInfoEntryIssueScreen()));
+      //--
+         case '/shelve_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ShelveBloc>(
+                      create: (context) => injector()),
+                ], child: const ShelveFunctionScreen()));
+        case '/shelve_item_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ShelveBloc>(
+                      create: (context) => injector()),
+                ], child: SearchItemScreen()));
+        case '/search_shelf_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ShelveBloc>(
+                      create: (context) => injector()),
+                ], child: SearchShelfScreen()));
+        //---
+        case '/warning_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<WarningBloc>(
+                      create: (context) => injector()),
+                ], child: const WarningFunctionScreen()));
+        case '/warning_expired_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<WarningBloc>(
+                      create: (context) => injector()),
+                ], child: WarningExpiredScreen()));
+        case '/warning_under_stockmin':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<WarningBloc>(
+                      create: (context) => injector()),
+                ], child: WarningUnderStockminScreen()));
+        //---
+        case '/product_inventory_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(
+                      create: (context) => injector()),
+                ], child: StockcardScreen()));
+        case '/stockcard_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(
+                      create: (context) => injector()),
+                ], child: StockcardFunctionScreen()));
       default:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
     }

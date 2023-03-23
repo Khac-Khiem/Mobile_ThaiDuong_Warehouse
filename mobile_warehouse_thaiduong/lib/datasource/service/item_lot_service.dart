@@ -3,6 +3,8 @@ import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../models/error_package_model.dart';
+
 class ItemLotService {
   Future<ItemLotModel> getItemLotById(String lotId) async {
     final res = await http.get(
@@ -38,5 +40,12 @@ class ItemLotService {
 
   Future<List<ItemLotModel>> getUnderStockminItemLots() async {
     return [];
+  }
+  //==
+  Future<ErrorPackageModel> addNewIsolationLot(
+    double isolationQuantity, String notes)async {
+    return ErrorPackageModel(
+      "success",
+    );
   }
 }

@@ -24,23 +24,28 @@ class StockcardFunctionScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconCustomizedButton(
-              icon: Icons.qr_code_scanner_outlined, text: "QUÉT MÃ SẢN PHẨM", onPressed: () {
+              icon: Icons.qr_code_scanner_outlined, 
+              text: "QUÉT MÃ SẢN PHẨM", onPressed: () {
                   
               }),
           IconCustomizedButton(
-              icon: Icons.inventory_2, text: "TỒN KHO THÀNH PHẨM", onPressed: () { Navigator.push(
+              icon: Icons.inventory_2, 
+              text: "TỒN KHO THÀNH PHẨM", 
+              onPressed: () { Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 const ProductStockcardScreen()),
                       );}),
           IconCustomizedButton(
-              icon: Icons.storm_rounded, text: "TỒN KHO NGUYÊN VẬT LIỆU", onPressed: () {
+              icon: Icons.storm_rounded, 
+              text: "TỒN KHO NGUYÊN VẬT LIỆU", 
+              onPressed: () {
                 Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const MaterialStockcardScreen()),
+                                StockcardScreen()),
                       );
               }),
               

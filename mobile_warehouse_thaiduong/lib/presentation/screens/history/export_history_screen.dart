@@ -24,7 +24,9 @@ class ExportHistoryScreen extends StatelessWidget {
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
-      body: Column(children: [
+      
+      body: Column
+      (children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

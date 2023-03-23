@@ -47,4 +47,16 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
         expirationDate);
     return status;
   }
+  //==
+   @override
+  Future<List<GoodsReceiptLot>> getGoodsReceiptsHistory(
+      String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) {
+    throw UnimplementedError();
+  }
 }

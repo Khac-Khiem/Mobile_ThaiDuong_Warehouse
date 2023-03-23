@@ -7,12 +7,12 @@ class InventoryService {
   }
 
   Future<List<InventoryLogEntryModel>> getInventoryByItemClass(
-      String startDate, String endDate, String itemClassId) async {
+      DateTime startDate, DateTime endDate, String itemClassId) async {
     return [];
   }
 
   Future<List<InventoryLogEntryModel>> getInventoryByItemId(
-      String startDate, String endDate, String itemId) async {
+      DateTime startDate, DateTime endDate, String itemId) async {
     return [];
   }
 }

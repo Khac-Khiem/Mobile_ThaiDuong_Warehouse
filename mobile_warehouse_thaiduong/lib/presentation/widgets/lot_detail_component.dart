@@ -44,9 +44,10 @@ class LotDetailComponent extends StatelessWidget {
                 borderRadius:
                     BorderRadius.circular(radius * SizeConfig.ratioWidth),
               ),
-              shadowColor: Constants.mainColor,
-              foregroundColor: Colors.black,
-              backgroundColor: bgColor,
+              shadowColor: 
+              Constants.mainColor,
+              // foregroundColor: Colors.black,
+              //backgroundColor: bgColor,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             ),
             onPressed: onPressed,

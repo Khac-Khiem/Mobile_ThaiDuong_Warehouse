@@ -37,7 +37,12 @@ class ProductStockcardScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(buttonName: "Chọn mã sp", height: 60, width: 200, listItem: ["a"], reference: expiredDay, onChanged: (){})
+            DropdownSearchButton(
+              buttonName: "Chọn mã sp", 
+              height: 60, width: 200, 
+              listItem: ["a"], 
+              reference: expiredDay, 
+              onChanged: (){})
           ],
         ),
          
@@ -53,7 +58,12 @@ class ProductStockcardScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(buttonName: "Chọn tên sp", height: 60, width: 200, listItem: ["a"], reference: expiredDay, onChanged: (){})
+            DropdownSearchButton(
+              buttonName: "Chọn tên sp", 
+              height: 60, width: 200, 
+              listItem: ["a"], 
+              reference: expiredDay, 
+              onChanged: (){})
           ],
         ),
           Row(

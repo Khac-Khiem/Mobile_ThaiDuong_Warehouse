@@ -33,7 +33,12 @@ class IsolationItemScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(buttonName: "Chọn mã sản phẩm", height: 60, width: 200, listItem: ["a"], reference: expiredDay, onChanged: (){})
+            DropdownSearchButton(
+              buttonName: "Chọn mã sản phẩm", 
+              height: 60, width: 200, 
+              listItem: ["a"], 
+              reference: expiredDay, 
+              onChanged: (){})
           ],
         ),
         Row(
@@ -48,7 +53,12 @@ class IsolationItemScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(buttonName: "Chọn tên sản phẩm", height: 60, width: 200, listItem: ["a"], reference: expiredDay, onChanged: (){})
+            DropdownSearchButton(
+              buttonName: "Chọn tên sản phẩm", 
+              height: 60, width: 200, 
+              listItem: ["a"], 
+              reference: expiredDay, 
+              onChanged: (){})
           ],
         ),
          const Divider(

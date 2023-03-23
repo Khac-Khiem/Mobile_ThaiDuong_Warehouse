@@ -30,7 +30,7 @@ class HistoryFunctionScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ImportHistoryScreen()),
+                      builder: (context) => ImportHistoryScreen()),
                 );
               }),
           IconCustomizedButton(

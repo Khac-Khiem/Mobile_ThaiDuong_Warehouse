@@ -6,9 +6,15 @@ class ItemRepoImpl implements ItemRepository {
   ItemService itemService;
   ItemRepoImpl(this.itemService);
   @override
-  Future<List<Item>> getAllItems() {
+  Future<List<Item>> getAllItem() {
     // TODO: implement getAllItems
-    final items = itemService.getAllItems();
+    final items = itemService.getAllItem();
+    return items;
+  }
+  //==
+    Future<List<Item>> getItemByWarehouseId(itemClassId) {
+    // TODO: implement getAllItems
+    final items = itemService.getItemByWarehouseId(itemClassId);
     return items;
   }
 }

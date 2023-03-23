@@ -31,7 +31,7 @@ class ShelveFunctionScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const SearchItemScreen()),
+                                SearchItemScreen()),
                       );
               }),
           IconCustomizedButton(
@@ -42,7 +42,7 @@ class ShelveFunctionScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const SearchShelfScreen()),
+                                SearchShelfScreen()),
                       );
               }),
         ],

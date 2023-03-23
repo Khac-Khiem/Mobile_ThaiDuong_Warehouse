@@ -6,14 +6,15 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_stat
 class CompletedReceiptBloc
     extends Bloc<CompletedReceiptEvent, CompletedReceiptState> {
   GoodsReceiptUsecase goodsReceiptUsecase;
-  CompletedReceiptBloc(this.goodsReceiptUsecase):super(CompletedReceiptInitState(DateTime.now())){
+  CompletedReceiptBloc(this.goodsReceiptUsecase)
+  :super(CompletedReceiptInitState(DateTime.now())){
       on<LoadCompletedGoodsReceiptEvent>((event, emit) async {
       emit(LoadingReceiptCompletedState(DateTime.now()));
       try {
-        final receipts =
+            final receipts =
             await goodsReceiptUsecase.getCompletedGoodsReceipts();
         receipts.isNotEmpty
-            ? emit(LoadReceiptCompletedStateSuccess(DateTime.now(), receipts))
+            ? emit(LoadReceiptCompletedStateSuccess(DateTime.now(), await goodsReceiptUsecase.getCompletedGoodsReceipts()))
             : emit(LoadReceiptCompletedStateFail(
                 DateTime.now(), 'Chưa có đơn được nhập'));
       } catch (e) {

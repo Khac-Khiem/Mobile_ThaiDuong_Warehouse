@@ -18,3 +18,14 @@ class LotAdjustment extends Equatable {
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
+class LotAdjustmentView extends Equatable {
+  String itemName;
+  double afterQuantity;
+  String newPurchaseOrderNumber;
+  String notes;
+  LotAdjustmentView(
+      this.itemName, this.afterQuantity, this.newPurchaseOrderNumber, this.notes);
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}

@@ -27,4 +27,15 @@ class GoodsReceiptService {
   Future<List<GoodsReceiptModel>> getUnCompletedGoodsReceipts() async {
     return [];
   }
+  //==
+   Future<List<GoodsReceiptModel>> getGoodsReceiptsHistory(
+       String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) async {
+    return [];
+  }
 }

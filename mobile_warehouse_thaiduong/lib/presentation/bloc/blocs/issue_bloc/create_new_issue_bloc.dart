@@ -6,7 +6,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/
 
 class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
   GoodsIssueUseCase goodsIssueUseCase;
-
   CreateIssueBloc(this.goodsIssueUseCase)
       : super(LoadDepartmentLoadingState(DateTime.now())) {
     on<LoadDepartmentIdsEvent>((event, emit) async {
@@ -30,18 +29,18 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
     //     // emit(LoginStateLoginFailure(DateTime.now()));
     //   }
     // });
-    // on<UpdateIssueEntryEvent>((event, emit) async {
-    //   emit(UpdateEntryToGoodsIssueLoading(DateTime.now()));
-    //   try {
-    //     event.issueEntries.removeAt(event.index);
-    //     event.issueEntries.insert(event.index, event.issueEntry);
-    //     emit(UpdateEntryToGoodsIssueSuccess(
-    //       DateTime.now(),
-    //      event.issueEntries,
-    //     ));
-    //   } catch (e) {
-    //     // emit(LoginStateLoginFailure(DateTime.now()));
-    //   }
-    // });
+    on<UpdateIssueEntryEvent>((event, emit) async {
+      emit(UpdateEntryToGoodsIssueLoading(DateTime.now()));
+      try {
+        event.issueEntries.removeAt(event.index);
+        event.issueEntries.insert(event.index, event.issueEntry);
+        emit(UpdateEntryToGoodsIssueSuccess(
+          DateTime.now(),
+         event.issueEntries,
+        ));
+      } catch (e) {
+        // emit(LoginStateLoginFailure(DateTime.now()));
+      }
+    });
   }
 }

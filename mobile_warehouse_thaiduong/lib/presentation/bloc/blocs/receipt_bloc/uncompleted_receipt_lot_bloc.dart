@@ -6,5 +6,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_stat
 class ExportingReceiptLotBloc
     extends Bloc<UncompletedReceiptLotEvent, UncompletedReceiptLotState> {
   GoodsReceiptUsecase goodsReceiptUsecase;
-  ExportingReceiptLotBloc(this.goodsReceiptUsecase):super(UncompletedReceiptLotLoadingState(DateTime.now()));
+  ExportingReceiptLotBloc(this.goodsReceiptUsecase)
+  :super(UncompletedReceiptLotLoadingState(DateTime.now()));
 }

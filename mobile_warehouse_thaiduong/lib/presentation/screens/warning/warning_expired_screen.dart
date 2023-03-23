@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/widgets/exception_widget.dart';
 
 import '../../../constant.dart';
+import '../../bloc/blocs/warning_bloc.dart';
+import '../../bloc/states/warning_states.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/lot_detail_component.dart';
+
+const List<String> expirationDate = <String>['6 tháng', '1 năm', '2 năm'];
 
 class WarningExpiredScreen extends StatelessWidget {
   const WarningExpiredScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
+    String expirationDate = '';
     SizeConfig().init(context);
 
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Constants.mainColor,
         title: Text(
           'Cảnh báo',
@@ -21,7 +28,7 @@ class WarningExpiredScreen extends StatelessWidget {
         ),
       ),
       body: Column(children: [
-         Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
@@ -33,10 +40,16 @@ class WarningExpiredScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(buttonName: "HSD còn lại", height: 60, width: 200, listItem: ["a"], reference: expiredDay, onChanged: (){})
+            DropdownSearchButton(
+                buttonName: "HSD còn lại",
+                height: 60,
+                width: 200,
+                listItem: ['Dưới 6 tháng', '1 năm', '2 năm'],
+                reference: expirationDate,
+                onChanged: () {})
           ],
         ),
-         const Divider(
+        const Divider(
           indent: 30,
           endIndent: 30,
           color: Constants.mainColor,
@@ -51,7 +64,45 @@ class WarningExpiredScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-         CustomizedButton(text: "Truy xuất" ,onPressed: (){})
+        CustomizedButton(
+            text: "Truy xuất",
+            onPressed: () {
+              BlocBuilder<WarningBloc, WarningState>(builder: (context, state) {
+                if (state is ExpirationWarningSuccessState) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        const Divider(
+                          indent: 30,
+                          endIndent: 30,
+                          color: Constants.mainColor,
+                          thickness: 1,
+                        ),
+                        SizedBox(
+                          height: 470 * SizeConfig.ratioHeight,
+                          child: ListView.builder(
+                              itemCount: state.itemLot.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    width: 350 * SizeConfig.ratioWidth,
+                                    height: 80 * SizeConfig.ratioHeight,
+                                    color: Constants.buttonColor,
+                                  ),
+                                );
+                              }),
+                        ),
+                        // CustomizedButton(text: "Truy xuất", onPressed: () {})
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              });
+            })
       ]),
     );
   }
