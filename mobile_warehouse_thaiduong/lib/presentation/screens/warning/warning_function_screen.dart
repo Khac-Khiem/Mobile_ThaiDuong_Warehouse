@@ -3,14 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/warning_events.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_expired_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_expired_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_expired_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_under_stockmin.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 
 import '../../bloc/blocs/warning_bloc.dart';
-import '../../bloc/states/warning_states.dart';
 
 class WarningFunctionScreen extends StatelessWidget {
   const WarningFunctionScreen({super.key});
@@ -21,6 +16,12 @@ class WarningFunctionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constants.mainColor,
+        leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
         title: Text(
           'Cảnh báo',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),

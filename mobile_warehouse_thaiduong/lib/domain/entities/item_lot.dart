@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
@@ -23,7 +25,7 @@ class ItemLot extends Equatable {
       this.productionDate,
       this.expirationDate);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [lotId];
 }
 
@@ -33,6 +35,6 @@ class ItemLotView extends Equatable {
   double quantity;
   ItemLotView(this.itemName, this.quantity);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [];
 }

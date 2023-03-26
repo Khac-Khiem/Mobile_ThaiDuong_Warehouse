@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 
 class ItemModel extends Item{
@@ -13,6 +15,7 @@ factory ItemModel.fromJson(Map<String, dynamic> json) {
     );
   }
 }
+
 
 
 class UnitModel extends Unit {

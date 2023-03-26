@@ -7,6 +7,6 @@ class ListGoodsIssueUncompletedBloc extends
 Bloc<GoodsIssueEvent, GoodsIssueState> {
   GoodsIssueUseCase goodsIssueUseCase;
   ListGoodsIssueUncompletedBloc(this.goodsIssueUseCase)
-  :super(LoadGoodsIssuesLoadingState(DateTime.now())){
-  }
+  :super(LoadGoodsIssuesLoadingState(DateTime.now()));
+  
 }

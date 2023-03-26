@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
 
-import '../../../domain/entities/item.dart';
 
 class LotAdjustmentScreen extends StatefulWidget {
   const LotAdjustmentScreen({super.key});
@@ -29,11 +21,18 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constants.mainColor,
+        leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/scan_adjustment_screen');
+            },
+          ),
         title: Text(
           'Điều chỉnh lô',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
+       
       body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
         listener: (context, state) {
           // TODO: implement listener

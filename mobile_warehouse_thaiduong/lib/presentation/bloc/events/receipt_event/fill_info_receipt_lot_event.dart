@@ -1,10 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/item_lot.dart';
 
 class FillInfoLotReceiptEvent extends Equatable {
   @override
-  // TODO: implement props
+
   List<Object?> get props => throw UnimplementedError();
 }
 

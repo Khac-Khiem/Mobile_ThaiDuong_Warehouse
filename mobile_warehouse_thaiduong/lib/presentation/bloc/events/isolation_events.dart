@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:equatable/equatable.dart';
 
 abstract class IsolationEvent extends Equatable {}
@@ -20,11 +21,9 @@ class GetLotByItemIdEvent extends IsolationEvent {
 class AddNewIsolationEvent extends IsolationEvent {
   DateTime timestamp;
   String lotId;
-  String notes;
-  double isolationQuantity;
-  AddNewIsolationEvent(this.timestamp, this.lotId, this.notes, this.isolationQuantity);
+  AddNewIsolationEvent(this.timestamp, this.lotId, );
   @override
-  List<Object> get props => [timestamp, notes, isolationQuantity];
+  List<Object> get props => [timestamp];
 }
 
 // // Xác nhận cách ly hàng hóa

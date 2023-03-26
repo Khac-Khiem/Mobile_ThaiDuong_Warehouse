@@ -6,9 +6,8 @@ class DepartmentRepoImpl implements DepartmentRepository {
   final DepartmentService departmentService;
   DepartmentRepoImpl(this.departmentService);
   @override
-  Future<List<DepartmentModel>> getAllDepartment() async {
-    // TODO: implement getAllDepartment
-    final departments = departmentService.getDepartments();
+  Future<List<DepartmentModel>> getAllDepartments() async {
+    final departments = departmentService.getAllDepartments();
     return departments;
   }
 }

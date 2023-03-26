@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
@@ -10,7 +12,7 @@ class CompletedReceiptLotLoadingState extends CompletedReceiptLotState {
   CompletedReceiptLotLoadingState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -19,7 +21,7 @@ class LoadGoodsReceiptLotSuccessState extends CompletedReceiptLotState {
   DateTime timestamp;
   LoadGoodsReceiptLotSuccessState(this.goodsReceiptLots, this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -28,7 +30,7 @@ class LoadGoodsReceiptLotFailState extends CompletedReceiptLotState {
   LoadGoodsReceiptLotFailState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -37,7 +39,7 @@ class LoadShelfIdsSuccessState extends CompletedReceiptLotState {
   DateTime timestamp;
   LoadShelfIdsSuccessState(this.shelfIds, this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -47,7 +49,7 @@ class UpdateReceiptLotSuccessState extends CompletedReceiptLotState {
   UpdateReceiptLotSuccessState(this.itemLot, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -56,7 +58,7 @@ class UpdateReceiptLotFailState extends CompletedReceiptLotState {
   UpdateReceiptLotFailState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -66,7 +68,7 @@ class ConfirmReceiptLotChangedSuccessState extends CompletedReceiptLotState {
   ConfirmReceiptLotChangedSuccessState(this.status, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -76,6 +78,6 @@ class ConfirmReceiptLotChangedFailState extends CompletedReceiptLotState {
   ConfirmReceiptLotChangedFailState(this.status, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

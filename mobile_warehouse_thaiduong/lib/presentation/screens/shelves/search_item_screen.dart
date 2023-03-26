@@ -13,8 +13,7 @@ class SearchItemScreen extends StatefulWidget {
   SearchItemScreen({super.key});
 
   @override
-  State<SearchItemScreen> createState() =>
-      _SearchItemScreenState();
+  State<SearchItemScreen> createState() => _SearchItemScreenState();
 }
 
 class _SearchItemScreenState extends State<SearchItemScreen> {
@@ -28,15 +27,27 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
     SizeConfig().init(context);
 
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/shelves_function_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Kệ kho',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
-      body: Column(children: [
-         Row(
+          body:
+          BlocConsumer<ShelveBloc, ShelveState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+          if (state is GetAllItemIdSuccessState) {
+            return Column(
+       children: [
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
@@ -48,18 +59,13 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                 color: Colors.black,
               ),
             ),
-        BlocConsumer<ShelveBloc, ShelveState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          if (state is GetAllItemIdSuccessState) {
-           return DropdownButton<Item>(
+            DropdownButton<Item>(
                       hint: Text("Chọn mã sản phẩm"),
                       value: selectedItem,
                       onChanged: (Item? newValue) {
                         setState(() {
                           selectedItem = newValue;
-                          print(
-                              state.items.indexOf(selectedItem as Item));
+                          print(state.items.indexOf(selectedItem as Item));
                         });
                       },
                       items: state.items.map((Item item) {
@@ -71,14 +77,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                           ),
                         );
                       }).toList(),
-                    );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }
-      ),
+                    ) 
           ],
         ),
         Row(
@@ -93,15 +92,36 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                 color: Colors.black,
               ),
             ),
-            DropdownSearchButton(
-              buttonName: "Chọn tên sản phẩm", 
-              height: 60, width: 200, 
-              listItem: ["a"], 
-              reference: expiredDay, 
-              onChanged: (){})
+            DropdownButton<Item>(
+                      hint: Text("Chọn mã sản phẩm"),
+                      value: selectedItem,
+                      onChanged: (Item? newValue) {
+                        setState(() {
+                          selectedItem = newValue;
+                          print(state.items.indexOf(selectedItem as Item));
+                        });
+                      },
+                      items: state.items.map((Item item) {
+                        return DropdownMenuItem<Item>(
+                          value: item,
+                          child: Text(
+                            item.itemName.toString(),
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),
+                    ) 
           ],
         ),
-         const Divider(
+        Container(
+           padding: EdgeInsets.fromLTRB(10, 20, 10,10),
+          child: CustomizedButton(
+              text: "Tìm kiếm",
+              onPressed: () {}
+                ),
+        )
+        ,
+        const Divider(
           indent: 30,
           endIndent: 30,
           color: Constants.mainColor,
@@ -116,46 +136,42 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
             color: Colors.black,
           ),
         ),
-         CustomizedButton(text: "Truy xuất" ,onPressed: (){
-          onPressed: () {
-              BlocBuilder<ShelveBloc, ShelveState>(builder: (context, state) {
-                if (state is GetLotByItemIdSuccessState) {
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        const Divider(
-                          indent: 30,
-                          endIndent: 30,
-                          color: Constants.mainColor,
-                          thickness: 1,
-                        ),
-                        SizedBox(
-                          height: 470 * SizeConfig.ratioHeight,
-                          child: ListView.builder(
-                              itemCount: state.itemLot.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Container(
-                                    width: 350 * SizeConfig.ratioWidth,
-                                    height: 80 * SizeConfig.ratioHeight,
-                                    color: Constants.buttonColor,
-                                  ),
-                                );
-                              }),
-                        ),
-                        // CustomizedButton(text: "Truy xuất", onPressed: () {})
-                      ],
-                    ),
-                  );
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              });
-            };
-         })
-      ]),
-    );
+
+        ]);}
+                  if (state is GetLotByItemIdSuccessState) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          const Divider(
+                            indent: 30,
+                            endIndent: 30,
+                            color: Constants.mainColor,
+                            thickness: 1,
+                          ),
+                          SizedBox(
+                            height: 470 * SizeConfig.ratioHeight,
+                            child: ListView.builder(
+                                itemCount: state.itemLot.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Container(
+                                      width: 350 * SizeConfig.ratioWidth,
+                                      height: 80 * SizeConfig.ratioHeight,
+                                      color: Constants.buttonColor,
+                                    ),
+                                  );
+                                }),
+                          ),
+                          // CustomizedButton(text: "Truy xuất", onPressed: () {})
+                        ],
+                      ),
+                    );
+                  } else {
+                    print(state);
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                 }));
   }
 }

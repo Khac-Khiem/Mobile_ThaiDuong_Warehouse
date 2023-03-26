@@ -1,11 +1,11 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_issue_model.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
-import 'package:mobile_warehouse_thaiduong/global.dart';
 
 class GoodsIssueService {
   List bodyJson = [];
@@ -16,7 +16,7 @@ class GoodsIssueService {
       String receiver,
       List<GoodsIssueEntry> entries) async {
     final res =
-        await http.post(Uri.parse(Constants.baseUrl + 'api/goodsreceipts/'),
+        await http.post(Uri.parse(Constants.baseUrl + 'api/goodsReceipts/'),
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ',
@@ -39,7 +39,7 @@ class GoodsIssueService {
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+      Uri.parse(Constants.baseUrl + 'api/goodsIssues/pending'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
@@ -61,9 +61,9 @@ class GoodsIssueService {
     }
   }
 
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
+  Future<List<GoodsIssueModel>> getCompletedGoodsIssue() async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+      Uri.parse(Constants.baseUrl + 'api/goodsIssues/pending'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
@@ -87,7 +87,7 @@ class GoodsIssueService {
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {
     final res = await http.get(
-        Uri.parse(Constants.baseUrl + 'api/goodsissues/$goodsIssueId'),
+        Uri.parse(Constants.baseUrl + 'api/goodsIssues/$goodsIssueId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': '*/*',
@@ -128,5 +128,16 @@ class GoodsIssueService {
     return ErrorPackageModel(
       "success",
     );
+  }
+   //==
+   Future<List<GoodsIssueModel>> getGoodsIssueHistory(
+       String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) async {
+    return [];
   }
 }

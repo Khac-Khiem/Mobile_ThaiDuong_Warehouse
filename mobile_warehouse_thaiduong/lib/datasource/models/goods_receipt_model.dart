@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_const_literals_to_create_immutables
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';

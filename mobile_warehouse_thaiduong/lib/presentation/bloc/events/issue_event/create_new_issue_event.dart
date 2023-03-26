@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 
@@ -6,7 +8,7 @@ abstract class CreateNewIssueEvent extends Equatable {}
 //   DateTime timestamp;
 //   LoadItemsDataEvent(this.timestamp);
 //   @override
-//   // TODO: implement props
+
 //   List<Object?> get props => [timestamp];
 // }
 
@@ -14,7 +16,7 @@ class LoadDepartmentIdsEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   LoadDepartmentIdsEvent(this.timestamp);
   @override
-  // TODO: implement props
+ 
   List<Object?> get props => [timestamp];
 }
 
@@ -24,7 +26,7 @@ class AddIssueEntryEvent extends CreateNewIssueEvent {
   List<IssueEntryView> issueEntries;
   AddIssueEntryEvent(this.issueEntry,this.issueEntries, this.timestamp);
   @override
-  // TODO: implement props
+  
   List<Object?> get props => [timestamp];
 }
 
@@ -35,7 +37,7 @@ class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   int index;
   UpdateIssueEntryEvent(this.issueEntry, this.issueEntries, this.index, this.timestamp);
   @override
-  // TODO: implement props
+  
   List<Object?> get props => [timestamp];
 }
 
@@ -44,6 +46,6 @@ class PostNewGoodsIssueEvent extends CreateNewIssueEvent {
   List<IssueEntryView> issueEntries;
   PostNewGoodsIssueEvent(this.issueEntries, this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

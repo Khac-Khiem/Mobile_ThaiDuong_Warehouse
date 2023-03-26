@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:get_it/get_it.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/department_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/goods_issue_repo_impl.dart';
@@ -50,59 +52,49 @@ import 'presentation/bloc/blocs/inventory_bloc.dart';
 import 'presentation/bloc/blocs/shelve_bloc.dart';
 import 'presentation/bloc/blocs/warning_bloc.dart';
 import 'presentation/bloc/blocs/isolation_bloc.dart';
-import 'presentation/bloc/blocs/history_bloc.dart';
-
 
 final injector = GetIt.instance;
 
 Future<void> initializeDependencies() async {
 //register data service
-  injector.registerSingleton<LoginService>(LoginService());
-  injector.registerSingleton<ItemService>(ItemService());
-  injector.registerSingleton<GoodsReceiptService>(GoodsReceiptService());
-  //==
   injector.registerSingleton<DepartmentService>(DepartmentService());
   injector.registerSingleton<GoodsIssueService>(GoodsIssueService());
+  injector.registerSingleton<GoodsReceiptService>(GoodsReceiptService());
   injector.registerSingleton<InventoryService>(InventoryService());
   injector.registerSingleton<ItemLotService>(ItemLotService());
+  injector.registerSingleton<ItemService>(ItemService());
   injector.registerSingleton<LocationService>(LocationService());
+  injector.registerSingleton<LoginService>(LoginService());
   injector.registerSingleton<LotAdjustmentService>(LotAdjustmentService());
 
 // register repository
-  injector.registerSingleton<LoginRepository>(LoginRepositoryImpl(injector()));
-  injector.registerSingleton<ItemRepository>(ItemRepoImpl(injector()));
-  injector.registerSingleton<GoodsReceiptRepository>(
-      GoodsReceiptRepoImpl(injector()));
-  //==
   injector
       .registerSingleton<DepartmentRepository>(DepartmentRepoImpl(injector()));
   injector
       .registerSingleton<GoodsIssueRepository>(GoodsIssueRepoImpl(injector()));
+  injector.registerSingleton<GoodsReceiptRepository>(
+      GoodsReceiptRepoImpl(injector()));
   injector
       .registerSingleton<InventoryRepository>(InventoryRepoImpl(injector()));
+  injector.registerSingleton<ItemRepository>(ItemRepoImpl(injector()));
   injector.registerSingleton<ItemLotRepository>(ItemLotRepoImpl(injector()));
   injector.registerSingleton<LocationRepository>(LocationRepoImpl(injector()));
+  injector.registerSingleton<LoginRepository>(LoginRepositoryImpl(injector()));
   injector.registerSingleton<LotAdjustmentRepository>(
       LotAjustmentRepoImpl(injector()));
 
 // register usecase
-  injector.registerSingleton<LoginUsecase>(LoginUsecase(injector()));
-  injector.registerSingleton<ItemUsecase>(ItemUsecase(injector()));
-  injector
-      .registerSingleton<GoodsReceiptUsecase>(GoodsReceiptUsecase(injector()));
-
   injector.registerSingleton<GoodsIssueUseCase>(
       GoodsIssueUseCase(injector(), injector()));
-      //==
-  injector.registerSingleton<InventoryUsecase>(
-      InventoryUsecase(injector()));
-  injector.registerSingleton<ItemLotUsecase>(
-      ItemLotUsecase(injector()));
-  injector.registerSingleton<LocationUsecase>(
-      LocationUsecase(injector()));
+  injector
+      .registerSingleton<GoodsReceiptUsecase>(GoodsReceiptUsecase(injector()));
+  injector.registerSingleton<InventoryUsecase>(InventoryUsecase(injector()));
+  injector.registerSingleton<ItemLotUsecase>(ItemLotUsecase(injector()));
+  injector.registerSingleton<ItemUsecase>(ItemUsecase(injector()));
+  injector.registerSingleton<LocationUsecase>(LocationUsecase(injector()));
+  injector.registerSingleton<LoginUsecase>(LoginUsecase(injector()));
   injector.registerSingleton<LotAdjustmentUsecase>(
       LotAdjustmentUsecase(injector()));
-
 
 // register bloc
   injector.registerSingleton<LoginBloc>(LoginBloc(injector()));
@@ -130,10 +122,19 @@ Future<void> initializeDependencies() async {
   // ));
 
   //==
+    
   injector.registerSingleton<WarningBloc>(WarningBloc(injector(), injector()));
-  injector.registerSingleton<ShelveBloc>(ShelveBloc(injector(),injector(), injector()));
-  injector.registerSingleton<InventoryBloc>(InventoryBloc(injector(), injector(), injector()));
-  injector.registerSingleton<AdjustmentBloc>(AdjustmentBloc(injector(), injector(), injector(),injector()));
-  //injector.registerSingleton<IsolationBloc>(IsolationBloc(injector(), injector(), injector(),injector(),injector(),));
-  injector.registerSingleton<HistoryBloc>(HistoryBloc(injector(), injector(), injector(),injector(),injector(),));
+  injector.registerSingleton<ShelveBloc>(
+      ShelveBloc(injector(), injector(), injector()));
+  injector.registerSingleton<InventoryBloc>(
+      InventoryBloc(injector(), injector(), injector()));
+  injector.registerSingleton<AdjustmentBloc>(
+      AdjustmentBloc(injector(), injector(), injector(), injector()));
+  injector.registerSingleton<IsolationBloc>(IsolationBloc(injector(),injector(),));
+  injector.registerSingleton<HistoryBloc>(HistoryBloc(
+    injector(),
+    injector(),
+    injector(),
+
+  ));
 }

@@ -1,7 +1,7 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:mobile_warehouse_thaiduong/constant.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:mobile_warehouse_thaiduong/constant.dart';
+// import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 class LocationService {
   Future<List<String>> getAllLocationId() async {
@@ -16,10 +16,10 @@ class LocationService {
     // } else {
     //   throw "Unable to retrieve posts.";
     // }
-     return ['Bp 1','KHO NVL', 'KHO BTP', 'KHO VT'];
+     return ['Vị trí 1','Vị trí 2', 'Vị trí 3', 'Vị trí 4'];
   }
    Future<List<String>> getAllWarehouseId() async {
    
-   return ['KHO TP','KHO NVL', 'KHO BTP', 'KHO VT'];
+   return ['TP','NVL', 'BTP', 'VT'];
   }
 }

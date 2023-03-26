@@ -1,6 +1,6 @@
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/item_repository.dart';
-import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
+//import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 
 class ItemUsecase {
   final ItemRepository itemRepository;

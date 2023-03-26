@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
@@ -7,7 +8,7 @@ class LoadUncompletedReceiptLotEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
   LoadUncompletedReceiptLotEvent(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 

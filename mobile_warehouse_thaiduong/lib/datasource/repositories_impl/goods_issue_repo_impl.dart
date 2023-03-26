@@ -24,8 +24,8 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
   }
 
   @override
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
-    final goodsIssues = goodsIssueService.getCompletedGoodsissue();
+  Future<List<GoodsIssueModel>> getCompletedGoodsIssue() async {
+    final goodsIssues = goodsIssueService.getCompletedGoodsIssue();
     return goodsIssues;
   }
 
@@ -67,5 +67,17 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
     final status = goodsIssueService.updateGoodsIssueLot(
         goodsIssueId, goodsIssueLotId, newQuantity);
     return status;
+  }
+    //==
+   @override
+  Future<List<GoodsIssueLot>> getGoodsIssueHistory(
+      String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) {
+    throw UnimplementedError();
   }
 }

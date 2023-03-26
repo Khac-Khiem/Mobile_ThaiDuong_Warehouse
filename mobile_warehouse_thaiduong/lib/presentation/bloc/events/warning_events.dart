@@ -1,20 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 abstract class WarningEvent extends Equatable {}
-
-// hiển thị list hạn sử dụng còn lại
-// class GetExpirationEvent extends WarningEvent {
-//   DateTime timestamp;
-//   GetExpirationEvent(this.timestamp);
-//   @override
-//   // TODO: implement props
-//   List<Object?> get props => [timestamp];
-// }
-
 // hiển thị danh sách sản phẩm theo hạn sử dụng còn lại
 class ExpirationWarningEvent extends WarningEvent {
   DateTime timestamp;
-  DateTime expirationDate;
+  String expirationDate;
   ExpirationWarningEvent(this.timestamp, this.expirationDate);
   @override
   List<Object> get props => [timestamp];
@@ -25,7 +17,7 @@ class GetWarehouseEvent extends WarningEvent {
   DateTime timestamp;
   GetWarehouseEvent(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 

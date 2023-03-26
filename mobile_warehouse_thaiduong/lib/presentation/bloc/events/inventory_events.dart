@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 abstract class InventoryEvent extends Equatable {}
@@ -6,7 +8,7 @@ class GetWarehouseIdEvent extends InventoryEvent {
   DateTime timestamp;
   GetWarehouseIdEvent(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 // lấy mã sp
@@ -15,7 +17,7 @@ class GetAllItemIdByWarehouseIdEvent extends InventoryEvent {
   String itemClass;
   GetAllItemIdByWarehouseIdEvent(this.timestamp, this.itemClass);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 // Hiển thị hàng tồn kho theo thông tin tìm kiếm

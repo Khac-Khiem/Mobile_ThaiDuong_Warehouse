@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/dialog/dialog_two_button.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
+
+import '../../bloc/blocs/adjustment_bloc.dart';
+import '../../bloc/events/adjustment_events.dart';
 
 class BarcodeScannerScreen extends StatefulWidget {
   const BarcodeScannerScreen({super.key});
@@ -36,6 +40,12 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
           // leading: IconButton(
           //     icon: const Icon(Icons.west_outlined),
           //     onPressed: () {
@@ -80,8 +90,12 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                     ),
                     CustomizedButton(
                       onPressed: () {
-                        scanResult = '1';
-                        scanQR();
+                        BlocProvider.of<AdjustmentBloc>(context)
+                            .add(GetLotDetailEvent(DateTime.now(), ''));
+                        Navigator.pushNamed(context, '/warning_under_stockmin');
+
+                        // scanResult = '1';
+                        // scanQR();
                       },
                       text: "Quét mã",
                     ),

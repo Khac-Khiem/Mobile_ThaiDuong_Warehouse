@@ -1,17 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/create_new_issue_state.dart';
 
 class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
+  //  DepartmentUseCase departmentUsecase;
   GoodsIssueUseCase goodsIssueUseCase;
-  CreateIssueBloc(this.goodsIssueUseCase)
+  CreateIssueBloc(
+    // this.departmentUsecase,
+  this.goodsIssueUseCase)
       : super(LoadDepartmentLoadingState(DateTime.now())) {
     on<LoadDepartmentIdsEvent>((event, emit) async {
       emit(LoadDepartmentLoadingState(DateTime.now()));
       try {
-        final department = await goodsIssueUseCase.getAllDepartment();
+        final department = await goodsIssueUseCase.getAllDepartments();
         emit(LoadDepartmentSuccessState(department, DateTime.now()));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));

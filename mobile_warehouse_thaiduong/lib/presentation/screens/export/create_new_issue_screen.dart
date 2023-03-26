@@ -162,7 +162,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
       ),
       body: BlocConsumer<CreateIssueBloc, CreaNewIssueState>(
         listener: (context, state) {
-          // TODO: implement listener
+    
         },
         builder: (context, state) {
           if (state is LoadDepartmentSuccessState) {

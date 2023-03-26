@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:equatable/equatable.dart';
 
 abstract class HistoryEvent extends Equatable {}
@@ -8,7 +9,7 @@ abstract class HistoryEvent extends Equatable {}
 // mã sp, bộ phận có thể có hoặc không
 // số po chỉ với kho thành phẩm
 //---------
-// lấy ds kho, bộ phận, item
+// lấy ds kho, bộ phận, item => ls xuất
 class GetAllInfoImportEvent extends HistoryEvent {
   DateTime timestamp;
   GetAllInfoImportEvent(this.timestamp);
@@ -16,7 +17,7 @@ class GetAllInfoImportEvent extends HistoryEvent {
   List<Object> get props => [timestamp];
 }
 
-// lấy ds kho, ncc, item
+// lấy ds kho, ncc, item => ls nhập
 class GetAllInfoExportEvent extends HistoryEvent {
   DateTime timestamp;
   GetAllInfoExportEvent(this.timestamp);
@@ -59,18 +60,18 @@ class AccessImportHistoryEvent extends HistoryEvent {
 // Truy xuất lịch sử xuất kho
 class AccessExportHistoryEvent extends HistoryEvent {
   DateTime timestamp;
-  String warehouse;
-  DateTime startdate;
-  DateTime enddate;
+  String itemClass;
+  DateTime startDate;
+  DateTime endDate;
   String itemId;
   String department;
   String receiver;
   String purchaseOrderNumber;
   AccessExportHistoryEvent(
       this.timestamp,
-      this.warehouse,
-      this.startdate,
-      this.enddate,
+      this.itemClass,
+      this.startDate,
+      this.endDate,
       this.itemId,
       this.department,
       this.receiver,

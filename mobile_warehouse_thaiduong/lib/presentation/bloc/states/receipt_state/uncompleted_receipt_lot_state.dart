@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
@@ -9,7 +11,7 @@ class UncompletedReceiptLotLoadingState extends UncompletedReceiptLotState {
   UncompletedReceiptLotLoadingState(this.timestamp);
   
   @override
-  // TODO: implement props
+
   List<Object?> get props => throw UnimplementedError();
 
 }
@@ -19,7 +21,7 @@ class LoadShelfIdsCuccessState extends UncompletedReceiptLotState {
   DateTime timestamp;
   LoadShelfIdsCuccessState(this.shelfIds, this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -29,7 +31,7 @@ class UpdateReceiptLotSuccessState extends UncompletedReceiptLotState {
   UpdateReceiptLotSuccessState(this.itemLot, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -40,7 +42,7 @@ class ConfirmReceiptLotChangedSuccessState extends UncompletedReceiptLotState {
   ConfirmReceiptLotChangedSuccessState(this.status, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -50,6 +52,6 @@ class ConfirmReceiptLotChangedFailState extends UncompletedReceiptLotState {
   ConfirmReceiptLotChangedFailState(this.status, this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

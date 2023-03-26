@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/injector.dart';
@@ -33,7 +35,18 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_
 import 'package:mobile_warehouse_thaiduong/presentation/screens/warning/warning_under_stockmin.dart';
 
 import '../bloc/blocs/adjustment_bloc.dart';
+import '../bloc/blocs/history_bloc.dart';
+import '../bloc/blocs/isolation_bloc.dart';
+import '../screens/adjustment/lot_adjust_screen.dart';
+import '../screens/adjustment/scan_adjustment_screen.dart';
+import '../screens/history/export_history_screen.dart';
+import '../screens/history/history_function_screen.dart';
+import '../screens/history/import_history_screen.dart';
+import '../screens/inventory/product_inventory_screen.dart';
 import '../screens/inventory/stockcard_function_screen.dart';
+import '../screens/isolation/isolation_function_screen.dart';
+import '../screens/isolation/isolation_item_screen.dart';
+import '../screens/isolation/update_isolation.dart';
 import '../screens/shelves/search_item_screen.dart';
 import '../screens/shelves/search_shelf_screen.dart';
 import '../screens/warning/warning_expired_screen.dart';
@@ -133,56 +146,101 @@ class AppRoute {
       //                 create: (context) => injector()),
       //           ], child: const FillInfoEntryIssueScreen()));
       //--
-         case '/shelves_function_screen':
+      case '/shelves_function_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<ShelveBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<ShelveBloc>(create: (context) => injector()),
                 ], child: const ShelveFunctionScreen()));
-        case '/search_item_screen':
+      case '/search_item_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<ShelveBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<ShelveBloc>(create: (context) => injector()),
                 ], child: SearchItemScreen()));
-        case '/search_shelf_screen':
+      case '/search_shelf_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<ShelveBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<ShelveBloc>(create: (context) => injector()),
                 ], child: SearchShelfScreen()));
-        //---
-        case '/warning_function_screen':
+      //---
+      case '/warning_function_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<WarningBloc>(
-                      create: (context) => injector()),
-                ], child:  WarningFunctionScreen()));
-        case '/warning_expired_screen':
+                  BlocProvider<WarningBloc>(create: (context) => injector()),
+                ], child: WarningFunctionScreen()));
+      case '/warning_expired_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<WarningBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<WarningBloc>(create: (context) => injector()),
                 ], child: WarningExpiredScreen()));
-        case '/warning_under_stockmin':
+      case '/warning_under_stockmin':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<WarningBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<WarningBloc>(create: (context) => injector()),
                 ], child: WarningUnderStockminScreen()));
-        //---
-        case '/product_inventory_screen':
+      //---
+      case '/stockcard_function_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<InventoryBloc>(
-                      create: (context) => injector()),
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const StockcardFunctionScreen()));
+      // case '/scan_item_screen':
+      //   return MaterialPageRoute(
+      //       builder: (context) => MultiBlocProvider(providers: [
+      //             BlocProvider<InventoryBloc>(create: (context) => injector()),
+      //           ], child: StockcardScreen()));
+      case '/material_inventory_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
                 ], child: StockcardScreen()));
-        case '/stockcard_function_screen':
+      case '/product_inventory_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<InventoryBloc>(
-                      create: (context) => injector()),
-                ], child: StockcardFunctionScreen()));
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: ProductStockcardScreen()));
+      //--
+      case '/history_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<HistoryBloc>(create: (context) => injector()),
+                ], child: HistoryFunctionScreen()));
+      case '/import_history_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<HistoryBloc>(create: (context) => injector()),
+                ], child: ImportHistoryScreen()));
+      case '/export_history_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<HistoryBloc>(create: (context) => injector()),
+                ], child: ExportHistoryScreen()));
+      //--
+      case '/lot_adjustment_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<AdjustmentBloc>(create: (context) => injector()),
+                ], child: LotAdjustmentScreen()));
+      case '/scan_adjustment_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<AdjustmentBloc>(create: (context) => injector()),
+                ], child: BarcodeScannerScreen()));
+      //--
+      case '/isolation_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<IsolationBloc>(create: (context) => injector()),
+                ], child: IsolationFunctionScreen()));
+      case '/isolation_item_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<IsolationBloc>(create: (context) => injector()),
+                ], child: IsolationItemScreen()));
+      case '/isolation_update_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<IsolationBloc>(create: (context) => injector()),
+                ], child: UpdateIsolationItemScreen()));
       default:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
     }

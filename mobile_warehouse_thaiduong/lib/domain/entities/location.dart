@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
@@ -6,7 +8,7 @@ class Location extends Equatable {
   List<ItemLot>? lots;
   Location(this.locationId, this.lots);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [locationId];
 }
 
@@ -16,6 +18,6 @@ class Warehouse extends Equatable {
   List<Location>? locations;
   Warehouse(this.warehouseId, this.warehouseName, this.locations);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [warehouseId];
 }

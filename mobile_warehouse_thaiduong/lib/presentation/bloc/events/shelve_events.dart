@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 abstract class ShelveEvent extends Equatable {}
@@ -15,7 +17,7 @@ class GetLotByItemIdEvent extends ShelveEvent {
   String itemId;
   GetLotByItemIdEvent(this.timestamp, this.itemId);
   @override
-  List<Object> get props => [timestamp, itemId];
+  List<Object> get props => [timestamp];
 }
 
 // List vị trí

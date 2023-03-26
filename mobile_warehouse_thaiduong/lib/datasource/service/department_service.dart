@@ -1,9 +1,7 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/datasource/models/department_model.dart';
 
 class DepartmentService {
-  Future<List<DepartmentModel>> getDepartments() async {
+  Future<List<DepartmentModel>> getAllDepartments() async {
     //  final url = Uri.parse(
     //     'https://chaauthenticationdelegateservice.azurewebsites.net/api/login');
     // final response = await http.get(url,
@@ -20,6 +18,6 @@ class DepartmentService {
     // } else {
     //   throw "Unable to retrieve posts.";
     // }
-    return [DepartmentModel('TP'),DepartmentModel('BTP'), DepartmentModel('VT')];
+    return [DepartmentModel('SX'),DepartmentModel('SX'), DepartmentModel('SX')];
   }
 }

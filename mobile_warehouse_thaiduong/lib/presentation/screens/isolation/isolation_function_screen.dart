@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 
-import 'isolation_item_screen.dart';
+import '../../bloc/blocs/isolation_bloc.dart';
+import '../../bloc/events/isolation_events.dart';
+//import 'isolation_item_screen.dart';
 
 class IsolationFunctionScreen extends StatelessWidget {
   const IsolationFunctionScreen({super.key});
@@ -25,17 +28,19 @@ class IsolationFunctionScreen extends StatelessWidget {
         children: [
           IconCustomizedButton(
               icon: Icons.remove_moderator_outlined, 
-              text: "CÁCH LY HÀNG HÓA", onPressed: () {
-                 Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const IsolationItemScreen()),
+              text: "CÁCH LY HÀNG HÓA", 
+              onPressed: () {
+                   Navigator.pushNamed(context, '/isolation_item_screen'   
                       );
               }),
           IconCustomizedButton(
               icon: Icons.list_alt_outlined, 
-              text: "DANH SÁCH HÀNG HÓA ĐANG CÁCH LY", onPressed: () {}),   
+              text: "DANH SÁCH HÀNG HÓA ĐANG CÁCH LY", 
+              onPressed: () {
+              BlocProvider.of<IsolationBloc>(context)
+                    .add(GetAllIsolationLotEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/update_isolation_item_screen');    
+              }), 
         ],
       )),
     );

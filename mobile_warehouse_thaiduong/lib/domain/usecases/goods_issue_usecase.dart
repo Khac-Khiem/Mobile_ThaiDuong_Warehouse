@@ -8,8 +8,8 @@ class GoodsIssueUseCase {
   final DepartmentRepository departmentRepository;
   final GoodsIssueRepository goodsIssueRepository;
   GoodsIssueUseCase(this.departmentRepository, this.goodsIssueRepository);
-  Future<List<Department>> getAllDepartment() async {
-    final departments = departmentRepository.getAllDepartment();
+  Future<List<Department>> getAllDepartments() async {
+    final departments = departmentRepository.getAllDepartments();
     return departments;
   }
 
@@ -30,7 +30,7 @@ class GoodsIssueUseCase {
   }
 
   Future<List<GoodsIssue>> getCompletedGoodsissue() async {
-    final goodsIssues = goodsIssueRepository.getCompletedGoodsissue();
+    final goodsIssues = goodsIssueRepository.getCompletedGoodsIssue();
     return goodsIssues;
   }
 
@@ -64,5 +64,23 @@ class GoodsIssueUseCase {
     final status = goodsIssueRepository.updateGoodsIssueLot(
         goodsIssueId, goodsIssueLotId, newQuantity);
     return status;
+  }
+    Future<List<GoodsIssueLot>> getGoodsIssueHistory(
+      String itemClass,
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String department,
+      String receiver,
+      String purchaseOrderNumber) async {
+    final goodsReceipts = goodsIssueRepository.getGoodsIssueHistory(
+        itemClass,
+        startDate,
+        endDate,
+        itemId,
+        department,
+        receiver,
+        purchaseOrderNumber);
+    return goodsReceipts;
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart';
 import 'dart:convert';
@@ -20,8 +22,9 @@ class ItemLotService {
 
       return throw "Unable to retrieve posts.";
     }
+  
   }
-
+ 
   Future<List<ItemLotModel>> getItemLotsByItemId(String itemId) async {
     return [];
   }

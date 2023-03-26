@@ -2,15 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/import/import_function_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/adjustment/scan_adjustment_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/shelves/shelves_function_screen.dart';
 
 import '../../widgets/button_widget.dart';
-import '../history/history_function_screen.dart';
-import '../isolation/isolation_function_screen.dart';
-import '../inventory/stockcard_function_screen.dart';
-import '../warning/warning_function_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -64,7 +57,7 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.warehouse,
                     text: "TỒN KHO",
                     onPressed: () {
-                      Navigator.pushNamed(context, '/inventory_function_screen');
+                      Navigator.pushNamed(context, '/stockcard_function_screen');
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -76,7 +69,7 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.fact_check_outlined,
                     text: "KIỂM KÊ",
                     onPressed: () {
-                       Navigator.pushNamed(context, '/');
+                       Navigator.pushNamed(context, '/scan_adjustment_screen');
 
                       // Navigator.push(
                       //   context,
