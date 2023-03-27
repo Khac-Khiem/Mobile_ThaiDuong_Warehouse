@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/inventory_log_entry.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';

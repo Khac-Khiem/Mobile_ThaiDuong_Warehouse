@@ -9,6 +9,7 @@ import '../../bloc/blocs/history_bloc.dart';
 import '../../bloc/states/history_states.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
+import '../../widgets/dropdown_search_button.dart';
 
 class ImportHistoryScreen extends StatefulWidget {
   ImportHistoryScreen({super.key});
@@ -20,13 +21,13 @@ class ImportHistoryScreen extends StatefulWidget {
 class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
   List<Item> itemsDropdownData = [];
   Item? selectedItem;
-  List<Department> departmentDropdownData = [];
+  String warehouse = '';
+  List<Department> departmentsDropdownData = [];
   Department? selectedDepartment;
-// class ExportHistoryScreen extends StatelessWidget {
-//   const ExportHistoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
+    String warehouse = '';
     DateTime date = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
@@ -41,51 +42,72 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
             },
           ),
           title: Text(
-            'Lịch sử xuất kho',
+            'Lịch sử nhập kho',
             style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
         ),
         body: BlocConsumer<HistoryBloc, HistoryState>(
             listener: (context, state) {},
             builder: (context, state) {
-              if (state is GetAllInfoExportSuccessState) {
+              if (state is GetAllInfoImportSuccessState) {
                 return Column(children: [
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "Chọn kho hàng",
+                          "Kho hàng",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20 * SizeConfig.ratioFont,
                             color: Colors.black,
                           ),
                         ),
-                        DropdownButton<Item>(
-                          hint: Text("Chọn kho hàng"),
-                          value: selectedItem,
-                          onChanged: (Item? newValue) {
+                        DropdownSearchButton(
+                            buttonName: "Chọn loại kho hàng",
+                            height: 60,
+                            width: 200,
+                            listItem: state.warehouse,
+                            reference: warehouse,
+                            onChanged: () {})
+                      ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          "Bộ phận",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20 * SizeConfig.ratioFont,
+                            color: Colors.black,
+                          ),
+                        ),
+                        DropdownButton<Department>(
+                          hint: Text("Chọn mã sản phẩm"),
+                          value: selectedDepartment,
+                          onChanged: (Department? newValue) {
                             setState(() {
-                              selectedItem = newValue;
-                              print(state.item.indexOf(selectedItem as Item));
+                              selectedDepartment = newValue;
+                              print(state.department
+                                  .indexOf(selectedDepartment as Department));
                             });
                           },
-                          items: state.item.map((Item item) {
-                            return DropdownMenuItem<Item>(
-                              value: item,
+                          items: state.department.map((Department department) {
+                            return DropdownMenuItem<Department>(
+                              value: department,
                               child: Text(
-                                item.itemClass.toString(),
+                                department.name.toString(),
                                 style: TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
-                        )
+                        ),
                       ]),
                   BlocConsumer<HistoryBloc, HistoryState>(
                       listener: (context, state) {},
                       builder: (context, state) {
-                        if (state is GetAllInfoExportSuccessState) {
+                        if (state is GetAllInfoImportSuccessState) {
                           return Column(children: [
                             Row(
                                 mainAxisAlignment:
@@ -163,15 +185,6 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   width: 160 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
-                                  // padding: EdgeInsets.symmetric(
-                                  //     vertical: 5 * SizeConfig.ratioHeight),
-                                  decoration: BoxDecoration(
-                                      color: Constants.buttonColor,
-                                      border: Border.all(
-                                          width: 1,
-                                          color: Constants.buttonColor),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
                                   child: CustomizeDatePicker(
                                     name: "Từ ngày",
                                     fontColor: Colors.black,
@@ -187,14 +200,6 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   width: 160 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
-                                  // padding: EdgeInsets.symmetric(
-                                  //     vertical: 5 * SizeConfig.ratioHeight),
-                                  decoration: BoxDecoration(
-                                      color: Constants.buttonColor,
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
                                   child: CustomizeDatePicker(
                                     name: "Đến ngày",
                                     fontColor: Colors.black,
@@ -223,13 +228,13 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 200, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
                               child: CustomizedButton(
                                   text: "Truy xuất", onPressed: () {}),
                             ),
                           ]);
                         }
-                        if (state is AccessExportHistorySuccessState) {
+                        if (state is AccessImportHistorySuccessState) {
                           return SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Column(
@@ -243,7 +248,7 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                                 SizedBox(
                                   height: 470 * SizeConfig.ratioHeight,
                                   child: ListView.builder(
-                                      itemCount: state.goodsIssueLot.length,
+                                      itemCount: state.goodReceiptLots.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return Padding(
@@ -267,12 +272,10 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                         }
                       })
                 ]);
+              } else {
+                print(state);
+                return const Center(child: CircularProgressIndicator());
               }
-              else {
-                          print(state);
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
             }));
   }
 }

@@ -183,16 +183,16 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<InventoryBloc>(create: (context) => injector()),
                 ], child: const StockcardFunctionScreen()));
-      // case '/scan_item_screen':
-      //   return MaterialPageRoute(
-      //       builder: (context) => MultiBlocProvider(providers: [
-      //             BlocProvider<InventoryBloc>(create: (context) => injector()),
-      //           ], child: StockcardScreen()));
+      case '/scan_item_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: BarcodeScannerScreen()));
       case '/material_inventory_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<InventoryBloc>(create: (context) => injector()),
-                ], child: StockcardScreen()));
+                ], child: MaterialStockcardScreen()));
       case '/product_inventory_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [

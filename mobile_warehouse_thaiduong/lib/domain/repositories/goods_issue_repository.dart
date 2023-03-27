@@ -21,7 +21,7 @@ abstract class GoodsIssueRepository {
       String goodsIssueId, String goodsIssueLotId, double newQuantity);
         //==
   Future<List<GoodsIssueLot>> getGoodsIssueHistory(
-      String itemClass,
+      String warehouse,
       DateTime startDate,
       DateTime endDate,
       String itemId,

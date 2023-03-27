@@ -14,8 +14,9 @@ abstract class HistoryState extends Equatable {}
 class GetAllInfoImportSuccessState extends HistoryState {
   DateTime timestamp;
   List<Item> item;
+  List<String> warehouse;
   List<Department> department;
-  GetAllInfoImportSuccessState(this.timestamp, this.item, this.department);
+  GetAllInfoImportSuccessState(this.timestamp, this. warehouse,this.item, this.department);
   @override
   List<Object> get props => [timestamp];
 }
@@ -35,12 +36,13 @@ class GetAllInfoImportFailState extends HistoryState {
   List<Object> get props => [timestamp];
 }
 
-// lấy ds kho, bộ ncc, item
+// lấy ds kho, ncc, item
 class GetAllInfoExportSuccessState extends HistoryState {
   DateTime timestamp;
   List<Item> item;
+  List<String> warehouse;
   List<Department> department;
-  GetAllInfoExportSuccessState(this.timestamp, this.item, this.department);
+  GetAllInfoExportSuccessState(this.timestamp, this.item,this.warehouse, this.department);
   @override
   List<Object> get props => [timestamp];
 }

@@ -34,13 +34,13 @@ class IsolationBloc extends Bloc<IsolationEvent, IsolationState> {
       }
     });
 
-// // chọn lô để cách ly
-//     on<AddNewIsolationEvent>((event, emit) async {
+// chọn lô để cách ly
+    on<PostNewIsolationEvent>((event, emit) async {
       
-//     });
-// // Danh sách hàng hóa đang chờ xử lý
-//     on<GetAllIsolationLotEvent>((event, emit) async {
+    });
+// Danh sách hàng hóa đang chờ xử lý
+    on<GetAllIsolationLotEvent>((event, emit) async {
       
-//     });
+    });
   }
 }

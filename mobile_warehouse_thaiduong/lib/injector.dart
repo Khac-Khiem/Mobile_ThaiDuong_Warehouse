@@ -134,7 +134,7 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<HistoryBloc>(HistoryBloc(
     injector(),
     injector(),
-    injector(),
+    injector(),injector(),
 
   ));
 }

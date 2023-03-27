@@ -9,7 +9,7 @@ class GetAllItemEvent extends IsolationEvent {
   @override
   List<Object> get props => [timestamp];
 }
-// Chọn lô để cách ly
+// List lô hàng theo mã sp
 class GetLotByItemIdEvent extends IsolationEvent {
  DateTime timestamp;
  String itemId;
@@ -17,11 +17,11 @@ class GetLotByItemIdEvent extends IsolationEvent {
   @override
   List<Object> get props => [timestamp];
 }
-// Thêm hàng cách ly: điền số lượng cách ly + note
-class AddNewIsolationEvent extends IsolationEvent {
+// Chọn lô hàng cách ly
+class PostNewIsolationEvent extends IsolationEvent {
   DateTime timestamp;
   String lotId;
-  AddNewIsolationEvent(this.timestamp, this.lotId, );
+  PostNewIsolationEvent(this.timestamp, this.lotId );
   @override
   List<Object> get props => [timestamp];
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
 
 import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
@@ -18,8 +17,7 @@ class IsolationItemScreen extends StatefulWidget {
 class _IsolationItemScreenState extends State<IsolationItemScreen> {
   List<Item> itemsDropdownData = [];
   Item? selectedItem;
-// class IsolationItemScreen extends StatelessWidget {
-//   const IsolationItemScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     String expiredDay = '';

@@ -60,60 +60,60 @@ class GetLotByItemIdFailState extends IsolationState {
 }
 
 // thêm hàng cách ly
-class AddNewIsolationSuccessState extends IsolationState {
+class PostNewIsolationSuccessState extends IsolationState {
   DateTime timestamp;
   ErrorPackage status;
-  AddNewIsolationSuccessState(this.timestamp, this.status);
+  PostNewIsolationSuccessState(this.timestamp, this.status);
   @override
   List<Object> get props => [timestamp];
 }
 
-class AddNewIsolationLoadingState extends IsolationState {
+class PostNewIsolationLoadingState extends IsolationState {
   DateTime timestamp;
-  AddNewIsolationLoadingState(this.timestamp);
+  PostNewIsolationLoadingState(this.timestamp);
   @override
   List<Object> get props => [timestamp];
 }
 
-class AddNewIsolationFailState extends IsolationState {
+class PostNewIsolationFailState extends IsolationState {
   DateTime timestamp;
   ErrorPackage status;
-  AddNewIsolationFailState(this.timestamp, this.status);
+  PostNewIsolationFailState(this.timestamp, this.status);
   @override
   List<Object> get props => [timestamp];
 }
 
 // Xác nhận cách ly hàng hóa
-class ConfirmIsolationSuccessState extends IsolationState {
-  DateTime timestamp;
-  ErrorPackage status;
-  ConfirmIsolationSuccessState(
-    this.timestamp,
-    this.status,
-  );
-  @override
-  List<Object> get props => [timestamp];
-}
+// class ConfirmIsolationSuccessState extends IsolationState {
+//   DateTime timestamp;
+//   ErrorPackage status;
+//   ConfirmIsolationSuccessState(
+//     this.timestamp,
+//     this.status,
+//   );
+//   @override
+//   List<Object> get props => [timestamp];
+// }
 
-class ConfirmIsolationLoadingState extends IsolationState {
-  DateTime timestamp;
-  ConfirmIsolationLoadingState(
-    this.timestamp,
-  );
-  @override
-  List<Object> get props => [timestamp];
-}
+// class ConfirmIsolationLoadingState extends IsolationState {
+//   DateTime timestamp;
+//   ConfirmIsolationLoadingState(
+//     this.timestamp,
+//   );
+//   @override
+//   List<Object> get props => [timestamp];
+// }
 
-class ConfirmIsolationFailState extends IsolationState {
-  DateTime timestamp;
-  ErrorPackage status;
-  ConfirmIsolationFailState(
-    this.timestamp,
-    this.status,
-  );
-  @override
-  List<Object> get props => [timestamp];
-}
+// class ConfirmIsolationFailState extends IsolationState {
+//   DateTime timestamp;
+//   ErrorPackage status;
+//   ConfirmIsolationFailState(
+//     this.timestamp,
+//     this.status,
+//   );
+//   @override
+//   List<Object> get props => [timestamp];
+// }
 
 // Hiển thị danh sách hàng đang xử lý
 class GetAllIsolationLotSuccessState extends IsolationState {

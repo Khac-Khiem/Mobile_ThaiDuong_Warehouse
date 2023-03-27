@@ -66,7 +66,7 @@ class GoodsIssueUseCase {
     return status;
   }
     Future<List<GoodsIssueLot>> getGoodsIssueHistory(
-      String itemClass,
+      String warehouse,
       DateTime startDate,
       DateTime endDate,
       String itemId,
@@ -74,7 +74,7 @@ class GoodsIssueUseCase {
       String receiver,
       String purchaseOrderNumber) async {
     final goodsReceipts = goodsIssueRepository.getGoodsIssueHistory(
-        itemClass,
+        warehouse,
         startDate,
         endDate,
         itemId,

@@ -8,7 +8,7 @@ class UpdateIsolationItemScreen extends StatelessWidget {
   const UpdateIsolationItemScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
+    
     SizeConfig().init(context);
 
     return Scaffold(

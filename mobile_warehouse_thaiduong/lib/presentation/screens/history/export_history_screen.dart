@@ -9,6 +9,7 @@ import '../../bloc/blocs/history_bloc.dart';
 import '../../bloc/states/history_states.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
+import '../../widgets/dropdown_search_button.dart';
 
 class ExportHistoryScreen extends StatefulWidget {
   ExportHistoryScreen({super.key});
@@ -20,12 +21,12 @@ class ExportHistoryScreen extends StatefulWidget {
 class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
   List<Item> itemsDropdownData = [];
   Item? selectedItem;
-  List<Department> departmentDropdownData = [];
+  String warehouse = '';
+  List<Department> departmentsDropdownData = [];
   Department? selectedDepartment;
 
   @override
   Widget build(BuildContext context) {
-
     DateTime date = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
@@ -54,32 +55,53 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                       children: [
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "Chọn kho hàng",
+                          "Kho hàng",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20 * SizeConfig.ratioFont,
                             color: Colors.black,
                           ),
                         ),
-                        DropdownButton<Item>(
-                          hint: Text("Chọn kho hàng"),
-                          value: selectedItem,
-                          onChanged: (Item? newValue) {
+                        DropdownSearchButton(
+                            buttonName: "Chọn loại kho hàng",
+                            height: 60,
+                            width: 200,
+                            listItem: state.warehouse,
+                            reference: warehouse,
+                            onChanged: () {})
+                      ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          "Bộ phận",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20 * SizeConfig.ratioFont,
+                            color: Colors.black,
+                          ),
+                        ),
+                        DropdownButton<Department>(
+                          hint: Text("Chọn mã sản phẩm"),
+                          value: selectedDepartment,
+                          onChanged: (Department? newValue) {
                             setState(() {
-                              selectedItem = newValue;
-                              print(state.item.indexOf(selectedItem as Item));
+                              selectedDepartment = newValue;
+                              print(state.department
+                                  .indexOf(selectedDepartment as Department));
                             });
                           },
-                          items: state.item.map((Item item) {
-                            return DropdownMenuItem<Item>(
-                              value: item,
+                          items: state.department.map((Department department) {
+                            return DropdownMenuItem<Department>(
+                              value: department,
                               child: Text(
-                                item.itemClass.toString(),
+                                department.name.toString(),
                                 style: TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
-                        )
+                        ),
                       ]),
                   BlocConsumer<HistoryBloc, HistoryState>(
                       listener: (context, state) {},
@@ -162,15 +184,6 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   width: 160 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
-                                  // padding: EdgeInsets.symmetric(
-                                  //     vertical: 5 * SizeConfig.ratioHeight),
-                                  decoration: BoxDecoration(
-                                      color: Constants.buttonColor,
-                                      border: Border.all(
-                                          width: 1,
-                                          color: Constants.buttonColor),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
                                   child: CustomizeDatePicker(
                                     name: "Từ ngày",
                                     fontColor: Colors.black,
@@ -186,14 +199,6 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   width: 160 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
-                                  // padding: EdgeInsets.symmetric(
-                                  //     vertical: 5 * SizeConfig.ratioHeight),
-                                  decoration: BoxDecoration(
-                                      color: Constants.buttonColor,
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
                                   child: CustomizeDatePicker(
                                     name: "Đến ngày",
                                     fontColor: Colors.black,
@@ -222,7 +227,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 200, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
                               child: CustomizedButton(
                                   text: "Truy xuất", onPressed: () {}),
                             ),
@@ -266,12 +271,10 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                         }
                       })
                 ]);
+              } else {
+                print(state);
+                return const Center(child: CircularProgressIndicator());
               }
-              else {
-                          print(state);
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
             }));
   }
 }

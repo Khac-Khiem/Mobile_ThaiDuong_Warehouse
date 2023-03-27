@@ -1,11 +1,11 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
 
+import '../../widgets/button_widget.dart';
 
 class LotAdjustmentScreen extends StatefulWidget {
   const LotAdjustmentScreen({super.key});
@@ -15,6 +15,7 @@ class LotAdjustmentScreen extends StatefulWidget {
 }
 
 class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -22,176 +23,269 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
       appBar: AppBar(
         backgroundColor: Constants.mainColor,
         leading: IconButton(
-            icon: const Icon(Icons.west_outlined),
-            onPressed: () {
-                 Navigator.pushNamed(context, '/scan_adjustment_screen');
-            },
-          ),
+          icon: const Icon(Icons.west_outlined),
+          onPressed: () {
+            Navigator.pushNamed(context, '/scan_adjustment_screen');
+          },
+        ),
         title: Text(
           'Điều chỉnh lô',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
-       
-      body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          if (state is LoadItemDataSuccessState) {
-            return SingleChildScrollView(
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(10 * SizeConfig.ratioHeight),
-                child: Column(
+      body: Builder(
+        builder: (BuildContext context) {
+          return Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 100),
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      "Thông tin lô cần điều chỉnh",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20 * SizeConfig.ratioFont,
-                        color: Colors.black,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(10 * SizeConfig.ratioHeight),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            "Thông tin lô cần điều chỉnh",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20 * SizeConfig.ratioFont,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10 * SizeConfig.ratioHeight,
+                          ),
+                          Container(
+                              child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Mã lô:                  ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 10, 10),
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          color: Constants.buttonColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0))),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Mã sản phẩm:    ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 10, 10),
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          color: Constants.buttonColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0))),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Lượng cũ:            ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      // padding:
+                                      // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          color: Constants.buttonColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0))),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Lượng mới:         ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5 * SizeConfig.ratioHeight),
+                                      alignment: Alignment.centerRight,
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      //color: Colors.grey[200],
+                                      child: TextField(
+                                        decoration: const InputDecoration(
+                                          filled: true,
+                                          fillColor: Constants.buttonColor,
+                                          // labelText: "Nhập lượng mới"
+                                        ),
+                                        keyboardType: const TextInputType
+                                            .numberWithOptions(decimal: true),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp('[0-9.,]')),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "PO cũ:                 ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      // padding:
+                                      // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          color: Constants.buttonColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0))),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "PO mới:               ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5 * SizeConfig.ratioHeight),
+                                      alignment: Alignment.centerRight,
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      //color: Colors.grey[200],
+                                      child: const TextField(
+                                        decoration: InputDecoration(
+                                          // labelText: "PO mới",
+                                          // labelStyle: TextStyle(
+                                          //   color:
+                                          //       Color.fromRGBO(136, 136, 136, 1),
+                                          //   fontSize: 18,
+                                          // ),
+                                          filled: true,
+                                          fillColor: Constants.buttonColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Ghi chú:              ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5 * SizeConfig.ratioHeight),
+                                      alignment: Alignment.centerRight,
+                                      width: 160 * SizeConfig.ratioWidth,
+                                      height: 45 * SizeConfig.ratioHeight,
+                                      //color: Colors.grey[200],
+                                      child: const TextField(
+                                        decoration: InputDecoration(
+                                          // labelText: "Ghi chú",
+                                          // labelStyle: TextStyle(
+                                          //   color:
+                                          //       Color.fromRGBO(136, 136, 136, 1),
+                                          //   fontSize: 18,
+                                          // ),
+                                          filled: true,
+                                          fillColor: Constants.buttonColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )),
+                          CustomizedButton(text: "Tiếp tục", onPressed: () {})
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10 * SizeConfig.ratioHeight,
-                    ),
-                    Container(
-                        height: 500 * SizeConfig.ratioHeight,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "Mã lô: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "Mã sản phẩm: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "Lượng cũ: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                               Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 5 * SizeConfig.ratioHeight),
-                          alignment: Alignment.centerRight,
-                          width: 160 * SizeConfig.ratioWidth,
-                          height: 55 * SizeConfig.ratioHeight,
-                          //color: Colors.grey[200],
-                          child: TextField(
-                            decoration: const InputDecoration(
-                                filled: true,
-                                fillColor: Constants.buttonColor,
-                                labelText:
-                                    "Nhập lượng mới"),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp('[0-9.,]')),
-                            ],  
-                          ),
-                        ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "PO cũ: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "PO mới: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "Ghi chú: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20 * SizeConfig.ratioFont,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                    //   CustomizedButton(
-                    //       text: "Tiếp tục",
-                    //       onPressed: () {
-                    //          BlocProvider.of<CreateIssueBloc>(context)
-                    //     .add(AddIssueEntryEvent(DateTime.now()));
-                    // Navigator.pushNamed(context, '/create_issue_screen');
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //       builder: (context) =>
-                    //         //           const CreateNewIssueScreen()),
-                    //         // );
-                    //       })
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+                  ]));
         },
       ),
     );

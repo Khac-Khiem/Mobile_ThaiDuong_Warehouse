@@ -23,8 +23,6 @@ class _WarningUnderStockminScreenSate
   Warehouse? selectedWarehouse;
   String warehouse = '';
 
-// class WarningUnderStockminScreen extends StatelessWidget {
-//   const WarningUnderStockminScreen({super.key});
   @override
   Widget build(BuildContext context) {
     String warehouseId = '';

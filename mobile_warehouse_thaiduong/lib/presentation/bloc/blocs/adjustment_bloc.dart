@@ -17,15 +17,17 @@ class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
   AdjustmentBloc(this.inventoryUsecase, this.locationUsecase, this.itemUsecase,
       this.lotAdjustmentUsecase)
       : super(GetLotDetailLoadingState(DateTime.now())) {
+
     on<GetLotDetailEvent>((event, emit) async {
       emit(GetLotDetailLoadingState(DateTime.now()));
       try {
-        final itemLot = await lotAdjustmentUsecase.getAllLotAdjustment();
-        emit(GetLotDetailSuccessState(DateTime.now(), itemLot));
+        final lotsAdjust = await lotAdjustmentUsecase.getAllLotAdjustment();
+        emit(GetLotDetailSuccessState(DateTime.now(), lotsAdjust));
       } catch (e) {
         emit(GetLotDetailFailState(DateTime.now()));
       }
     });
+
     on<UpdateLotAdjustmentQuantityEvent>((event, emit) async {
       emit(UpdateLotQuantityLoadingState(DateTime.now()));
       try {

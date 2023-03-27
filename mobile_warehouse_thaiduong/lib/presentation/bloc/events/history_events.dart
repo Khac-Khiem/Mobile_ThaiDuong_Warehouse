@@ -60,7 +60,7 @@ class AccessImportHistoryEvent extends HistoryEvent {
 // Truy xuất lịch sử xuất kho
 class AccessExportHistoryEvent extends HistoryEvent {
   DateTime timestamp;
-  String itemClass;
+  String warehouse;
   DateTime startDate;
   DateTime endDate;
   String itemId;
@@ -69,7 +69,7 @@ class AccessExportHistoryEvent extends HistoryEvent {
   String purchaseOrderNumber;
   AccessExportHistoryEvent(
       this.timestamp,
-      this.itemClass,
+      this.warehouse,
       this.startDate,
       this.endDate,
       this.itemId,

@@ -92,7 +92,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                       onPressed: () {
                         BlocProvider.of<AdjustmentBloc>(context)
                             .add(GetLotDetailEvent(DateTime.now(), ''));
-                        Navigator.pushNamed(context, '/warning_under_stockmin');
+                        Navigator.pushNamed(context, '/lot_adjustment_screen');
 
                         // scanResult = '1';
                         // scanQR();
