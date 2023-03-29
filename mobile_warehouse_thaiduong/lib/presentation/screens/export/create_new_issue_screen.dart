@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
@@ -23,13 +24,9 @@ class CreateNewIssueScreen extends StatefulWidget {
 
 class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
   TextEditingController controller = TextEditingController();
-  String issueId = '';
-  String poNumber = '';
-  String itemId = '', itemName = '', lotId = '';
-  double sublotSize = 0;
-  Unit? unit = Unit('');
-  List<Item> item = [];
-  List<IssueEntryView> issueEntryViews = [];
+  final issueId = TextEditingController();
+  final poNumber = TextEditingController();
+ Department? selectedDepartment;
   // void _showForm(String id) async {
   //   showModalBottomSheet(
   //       context: context,
@@ -196,13 +193,25 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      DropdownSearchButton(
-                          buttonName: "Bộ phận",
-                          height: 55,
-                          width: 200,
-                          listItem: [],
-                          reference: "",
-                          onChanged: () {})
+                       DropdownButton<Department>(
+                      hint: Text("Select a user"),
+                      value: selectedDepartment,
+                      onChanged: (Department? newValue) {
+                        setState(() {
+                          selectedDepartment = newValue;
+                          print(
+                              state.departments.indexOf(selectedDepartment as Department));
+                        });
+                      },
+                      items: state.departments.map((Department department) {
+                        return DropdownMenuItem<Department>(
+                          value: department,
+                          child: Text(
+                            department.name,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),)
                       //TextInput(contentTextField: issueId)
                     ],
                   ),
@@ -247,7 +256,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                             .add(GetAllItemIssueEvent(DateTime.now(), [], -1));
                         Navigator.pushNamed(
                           context,
-                          '/fill_lot_receipt_screen',
+                          '/fill_info_entry_screen',
                         );
                       })
                 ]);

@@ -5,6 +5,5 @@ class ErrorPackage extends Equatable {
   ErrorPackage(this.detail);
   
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }

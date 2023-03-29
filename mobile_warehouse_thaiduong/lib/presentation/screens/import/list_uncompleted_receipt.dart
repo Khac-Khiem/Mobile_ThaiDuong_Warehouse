@@ -16,6 +16,15 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/main_receipt_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách phiếu chưa hoàn thành',
@@ -54,19 +63,24 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
             BlocBuilder<ExportingReceiptBloc, ReceiptExportingState>(
               builder: (context, state) {
                 if (state is LoadReceiptExportingStateSuccess) {
-                  return ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                            leading: const Icon(Icons.list),
-                            trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
-                            title: Text(state.receipts[index].goodsReceiptId),
-                              subtitle: Text(state.receipts[index].timestamp.toString()),
-                          onTap: () {
-                            BlocProvider.of<ExportingReceiptLotBloc>(context)
-                                .add(LoadUncompletedReceiptLotEvent(DateTime.now()));
-                          },);
-                      });
+                  return SizedBox(
+                     height: 300 * SizeConfig.ratioHeight,
+                    child: ListView.builder(
+                        itemCount: state.receipts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                              leading: const Icon(Icons.list),
+                              trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
+                              title: Text(state.receipts[index].goodsReceiptId),
+                                subtitle: Text(state.receipts[index].timestamp.toString()),
+                            onTap: () {
+                              BlocProvider.of<ExportingReceiptLotBloc>(context)
+                                  .add(LoadUncompletedReceiptLotEvent( DateTime.now(), state.receipts[index]));
+                                   Navigator.pushNamed(context, '/importing_receipt_lot_screen');
+
+                            },);
+                        }),
+                  );
                 }
                 if (state is LoadReceiptExportingStateFail) {
                   return ExceptionErrorState(

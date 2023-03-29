@@ -15,29 +15,30 @@ abstract class CreateReceiptEvent extends Equatable {}
 // }
 
 class AddLotToGoodsReceiptEvent extends CreateReceiptEvent {
-  ItemLotView itemLotView;
-  List<ItemLotView> lots;
-  AddLotToGoodsReceiptEvent(this.itemLotView, this.lots);
+// lot mới cần thêm vào
+  GoodsReceiptLot itemLot;
+  // đơn cần cập nhật
+  GoodsReceipt goodsReceipt;
+  AddLotToGoodsReceiptEvent(this.itemLot, this.goodsReceipt);
   @override
-  List<Object> get props => [itemLotView];
+  List<Object> get props => [itemLot];
 }
 
 class UpdateLotReceiptEvent extends CreateReceiptEvent {
-  ItemLotView itemLotView;
-  List<ItemLotView> lots;
+  GoodsReceiptLot itemLot;
+   GoodsReceipt goodsReceipt;
   int index;
 
-  UpdateLotReceiptEvent(this.itemLotView, this.lots, this.index);
+  UpdateLotReceiptEvent(this.itemLot, this.goodsReceipt, this.index);
   @override
   // TODO: implement props
-  List<Object?> get props => [itemLotView];
+  List<Object?> get props => [itemLot];
 }
 
 class PostNewReceiptEvent extends CreateReceiptEvent {
   DateTime timestamp;
-  List<GoodsReceiptLot> lots;
-  String receiptId;
-  PostNewReceiptEvent(this.lots, this.timestamp, this.receiptId);
+  GoodsReceipt goodsReceipt;
+  PostNewReceiptEvent( this.timestamp, this.goodsReceipt);
   @override
   List<Object> get props => [timestamp];
 }

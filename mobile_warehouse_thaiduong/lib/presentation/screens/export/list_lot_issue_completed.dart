@@ -30,7 +30,7 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                   numberPO: '264836',
                   unit: 'cái',
                   quantity: 100,
-                  norm: 10,
+                  sublotSize: 10,
                   onPressed: () {});
             }),
       ),

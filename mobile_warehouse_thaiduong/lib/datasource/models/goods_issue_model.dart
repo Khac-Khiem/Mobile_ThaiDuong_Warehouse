@@ -10,9 +10,10 @@ class GoodsIssueLotModel extends GoodsIssueLot {
       json['goodsIssueLotId'],
       json['quantity'],
       json['sublotSize'],
-      json['employee'] == null
-          ? null as EmployeeModel
-          : EmployeeModel.fromJson(json["employee"]),
+      json['employee'] ,
+      // == null
+      //     ? null as EmployeeModel
+      //     : EmployeeModel.fromJson(json["employee"]),
       json['note'],
     );
   }

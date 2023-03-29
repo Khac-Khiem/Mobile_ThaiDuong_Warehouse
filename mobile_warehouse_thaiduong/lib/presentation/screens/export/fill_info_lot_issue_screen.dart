@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -9,10 +8,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/cr
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
-
 import '../../../domain/entities/item.dart';
 
 class FillInfoEntryIssueScreen extends StatefulWidget {
@@ -68,26 +63,26 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                         height: 500 * SizeConfig.ratioHeight,
                         child: Column(
                           children: [
-                            DropdownButton<Item>(
-                              hint: Text("Select a user"),
-                              value: selectedItem,
-                              onChanged: (Item? newValue) {
-                                setState(() {
-                                  selectedItem = newValue;
-                                  print(state.items
-                                      .indexOf(selectedItem as Item));
-                                });
-                              },
-                              items: state.items.map((Item item) {
-                                return DropdownMenuItem<Item>(
-                                  value: item,
-                                  child: Text(
-                                    item.itemId,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
+                            // DropdownButton<Item>(
+                            //   hint: Text("Select a user"),
+                            //   value: selectedItem,
+                            //   onChanged: (Item? newValue) {
+                            //     setState(() {
+                            //       selectedItem = newValue;
+                            //       print(state.items
+                            //           .indexOf(selectedItem as Item));
+                            //     });
+                            //   },
+                            //   items: state.items.map((Item item) {
+                            //     return DropdownMenuItem<Item>(
+                            //       value: item,
+                            //       child: Text(
+                            //         item.itemId,
+                            //         style: TextStyle(color: Colors.black),
+                            //       ),
+                            //     );
+                            //   }).toList(),
+                            // ),
                             DropdownButton<Item>(
                               hint: Text("Select a user"),
                               value: selectedItem,
@@ -109,7 +104,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                               }).toList(),
                             ),
                             DropdownButton<Item>(
-                              hint: Text("Select a user"),
+                              hint: const Text("Select a user"),
                               value: selectedItem,
                               onChanged: (Item? newValue) {
                                 setState(() {
@@ -183,19 +178,6 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                             ),
                           ],
                         )),
-                    //   CustomizedButton(
-                    //       text: "Tiếp tục",
-                    //       onPressed: () {
-                    //          BlocProvider.of<CreateIssueBloc>(context)
-                    //     .add(AddIssueEntryEvent(DateTime.now()));
-                    // Navigator.pushNamed(context, '/create_issue_screen');
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //       builder: (context) =>
-                    //         //           const CreateNewIssueScreen()),
-                    //         // );
-                    //       })
                     state.index == -1
                         ? ElevatedButton(
                             onPressed: () async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
 class TextInputWidget extends StatelessWidget {
-  String contentTextField;
+  TextEditingController contentTextField;
   TextInputWidget({super.key, required this.contentTextField});
   @override
   Widget build(BuildContext context) {
@@ -13,25 +13,24 @@ class TextInputWidget extends StatelessWidget {
         height: 55 * SizeConfig.ratioHeight,
         //color: Colors.grey[200],
         child: TextField(
-          onChanged: (value) => contentTextField = value,
+          onChanged: (value) => contentTextField.text = value,
           enabled: true,
+          
           //    readOnly: true,
-          controller: contentTextField == ''
-              ? TextEditingController()
-              : TextEditingController(text: contentTextField),
-          textAlignVertical: TextAlignVertical.center,
+          controller:contentTextField,
+         // textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20 * SizeConfig.ratioFont),
-          decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 10 * SizeConfig.ratioHeight),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(
-                    width: 1.0 * SizeConfig.ratioWidth, color: Colors.black)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    width: 1.0 * SizeConfig.ratioWidth, color: Colors.black)),
-          ),
+          // decoration: InputDecoration(
+          //   contentPadding:
+          //       EdgeInsets.symmetric(horizontal: 10 * SizeConfig.ratioHeight),
+          //   border: OutlineInputBorder(
+          //       borderSide: BorderSide(
+          //           width: 1.0 * SizeConfig.ratioWidth, color: Colors.black)),
+          //   focusedBorder: OutlineInputBorder(
+          //       borderSide: BorderSide(
+          //           width: 1.0 * SizeConfig.ratioWidth, color: Colors.black)),
+          // ),
         ));
   }
 }

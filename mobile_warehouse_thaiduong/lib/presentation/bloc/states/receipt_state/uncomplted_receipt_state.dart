@@ -31,6 +31,7 @@ class LoadReceiptExportingStateSuccess extends ReceiptExportingState {
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
+//---------------
 
 class UpdateLotReceiptStateLoading extends ReceiptExportingState {
   DateTime timestamp;

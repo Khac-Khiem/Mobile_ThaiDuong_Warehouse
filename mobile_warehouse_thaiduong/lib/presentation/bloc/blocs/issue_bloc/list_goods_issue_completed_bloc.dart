@@ -6,5 +6,16 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/
 class ListGoodsIssueCompletedBloc extends Bloc<CompletedGoodsIssueEvent, CompletedGoodsIssueState> {
   GoodsIssueUseCase goodsIssueUseCase;
   ListGoodsIssueCompletedBloc(this.goodsIssueUseCase):super(LoadCompletedGoodsIssuesLoadingState(DateTime.now())){
+      on<LoadCompletedGoodsIssuesEvent>((event, emit) async {
+      emit(LoadCompletedGoodsIssuesLoadingState(DateTime.now()));
+      try {
+        final issues = await goodsIssueUseCase.getUncompletedGoodsIssue();
+        emit(LoadCompletedGoodsIssuesSuccessState( DateTime.now(), issues));
+      } catch (e) {
+         emit(LoadCompletedGoodsIssuesFailState( DateTime.now(), ));
+        // emit(LoadReceiptExportingStateFail(
+        //     DateTime.now(), 'Không truy xuất được dữ liệu'));
+      }
+    });
   }
 }

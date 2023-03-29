@@ -4,7 +4,7 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 
 class LotDetailComponent extends StatelessWidget {
   String itemId, lotid, numberPO, unit;
-  double quantity, norm;
+  double quantity, sublotSize;
   double width, height, radius, fontSize;
   bool enableEdit;
   String location;
@@ -20,8 +20,8 @@ class LotDetailComponent extends StatelessWidget {
       required this.enableEdit,
       required this.unit,
       required this.quantity,
-      required this.norm,
-      this.width = 250,
+      required this.sublotSize,
+      this.width = 300,
       this.height = 125,
       this.radius = 10,
       this.bgColor = Constants.buttonColor,
@@ -64,10 +64,12 @@ class LotDetailComponent extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                enableEdit == true ?   Icon(
-                      Icons.edit,
-                      size: fontSize * SizeConfig.ratioFont,
-                    ): const SizedBox(),
+                    enableEdit == true
+                        ? Icon(
+                            Icons.edit,
+                            size: fontSize * SizeConfig.ratioFont,
+                          )
+                        : const SizedBox(),
                   ],
                 ),
                 const Divider(
@@ -118,7 +120,7 @@ class LotDetailComponent extends StatelessWidget {
                     Expanded(
                       child: Text(
                         overflow: TextOverflow.ellipsis,
-                        "Định mức: $norm",
+                        "Định mức: $sublotSize",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: fontSize * SizeConfig.ratioFont,

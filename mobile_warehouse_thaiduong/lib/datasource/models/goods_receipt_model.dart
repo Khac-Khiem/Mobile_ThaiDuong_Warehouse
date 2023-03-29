@@ -1,6 +1,4 @@
-import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 class GoodsReceiptLotModel extends GoodsReceiptLot {
   GoodsReceiptLotModel(
@@ -26,9 +24,10 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
       // json['employee'] == null
       //     ? EmployeeModel("", "")
       //     : EmployeeModel.fromJson(json["employee"]),
-      json['location'] == null
-          ? LocationModel('', <ItemLot>[])
-          : LocationModel.fromJson(json["location"]),
+      json['location'],
+      //  == null
+      //     ? LocationModel('', <ItemLot>[])
+      //     : LocationModel.fromJson(json["location"]),
       json['productionDate'],
       json['expirationDate'],
     );
@@ -36,11 +35,12 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
 }
 
 class GoodsReceiptModel extends GoodsReceipt {
-  GoodsReceiptModel(super.goodsReceiptId, super.lots,
+  GoodsReceiptModel(super.goodsReceiptId,super.supply, super.lots,
       super.timestamp, super.isConfirmed);
   factory GoodsReceiptModel.fromJson(Map<String, dynamic> json) {
     return GoodsReceiptModel(
       json['goodsReceiptId'],
+      json['supply'],
       json['lots'] == null
           ? []
           : (json["lots"] as List)

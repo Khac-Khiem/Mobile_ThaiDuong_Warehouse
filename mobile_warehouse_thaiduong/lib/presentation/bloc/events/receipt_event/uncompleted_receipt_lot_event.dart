@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class UncompletedReceiptLotEvent extends Equatable {}
 
 class LoadUncompletedReceiptLotEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
-  LoadUncompletedReceiptLotEvent(this.timestamp);
+  GoodsReceipt receipt;
+  LoadUncompletedReceiptLotEvent(this.timestamp, this.receipt);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -20,25 +22,15 @@ class LoadShelfIdEvent extends UncompletedReceiptLotEvent {
 
 // cập nhật view
 class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
-  // String goodsReceiptLotId;
-  // String itemId;
-  // double quantity;
-  // double? sublotSize;
-  // String purchaseOrderNumber;
-  // String? locationId;
-  // DateTime? productionDate;
-  // DateTime? expirationDate;
-  ItemLot itemLot;
+ 
+  int index;
+  GoodsReceiptLot itemLot;
+  GoodsReceipt goodsReceipt;
   UpdateReceiptLotEvent(
-      // this.goodsReceiptLotId,
-      // this.itemId,
-      // this.quantity,
-      // this.sublotSize,
-      // this.purchaseOrderNumber,
-      // this.locationId,
-      // this.productionDate,
-      // this.expirationDate
-      this.itemLot);
+     
+      this.index,
+      this.itemLot,
+      this.goodsReceipt);
   @override
   List<Object> get props => [];
 }
@@ -46,7 +38,7 @@ class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
 // post
 class PostReceiptChangedEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
-  List<ItemLot> itemLots;
+  List<GoodsReceiptLot> itemLots;
   PostReceiptChangedEvent(this.timestamp, this.itemLots);
   @override
   List<Object> get props => [timestamp];

@@ -5,7 +5,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/router/app_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

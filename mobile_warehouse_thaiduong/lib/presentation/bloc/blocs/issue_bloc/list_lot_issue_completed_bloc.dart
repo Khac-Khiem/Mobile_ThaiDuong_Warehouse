@@ -6,5 +6,16 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/
 class ListGoodsIssueLotCompletedBloc extends Bloc<GoodsIssueLotCompletedEvent, CompletedGoodsIssueLotState> {
   GoodsIssueUseCase goodsIssueUseCase;
   ListGoodsIssueLotCompletedBloc(this.goodsIssueUseCase):super(LoadCompletedGoodsIssueLotLoadingState(DateTime.now())){
+      on<LoadGoodsIssueLotCompletedEvent>((event, emit) async {
+      emit(LoadCompletedGoodsIssueLotLoadingState(DateTime.now()));
+      try {
+         emit(LoadCompletedGoodsIssueLotSuccessState(
+            DateTime.now(), event.lotsExpected));
+      } catch (e) {
+        
+        // emit(LoadReceiptExportingStateFail(
+        //     DateTime.now(), 'Không truy xuất được dữ liệu'));
+      }
+    });
   }
 }

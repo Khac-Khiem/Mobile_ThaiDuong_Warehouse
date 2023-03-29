@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -6,9 +8,13 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 
 class BarcodeinputWidget extends StatefulWidget {
   String textController, textLabel;
+  FunctionStringCallback onChanged;
 
   BarcodeinputWidget(
-      {super.key, required this.textController, required this.textLabel});
+      {super.key,
+      required this.textController,
+      required this.textLabel,
+      required this.onChanged});
 
   @override
   State<BarcodeinputWidget> createState() => _BarcodeinputWidgetState();
@@ -48,6 +54,7 @@ class _BarcodeinputWidgetState extends State<BarcodeinputWidget> {
             width: 280 * SizeConfig.ratioWidth,
             child: TextField(
               enabled: true,
+              onChanged: widget.onChanged,
               controller: TextEditingController(text: widget.textController),
               //readOnly: true,
               style: const TextStyle(

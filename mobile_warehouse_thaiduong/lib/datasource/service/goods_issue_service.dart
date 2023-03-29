@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_issue_model.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/global.dart';
@@ -22,9 +23,7 @@ class GoodsIssueService {
               'Authorization': 'Bearer ',
             },
             body: jsonEncode(
-              <String, dynamic>{
-                
-              },
+              <String, dynamic>{},
             ));
     if (res.statusCode == 200) {
       return ErrorPackageModel(
@@ -38,27 +37,45 @@ class GoodsIssueService {
   }
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
-    final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': '*/*',
-        'Authorization': 'Bearer ',
-      },
-    );
+    // final res = await http.get(
+    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //     'Accept': '*/*',
+    //     'Authorization': 'Bearer ',
+    //   },
+    // );
 
-    if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body);
+    // if (res.statusCode == 200) {
+    //   List<dynamic> body = jsonDecode(res.body);
 
-      List<GoodsIssueModel> allIssues = body
-          .map(
-            (dynamic item) => GoodsIssueModel.fromJson(item),
-          )
-          .toList();
-      return allIssues;
-    } else {
-      throw "Unable to retrieve posts.";
-    }
+    //   List<GoodsIssueModel> allIssues = body
+    //       .map(
+    //         (dynamic item) => GoodsIssueModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return allIssues;
+    // } else {
+    //   throw "Unable to retrieve posts.";
+    // }
+    return [
+      GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
+        GoodsIssueEntry(
+            ItemModel(
+                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+            10,
+            100,
+            [])
+      ]),
+      GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
+        GoodsIssueEntry(
+            ItemModel(
+                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+            10,
+            100,
+            [])
+      ])
+    ];
   }
 
   Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
