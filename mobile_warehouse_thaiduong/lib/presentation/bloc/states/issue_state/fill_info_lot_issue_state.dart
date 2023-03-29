@@ -22,6 +22,7 @@ class LoadItemDataSuccessState extends FillInfoIssueEntryState {
   @override
   LoadItemDataSuccessState(this.items, this.entries, this.index, this.timestamp);
 
+  @override
   List<Object?> get props => [timestamp];
 }
 

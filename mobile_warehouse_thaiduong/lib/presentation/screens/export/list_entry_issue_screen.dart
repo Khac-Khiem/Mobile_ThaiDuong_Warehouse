@@ -43,7 +43,7 @@ class ListGoodIssueEntryScreen extends StatelessWidget {
                             color: Constants.buttonColor.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 2,
-                            offset: Offset(4, 8), // changes position of shadow
+                            offset: const Offset(4, 8), // changes position of shadow
                           ),
                         ],
                       ),

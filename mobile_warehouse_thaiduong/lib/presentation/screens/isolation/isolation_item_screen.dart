@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -8,7 +10,7 @@ import '../../bloc/blocs/isolation_bloc.dart';
 import '../../bloc/states/isolation_states.dart';
 import '../../widgets/button_widget.dart';
 class IsolationItemScreen extends StatefulWidget {
-  IsolationItemScreen({super.key});
+  const IsolationItemScreen({super.key});
 
   @override
   State<IsolationItemScreen> createState() => _IsolationItemScreenState();
@@ -20,12 +22,17 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
     SizeConfig().init(context);
 
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Constants.mainColor,
+        leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/isolation_function_screen');
+            },
+          ),
         title: Text(
           'Cách ly',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
@@ -114,7 +121,7 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
         ),
         
          Container(
-          padding: EdgeInsets.fromLTRB(10, 100, 10, 10),
+          padding: EdgeInsets.fromLTRB(10, 450, 10, 10),
            child: CustomizedButton(text: "Truy xuất" ,onPressed: (){
 
            }),
@@ -122,7 +129,6 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
       ])));
     } 
     if (state is GetLotByItemIdSuccessState) {
-   
       return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -172,7 +178,7 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
                   ])
                 ]);}
     else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

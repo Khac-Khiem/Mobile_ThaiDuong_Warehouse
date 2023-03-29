@@ -10,7 +10,7 @@ import '../../bloc/states/warning_states.dart';
 import '../../widgets/button_widget.dart';
 
 class WarningUnderStockminScreen extends StatefulWidget {
-  WarningUnderStockminScreen({super.key});
+  const WarningUnderStockminScreen({super.key});
 
   @override
   State<WarningUnderStockminScreen> createState() =>
@@ -76,7 +76,7 @@ class _WarningUnderStockminScreenSate
                           thickness: 1,
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(10, 390, 10, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 450, 10, 10),
                           child: CustomizedButton(
                               text: "Truy xuất",
                               onPressed: () {
@@ -154,7 +154,7 @@ class _WarningUnderStockminScreenSate
                                               ])
                                             ]);
                                       } else {
-                                        return Center(
+                                        return const Center(
                                             child: CircularProgressIndicator());
                                       }
                                     });
@@ -219,7 +219,7 @@ class _WarningUnderStockminScreenSate
               //       ]);
               // }
               else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             }));
   }

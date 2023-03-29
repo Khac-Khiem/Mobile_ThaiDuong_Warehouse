@@ -18,6 +18,6 @@ class DepartmentService {
     // } else {
     //   throw "Unable to retrieve posts.";
     // }
-    return [DepartmentModel('SX'),DepartmentModel('SX'), DepartmentModel('SX')];
+    return [DepartmentModel('SX'),DepartmentModel('BH'), DepartmentModel('KHO')];
   }
 }

@@ -15,6 +15,7 @@ class LoadItemDataSuccessState extends FillInfoReceiptLotState {
   @override
   LoadItemDataSuccessState(this.items, this.lots, this.index, this.timestamp);
 
+  @override
   List<Object?> get props => [timestamp];
 }
 

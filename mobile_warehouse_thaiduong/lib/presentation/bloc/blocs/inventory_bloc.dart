@@ -28,7 +28,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<GetAllItemIdByWarehouseIdEvent>((event, emit) async {
       emit(GetAllItemByWarehouseLoadingState(DateTime.now()));
       try {
-      if (event is GetAllItemIdByWarehouseIdEvent) {
+       {
         final items = await itemUsecase.getItemByWarehouseId(event.itemClass);
         emit(GetAllItemByWarehouseSuccessState(DateTime.now(), items));
       }
@@ -40,7 +40,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<LoadInventoryEvent>((event, emit) async {
       emit(LoadInventoryLoadingState(DateTime.now()));
     try {
-      if (event is LoadInventoryEvent) {
+       {
         final itemLots = await inventoryUsecase.
         getInventoryByItemId(event.startDate, event.endDate, event.itemId);
         emit(LoadInventorySuccessState(DateTime.now(), itemLots));

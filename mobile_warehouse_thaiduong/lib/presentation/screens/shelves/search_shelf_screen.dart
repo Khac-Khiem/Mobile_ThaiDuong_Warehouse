@@ -1,4 +1,6 @@
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -10,7 +12,7 @@ import '../../widgets/button_widget.dart';
 import '../../widgets/dropdown_search_button.dart';
 
 class SearchShelfScreen extends StatefulWidget {
-  SearchShelfScreen({super.key});
+  const SearchShelfScreen({super.key});
 
   @override
   State<SearchShelfScreen> createState() => _SearchShelfScreennState();

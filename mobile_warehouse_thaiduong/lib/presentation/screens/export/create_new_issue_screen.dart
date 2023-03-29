@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -365,7 +367,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                       })
                 ]);
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

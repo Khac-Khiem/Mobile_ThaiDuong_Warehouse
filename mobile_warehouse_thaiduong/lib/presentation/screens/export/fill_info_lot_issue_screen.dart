@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +67,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                         child: Column(
                           children: [
                             DropdownButton<Item>(
-                              hint: Text("Select a user"),
+                              hint: const Text("Select a user"),
                               value: selectedItem,
                               onChanged: (Item? newValue) {
                                 setState(() {
@@ -79,7 +81,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   value: item,
                                   child: Text(
                                     item.itemId,
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 );
                               }).toList(),
@@ -99,7 +101,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   value: item,
                                   child: Text(
                                     item.itemName,
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 );
                               }).toList(),

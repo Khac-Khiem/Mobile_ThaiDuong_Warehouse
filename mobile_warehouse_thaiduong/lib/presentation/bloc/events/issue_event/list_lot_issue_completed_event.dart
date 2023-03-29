@@ -12,7 +12,7 @@ class LoadGoodsIssueLotCompletedEvent extends GoodsIssueLotCompletedEvent {
   List<Object?> get props => [timestamp];
 }
 
-// ignore: must_be_immutable
+
 class UpdateGoodsIssueLotEvent extends GoodsIssueLotCompletedEvent {
   DateTime timestamp;
   UpdateGoodsIssueLotEvent(this.timestamp);

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +14,7 @@ import '../../widgets/customized_date_picker.dart';
 import '../../widgets/dropdown_search_button.dart';
 
 class ImportHistoryScreen extends StatefulWidget {
-  ImportHistoryScreen({super.key});
+  const ImportHistoryScreen({super.key});
 
   @override
   State<ImportHistoryScreen> createState() => _ImportHistoryScreenState();
@@ -51,139 +53,152 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
             builder: (context, state) {
               if (state is GetAllInfoImportSuccessState) {
                 return Column(children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          "Kho hàng",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20 * SizeConfig.ratioFont,
-                            color: Colors.black,
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20,5, 0, 0),
+                    child: Row(
+                      
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            "Kho hàng",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20 * SizeConfig.ratioFont,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        DropdownSearchButton(
-                            buttonName: "Chọn loại kho hàng",
-                            height: 60,
-                            width: 200,
-                            listItem: state.warehouse,
-                            reference: warehouse,
-                            onChanged: () {})
-                      ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          "Bộ phận",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20 * SizeConfig.ratioFont,
-                            color: Colors.black,
+                          DropdownSearchButton(
+                              buttonName: "Chọn loại kho hàng",
+                              height: 60,
+                              width: 200,
+                              listItem: state.warehouse,
+                              reference: warehouse,
+                              onChanged: () {})
+                        ]),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            "Bộ phận",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20 * SizeConfig.ratioFont,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        DropdownButton<Department>(
-                          hint: Text("Chọn mã sản phẩm"),
-                          value: selectedDepartment,
-                          onChanged: (Department? newValue) {
-                            setState(() {
-                              selectedDepartment = newValue;
-                              print(state.department
-                                  .indexOf(selectedDepartment as Department));
-                            });
-                          },
-                          items: state.department.map((Department department) {
-                            return DropdownMenuItem<Department>(
-                              value: department,
-                              child: Text(
-                                department.name.toString(),
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ]),
+                          DropdownButton<Department>(
+                            hint: Text("Chọn mã sản phẩm"),
+                            value: selectedDepartment,
+                            onChanged: (Department? newValue) {
+                              setState(() {
+                                selectedDepartment = newValue;
+                                print(state.department
+                                    .indexOf(selectedDepartment as Department));
+                              });
+                            },
+                            items: state.department.map((Department department) {
+                              return DropdownMenuItem<Department>(
+                                value: department,
+                                child: Text(
+                                  department.name.toString(),
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ]),
+                  ),
                   BlocConsumer<HistoryBloc, HistoryState>(
                       listener: (context, state) {},
                       builder: (context, state) {
                         if (state is GetAllInfoImportSuccessState) {
                           return Column(children: [
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    "Mã SP",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20 * SizeConfig.ratioFont,
-                                      color: Colors.black,
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Mã SP",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  DropdownButton<Item>(
-                                    hint: Text("Chọn mã sản phẩm"),
-                                    value: selectedItem,
-                                    onChanged: (Item? newValue) {
-                                      setState(() {
-                                        selectedItem = newValue;
-                                        print(state.item
-                                            .indexOf(selectedItem as Item));
-                                      });
-                                    },
-                                    items: state.item.map((Item item) {
-                                      return DropdownMenuItem<Item>(
-                                        value: item,
-                                        child: Text(
-                                          item.itemId.toString(),
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )
-                                ]),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    "Tên SP",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20 * SizeConfig.ratioFont,
-                                      color: Colors.black,
+                                    DropdownButton<Item>(
+                                      hint: Text("Chọn mã sản phẩm"),
+                                      value: selectedItem,
+                                      onChanged: (Item? newValue) {
+                                        setState(() {
+                                          selectedItem = newValue;
+                                          print(state.item
+                                              .indexOf(selectedItem as Item));
+                                        });
+                                      },
+                                      items: state.item.map((Item item) {
+                                        return DropdownMenuItem<Item>(
+                                          value: item,
+                                          child: Text(
+                                            item.itemId.toString(),
+                                            style: TextStyle(color: Colors.black),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    )
+                                  ]),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 05, 0, 0),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Tên SP",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  DropdownButton<Item>(
-                                    hint: Text("Chọn tên sản phẩm"),
-                                    value: selectedItem,
-                                    onChanged: (Item? newValue) {
-                                      setState(() {
-                                        selectedItem = newValue;
-                                        print(state.item
-                                            .indexOf(selectedItem as Item));
-                                      });
-                                    },
-                                    items: state.item.map((Item item) {
-                                      return DropdownMenuItem<Item>(
-                                        value: item,
-                                        child: Text(
-                                          item.itemName.toString(),
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )
-                                ]),
+                                    DropdownButton<Item>(
+                                      hint: Text("Chọn tên sản phẩm"),
+                                      value: selectedItem,
+                                      onChanged: (Item? newValue) {
+                                        setState(() {
+                                          selectedItem = newValue;
+                                          print(state.item
+                                              .indexOf(selectedItem as Item));
+                                        });
+                                      },
+                                      items: state.item.map((Item item) {
+                                        return DropdownMenuItem<Item>(
+                                          value: item,
+                                          child: Text(
+                                            item.itemName.toString(),
+                                            style: TextStyle(color: Colors.black),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    )
+                                  ]),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 160 * SizeConfig.ratioWidth,
+                                  width: 170 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
                                   child: CustomizeDatePicker(
                                     name: "Từ ngày",
@@ -198,7 +213,7 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 160 * SizeConfig.ratioWidth,
+                                  width: 170 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
                                   child: CustomizeDatePicker(
                                     name: "Đến ngày",
@@ -228,7 +243,7 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 250, 10, 10),
                               child: CustomizedButton(
                                   text: "Truy xuất", onPressed: () {}),
                             ),

@@ -10,7 +10,7 @@ import '../models/error_package_model.dart';
 class ItemLotService {
   Future<ItemLotModel> getItemLotById(String lotId) async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/containers/$lotId'),
+      Uri.parse('${Constants.baseUrl}api/containers/$lotId'),
     );
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);

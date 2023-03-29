@@ -17,8 +17,14 @@ class IsolationFunctionScreen extends StatelessWidget {
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Constants.mainColor,
+        leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+                 Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
         title: Text(
-          'Cảnh báo',
+          'Cách ly',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
@@ -30,6 +36,8 @@ class IsolationFunctionScreen extends StatelessWidget {
               icon: Icons.remove_moderator_outlined, 
               text: "CÁCH LY HÀNG HÓA", 
               onPressed: () {
+                BlocProvider.of<IsolationBloc>(context)
+                    .add(GetAllItemEvent(DateTime.now()));
                    Navigator.pushNamed(context, '/isolation_item_screen'   
                       );
               }),
@@ -39,7 +47,7 @@ class IsolationFunctionScreen extends StatelessWidget {
               onPressed: () {
               BlocProvider.of<IsolationBloc>(context)
                     .add(GetAllIsolationLotEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/update_isolation_item_screen');    
+                Navigator.pushNamed(context, '/isolation_update_screen');    
               }), 
         ],
       )),

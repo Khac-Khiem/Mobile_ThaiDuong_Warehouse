@@ -45,7 +45,7 @@ class ItemLotRepoImpl implements ItemLotRepository {
   }
 
   //==
-  @override
+  
   Future<ErrorPackage> addNewIsolationLot(double isolationQuantity, String notes ){
     final status = itemLotService.addNewIsolationLot(
        isolationQuantity, notes);

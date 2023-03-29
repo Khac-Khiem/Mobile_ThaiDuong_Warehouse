@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +14,7 @@ import '../../widgets/customized_date_picker.dart';
 import '../../widgets/dropdown_search_button.dart';
 
 class ExportHistoryScreen extends StatefulWidget {
-  ExportHistoryScreen({super.key});
+  const ExportHistoryScreen({super.key});
 
   @override
   State<ExportHistoryScreen> createState() => _ExportHistoryScreenSate();
@@ -182,7 +184,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 160 * SizeConfig.ratioWidth,
+                                  width: 170 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
                                   child: CustomizeDatePicker(
                                     name: "Từ ngày",
@@ -197,9 +199,10 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 160 * SizeConfig.ratioWidth,
+                                  width: 170 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
                                   child: CustomizeDatePicker(
+
                                     name: "Đến ngày",
                                     fontColor: Colors.black,
                                     fontWeight: FontWeight.normal,
@@ -227,7 +230,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 250, 10, 10),
                               child: CustomizedButton(
                                   text: "Truy xuất", onPressed: () {}),
                             ),

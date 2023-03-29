@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +13,7 @@ import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
 
 class ProductStockcardScreen extends StatefulWidget {
-  ProductStockcardScreen({super.key});
+  const ProductStockcardScreen({super.key});
 
   @override
   State<ProductStockcardScreen> createState() => _ProductStockcardScreenState();
@@ -23,7 +25,7 @@ class _ProductStockcardScreenState extends State<ProductStockcardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
+    
      DateTime date = DateFormat('yyyy-MM-dd')
       .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
@@ -63,9 +65,9 @@ class _ProductStockcardScreenState extends State<ProductStockcardScreen> {
                         DropdownButton<Item>(
                           hint: Text("Chọn mã sản phẩm"),
                           value: selectedItem,
-                          onChanged: (Item? Value) {
+                          onChanged: (Item? newValue) {
                             setState(() {
-                              selectedItem = Value;
+                              selectedItem = newValue;
                               print(state.item.indexOf(selectedItem as Item));
                             });
                           },
@@ -164,7 +166,7 @@ class _ProductStockcardScreenState extends State<ProductStockcardScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 5 * SizeConfig.ratioHeight),
-                        width: 160 * SizeConfig.ratioWidth,
+                        width: 170 * SizeConfig.ratioWidth,
                         height: 60 * SizeConfig.ratioHeight,
                         child: CustomizeDatePicker(
                           name: "Từ ngày",
@@ -179,7 +181,7 @@ class _ProductStockcardScreenState extends State<ProductStockcardScreen> {
                    Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 5 * SizeConfig.ratioHeight),
-                        width: 160 * SizeConfig.ratioWidth,
+                        width: 170 * SizeConfig.ratioWidth,
                         height: 60 * SizeConfig.ratioHeight,
                         child: CustomizeDatePicker(
                           name: "Đến ngày",

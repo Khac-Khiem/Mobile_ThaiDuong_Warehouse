@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +16,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/widgets/barcode_input_wi
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_picker.dart';
 
 class FillInfoLotReceiptScreen extends StatefulWidget {
-  FillInfoLotReceiptScreen({super.key});
+  const FillInfoLotReceiptScreen({super.key});
 
   @override
   State<FillInfoLotReceiptScreen> createState() =>
@@ -280,7 +282,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

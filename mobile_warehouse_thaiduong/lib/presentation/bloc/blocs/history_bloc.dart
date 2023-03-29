@@ -24,12 +24,12 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<GetAllInfoExportEvent>((event, emit) async {
       emit(GetAllInfoExportLoadingState(DateTime.now()));
       try {
-         if (event is GetAllInfoExportEvent) {
+       
         final item = await itemUsecase.getAllItem();
         final warehouse = await locationUsecase.getAllWarehouseId();
         final department = await goodsIssueUseCase.getAllDepartments();
         emit(GetAllInfoExportSuccessState(DateTime.now(), item, warehouse, department));
-      } }catch (e) {
+      }catch (e) {
         emit(GetAllInfoExportFailState(DateTime.now(), ErrorPackage('')));
       }
     });
@@ -37,7 +37,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<GetItemByWarehouseEvent>((event, emit) async {
       emit(GetItemByWarehouseLoadingState(DateTime.now()));
       try {
-        if (event is GetItemByWarehouseEvent) 
+      
         {
           final items = await itemUsecase.getItemByWarehouseId(event.itemClass);
           emit(GetItemByWarehouseSuccessState(DateTime.now(), items));
@@ -50,7 +50,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<AccessExportHistoryEvent>((event, emit) async {
       emit(AccessImportHistoryLoadingState(DateTime.now()));
       try {
-        if (event is AccessExportHistoryEvent) {
+         {
           final goodIssueLots =
               await goodsIssueUseCase.getGoodsIssueHistory(
                   event.warehouse,
@@ -86,7 +86,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<AccessImportHistoryEvent>((event, emit) async {
       emit(AccessImportHistoryLoadingState(DateTime.now()));
       try {
-        if (event is AccessImportHistoryEvent) {
+         {
           final goodIssueLots =
               await goodsReceiptUseCase.getGoodsReceiptsHistory(
                   event.itemClass,
