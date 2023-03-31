@@ -1,16 +1,16 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_import
 
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 class GoodsReceiptLot extends Equatable {
-  String? goodsReceiptLotId;
-  String? itemId;
+  String goodsReceiptLotId;
+  String itemId;
   double? quantity;
   double? sublotSize;
   String? purchaseOrderNumber;
   String? employeeId;
-  Location? location;
+  String? location;
   DateTime? productionDate;
   DateTime? expirationDate;
   GoodsReceiptLot(
@@ -30,11 +30,12 @@ class GoodsReceiptLot extends Equatable {
 
 class GoodsReceipt extends Equatable {
   String goodsReceiptId;
-  List<GoodsReceiptLot>? lots;
+  String supply;
+  List<GoodsReceiptLot> lots;
   DateTime timestamp;
   bool isConfirmed;
-  GoodsReceipt(this.goodsReceiptId, this.lots,
-      this.timestamp, this.isConfirmed);
+  GoodsReceipt(
+      this.goodsReceiptId,this.supply, this.lots, this.timestamp, this.isConfirmed);
   @override
 
   List<Object?> get props => [goodsReceiptId];

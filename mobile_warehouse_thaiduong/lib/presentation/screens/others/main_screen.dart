@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -13,6 +15,15 @@ class MainScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+           leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '//');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Quản lý kho',
@@ -42,11 +53,13 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.output,
                     text: "XUẤT KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ExportFunctionScreen()),
-                      );
+                      
+                      Navigator.pushNamed(context, '/export_main_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const ExportFunctionScreen()),
+                      // );
                     }),
               ],
             ),

@@ -1,10 +1,13 @@
+// ignore_for_file: unused_import
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_receipt_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 class GoodsReceiptService {
-  Future<ErrorPackageModel> postNewGoodsReceipt(String goodsReceiptId,
-        List<GoodsReceiptLot> lots) async {
+  Future<ErrorPackageModel> postNewGoodsReceipt(
+      String goodsReceiptId, List<GoodsReceiptLot> lots) async {
     return ErrorPackageModel('success');
   }
 
@@ -25,17 +28,31 @@ class GoodsReceiptService {
   }
 
   Future<List<GoodsReceiptModel>> getUnCompletedGoodsReceipts() async {
-    return [];
-  }
-  //==
-   Future<List<GoodsReceiptModel>> getGoodsReceiptsHistory(
-       String itemClass,
-      DateTime startDate,
-      DateTime endDate,
-      String itemId,
-      String department,
-      String receiver,
-      String purchaseOrderNumber) async {
-    return [];
+    return [
+      GoodsReceiptModel(
+          'hahaa',
+          'abc',
+          [
+            GoodsReceiptLot('1', 'banh', 100, 10, "1856373", 'kkkkk', 'Kệ A',
+                DateTime.now(), DateTime.now()),
+                 GoodsReceiptLot('2', 'banh 2', 100, 10, "1856373", 'kkkkk', 'Kệ A',
+                DateTime.now(), DateTime.now()),
+                  GoodsReceiptLot('3', 'banh 3', 100, 10, "1856373", 'kkkkk', 'Kệ A',
+                DateTime.now(), DateTime.now())
+          ],
+          DateTime.now(),
+          false),
+           GoodsReceiptModel(
+          'hihihi',
+           'abc',
+          [
+            GoodsReceiptLot('1', 'banh', 100, 10, "1856373", 'kkkkk', 'Kệ A',
+                DateTime.now(), DateTime.now()),
+                 GoodsReceiptLot('2', 'banh 2', 100, 10, "1856373", 'kkkkk', 'Kệ A',
+                DateTime.now(), DateTime.now())
+          ],
+          DateTime.now(),
+          false),
+    ];
   }
 }

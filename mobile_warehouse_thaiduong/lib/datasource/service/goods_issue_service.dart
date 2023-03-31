@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: unused_import
 
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_issue_model.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
+import 'package:mobile_warehouse_thaiduong/global.dart';
 
 class GoodsIssueService {
   List bodyJson = [];
@@ -16,15 +19,13 @@ class GoodsIssueService {
       String receiver,
       List<GoodsIssueEntry> entries) async {
     final res =
-        await http.post(Uri.parse(Constants.baseUrl + 'api/goodsReceipts/'),
+        await http.post(Uri.parse('${Constants.baseUrl}api/goodsreceipts/'),
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ',
             },
             body: jsonEncode(
-              <String, dynamic>{
-                
-              },
+              <String, dynamic>{},
             ));
     if (res.statusCode == 200) {
       return ErrorPackageModel(
@@ -38,32 +39,50 @@ class GoodsIssueService {
   }
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
-    final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsIssues/pending'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': '*/*',
-        'Authorization': 'Bearer ',
-      },
-    );
+    // final res = await http.get(
+    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //     'Accept': '*/*',
+    //     'Authorization': 'Bearer ',
+    //   },
+    // );
 
-    if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body);
+    // if (res.statusCode == 200) {
+    //   List<dynamic> body = jsonDecode(res.body);
 
-      List<GoodsIssueModel> allIssues = body
-          .map(
-            (dynamic item) => GoodsIssueModel.fromJson(item),
-          )
-          .toList();
-      return allIssues;
-    } else {
-      throw "Unable to retrieve posts.";
-    }
+    //   List<GoodsIssueModel> allIssues = body
+    //       .map(
+    //         (dynamic item) => GoodsIssueModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return allIssues;
+    // } else {
+    //   throw "Unable to retrieve posts.";
+    // }
+    return [
+      GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
+        GoodsIssueEntry(
+            ItemModel(
+                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+            10,
+            100,
+            const [])
+      ]),
+      GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
+        GoodsIssueEntry(
+            ItemModel(
+                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+            10,
+            100,
+            const [])
+      ])
+    ];
   }
 
   Future<List<GoodsIssueModel>> getCompletedGoodsIssue() async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsIssues/pending'),
+      Uri.parse('${Constants.baseUrl}api/goodsissues/pending'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
@@ -87,7 +106,7 @@ class GoodsIssueService {
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {
     final res = await http.get(
-        Uri.parse(Constants.baseUrl + 'api/goodsIssues/$goodsIssueId'),
+        Uri.parse('${Constants.baseUrl}api/goodsissues/$goodsIssueId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': '*/*',
@@ -128,16 +147,5 @@ class GoodsIssueService {
     return ErrorPackageModel(
       "success",
     );
-  }
-   //==
-   Future<List<GoodsIssueModel>> getGoodsIssueHistory(
-       String itemClass,
-      DateTime startDate,
-      DateTime endDate,
-      String itemId,
-      String department,
-      String receiver,
-      String purchaseOrderNumber) async {
-    return [];
   }
 }

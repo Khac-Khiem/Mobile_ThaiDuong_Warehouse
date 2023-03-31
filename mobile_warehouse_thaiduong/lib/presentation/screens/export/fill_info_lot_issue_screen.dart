@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, sized_box_for_whitespace
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +10,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/cr
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
-
 import '../../../domain/entities/item.dart';
 
 class FillInfoEntryIssueScreen extends StatefulWidget {
@@ -38,7 +37,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
       ),
       body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
         listener: (context, state) {
-
+ 
         },
         builder: (context, state) {
           if (state is LoadItemDataSuccessState) {
@@ -62,32 +61,32 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                     SizedBox(
                       height: 10 * SizeConfig.ratioHeight,
                     ),
-                    Container(
+                    SizedBox(
                         height: 500 * SizeConfig.ratioHeight,
                         child: Column(
                           children: [
+                            // DropdownButton<Item>(
+                            //   hint: Text("Select a user"),
+                            //   value: selectedItem,
+                            //   onChanged: (Item? newValue) {
+                            //     setState(() {
+                            //       selectedItem = newValue;
+                            //       print(state.items
+                            //           .indexOf(selectedItem as Item));
+                            //     });
+                            //   },
+                            //   items: state.items.map((Item item) {
+                            //     return DropdownMenuItem<Item>(
+                            //       value: item,
+                            //       child: Text(
+                            //         item.itemId,
+                            //         style: TextStyle(color: Colors.black),
+                            //       ),
+                            //     );
+                            //   }).toList(),
+                            // ),
                             DropdownButton<Item>(
                               hint: const Text("Select a user"),
-                              value: selectedItem,
-                              onChanged: (Item? newValue) {
-                                setState(() {
-                                  selectedItem = newValue;
-                                  print(state.items
-                                      .indexOf(selectedItem as Item));
-                                });
-                              },
-                              items: state.items.map((Item item) {
-                                return DropdownMenuItem<Item>(
-                                  value: item,
-                                  child: Text(
-                                    item.itemId,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                            DropdownButton<Item>(
-                              hint: Text("Select a user"),
                               value: selectedItem,
                               onChanged: (Item? newValue) {
                                 setState(() {
@@ -107,7 +106,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                               }).toList(),
                             ),
                             DropdownButton<Item>(
-                              hint: Text("Select a user"),
+                              hint: const Text("Select a user"),
                               value: selectedItem,
                               onChanged: (Item? newValue) {
                                 setState(() {
@@ -121,7 +120,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   value: item,
                                   child: Text(
                                     item.unit.toString(),
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 );
                               }).toList(),
@@ -181,19 +180,6 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                             ),
                           ],
                         )),
-                    //   CustomizedButton(
-                    //       text: "Tiếp tục",
-                    //       onPressed: () {
-                    //          BlocProvider.of<CreateIssueBloc>(context)
-                    //     .add(AddIssueEntryEvent(DateTime.now()));
-                    // Navigator.pushNamed(context, '/create_issue_screen');
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //       builder: (context) =>
-                    //         //           const CreateNewIssueScreen()),
-                    //         // );
-                    //       })
                     state.index == -1
                         ? ElevatedButton(
                             onPressed: () async {
@@ -206,7 +192,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   context, '/create_receipt_screen');
                               //Navigator.of(context).pop();
                             },
-                            child: Text('Tạo mới'),
+                            child: const Text('Tạo mới'),
                           )
                         : ElevatedButton(
                             onPressed: () async {
@@ -220,14 +206,14 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   context, '/create_receipt_screen');
                               //Navigator.of(context).pop();
                             },
-                            child: Text('Cập nhật'),
+                            child: const Text('Cập nhật'),
                           )
                   ],
                 ),
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

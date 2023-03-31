@@ -33,6 +33,7 @@ class LoadReceiptExportingStateSuccess extends ReceiptExportingState {
 
   List<Object?> get props => [timestamp];
 }
+//---------------
 
 class UpdateLotReceiptStateLoading extends ReceiptExportingState {
   DateTime timestamp;

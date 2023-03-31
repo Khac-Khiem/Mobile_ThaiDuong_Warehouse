@@ -5,10 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/completed_receipt_lot_event.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/list_completed_lots_issue_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/completed_receipt_lot_state.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import '../../../function.dart';
 
 class ListCompletedLotReceiptScreen extends StatelessWidget {
@@ -21,6 +18,15 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/imported_receipt_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách lô đã nhập',

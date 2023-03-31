@@ -7,6 +7,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_blo
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_issue_entry_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_lot_issue_uncompleted_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
@@ -19,6 +21,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/warning_bloc.
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/fill_info_lot_issue_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_entry_issue_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/create_new_receipt_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/fill_info_lot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/import_function_screen.dart';
@@ -50,6 +54,9 @@ import '../screens/isolation/isolation_update_screen.dart';
 import '../screens/shelves/search_item_screen.dart';
 import '../screens/shelves/search_shelf_screen.dart';
 import '../screens/warning/warning_expired_screen.dart';
+
+import '../bloc/events/issue_event/list_lot_issue_event.dart';
+import '../screens/export/list_lot_issue_screen.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
@@ -92,7 +99,9 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
+
                 ], child: const FillInfoLotReceiptScreen()));
+
       case '/importing_receipt_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
@@ -105,6 +114,8 @@ class AppRoute {
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<ExportingReceiptLotBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
                 ], child: const ListUncompletedLotReceiptScreen()));
       case '/imported_receipt_screen':
@@ -129,13 +140,40 @@ class AppRoute {
                   BlocProvider<ListGoodsIssueUncompletedBloc>(
                       create: (context) => injector()),
                 ], child: const ExportFunctionScreen()));
-      // case '/create_issue_screen':
+      case '/create_issue_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<CreateIssueBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<FillInfoIssueEntryBloc>(
+                      create: (context) => injector()),
+                ], child: const CreateNewIssueScreen()));
+      case '/fill_info_entry_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<CreateIssueBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<FillInfoIssueEntryBloc>(
+                      create: (context) => injector()),
+                ], child: const FillInfoEntryIssueScreen()));
+      case '/list_goods_issue_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ListGoodsIssueUncompletedBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<ListGoodsIssueEntryBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<ListGoodsIssueLotUncompletedBloc>(
+                      create: (context) => injector()),
+                ], child: const ListGoodIssueScreen()));
+      // case '/list_goods_issue_entry_screen':
       //   return MaterialPageRoute(
       //       builder: (context) => MultiBlocProvider(providers: [
-      //             BlocProvider<CreateIssueBloc>(
+      //             BlocProvider<ListGoodsIssueLotUncompletedBloc>(
       //                 create: (context) => injector()),
-      //             BlocProvider<FillInfoIssueEntryBloc>(
+      //             BlocProvider<ListGoodsIssueEntryBloc>(
       //                 create: (context) => injector()),
+
       //           ], child: const CreateNewIssueScreen()));
       // case 'fill_info_entry_screen':
       //   return MaterialPageRoute(
@@ -241,6 +279,17 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<IsolationBloc>(create: (context) => injector()),
                 ], child: const UpdateIsolationItemScreen()));
+
+      //           ], child: const ListGoodIssueEntryScreen()));
+      case '/list_goods_issue_lot_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ListGoodsIssueLotUncompletedBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<ListGoodsIssueUncompletedBloc>(
+                      create: (context) => injector()),
+                ], child: const ListLotIssueScreen()));
+
       default:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
     }

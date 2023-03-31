@@ -5,6 +5,6 @@ abstract class ItemLotRepository {
   Future<List<ItemLot>> getItemLotsByItemId(String itemId);
   Future<List<ItemLot>> getItemLotsByLocation(String locationId);
   Future<List<ItemLot>> getIsolatedItemLots();
-  Future<List<ItemLot>> getExpiredItemLots();
+  Future<List<ItemLot>> getExpiredItemLots(DateTime dateTime);
   Future<List<ItemLot>> getUnderStockminItemLots();
 }

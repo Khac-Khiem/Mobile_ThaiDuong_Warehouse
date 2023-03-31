@@ -9,11 +9,11 @@ abstract class FillInfoReceiptLotState extends Equatable {}
 
 class LoadItemDataSuccessState extends FillInfoReceiptLotState {
   List<Item> items;
-  List<ItemLotView> lots;
+  List<ItemLotView> itemlots;
   int index;
   DateTime timestamp;
   @override
-  LoadItemDataSuccessState(this.items, this.lots, this.index, this.timestamp);
+  LoadItemDataSuccessState(this.items, this.itemlots, this.index, this.timestamp, DateTime dateTime);
 
   @override
   List<Object?> get props => [timestamp];

@@ -1,5 +1,6 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_import
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class IsolationEvent extends Equatable {}
 // Lấy thông tin lô hàng

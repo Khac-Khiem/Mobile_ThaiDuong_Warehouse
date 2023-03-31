@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -5,6 +7,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/isolation_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/create_new_receipt_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
@@ -49,7 +52,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                 color: Colors.black,
               ),
             ),
-            TextInputWidget(contentTextField: receiptId)
+            //TextInputWidget(contentTextField: receiptId)
           ],
         ),
         const Divider(
@@ -110,8 +113,8 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                           return GestureDetector(
                             onTap: (() {
                               //_showForm(itemlots[index].itemName, items);
-                              BlocProvider.of<FillReceiptLotBloc>(context).add(
-                                  GetAllItemEvent(DateTime.now(), state.itemLotView,index));
+                              // BlocProvider.of<FillReceiptLotBloc>(context).add(
+                              //     GetAllItemEvent(DateTime.now(), state.itemLotView,index));
                               Navigator.pushNamed(
                                 context,
                                 '/fill_lot_receipt_screen',
@@ -132,8 +135,8 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                   CustomizedButton(
                       text: "Tiếp tục",
                       onPressed: () {
-                        BlocProvider.of<FillReceiptLotBloc>(context)
-                            .add(GetAllItemEvent(DateTime.now(),state.itemLotView , -1));
+                        // BlocProvider.of<FillReceiptLotBloc>(context)
+                        //     .add(GetAllItemEvent(DateTime.now(),state.itemLotView , -1));
                         Navigator.pushNamed(
                           context,
                           '/fill_lot_receipt_screen',
@@ -152,8 +155,8 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       text: "Tiếp tục",
                       onPressed: () {
                         //  _showForm('', state.items);
-                        BlocProvider.of<FillReceiptLotBloc>(context)
-                            .add(GetAllItemEvent(DateTime.now(), lots, -1));
+                        // BlocProvider.of<FillReceiptLotBloc>(context)
+                        //     .add(GetAllItemEvent(DateTime.now(), lots, -1));
                         Navigator.pushNamed(
                           context, '/fill_lot_receipt_screen',
                        

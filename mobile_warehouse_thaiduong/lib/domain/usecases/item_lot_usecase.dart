@@ -22,8 +22,8 @@ class ItemLotUsecase {
     final itemLots = itemLotRepository.getIsolatedItemLots();
     return itemLots;
   }
-  Future<List<ItemLot>> getExpiredItemLots()async {
-     final itemLots = itemLotRepository.getExpiredItemLots();
+  Future<List<ItemLot>> getExpiredItemLots(DateTime dateTime)async {
+     final itemLots = itemLotRepository.getExpiredItemLots(dateTime);
     return itemLots;
   }
 

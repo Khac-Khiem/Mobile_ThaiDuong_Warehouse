@@ -2,34 +2,29 @@
 
 import 'package:equatable/equatable.dart';
 
-class Item extends Equatable{
-String itemId;
-String itemName;
-Unit? unit;
-ItemClass? itemClass;
-double? minimumStockLevel;
-double? price;
-Item(
-  this.itemId, 
-  this.itemName, 
-  this.unit, 
-  this.itemClass, 
-  this.minimumStockLevel, 
-  this.price);
+class Item extends Equatable {
+  String itemId;
+  String itemName;
+  Unit? unit;
+  ItemClass? itemClass;
+  double? minimumStockLevel;
+  double? price;
+  Item(this.itemId, this.itemName, this.unit, this.itemClass,
+      this.minimumStockLevel, this.price);
   @override
   List<Object?> get props => [itemId];
 }
+
 class Unit extends Equatable {
   String? name;
-  Unit( this.name);
+  Unit(this.name);
   @override
   List<Object?> get props => [name];
 }
+
 class ItemClass extends Equatable {
   String? itemClassId;
-  ItemClass(
-    this.itemClassId);
+  ItemClass(this.itemClassId);
   @override
-  List<Object?> get props => [
-    itemClassId];
+  List<Object?> get props => [itemClassId];
 }

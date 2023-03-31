@@ -27,13 +27,21 @@ class _ListCompletedReceiptScreenState
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    bool showExpand = false;
     DateTime startDate = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     DateTime endDate = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/main_receipt_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách phiếu đã nhập',

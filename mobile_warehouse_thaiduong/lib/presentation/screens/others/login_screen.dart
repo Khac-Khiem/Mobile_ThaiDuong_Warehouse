@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
+          
           toolbarHeight: 60 * SizeConfig.ratioHeight,
           backgroundColor: Constants.mainColor,
           title: Text(
@@ -33,7 +34,7 @@ class LoginScreen extends StatelessWidget {
             icon: const Icon(Icons.west_outlined),
             iconSize: 25 * SizeConfig.ratioRadius,
             onPressed: () {
-              Navigator.pop(context);
+             Navigator.pushNamed(context, '/');
             },
           ),
           actions: [

@@ -7,5 +7,20 @@ class ExportingReceiptLotBloc
     extends Bloc<UncompletedReceiptLotEvent, UncompletedReceiptLotState> {
   GoodsReceiptUsecase goodsReceiptUsecase;
   ExportingReceiptLotBloc(this.goodsReceiptUsecase)
-  :super(UncompletedReceiptLotLoadingState(DateTime.now()));
+      : super(LoadReceiptLotsLoadingState(DateTime.now())) {
+    on<LoadUncompletedReceiptLotEvent>((event, emit) async {
+      emit(UpdateReceiptLotSuccessState( event.receipt, DateTime.now()));
+    });
+    on<UpdateReceiptLotEvent>((event, emit) async {
+      emit(UpdateReceiptLotLoadingState(DateTime.now()));
+      try {
+        event.goodsReceipt.lots.removeAt(event.index);
+        event.goodsReceipt.lots.insert(event.index, event.itemLot);
+        emit(UpdateReceiptLotSuccessState(event.goodsReceipt, DateTime.now()));
+      } catch (e) {
+        // emit(LoadReceiptExportingStateFail(
+        //     DateTime.now(), 'Không truy xuất được dữ liệu'));
+      }
+    });
+  }
 }
