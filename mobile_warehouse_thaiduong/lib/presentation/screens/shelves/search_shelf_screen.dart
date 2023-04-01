@@ -19,7 +19,7 @@ class SearchShelfScreen extends StatefulWidget {
 }
 
 class _SearchShelfScreennState extends State<SearchShelfScreen> {
-  String warehouseId = '';
+  String locationId = '';
 
 /* class SearchShelfScreen extends StatelessWidget {
   const SearchShelfScreen({super.key});*/
@@ -60,11 +60,11 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                           ),
                         ),
                         DropdownSearchButton(
-                            buttonName: "Chọn loại kho hàng",
+                            buttonName: "Chọn vị trí",
                             height: 60,
                             width: 200,
                             listItem: state.locationId,
-                            reference: warehouseId,
+                            reference: locationId,
                             onChanged: () {})
                       ],
                     ),

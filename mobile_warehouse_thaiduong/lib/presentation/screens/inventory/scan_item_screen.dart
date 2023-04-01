@@ -45,7 +45,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
            leading: IconButton(
             icon: const Icon(Icons.west_outlined),
             onPressed: () {
-                 Navigator.pushNamed(context, '/main_screen');
+                 Navigator.pushNamed(context, '/stockcard_function_screen');
             },
           ),
           // leading: IconButton(

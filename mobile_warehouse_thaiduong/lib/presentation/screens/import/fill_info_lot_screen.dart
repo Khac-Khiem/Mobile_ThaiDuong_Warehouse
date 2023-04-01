@@ -92,7 +92,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                     SizedBox(
                       width: 350 * SizeConfig.ratioWidth,
                       height: 60 * SizeConfig.ratioHeight,
-                      child: DropdownSearch<String>(
+                      child: 
+                      DropdownSearch<String>(
                           mode: Mode.MENU,
                           items: state.items.map((e) => e.itemId).toList(),
                           showSearchBox: true,

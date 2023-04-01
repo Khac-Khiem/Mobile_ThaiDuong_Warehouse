@@ -16,5 +16,10 @@ class ItemRepoImpl implements ItemRepository {
     final items = itemService.getItemByWarehouseId(itemClassId);
     return items;
   }
+  @override
+    Future<List<ItemClass>> getAllItemClass() {
+    final itemClass = itemService.getAllItemClass();
+    return itemClass;
+  }
  
 }

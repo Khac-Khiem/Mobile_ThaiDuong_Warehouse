@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
@@ -29,10 +30,10 @@ class _WarningUnderStockminScreenSate
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
-            leading: IconButton(
+          leading: IconButton(
             icon: const Icon(Icons.west_outlined),
             onPressed: () {
-                 Navigator.pushNamed(context, '/warning_function_screen');
+              Navigator.pushNamed(context, '/warning_function_screen');
             },
           ),
           backgroundColor: Constants.mainColor,
@@ -49,26 +50,36 @@ class _WarningUnderStockminScreenSate
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(children: [
-                        Row(
+                        Container(
+                          padding: EdgeInsets.fromLTRB(8, 10, 0, 0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                overflow: TextOverflow.ellipsis,
-                                "Kho hàng",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20 * SizeConfig.ratioFont,
-                                  color: Colors.black,
+                              
+                              SizedBox(
+                                width: 340 * SizeConfig.ratioWidth,
+                                height: 60 * SizeConfig.ratioHeight,
+                                child: DropdownSearch<String?>(
+                                  mode: Mode.MENU,
+                                  items: state.warehouse,
+                                  showSearchBox: true,
+                                  label: "Chọn kho hàng",
+                                  // hint: "country in menu mode",
+                                  // onChanged: (value) {
+                                  //   //  print(value);
+                                  //   setState(() {
+                                  //     selectedItemClass = state.itemClass.firstWhere(
+                                  //         (element) => element.itemClassId == value);
+                                  //   });
+                                  // },
+                                  // selectedItem: selectedWarehouse == null
+                                  //     ? ''
+                                  //     : selectedWarehouse!.warehouse,
                                 ),
                               ),
-                              DropdownSearchButton(
-                                  buttonName: "Chọn loại kho hàng",
-                                  height: 60,
-                                  width: 200,
-                                  listItem: state.warehouse,
-                                  reference: warehouseId,
-                                  onChanged: () {})
-                            ]),
+                            ],
+                          ),
+                        ),
                         const Divider(
                           indent: 30,
                           endIndent: 30,
@@ -76,7 +87,7 @@ class _WarningUnderStockminScreenSate
                           thickness: 1,
                         ),
                         Container(
-                          padding: const EdgeInsets.fromLTRB(10, 450, 10, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 350, 10, 10),
                           child: CustomizedButton(
                               text: "Truy xuất",
                               onPressed: () {

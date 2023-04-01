@@ -9,13 +9,14 @@ class ItemUsecase {
     final items = itemRepository.getAllItem();
     return items;
   }
- 
+ Future<List<ItemClass>> getAllItemClass() async{
+    final itemClass = itemRepository.getAllItemClass();
+    return itemClass;
+  }
 Future<List<Item>> getItemByWarehouseId(
-     String itemClass ) async {
+     String itemClassId ) async {
     final items =
-        itemRepository.getItemByWarehouseId(itemClass);
+        itemRepository.getItemByWarehouseId(itemClassId);
     return items;
   }
-
-
 }

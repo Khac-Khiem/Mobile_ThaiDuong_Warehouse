@@ -1,5 +1,6 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, deprecated_member_use
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +34,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
 
-    return Scaffold(
+   return Scaffold(
         appBar: AppBar(
           backgroundColor: Constants.mainColor,
           leading: IconButton(
@@ -52,167 +53,166 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
             builder: (context, state) {
               if (state is GetAllInfoExportSuccessState) {
                 return Column(children: [
-                  Row(
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: 
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          "Kho hàng",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20 * SizeConfig.ratioFont,
-                            color: Colors.black,
+                        SizedBox(
+                          width: 150 * SizeConfig.ratioWidth,
+                          height: 60 * SizeConfig.ratioHeight,
+                          child: DropdownSearch<String?>(
+                            mode: Mode.MENU,
+                            items: state.warehouse,
+                            showSearchBox: true,
+                            label: "Kho hàng",
+
+                            // onChanged: (value) {
+                            //   //  print(value);
+                            //   setState(() {
+                            //     selectedItemClass = state.itemClass.firstWhere(
+                            //         (element) => element.itemClassId == value);
+                            //   });
+                            // },
+                            // selectedItem: selectedWarehouse == null
+                            //     ? ''
+                            //     : selectedWarehouse!.warehouse,
                           ),
                         ),
-                        DropdownSearchButton(
-                            buttonName: "Chọn loại kho hàng",
-                            height: 60,
-                            width: 200,
-                            listItem: state.warehouse,
-                            reference: warehouse,
-                            onChanged: () {})
-                      ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          "Bộ phận",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20 * SizeConfig.ratioFont,
-                            color: Colors.black,
-                          ),
-                        ),
-                        DropdownButton<Department>(
-                          hint: Text("Chọn mã sản phẩm"),
-                          value: selectedDepartment,
-                          onChanged: (Department? newValue) {
-                            setState(() {
-                              selectedDepartment = newValue;
-                              print(state.department
-                                  .indexOf(selectedDepartment as Department));
-                            });
-                          },
-                          items: state.department.map((Department department) {
-                            return DropdownMenuItem<Department>(
-                              value: department,
-                              child: Text(
-                                department.name.toString(),
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ]),
+                  
+
+             
+                    SizedBox(
+                      width: 150 * SizeConfig.ratioWidth,
+                      height: 60 * SizeConfig.ratioHeight,
+                      child: DropdownSearch<String>(
+                        mode: Mode.MENU,
+                        items: state.department.map((e) => e.name).toList(),
+                        showSearchBox: true,
+                        label: "Bộ phận",
+                        onChanged: (value) {
+                          //  print(value);
+                          setState(() {
+                            selectedDepartment = state.department
+                                .firstWhere((element) => element.name == value);
+                          });
+                        },
+                     
+                      ),
+                    ),
+                    //],
+                    //     ),
+                    //   ),
+                    ]),
+                  ),
                   BlocConsumer<HistoryBloc, HistoryState>(
                       listener: (context, state) {},
                       builder: (context, state) {
                         if (state is GetAllInfoExportSuccessState) {
                           return Column(children: [
-                            Row(
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    "Mã SP",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20 * SizeConfig.ratioFont,
-                                      color: Colors.black,
+                               
+                                  SizedBox(
+                                    width: 340 * SizeConfig.ratioWidth,
+                                    height: 60 * SizeConfig.ratioHeight,
+                                    child: DropdownSearch<String>(
+                                      mode: Mode.MENU,
+                                      items: state.item
+                                          .map((e) => e.itemId)
+                                          .toList(),
+                                      showSearchBox: true,
+                                      label: "Mã sản phẩm",
+                                      // hint: "country in menu mode",
+                                      onChanged: (value) {
+                                        //  print(value);
+                                        setState(() {
+                                          selectedItem = state.item.firstWhere(
+                                              (element) =>
+                                                  element.itemId == value);
+                                        });
+                                      },
+                                      selectedItem: selectedItem == null
+                                          ? ''
+                                          : selectedItem!.itemId,
                                     ),
                                   ),
-                                  DropdownButton<Item>(
-                                    hint: Text("Chọn mã sản phẩm"),
-                                    value: selectedItem,
-                                    onChanged: (Item? newValue) {
-                                      setState(() {
-                                        selectedItem = newValue;
-                                        print(state.item
-                                            .indexOf(selectedItem as Item));
-                                      });
-                                    },
-                                    items: state.item.map((Item item) {
-                                      return DropdownMenuItem<Item>(
-                                        value: item,
-                                        child: Text(
-                                          item.itemId.toString(),
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )
-                                ]),
-                            Row(
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    "Tên SP",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20 * SizeConfig.ratioFont,
-                                      color: Colors.black,
+                                  SizedBox(
+                                    width: 340 * SizeConfig.ratioWidth,
+                                    height: 60 * SizeConfig.ratioHeight,
+                                    child: DropdownSearch<String>(
+                                      mode: Mode.MENU,
+                                      items: state.item
+                                          .map((e) => e.itemName)
+                                          .toList(),
+                                      showSearchBox: true,
+                                      label: "Tên sản phẩm",
+                                      // hint: "country in menu mode",
+                                      onChanged: (value) {
+                                        //  print(value);
+                                        setState(() {
+                                          selectedItem = state.item.firstWhere(
+                                              (element) =>
+                                                  element.itemName == value);
+                                        });
+                                      },
+                                    
                                     ),
                                   ),
-                                  DropdownButton<Item>(
-                                    hint: Text("Chọn tên sản phẩm"),
-                                    value: selectedItem,
-                                    onChanged: (Item? newValue) {
-                                      setState(() {
-                                        selectedItem = newValue;
-                                        print(state.item
-                                            .indexOf(selectedItem as Item));
-                                      });
-                                    },
-                                    items: state.item.map((Item item) {
-                                      return DropdownMenuItem<Item>(
-                                        value: item,
-                                        child: Text(
-                                          item.itemName.toString(),
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )
-                                ]),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 170 * SizeConfig.ratioWidth,
-                                  height: 60 * SizeConfig.ratioHeight,
-                                  child: CustomizeDatePicker(
-                                    name: "Từ ngày",
-                                    fontColor: Colors.black,
-                                    fontWeight: FontWeight.normal,
-                                    initDateTime: date,
-                                    okBtnClickedFunction: (pickedTime) {
-                                      date = pickedTime;
-                                    },
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 10, 0,0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5 * SizeConfig.ratioHeight),
+                                    width: 160 * SizeConfig.ratioWidth,
+                                    height: 60 * SizeConfig.ratioHeight,
+                                    child: CustomizeDatePicker(
+                                      name: "Từ ngày",
+                                      fontColor: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      initDateTime: date,
+                                      okBtnClickedFunction: (pickedTime) {
+                                        date = pickedTime;
+                                      },
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 5 * SizeConfig.ratioHeight),
-                                  width: 170 * SizeConfig.ratioWidth,
-                                  height: 60 * SizeConfig.ratioHeight,
-                                  child: CustomizeDatePicker(
-
-                                    name: "Đến ngày",
-                                    fontColor: Colors.black,
-                                    fontWeight: FontWeight.normal,
-                                    initDateTime: date,
-                                    okBtnClickedFunction: (pickedTime) {
-                                      date = pickedTime;
-                                    },
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5 * SizeConfig.ratioHeight),
+                                    width: 160 * SizeConfig.ratioWidth,
+                                    height: 60 * SizeConfig.ratioHeight,
+                                    child: CustomizeDatePicker(
+                                      name: "Đến ngày",
+                                      fontColor: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      initDateTime: date,
+                                      okBtnClickedFunction: (pickedTime) {
+                                        date = pickedTime;
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             const Divider(
                               indent: 30,
@@ -230,7 +230,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 250, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
                               child: CustomizedButton(
                                   text: "Truy xuất", onPressed: () {}),
                             ),

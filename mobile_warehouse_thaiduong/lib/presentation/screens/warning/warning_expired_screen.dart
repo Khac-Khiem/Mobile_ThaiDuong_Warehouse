@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -32,27 +33,36 @@ class WarningExpiredScreen extends StatelessWidget {
           ),
         ),
         body: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                overflow: TextOverflow.ellipsis,
-                "HSD còn lại",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20 * SizeConfig.ratioFont,
-                  color: Colors.black,
-                ),
-              ),
-              DropdownSearchButton(
-                  buttonName: "HSD còn lại",
-                  height: 60,
-                  width: 200,
-                  listItem: const ['Dưới 6 tháng', '1 năm', '2 năm'],
-                  reference: expirationDate,
-                  onChanged: () {})
-            ],
-          ),
+             Container(
+                          padding: EdgeInsets.fromLTRB(8, 10, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                          
+                              SizedBox(
+                                width: 340 * SizeConfig.ratioWidth,
+                                height: 60 * SizeConfig.ratioHeight,
+                                child: DropdownSearch<String?>(
+                                  mode: Mode.MENU,
+                                  items: const ['6 tháng', '1 năm','2 năm'],
+                                  showSearchBox: true,
+                                  label: "Chọn hạn sử dụng còn lại",
+                                  // hint: "country in menu mode",
+                                  // onChanged: (value) {
+                                  //   //  print(value);
+                                  //   setState(() {
+                                  //     selectedItemClass = state.itemClass.firstWhere(
+                                  //         (element) => element.itemClassId == value);
+                                  //   });
+                                  // },
+                                  // selectedItem: selectedWarehouse == null
+                                  //     ? ''
+                                  //     : selectedWarehouse!.warehouse,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
           const Divider(
             indent: 30,
@@ -70,7 +80,7 @@ class WarningExpiredScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(10, 450, 10, 10),
+            padding: const EdgeInsets.fromLTRB(10, 350, 10, 10),
             child: CustomizedButton(
                 text: "Truy xuất",
                 onPressed: () {

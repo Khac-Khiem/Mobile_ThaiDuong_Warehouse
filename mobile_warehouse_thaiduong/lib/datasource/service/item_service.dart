@@ -26,7 +26,7 @@ class ItemService {
     Future<List<ItemModel>> getItemByWarehouseId(String itemClassId) async {
     return [];
   }
-   Future<List<ItemModel>> getAllItemclass() async {
-    return [];
+   Future<List<ItemClassModel>> getAllItemClass() async {
+    return [ItemClassModel('TP'),ItemClassModel('BTP'), ItemClassModel('NVL')];
   }
 }
