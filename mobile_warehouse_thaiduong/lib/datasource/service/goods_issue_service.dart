@@ -65,6 +65,12 @@ class GoodsIssueService {
                 '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
             10,
             100,
+            []),
+            GoodsIssueEntry(
+            ItemModel(
+                '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
+            10,
+            100,
             [])
       ]),
       GoodsIssueModel('đơn 2', null, null, false, 'PKK', [

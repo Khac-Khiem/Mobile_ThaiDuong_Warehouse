@@ -30,6 +30,8 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false, 
+
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
@@ -81,9 +83,11 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       margin: EdgeInsets.symmetric(
                           vertical: 5 * SizeConfig.ratioHeight),
                       child: TextField(
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Constants.buttonColor,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            // filled: true,
+                            // fillColor: Constants.buttonColor,
                             labelText: "Mã NCC (nếu có)"),
                         controller: receiptId,
                         onChanged: (value) => {
@@ -114,9 +118,11 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       margin: EdgeInsets.symmetric(
                           vertical: 5 * SizeConfig.ratioHeight),
                       child: TextField(
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Constants.buttonColor,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            // filled: true,
+                            // fillColor: Constants.buttonColor,
                             labelText: "Số phiếu"),
                         controller: supplyId,
                         onChanged: (value) => goodsReceipt.supply = value,
@@ -158,23 +164,55 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                   child: ListView.builder(
                       itemCount: state.goodsReceipt.lots.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return LotDetailComponent(
-                            lotid: state
-                                .goodsReceipt.lots[index].goodsReceiptLotId
-                                .toString(),
-                            itemId: state.goodsReceipt.lots[index].itemId
-                                .toString(),
-                            location: state.goodsReceipt.lots[index].location
-                                .toString(),
-                            enableEdit: true,
-                            unit: '',
-                            quantity: double.parse(state
-                                .goodsReceipt.lots[index].quantity
-                                .toString()),
-                            sublotSize: double.parse(state
-                                .goodsReceipt.lots[index].sublotSize
-                                .toString()),
-                            onPressed: () {
+                        return
+                            // LotDetailComponent(
+                            //     lotid: state
+                            //         .goodsReceipt.lots[index].goodsReceiptLotId
+                            //         .toString(),
+                            //     itemId: state.goodsReceipt.lots[index].itemId
+                            //         .toString(),
+                            //     location: state.goodsReceipt.lots[index].location
+                            //         .toString(),
+                            //     enableEdit: true,
+                            //     unit: '',
+                            //     quantity: double.parse(state
+                            //         .goodsReceipt.lots[index].quantity
+                            //         .toString()),
+                            //     sublotSize: double.parse(state
+                            //         .goodsReceipt.lots[index].sublotSize
+                            //         .toString()),
+                            //     onPressed: () {
+                            //       BlocProvider.of<FillReceiptLotBloc>(context).add(
+                            //           FillReceiptLotEvent(DateTime.now(),
+                            //               state.goodsReceipt, index, true));
+                            //       Navigator.pushNamed(
+                            //         context,
+                            //         '/fill_lot_receipt_screen',
+                            //       );
+                            //     });
+                            Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            //  leading: const Icon(Icons.list),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            trailing: Icon(Icons.edit,
+                                size: 15 * SizeConfig.ratioFont),
+                            title: Text(
+                                "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}"),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    "Sản phẩm : ${state.goodsReceipt.lots[index].itemId.toString()} \nSố lượng : ${state.goodsReceipt.lots[index].quantity.toString().toString()} "),
+                                Text(
+                                    "Số PO : ${state.goodsReceipt.lots[index].sublotSize.toString().toString()} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize.toString().toString()} \nVị trí : ${state.goodsReceipt.lots[index].location.toString()}"),
+                              ],
+                            ),
+                            isThreeLine: true,
+                            onTap: () {
                               BlocProvider.of<FillReceiptLotBloc>(context).add(
                                   FillReceiptLotEvent(DateTime.now(),
                                       state.goodsReceipt, index, true));
@@ -182,7 +220,9 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                                 context,
                                 '/fill_lot_receipt_screen',
                               );
-                            });
+                            },
+                          ),
+                        );
                       }),
                 ),
                 CustomizedButton(
@@ -205,25 +245,17 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // Text(
-                    //   overflow: TextOverflow.ellipsis,
-                    //   "Mã NCC",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.w600,
-                    //     fontSize: 20 * SizeConfig.ratioFont,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
-                    // TextInputWidget(contentTextField: supplyId)
+                 
                     Container(
                       width: 350 * SizeConfig.ratioWidth,
                       height: 60 * SizeConfig.ratioHeight,
                       margin: EdgeInsets.symmetric(
                           vertical: 5 * SizeConfig.ratioHeight),
                       child: TextField(
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Constants.buttonColor,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                          
                             labelText: "Mã NCC (nếu có)"),
                         controller: receiptId,
                         onChanged: (value) => {
@@ -239,25 +271,18 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // Text(
-                    //   overflow: TextOverflow.ellipsis,
-                    //   "Số phiếu",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.w600,
-                    //     fontSize: 20 * SizeConfig.ratioFont,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
-                    // TextInputWidget(contentTextField: receiptId)
+                 
                     Container(
                       width: 350 * SizeConfig.ratioWidth,
                       height: 60 * SizeConfig.ratioHeight,
                       margin: EdgeInsets.symmetric(
                           vertical: 5 * SizeConfig.ratioHeight),
                       child: TextField(
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Constants.buttonColor,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            // filled: true,
+                            // fillColor: Constants.buttonColor,
                             labelText: "Số phiếu"),
                         controller: supplyId,
                         onChanged: (value) => goodsReceipt.supply = value,

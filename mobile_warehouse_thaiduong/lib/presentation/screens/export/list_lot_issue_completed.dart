@@ -13,6 +13,15 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+            leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/export_main_screen');
+            },
+          ),
           backgroundColor: Constants.mainColor,
           title: Text(
             'Danh sách hàng hóa',

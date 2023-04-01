@@ -8,23 +8,23 @@ class AlertDialogOneBtnCustomized {
   String title;
   String desc;
   String textBtn;
- // Color bgBtn, fgBtn;
+  // Color bgBtn, fgBtn;
   double titleFSize, descFSize;
   VoidCallback onPressedBtn;
   VoidCallback closePressed;
   bool onWillPopActive;
   AlertDialogOneBtnCustomized(
-     this.context,
-      this.title ,
-      this.desc ,
-      this.textBtn ,
-    //  this.bgBtn ,
-     // this.fgBtn ,
-     this.onPressedBtn,
-      this.descFSize ,
+      this.context,
+      this.title,
+      this.desc,
+      this.textBtn,
+      //  this.bgBtn ,
+      // this.fgBtn ,
+      this.onPressedBtn,
+      this.descFSize,
       this.titleFSize,
-       this.closePressed,
-      this.onWillPopActive );
+      this.closePressed,
+      this.onWillPopActive);
   void show() {
     Alert(
             onWillPopActive: onWillPopActive,
@@ -32,7 +32,6 @@ class AlertDialogOneBtnCustomized {
               if (Navigator.canPop(context)) {
                 Navigator.of(context).pop();
               }
-              
             },
             context: context,
             title: title,
@@ -49,10 +48,10 @@ class AlertDialogOneBtnCustomized {
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
-                  if (Navigator.canPop(context)) {
-                    Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                   if (onPressedBtn != null) {
+                    onPressedBtn();
                   }
-                
                 },
               ),
             ],
