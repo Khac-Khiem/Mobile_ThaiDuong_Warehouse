@@ -4,6 +4,7 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../../constant.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/main_app_name.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // MainAppName(),
+              //   MainAppName(),
                 SizedBox(
                   height: 80 * SizeConfig.ratioHeight,
                 ),

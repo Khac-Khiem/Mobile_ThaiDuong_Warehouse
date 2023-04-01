@@ -102,6 +102,15 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.west, //mũi tên back
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/export_main_screen');
+          },
+        ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Xuất kho',
@@ -113,9 +122,21 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
           if (state is LoadGoodsIssuesSuccessState) {
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: SizedBox(
-                  height: 400 * SizeConfig.ratioHeight,
-                  child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      "Danh sách các phiếu hàng cần xuất",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20 * SizeConfig.ratioFont,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
                     child: ExpansionPanelList.radio(
                       children: state.goodsIssues
                           .map((e) => ExpansionPanelRadio(
@@ -123,156 +144,153 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
                                 value: e.goodsIssueId.toString(),
                                 headerBuilder: ((context, isExpanded) {
                                   return ListTile(
-                                    title: Text(e.goodsIssueId.toString()),
+                                    //leading: const Icon(Icons.list),
+                                    // trailing: Icon(
+                                    //     Icons.arrow_drop_down_sharp,
+                                    //     size: 15 * SizeConfig.ratioFont),
+                                    isThreeLine: true,
+                                    title: Text("Số phiếu : ${e.goodsIssueId}"),
+                                    subtitle: Text(
+                                        "Receiver : ${e.receiver.toString()} "),
                                   );
                                 }),
-                                body: SizedBox(
-                                  height: 300 * SizeConfig.ratioHeight,
-                                  child: ListView.builder(
-                                      itemCount: e.entries!.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            // BlocProvider.of<ListGoodsIssueEntryBloc>(context)
-                                            //     .add(LoadGoodsIssueEntryEvent(DateTime.now()));
-                                            // Navigator.pushNamed(
-                                            //     context, '/list_goods_issue_entry_screen');
+                                body: Column(
+                                  children: [
+                                    // Padding(
+                                    //   padding: const EdgeInsets.all(8.0),
+                                    //   child: Text(
+                                    //     overflow: TextOverflow.ellipsis,
+                                    //     "Danh sách các phiếu hàng cần xuất",
+                                    //     style: TextStyle(
+                                    //       fontWeight: FontWeight.w600,
+                                    //       fontSize: 20 * SizeConfig.ratioFont,
+                                    //       color: Colors.black,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    SizedBox(
+                                      height: e.entries!.length *
+                                          100 *
+                                          SizeConfig.ratioHeight,
+                                      child: ListView.builder(
+                                          itemCount: e.entries!.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ListTile(
+                                                shape: RoundedRectangleBorder(
+                                                  side: BorderSide(width: 2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                leading: const Icon(Icons.list),
+                                                isThreeLine: true,
+                                                title: Text(
+                                                    "Sản phẩm : ${e.entries![index].item!.itemName}"),
+                                                subtitle: Text(
+                                                    "Số lượng yêu cầu : ${e.entries![index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${e.entries![index].requestSublotSize.toString()} "),
+                                                onTap: () {
+                                                  BlocProvider.of<
+                                                              ListGoodsIssueLotUncompletedBloc>(
+                                                          context)
+                                                      .add(LoadGoodsIssueLotEvent(
+                                                          DateTime.now(),
+                                                          e.entries![index]
+                                                              .item!.itemId,
+                                                          e.entries![index].lots
+                                                              as List<
+                                                                  GoodsIssueLot>));
+                                                  Navigator.pushNamed(context,
+                                                      '/list_goods_issue_lot_screen');
+                                                },
+                                              ),
+                                            );
+                                            //   GestureDetector(
+                                            //     onTap: () {
+                                            //       // BlocProvider.of<ListGoodsIssueEntryBloc>(context)
+                                            //       //     .add(LoadGoodsIssueEntryEvent(DateTime.now()));
+                                            //       // Navigator.pushNamed(
+                                            //       //     context, '/list_goods_issue_entry_screen');
 
-                                            // bỏ qua trang issue entry
-                                            setState(() {
-                                              BlocProvider.of<
-                                                          ListGoodsIssueLotUncompletedBloc>(
-                                                      context)
-                                                  .add(LoadGoodsIssueLotEvent(
-                                                      DateTime.now(),
-                                                      e.entries![index].item!
-                                                          .itemId,  e.entries![index].lots as List<GoodsIssueLot>));
-                                              Navigator.pushNamed(context,
-                                                  '/list_goods_issue_lot_screen');
-                                              //goodsIssue = state.goodsIssues;
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Constants.buttonColor
-                                                        .withOpacity(0.5),
-                                                    spreadRadius: 5,
-                                                    blurRadius: 2,
-                                                    offset: const Offset(4,
-                                                        8), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              width:
-                                                  300 * SizeConfig.ratioWidth,
-                                              height:
-                                                  80 * SizeConfig.ratioHeight,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    "Số lượng : ${e.entries![index].requestQuantity}",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 28 *
-                                                          SizeConfig.ratioFont,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    "Tên sp : ${e.entries![index].item!.itemName}",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 18 *
-                                                          SizeConfig.ratioFont,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }),
+                                            //       // bỏ qua trang issue entry
+                                            //       setState(() {
+                                            //         BlocProvider.of<
+                                            //                     ListGoodsIssueLotUncompletedBloc>(
+                                            //                 context)
+                                            //             .add(LoadGoodsIssueLotEvent(
+                                            //                 DateTime.now(),
+                                            //                 e.entries![index].item!
+                                            //                     .itemId,  e.entries![index].lots as List<GoodsIssueLot>));
+                                            //         Navigator.pushNamed(context,
+                                            //             '/list_goods_issue_lot_screen');
+                                            //         //goodsIssue = state.goodsIssues;
+                                            //       });
+                                            //     },
+                                            //     child: Padding(
+                                            //       padding: const EdgeInsets.all(10),
+                                            //       child: Container(
+                                            //         decoration: BoxDecoration(
+                                            //           boxShadow: [
+                                            //             BoxShadow(
+                                            //               color: Constants.buttonColor
+                                            //                   .withOpacity(0.5),
+                                            //               spreadRadius: 5,
+                                            //               blurRadius: 2,
+                                            //               offset: const Offset(4,
+                                            //                   8), // changes position of shadow
+                                            //             ),
+                                            //           ],
+                                            //         ),
+                                            //         width:
+                                            //             300 * SizeConfig.ratioWidth,
+                                            //         height:
+                                            //             80 * SizeConfig.ratioHeight,
+                                            //         child: Column(
+                                            //           mainAxisAlignment:
+                                            //               MainAxisAlignment.center,
+                                            //           //crossAxisAlignment: CrossAxisAlignment.start,
+                                            //           children: [
+                                            //             Text(
+                                            //               overflow:
+                                            //                   TextOverflow.ellipsis,
+                                            //               "Số lượng : ${e.entries![index].requestQuantity}",
+                                            //               style: TextStyle(
+                                            //                 fontWeight:
+                                            //                     FontWeight.w600,
+                                            //                 fontSize: 28 *
+                                            //                     SizeConfig.ratioFont,
+                                            //                 color: Colors.black,
+                                            //               ),
+                                            //             ),
+                                            //             Text(
+                                            //               overflow:
+                                            //                   TextOverflow.ellipsis,
+                                            //               "Tên sp : ${e.entries![index].item!.itemName}",
+                                            //               style: TextStyle(
+                                            //                 fontWeight:
+                                            //                     FontWeight.w400,
+                                            //                 fontSize: 18 *
+                                            //                     SizeConfig.ratioFont,
+                                            //                 color: Colors.black,
+                                            //               ),
+                                            //             ),
+                                            //           ],
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   );
+                                          }),
+                                    ),
+                                  ],
                                 ),
                               ))
                           .toList(),
                     ),
-                  )
-                  // child: ListView.builder(
-                  //     itemCount: state.goodsIssues.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return GestureDetector(
-                  //         onTap: () {
-                  //           // BlocProvider.of<ListGoodsIssueEntryBloc>(context)
-                  //           //     .add(LoadGoodsIssueEntryEvent(DateTime.now()));
-                  //           // Navigator.pushNamed(
-                  //           //     context, '/list_goods_issue_entry_screen');
-
-                  //           // bỏ qua trang issue entry
-                  //           setState(() {
-                  //             goodsIssue = state.goodsIssues;
-
-                  //           });
-                  //         },
-                  //         child: Padding(
-                  //           padding: const EdgeInsets.all(10),
-                  //           child: Container(
-                  //             decoration: BoxDecoration(
-                  //               boxShadow: [
-                  //                 BoxShadow(
-                  //                   color: Constants.buttonColor.withOpacity(0.5),
-                  //                   spreadRadius: 5,
-                  //                   blurRadius: 2,
-                  //                   offset: const Offset(
-                  //                       4, 8), // changes position of shadow
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             width: 300 * SizeConfig.ratioWidth,
-                  //             height: 80 * SizeConfig.ratioHeight,
-                  //             child: Column(
-                  //               mainAxisAlignment: MainAxisAlignment.center,
-                  //               //crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   overflow: TextOverflow.ellipsis,
-                  //                   "Mã đơn : ${state.goodsIssues[index].goodsIssueId}",
-                  //                   style: TextStyle(
-                  //                     fontWeight: FontWeight.w600,
-                  //                     fontSize: 28 * SizeConfig.ratioFont,
-                  //                     color: Colors.black,
-                  //                   ),
-                  //                 ),
-                  //                 Text(
-                  //                   overflow: TextOverflow.ellipsis,
-                  //                   "Receiver : ${state.goodsIssues[index].receiver}",
-                  //                   style: TextStyle(
-                  //                     fontWeight: FontWeight.w400,
-                  //                     fontSize: 18 * SizeConfig.ratioFont,
-                  //                     color: Colors.black,
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       );
-                  //     }),
                   ),
+                ],
+              ),
             );
           } else {
             return Center(

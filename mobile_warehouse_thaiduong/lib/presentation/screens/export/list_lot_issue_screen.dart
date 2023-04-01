@@ -29,6 +29,15 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
       initialIndex: tabIndex,
       child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.west, //mũi tên back
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/list_goods_issue_screen');
+              },
+            ),
             bottom: TabBar(
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), // Creates border
@@ -64,21 +73,36 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                             canTapOnHeader: true,
                             value: e.lotId.toString(),
                             headerBuilder: ((context, isExpanded) {
-                              return LotDetailComponent(
-                                  itemId: e.lotId,
-                                  location: '',
-                                  enableEdit: false,
-                                  lotid: e.lotId,
-                                  numberPO: '264836',
-                                  unit: 'cái',
-                                  quantity: e.quantity,
-                                  sublotSize: 10,
-                                  onPressed: () {});
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(width: 2),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  leading: const Icon(Icons.list),
+                                  isThreeLine: true,
+                                  title: Text("Mã lô : ${e.lotId}"),
+                                  subtitle: Text(
+                                      "Sản phẩm : ${e.item.itemId.toString()} \nVị trí : ${e.location.toString()} \nSố lượng : ${e.quantity.toString()} \nSố PO : ${e.purchaseOrderNumber.toString()}"),
+                                  onTap: () {},
+                                ),
+                              );
+                              // LotDetailComponent(
+                              //     itemId: e.lotId,
+                              //     location: '',
+                              //     enableEdit: false,
+                              //     lotid: e.lotId,
+                              //     numberPO: '264836',
+                              //     unit: 'cái',
+                              //     quantity: e.quantity,
+                              //     sublotSize: 10,
+                              //     onPressed: () {});
                             }),
                             body: Column(
                               children: [
                                 Container(
-                                  width: 350 * SizeConfig.ratioWidth,
+                                  width: 300 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
                                   margin: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
@@ -90,46 +114,45 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                     onChanged: (value) => note = value,
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5 * SizeConfig.ratioHeight),
-                                      alignment: Alignment.centerRight,
-                                      width: 160 * SizeConfig.ratioWidth,
-                                      height: 55 * SizeConfig.ratioHeight,
-                                      //color: Colors.grey[200],
-                                      child: TextField(
-                                        decoration: const InputDecoration(
-                                            filled: true,
-                                            fillColor: Constants.buttonColor,
-                                            labelText:
-                                                "Nhập số lượng định cần xuất"),
-                                        keyboardType: const TextInputType
-                                            .numberWithOptions(decimal: true),
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.allow(
-                                              RegExp('[0-9.,]')),
-                                        ],
-                                        onChanged: (value) =>
-                                            quantity = double.parse(value),
-                                      ),
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          BlocProvider.of<
-                                                      ListGoodsIssueLotUncompletedBloc>(
-                                                  context)
-                                              .add(AddGoodsIssueLotEvent(
-                                                  DateTime.now(),
-                                               GoodsIssueLot(e.lotId, quantity, e.sublotSize , '', note),
-                                                  state.lotsSuggest,
-                                                  state.lotsExpected));
-                                                   DefaultTabController.of(context)?.animateTo(1);
-                                        },
-                                        child: Text('Xác nhận'))
-                                  ],
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5 * SizeConfig.ratioHeight),
+                                  alignment: Alignment.centerRight,
+                                  width: 300 * SizeConfig.ratioWidth,
+                                  height: 55 * SizeConfig.ratioHeight,
+                                  //color: Colors.grey[200],
+                                  child: TextField(
+                                    decoration: const InputDecoration(
+                                        filled: true,
+                                        fillColor: Constants.buttonColor,
+                                        labelText:
+                                            "Nhập số lượng định cần xuất"),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9.,]')),
+                                    ],
+                                    onChanged: (value) =>
+                                        quantity = double.parse(value),
+                                  ),
                                 ),
+                                TextButton(
+                                    onPressed: () {
+                                      BlocProvider.of<
+                                                  ListGoodsIssueLotUncompletedBloc>(
+                                              context)
+                                          .add(AddGoodsIssueLotEvent(
+                                              DateTime.now(),
+                                              GoodsIssueLot(e.lotId, quantity,
+                                                  e.sublotSize, '', note),
+                                              state.lotsSuggest,
+                                              state.lotsExpected));
+                                      DefaultTabController.of(context)
+                                          ?.animateTo(1);
+                                    },
+                                    child: Text('Xác nhận'))
                               ],
                             )))
                         .toList(),
@@ -172,13 +195,14 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                     itemCount: state.lotsExpected.length,
                     itemBuilder: (BuildContext context, int index) {
                       return LotDetailComponent(
-                          itemId: state.lotsExpected[index].goodsIssueLotId.toString(),
+                          itemId: state.lotsExpected[index].goodsIssueLotId
+                              .toString(),
                           location: '',
                           enableEdit: false,
                           lotid: '220123_NCC',
                           numberPO: '264836',
                           unit: 'cái',
-                          quantity:  state.lotsExpected[index].quantity,
+                          quantity: state.lotsExpected[index].quantity,
                           sublotSize: 10,
                           onPressed: () {});
                     });

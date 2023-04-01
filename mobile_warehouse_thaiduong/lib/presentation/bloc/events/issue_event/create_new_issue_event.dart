@@ -10,9 +10,10 @@ abstract class CreateNewIssueEvent extends Equatable {}
 //   List<Object?> get props => [timestamp];
 // }
 
-class LoadDepartmentIdsEvent extends CreateNewIssueEvent {
+class LoadListDataEvent extends CreateNewIssueEvent {
   DateTime timestamp;
-  LoadDepartmentIdsEvent(this.timestamp);
+  List<IssueEntryView> entriesIssue;
+  LoadListDataEvent(this.timestamp, this.entriesIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -20,9 +21,13 @@ class LoadDepartmentIdsEvent extends CreateNewIssueEvent {
 
 class AddIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
+  // String issueId;
+  // String receiver;
+  // String poNumber;
   IssueEntryView issueEntry;
   List<IssueEntryView> issueEntries;
-  AddIssueEntryEvent(this.issueEntry,this.issueEntries, this.timestamp);
+  AddIssueEntryEvent(
+      this.issueEntry, this.issueEntries, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -30,10 +35,14 @@ class AddIssueEntryEvent extends CreateNewIssueEvent {
 
 class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
+  // String issueId;
+  // String receiver;
+  // String poNumber;
   List<IssueEntryView> issueEntries;
   IssueEntryView issueEntry;
   int index;
-  UpdateIssueEntryEvent(this.issueEntry, this.issueEntries, this.index, this.timestamp);
+  UpdateIssueEntryEvent(
+      this.issueEntry, this.issueEntries, this.index, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

@@ -30,6 +30,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/others/login_scr
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_screen.dart';
 
 import '../bloc/events/issue_event/list_lot_issue_event.dart';
+import '../screens/export/fill_main_info_issue_screen.dart';
 import '../screens/export/list_lot_issue_screen.dart';
 
 class AppRoute {
@@ -73,7 +74,7 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
-                       BlocProvider<ExportingReceiptLotBloc>(
+                  BlocProvider<ExportingReceiptLotBloc>(
                       create: (context) => injector()),
                 ], child: FillInfoLotReceiptScreen()));
       case '/importing_receipt_screen':
@@ -130,6 +131,15 @@ class AppRoute {
                   BlocProvider<FillInfoIssueEntryBloc>(
                       create: (context) => injector()),
                 ], child: const FillInfoEntryIssueScreen()));
+
+      case '/fill_main_info_issue_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<CreateIssueBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<FillInfoIssueEntryBloc>(
+                      create: (context) => injector()),
+                ], child: const FillMainInFoIssueScreen()));
       case '/list_goods_issue_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [

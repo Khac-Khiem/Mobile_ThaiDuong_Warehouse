@@ -8,12 +8,13 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
   GoodsIssueUseCase goodsIssueUseCase;
   DepartmentUsecase departmentUsecase;
   CreateIssueBloc(this.goodsIssueUseCase, this.departmentUsecase)
-      : super(LoadDepartmentLoadingState(DateTime.now())) {
-    on<LoadDepartmentIdsEvent>((event, emit) async {
+      : super(CreateNewIssueInitialState()) {
+    on<LoadListDataEvent>((event, emit) async {
       emit(LoadDepartmentLoadingState(DateTime.now()));
       try {
         final department = await departmentUsecase.getAllDepartment();
-        emit(LoadDepartmentSuccessState(department, DateTime.now()));
+        emit(LoadListDataSuccessState(
+            department, event.entriesIssue, [], DateTime.now()));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));
       }
@@ -24,6 +25,7 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
         event.issueEntries.add(event.issueEntry);
         emit(UpdateEntryToGoodsIssueSuccess(
           DateTime.now(),
+       
           event.issueEntries,
         ));
       } catch (e) {
@@ -35,12 +37,11 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
       try {
         event.issueEntries.removeAt(event.index);
         event.issueEntries.insert(event.index, event.issueEntry);
-        emit(
-          UpdateEntryToGoodsIssueSuccess(
+        emit(UpdateEntryToGoodsIssueSuccess(
           DateTime.now(),
-         event.issueEntries,
-        )
-        );
+         
+          event.issueEntries,
+        ));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));
       }

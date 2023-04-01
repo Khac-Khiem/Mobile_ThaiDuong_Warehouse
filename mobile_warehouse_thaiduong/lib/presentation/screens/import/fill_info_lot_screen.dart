@@ -16,6 +16,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_
 import 'package:dropdown_search/dropdown_search.dart';
 
 import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
+import '../../dialog/dialog_one_button.dart';
 
 class FillInfoLotReceiptScreen extends StatefulWidget {
   const FillInfoLotReceiptScreen({super.key});
@@ -29,16 +30,17 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
   Item? selectedItem;
   String unit = '';
   GoodsReceiptLot goodsReceiptLot =
-      GoodsReceiptLot('', '',null, null, null, null, null, null, null);
+      GoodsReceiptLot('', '', null, null, null, null, '', null, null);
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
- // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
- // DateTime expiredDate = DateFormat('yyyy-MM-dd').parse('');
+  // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
+  // DateTime expiredDate = DateFormat('yyyy-MM-dd').parse('');
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
@@ -67,7 +69,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
           }
         },
         builder: (context, state) {
-          if (state is LoadItemDataSuccessState ) {
+          if (state is LoadItemDataSuccessState) {
             if (state.index != -1) {
               goodsReceiptLot = state.goodsReceipt.lots[state.index];
             }
@@ -83,7 +85,10 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                     BarcodeinputWidget(
                       textController: goodsReceiptLot.goodsReceiptLotId,
                       textLabel: "Mã lô",
-                      onChanged: ((data) {
+                      onChange: ((data) {
+                        goodsReceiptLot.goodsReceiptLotId = data;
+                      }),
+                      onScan: ((data) {
                         goodsReceiptLot.goodsReceiptLotId = data;
                       }),
                     ),
@@ -104,31 +109,37 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             goodsReceiptLot.itemId = value.toString();
                           });
                         },
-                        selectedItem:goodsReceiptLot.itemId
-                          //  selectedItem == null ? '' : selectedItem!.itemId,
-                            // state.index == -1
-                            //     ? goodsReceiptLot.itemId
-                            //     : state.lots[state.index].itemId.toString(),
+                        selectedItem:
+                            selectedItem == null ? '' : selectedItem!.itemId,
+                        //  goodsReceiptLot.itemId
+                        // state.index == -1
+                        //     ? goodsReceiptLot.itemId
+                        //     : state.lots[state.index].itemId.toString(),
                       ),
                     ),
-                    SizedBox(
-                      width: 350 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        items: state.items.map((e) => e.itemName).toList(),
-                        showSearchBox: true,
-                        label: "Tên sản phẩm",
-                        // hint: "country in menu mode",
-                        onChanged: (value) {
-                          //  print(value);
-                          setState(() {
-                            selectedItem = state.items.firstWhere(
-                                (element) => element.itemName == value);
-                          });
-                        },
-                        selectedItem:
-                            selectedItem == null ? '' : selectedItem!.itemName,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.items.map((e) => e.itemName).toList(),
+                          showSearchBox: true,
+                          label: "Tên sản phẩm",
+                          // hint: "country in menu mode",
+                          onChanged: (value) {
+                            //  print(value);
+                            setState(() {
+                              selectedItem = state.items.firstWhere(
+                                  (element) => element.itemName == value);
+                              goodsReceiptLot.itemId = selectedItem!.itemId;
+                            });
+                          },
+                          selectedItem: selectedItem == null
+                              ? ''
+                              : selectedItem!.itemName,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -161,29 +172,36 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                               vertical: 5 * SizeConfig.ratioHeight),
                           alignment: Alignment.centerRight,
                           width: 160 * SizeConfig.ratioWidth,
-                          height: 55 * SizeConfig.ratioHeight,
+                          height: 60 * SizeConfig.ratioHeight,
                           //color: Colors.grey[200],
                           child: TextField(
-                            controller: 
-                            //TextEditingController(text: goodsReceiptLot.sublotSize.toString()),
-                             state.index == -1
-                                ? TextEditingController()
-                                : TextEditingController(
-                                   text: goodsReceiptLot.sublotSize.toString()
-                                  ),
-                            decoration: const InputDecoration(
-                                filled: true,
-                                fillColor: Constants.buttonColor,
-                                labelText:
-                                    "Nhập số lượng định mức của thùng hàng"),
+                            controller: TextEditingController(
+                                text: goodsReceiptLot.sublotSize == null
+                                    ? ''
+                                    : goodsReceiptLot.sublotSize.toString()),
+                            // state.index == -1
+                            //     ? TextEditingController()
+                            //     : TextEditingController(
+                            //         text: goodsReceiptLot.sublotSize
+                            //             .toString()),
+                            onSubmitted: (value) => goodsReceiptLot.sublotSize =
+                                double.parse(value),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                // filled: true,
+                                // fillColor: Constants.buttonColor,
+                                labelStyle: TextStyle(
+                                    fontSize: 15 * SizeConfig.ratioFont),
+                                labelText: "Định mức "),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            onChanged: (value) => goodsReceiptLot.sublotSize =
-                                double.parse(value),
+                            // onChanged: (value) => goodsReceiptLot.sublotSize =
+                            //     double.parse(value),
                           ),
                         ),
                         Container(
@@ -191,28 +209,37 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                               vertical: 5 * SizeConfig.ratioHeight),
                           alignment: Alignment.centerRight,
                           width: 160 * SizeConfig.ratioWidth,
-                          height: 55 * SizeConfig.ratioHeight,
+                          height: 60 * SizeConfig.ratioHeight,
                           //color: Colors.grey[200],
                           child: TextField(
-                             controller: 
-                             //TextEditingController(text: goodsReceiptLot.sublotSize.toString()),
-                             state.index == -1
-                                ? TextEditingController()
-                                : TextEditingController(
-                                   text: goodsReceiptLot.sublotSize.toString()
-                                  ),
-                            decoration: const InputDecoration(
-                                filled: true,
-                                fillColor: Constants.buttonColor,
-                                labelText: "Nhập tổng lượng của lô hàng"),
+                            controller: TextEditingController(
+                                text: goodsReceiptLot.quantity == null
+                                    ? ''
+                                    : goodsReceiptLot.quantity.toString()),
+                            // state.index == -1
+                            //     ? TextEditingController()
+                            //     :
+                            // TextEditingController(
+                            //         text: goodsReceiptLot.sublotSize
+                            //             .toString()),
+                            onSubmitted: (value) =>
+                                goodsReceiptLot.quantity = double.parse(value),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                // filled: true,
+                                // fillColor: Constants.buttonColor,
+                                labelStyle: TextStyle(
+                                    fontSize: 15 * SizeConfig.ratioFont),
+                                labelText: "Tổng lượng"),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            onChanged: (value) =>
-                                goodsReceiptLot.quantity = double.parse(value),
+                            // onChanged: (value) =>
+                            //     goodsReceiptLot.quantity = double.parse(value),
                           ),
                         )
                       ],
@@ -221,51 +248,71 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
+                          // padding: EdgeInsets.symmetric(
+                          //     vertical: 5 * SizeConfig.ratioHeight),
                           margin: EdgeInsets.symmetric(
                               vertical: 5 * SizeConfig.ratioHeight),
                           width: 160 * SizeConfig.ratioWidth,
                           height: 60 * SizeConfig.ratioHeight,
                           // padding: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
-                          decoration: BoxDecoration(
-                              color: Constants.buttonColor,
-                              border: Border.all(
-                                  width: 1, color: Constants.buttonColor),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5))),
+                          // decoration: BoxDecoration(
+                          //     color: Constants.buttonColor,
+                          //     border: Border.all(
+                          //         width: 1, color: Constants.buttonColor),
+                          //     borderRadius:
+                          //         const BorderRadius.all(Radius.circular(5))),
                           child: CustomizeDatePicker(
                             name: "NSX",
                             fontColor: Colors.black,
                             fontWeight: FontWeight.normal,
-                            initDateTime: goodsReceiptLot.productionDate == null ? DateFormat('yyyy-MM-dd').parse(DateTime.now().toString()) : goodsReceiptLot.productionDate as DateTime ,
+                            initDateTime: goodsReceiptLot.productionDate == null
+                                ? DateFormat('yyyy-MM-dd')
+                                    .parse(DateTime.now().toString())
+                                : goodsReceiptLot.productionDate as DateTime,
                             okBtnClickedFunction: (pickedTime) {
                               goodsReceiptLot.productionDate = pickedTime;
                             },
                           ),
                         ),
                         Container(
+                          // padding: EdgeInsets.symmetric(
+                          //     vertical: 5 * SizeConfig.ratioHeight),
                           margin: EdgeInsets.symmetric(
                               vertical: 5 * SizeConfig.ratioHeight),
                           width: 160 * SizeConfig.ratioWidth,
                           height: 60 * SizeConfig.ratioHeight,
                           // padding: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
-                          decoration: BoxDecoration(
-                              color: Constants.buttonColor,
-                              border: Border.all(width: 1, color: Colors.grey),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5))),
+                          // decoration: BoxDecoration(
+                          //     color: Constants.buttonColor,
+                          //     border: Border.all(width: 1, color: Colors.grey),
+                          //     borderRadius:
+                          //         const BorderRadius.all(Radius.circular(5))),
                           child: CustomizeDatePicker(
                             name: "HSD",
                             fontColor: Colors.black,
                             fontWeight: FontWeight.normal,
-                            initDateTime: goodsReceiptLot.expirationDate == null ? DateFormat('yyyy-MM-dd').parse(DateTime.now().toString()) : goodsReceiptLot.expirationDate as DateTime ,
+                            initDateTime: goodsReceiptLot.expirationDate == null
+                                ? DateFormat('yyyy-MM-dd')
+                                    .parse(DateTime.now().toString())
+                                : goodsReceiptLot.expirationDate as DateTime,
                             okBtnClickedFunction: (pickedTime) {
                               goodsReceiptLot.expirationDate = pickedTime;
                             },
                           ),
                         ),
                       ],
+                    ),
+                    BarcodeinputWidget(
+                      textController: goodsReceiptLot.location.toString(),
+                      textLabel: "Vị trí",
+                      onChange: ((data) {
+                        goodsReceiptLot.location = data;
+                      }),
+                      onScan: ((data) {
+                        goodsReceiptLot.location = data;
+                      }),
                     ),
                     Row(children: [
                       Text(
@@ -293,7 +340,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                       margin: EdgeInsets.symmetric(
                           vertical: 5 * SizeConfig.ratioHeight),
                       child: TextField(
-                        controller: TextEditingController(text: goodsReceiptLot.purchaseOrderNumber),
+                        controller: TextEditingController(
+                            text: goodsReceiptLot.purchaseOrderNumber),
                         // state.index == -1
                         //     ? TextEditingController()
                         //     : TextEditingController(
@@ -301,43 +349,68 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         //             .lots[state.index].purchaseOrderNumber
                         //             .toString(),
                         //       ),
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Constants.buttonColor,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            // filled: true,
+                            // fillColor: Constants.buttonColor,
                             labelText: "Nhập số PO"),
                         onChanged: (value) =>
                             goodsReceiptLot.purchaseOrderNumber = value,
                       ),
                     ),
-                    state.function ?
-                    state.index == -1
-                        ? ElevatedButton(
-                            onPressed: () async {
-                              BlocProvider.of<CreateReceiptBloc>(context).add(
-                                  AddLotToGoodsReceiptEvent(
-                                      goodsReceiptLot, state.goodsReceipt));
-                              Navigator.pushNamed(
-                                  context, '/create_receipt_screen');
-                            },
-                            child: const Text('Tạo mới'),
-                          )
-                        : ElevatedButton(
-                            onPressed: () async {
-                              BlocProvider.of<CreateReceiptBloc>(context).add(
-                                  UpdateLotReceiptEvent(goodsReceiptLot,
-                                      state.goodsReceipt, state.index));
-                              Navigator.pushNamed(
-                                  context, '/create_receipt_screen');
-                            },
-                            child: const Text('Cập nhật'),
-                          ):ElevatedButton( onPressed: () async {
-                              BlocProvider.of<ExportingReceiptLotBloc>(context).add(
-                                  UpdateReceiptLotEvent( state.index, goodsReceiptLot,
-                                      state.goodsReceipt));
-                              Navigator.pushNamed(
-                                  context, '/importing_receipt_lot_screen');
-                            },
-                            child: const Text('Cập nhật 2'),)
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (goodsReceiptLot.goodsReceiptLotId == '' ||
+                            goodsReceiptLot.itemId == '' ||
+                            goodsReceiptLot.quantity == null) {
+                          AlertDialogOneBtnCustomized(
+                                  context,
+                                  "Cảnh báo",
+                                  "Vui lòng điền đầy đủ các thông tin trong phần bắt buộc",
+                                  "Trở lại", () {
+                            // Navigator.pushNamed(
+                            //   context,
+                            //   '/fill_main_info_issue_screen',
+                            // );
+                          }, 18, 22, () {}, false)
+                              .show();
+                        } else {
+                          state.function
+                              ? {
+                                  state.index == -1
+                                      ? {
+                                          BlocProvider.of<CreateReceiptBloc>(
+                                                  context)
+                                              .add(AddLotToGoodsReceiptEvent(
+                                                  goodsReceiptLot,
+                                                  state.goodsReceipt)),
+                                          Navigator.pushNamed(
+                                              context, '/create_receipt_screen')
+                                        }
+                                      : {
+                                          BlocProvider.of<CreateReceiptBloc>(
+                                                  context)
+                                              .add(UpdateLotReceiptEvent(
+                                                  goodsReceiptLot,
+                                                  state.goodsReceipt,
+                                                  state.index)),
+                                          Navigator.pushNamed(context,
+                                              '/create_receipt_screen'),
+                                        },
+                                }
+                              : {
+                                  BlocProvider.of<ExportingReceiptLotBloc>(
+                                          context)
+                                      .add(UpdateReceiptLotEvent(state.index,
+                                          goodsReceiptLot, state.goodsReceipt)),
+                                  Navigator.pushNamed(
+                                      context, '/importing_receipt_lot_screen')
+                                };
+                        }
+                      },
+                      child: const Text('Tạo mới'),
+                    )
                   ],
                 ),
               ),
