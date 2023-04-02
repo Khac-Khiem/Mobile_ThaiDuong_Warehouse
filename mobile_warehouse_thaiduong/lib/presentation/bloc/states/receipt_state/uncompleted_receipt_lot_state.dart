@@ -12,7 +12,7 @@ class LoadReceiptLotsLoadingState extends UncompletedReceiptLotState {
   LoadReceiptLotsLoadingState(this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
@@ -21,7 +21,7 @@ class LoadReceiptLotsLoadingState extends UncompletedReceiptLotState {
 //   GoodsReceipt goodsReceipt;
 //   LoadReceiptLotsSuccessState(this.timestamp, this.goodsReceipt);
 //   @override
-
+//   // TODO: implement props
 //   List<Object?> get props => throw UnimplementedError();
 // }
 // => gộp 2 state loadlotssuccess và updatelotsuccess
@@ -32,7 +32,7 @@ class LoadShelfIdsCuccessState extends UncompletedReceiptLotState {
   DateTime timestamp;
   LoadShelfIdsCuccessState(this.shelfIds, this.timestamp);
   @override
- 
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 //----------------------------
@@ -42,7 +42,7 @@ class UpdateReceiptLotSuccessState extends UncompletedReceiptLotState {
   UpdateReceiptLotSuccessState(this.goodsReceipt, this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 class UpdateReceiptLotLoadingState extends UncompletedReceiptLotState {
@@ -51,7 +51,7 @@ class UpdateReceiptLotLoadingState extends UncompletedReceiptLotState {
   UpdateReceiptLotLoadingState( this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 //--------------
@@ -61,7 +61,7 @@ class ConfirmReceiptLotChangedSuccessState extends UncompletedReceiptLotState {
   ConfirmReceiptLotChangedSuccessState(this.status, this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -70,7 +70,7 @@ class ConfirmReceiptLotChangedLoadingState extends UncompletedReceiptLotState {
   ConfirmReceiptLotChangedLoadingState(this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
@@ -80,6 +80,6 @@ class ConfirmReceiptLotChangedFailState extends UncompletedReceiptLotState {
   ConfirmReceiptLotChangedFailState(this.status, this.timestamp);
 
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

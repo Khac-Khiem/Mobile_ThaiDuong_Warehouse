@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, prefer_interpolation_to_compose_strings
 
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'dart:convert';
@@ -19,7 +19,7 @@ class GoodsIssueService {
       String receiver,
       List<GoodsIssueEntry> entries) async {
     final res =
-        await http.post(Uri.parse('${Constants.baseUrl}api/goodsreceipts/'),
+        await http.post(Uri.parse(Constants.baseUrl + 'api/goodsreceipts/'),
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ',
@@ -67,7 +67,13 @@ class GoodsIssueService {
                 '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
             10,
             100,
-            const [])
+            []),
+            GoodsIssueEntry(
+            ItemModel(
+                '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
+            10,
+            100,
+            [])
       ]),
       GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
         GoodsIssueEntry(
@@ -75,14 +81,14 @@ class GoodsIssueService {
                 '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
             10,
             100,
-            const [])
+            [])
       ])
     ];
   }
 
-  Future<List<GoodsIssueModel>> getCompletedGoodsIssue() async {
+  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
     final res = await http.get(
-      Uri.parse('${Constants.baseUrl}api/goodsissues/pending'),
+      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': '*/*',
@@ -106,7 +112,7 @@ class GoodsIssueService {
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {
     final res = await http.get(
-        Uri.parse('${Constants.baseUrl}api/goodsissues/$goodsIssueId'),
+        Uri.parse(Constants.baseUrl + 'api/goodsissues/$goodsIssueId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': '*/*',

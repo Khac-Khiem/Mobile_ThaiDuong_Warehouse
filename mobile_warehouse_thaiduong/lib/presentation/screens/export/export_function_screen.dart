@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -20,6 +18,15 @@ class ExportFunctionScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Xuất kho',
@@ -34,8 +41,8 @@ class ExportFunctionScreen extends StatelessWidget {
               icon: Icons.note_add,
               text: "TẠO PHIẾU MỚI",
               onPressed: () {
-                 BlocProvider.of<CreateIssueBloc>(context)
-                    .add(LoadDepartmentIdsEvent(DateTime.now()));
+                //  BlocProvider.of<CreateIssueBloc>(context)
+                //     .add(LoadDepartmentIdsEvent(DateTime.now()));
                 Navigator.pushNamed(context, '/create_issue_screen');
                 // Navigator.push(
                 //   context,

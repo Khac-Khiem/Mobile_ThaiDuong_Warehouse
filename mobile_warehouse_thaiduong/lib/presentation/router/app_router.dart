@@ -56,6 +56,7 @@ import '../screens/shelves/search_shelf_screen.dart';
 import '../screens/warning/warning_expired_screen.dart';
 
 import '../bloc/events/issue_event/list_lot_issue_event.dart';
+import '../screens/export/fill_main_info_issue_screen.dart';
 import '../screens/export/list_lot_issue_screen.dart';
 
 class AppRoute {
@@ -100,7 +101,9 @@ class AppRoute {
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
 
-                ], child: const FillInfoLotReceiptScreen()));
+                  BlocProvider<ExportingReceiptLotBloc>(
+                      create: (context) => injector()),
+                ], child: FillInfoLotReceiptScreen()));
 
       case '/importing_receipt_screen':
         return MaterialPageRoute(
@@ -156,6 +159,15 @@ class AppRoute {
                   BlocProvider<FillInfoIssueEntryBloc>(
                       create: (context) => injector()),
                 ], child: const FillInfoEntryIssueScreen()));
+
+      case '/fill_main_info_issue_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<CreateIssueBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<FillInfoIssueEntryBloc>(
+                      create: (context) => injector()),
+                ], child: const FillMainInFoIssueScreen()));
       case '/list_goods_issue_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [

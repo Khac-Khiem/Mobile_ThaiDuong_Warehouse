@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -46,9 +44,8 @@ class LotDetailComponent extends StatelessWidget {
                 borderRadius:
                     BorderRadius.circular(radius * SizeConfig.ratioWidth),
               ),
-              shadowColor: 
-              Constants.mainColor,
-              // foregroundColor: Colors.black,
+              shadowColor: Constants.mainColor,
+              //foregroundColor: Colors.black,
               //backgroundColor: bgColor,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             ),

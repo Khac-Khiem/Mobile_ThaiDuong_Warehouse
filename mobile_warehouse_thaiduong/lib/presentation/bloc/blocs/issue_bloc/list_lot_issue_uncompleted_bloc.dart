@@ -29,7 +29,7 @@ class ListGoodsIssueLotUncompletedBloc
       try {
         for (var element in event.listLotsSuggest) {
           if (element.lotId == event.goodsIssueLot.goodsIssueLotId) {
-            element.quantity = element.quantity - event.goodsIssueLot.quantity!.toDouble();
+            element.quantity = element.quantity - event.goodsIssueLot.quantity;
           }
         }
         event.listLotsSuggest = event.listLotsSuggest
@@ -40,7 +40,7 @@ class ListGoodsIssueLotUncompletedBloc
             if (element.goodsIssueLotId ==
                 event.goodsIssueLot.goodsIssueLotId) {
               element.quantity =
-                  (element.quantity! + event.goodsIssueLot.quantity!.toDouble());
+                  (element.quantity + event.goodsIssueLot.quantity);
               check = false;
             }
             // else {

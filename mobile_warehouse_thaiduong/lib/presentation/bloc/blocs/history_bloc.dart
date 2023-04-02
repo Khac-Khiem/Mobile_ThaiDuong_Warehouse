@@ -1,6 +1,8 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/department_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/history_events.dart';
@@ -11,11 +13,13 @@ import '../../../domain/usecases/location_usecase.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   ItemUsecase itemUsecase;
+  DepartmentUsecase departmentUsecase;
   LocationUsecase locationUsecase;
   GoodsIssueUseCase goodsIssueUseCase;
   GoodsReceiptUsecase goodsReceiptUseCase;
   HistoryBloc(
-      this.goodsIssueUseCase, 
+      this.goodsIssueUseCase,
+      this.departmentUsecase, 
       this.locationUsecase, 
       this.goodsReceiptUseCase,
       this.itemUsecase)
@@ -27,7 +31,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
        
         final item = await itemUsecase.getAllItem();
         final warehouse = await locationUsecase.getAllWarehouseId();
-        final department = await goodsIssueUseCase.getAllDepartments();
+        final department = await departmentUsecase.getAllDepartment();
         emit(GetAllInfoExportSuccessState(DateTime.now(), item, warehouse, department));
       }catch (e) {
         emit(GetAllInfoExportFailState(DateTime.now(), ErrorPackage('')));
@@ -74,7 +78,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       try {
         final item = await itemUsecase.getAllItem();
           final warehouse = await locationUsecase.getAllWarehouseId();
-        final department = await goodsIssueUseCase.getAllDepartments();
+        final department = await departmentUsecase.getAllDepartment();
         emit(GetAllInfoImportSuccessState(DateTime.now(),warehouse, item, department));
       } catch (e) {
         emit(GetAllInfoImportFailState(DateTime.now(), ErrorPackage('')));

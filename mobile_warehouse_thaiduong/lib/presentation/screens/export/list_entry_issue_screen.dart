@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
-//import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_issue_completed.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_issue_screen.dart';
 import '../../../function.dart';
 
@@ -12,6 +11,15 @@ class ListGoodIssueEntryScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/export_main_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách hàng hóa cần xuất',
@@ -43,7 +51,7 @@ class ListGoodIssueEntryScreen extends StatelessWidget {
                             color: Constants.buttonColor.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 2,
-                            offset: const Offset(4, 8), // changes position of shadow
+                            offset: Offset(4, 8), // changes position of shadow
                           ),
                         ],
                       ),

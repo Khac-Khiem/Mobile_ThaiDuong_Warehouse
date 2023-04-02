@@ -12,7 +12,7 @@ class LoadGoodsIssueLotEvent extends GoodsIssueLotEvent {
   List<GoodsIssueLot> lotsExpected;
   LoadGoodsIssueLotEvent(this.timestamp, this.itemId,this.lotsExpected);
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -28,7 +28,7 @@ class AddGoodsIssueLotEvent extends GoodsIssueLotEvent {
   AddGoodsIssueLotEvent(this.timestamp, this.goodsIssueLot,
       this.listLotsSuggest, this.listLotExpected);
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -37,6 +37,6 @@ class PostGoodsIssueLotEvent extends GoodsIssueLotEvent {
   List<ItemLot> lots;
   PostGoodsIssueLotEvent(this.timestamp, this.lots);
   @override
-
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

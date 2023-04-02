@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, deprecated_member_use
+
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/shelve_bloc.dart';
 import '../../bloc/states/shelve_states.dart';
+import '../../bloc/events/shelve_events.dart';
 import '../../widgets/button_widget.dart';
 
 class SearchItemScreen extends StatefulWidget {
@@ -98,12 +99,27 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                    child: CustomizedButton(text: "Tìm kiếm", onPressed: () {
-                        BlocProvider.of<ShelveBloc>(context).add(GetLotByItemIdSuccessState
-                            ( selectedItem.itemId));
+                    child:
+                    CustomizedButton(
+                text: "Truy xuất",
+                onPressed: () {
+                  BlocProvider.of<ShelveBloc>(context).add(
+                      GetLotByItemIdEvent(
+                         DateTime.now(), 
+                         selectedItem!.itemId));
+                          // selectedItem!.itemId));
+                }) 
+                    // CustomizedButton
+                    // (text: "Tìm kiếm", onPressed: () 
+                    // {
+                    //     BlocProvider.of<ShelveBloc>(context).add(GetLotByItemIdEvent
+                            
+                    //           (selectedItem.itemId));
 
-                    }),
+                    // }),
                   ),
+              
+                                   
                   const Divider(
                     indent: 30,
                     endIndent: 30,

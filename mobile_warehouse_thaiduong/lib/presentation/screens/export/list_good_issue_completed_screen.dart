@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_issue_completed.dart';
@@ -13,6 +11,15 @@ class ListGoodIssueCompletedScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/export_main_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Xuất kho',

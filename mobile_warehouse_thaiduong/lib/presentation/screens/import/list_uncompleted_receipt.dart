@@ -77,6 +77,7 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
                               BlocProvider.of<ExportingReceiptLotBloc>(context)
                                   .add(LoadUncompletedReceiptLotEvent( DateTime.now(), state.receipts[index]));
                                    Navigator.pushNamed(context, '/importing_receipt_lot_screen');
+
                             },);
                         }),
                   );

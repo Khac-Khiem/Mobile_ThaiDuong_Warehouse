@@ -7,9 +7,12 @@ abstract class FillInfoIssueEntryEvent extends Equatable {}
 
 class GetAllItemIssueEvent extends FillInfoIssueEntryEvent {
   DateTime timestamp;
+  //    String issueId;
+  // String receiver;
+  // String poNumber;
   List<IssueEntryView> entries;
   int index;
-  GetAllItemIssueEvent(this.timestamp, this.entries, this.index);
+  GetAllItemIssueEvent( this.timestamp, this.entries, this.index);
   @override
   List<Object> get props => [timestamp];
 }

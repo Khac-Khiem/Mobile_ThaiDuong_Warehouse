@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart';
 import 'dart:convert';
@@ -9,7 +7,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 class ItemLotService {
   Future<ItemLotModel> getItemLotById(String lotId) async {
     final res = await http.get(
-      Uri.parse('${Constants.baseUrl}api/containers/$lotId'),
+      Uri.parse(Constants.baseUrl + 'api/containers/$lotId'),
     );
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);

@@ -1,7 +1,7 @@
 import 'package:mobile_warehouse_thaiduong/datasource/models/department_model.dart';
 
 class DepartmentService {
-  Future<List<DepartmentModel>> getAllDepartments() async {
+  Future<List<DepartmentModel>> getAllDepartment() async {
     //  final url = Uri.parse(
     //     'https://chaauthenticationdelegateservice.azurewebsites.net/api/login');
     // final response = await http.get(url,

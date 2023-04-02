@@ -25,7 +25,7 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<List<GoodsIssueModel>> getCompletedGoodsIssue() async {
-    final goodsIssues = goodsIssueService.getCompletedGoodsIssue();
+    final goodsIssues = goodsIssueService.getCompletedGoodsissue();
     return goodsIssues;
   }
 

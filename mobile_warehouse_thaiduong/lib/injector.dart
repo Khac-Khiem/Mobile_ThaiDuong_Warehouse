@@ -28,6 +28,7 @@ import 'package:mobile_warehouse_thaiduong/domain/repositories/item_repository.d
 import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/lot_adjment_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/department_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_receipt_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/inventory_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
@@ -84,8 +85,8 @@ Future<void> initializeDependencies() async {
       LotAjustmentRepoImpl(injector()));
 
 // register usecase
-  injector.registerSingleton<GoodsIssueUseCase>(
-      GoodsIssueUseCase(injector(), injector()));
+  injector.registerSingleton<DepartmentUsecase>(DepartmentUsecase(injector()));
+  injector.registerSingleton<GoodsIssueUseCase>(GoodsIssueUseCase(injector()));
   injector
       .registerSingleton<GoodsReceiptUsecase>(GoodsReceiptUsecase(injector()));
   injector.registerSingleton<InventoryUsecase>(InventoryUsecase(injector()));
@@ -122,7 +123,7 @@ Future<void> initializeDependencies() async {
   // ));
 
   //==
-    
+
   injector.registerSingleton<WarningBloc>(WarningBloc(injector(), injector()));
   injector.registerSingleton<ShelveBloc>(
       ShelveBloc(injector(), injector(), injector()));
@@ -130,11 +131,15 @@ Future<void> initializeDependencies() async {
       InventoryBloc(injector(), injector(), injector()));
   injector.registerSingleton<AdjustmentBloc>(
       AdjustmentBloc(injector(), injector(), injector(), injector()));
-  injector.registerSingleton<IsolationBloc>(IsolationBloc(injector(),injector(),));
+  injector.registerSingleton<IsolationBloc>(IsolationBloc(
+    injector(),
+    injector(),
+  ));
   injector.registerSingleton<HistoryBloc>(HistoryBloc(
     injector(),
     injector(),
-    injector(),injector(),
-
+    injector(),
+    injector(),
+    injector(),
   ));
 }

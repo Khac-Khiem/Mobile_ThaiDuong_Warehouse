@@ -7,6 +7,8 @@ class MainAppName extends StatelessWidget {
   const MainAppName({super.key, this.title = "QUẢN LÝ KHO"});
   @override
   Widget build(BuildContext context) {
+        SizeConfig().init(context);
+
     return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,16 +22,9 @@ class MainAppName extends StatelessWidget {
                 color: Constants.mainColor),
           ),
           SizedBox(height: 20 * SizeConfig.ratioHeight),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Image(
-                image: AssetImage('lib/assets/THAIDUONG_logo.jpg'),
-               // width: 200 * SizeConfig.ratioWidth,
-              ),
-              
-             
-            ],
+          Image(
+            image: AssetImage('lib/assets/logo_TD.png'),
+           // width: 200 * SizeConfig.ratioWidth,
           ),
         ]);
   }

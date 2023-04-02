@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, avoid_print, unnecessary_null_comparison
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -51,15 +49,14 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
       }
     }
 
-    return TextButton(
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: widget.name,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+           
+            side: BorderSide(
+             width: 0.3
+            ),
           ),
-        ),
-        child: Row(
+      child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // reference != widget.initDateTime.toString()
@@ -84,7 +81,6 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
             )
           ],
         ),
-      ),
       onPressed: () {
         selectTimePicker(context);
       },
