@@ -25,7 +25,7 @@ class IsolationBloc extends Bloc<IsolationEvent, IsolationState> {
       try {
         final itemLot = await itemLotUsecase.getItemLotsByItemId(event.itemId);
         itemLot.isNotEmpty
-            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot))
+            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot, event.listItem))
             : emit(GetLotByItemIdFailState(
                 DateTime.now(),
               ));

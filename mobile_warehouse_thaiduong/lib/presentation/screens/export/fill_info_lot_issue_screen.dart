@@ -46,7 +46,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
       ),
       body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
         listener: (context, state) {
-          // TODO: implement listener
+          
         },
         builder: (context, state) {
           if (state is LoadItemDataSuccessState) {

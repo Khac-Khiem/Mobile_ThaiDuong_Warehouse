@@ -39,6 +39,7 @@ import 'package:mobile_warehouse_thaiduong/domain/usecases/lot_adjustment_usecas
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/adjustment_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
@@ -115,16 +116,20 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<CompletedReceiptLotBloc>(CompletedReceiptLotBloc(
     injector(),
   ));
-  //  injector.registerSingleton<CreateIssueBloc>(CreateIssueBloc(
-  //   injector(),
-  // ));
-  //  injector.registerSingleton<FillInfoIssueEntryBloc>(FillInfoIssueEntryBloc(
-  //   injector(),injector()
-  // ));
+   injector.registerSingleton<CreateIssueBloc>(CreateIssueBloc(
+    injector(),injector()
+  ));
+   injector.registerSingleton<FillInfoIssueEntryBloc>(FillInfoIssueEntryBloc(
+    injector(),injector()
+  ));
+     injector.registerSingleton<ListGoodsIssueUncompletedBloc>(ListGoodsIssueUncompletedBloc(
+    injector(),
+  ));
+  
 
   //==
 
-  injector.registerSingleton<WarningBloc>(WarningBloc(injector(), injector()));
+  injector.registerSingleton<WarningBloc>(WarningBloc(injector(), injector(), injector()));
   injector.registerSingleton<ShelveBloc>(
       ShelveBloc(injector(), injector(), injector()));
   injector.registerSingleton<InventoryBloc>(

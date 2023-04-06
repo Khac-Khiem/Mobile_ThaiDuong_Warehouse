@@ -38,8 +38,7 @@ class WarningFunctionScreen extends StatelessWidget {
                 // BlocProvider.of<WarningBloc>(context)
                 //     .add(ExpirationWarningEvent(DateTime.now()));
                 Navigator.pushNamed(context, '/warning_expired_screen');        
-              }),
-               
+              }),  
           IconCustomizedButton(
               icon: Icons.production_quantity_limits_rounded,
               text: "CẢNH BÁO STOCKMIN",

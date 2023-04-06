@@ -2,6 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/item.dart';
+
 abstract class WarningEvent extends Equatable {}
 // hiển thị danh sách sản phẩm theo hạn sử dụng còn lại
 class ExpirationWarningEvent extends WarningEvent {
@@ -24,8 +26,9 @@ class GetWarehouseEvent extends WarningEvent {
 // hiển thị danh sách sản phẩm dưới số lượng tồn kho tối thiểu
 class MinimumStockWarningEvent extends WarningEvent {
   DateTime timestamp;
-  String warehouse;
-  MinimumStockWarningEvent(this.timestamp, this.warehouse);
+  String itemClassId;
+  List<ItemClass> listItemClass;
+  MinimumStockWarningEvent(this.timestamp, this.itemClassId, this.listItemClass);
   @override
   List<Object> get props => [timestamp];
 }

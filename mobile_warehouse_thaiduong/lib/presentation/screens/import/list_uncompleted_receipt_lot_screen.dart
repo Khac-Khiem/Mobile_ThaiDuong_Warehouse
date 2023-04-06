@@ -6,7 +6,6 @@ import '../../bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
 import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import '../../bloc/states/receipt_state/uncompleted_receipt_lot_state.dart';
-import '../../widgets/lot_detail_component.dart';
 
 class ListUncompletedLotReceiptScreen extends StatefulWidget {
   const ListUncompletedLotReceiptScreen({super.key});

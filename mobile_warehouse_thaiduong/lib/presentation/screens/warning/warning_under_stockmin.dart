@@ -1,12 +1,14 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
 
 import '../../../constant.dart';
+import '../../../domain/entities/item.dart';
+import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/warning_bloc.dart';
+import '../../bloc/events/warning_events.dart';
 import '../../bloc/states/warning_states.dart';
 import '../../widgets/button_widget.dart';
 
@@ -20,13 +22,10 @@ class WarningUnderStockminScreen extends StatefulWidget {
 
 class _WarningUnderStockminScreenSate
     extends State<WarningUnderStockminScreen> {
-  List<Warehouse> itemsDropdownData = [];
-  Warehouse? selectedWarehouse;
-  String warehouse = '';
+  ItemClass? selectedItemClass;
 
   @override
   Widget build(BuildContext context) {
-    String warehouseId = '';
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
@@ -42,196 +41,150 @@ class _WarningUnderStockminScreenSate
             style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
         ),
-        body: BlocConsumer<WarningBloc, WarningState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              if (state is GetWarehouseSuccessState) {
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(8, 10, 0, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              
-                              SizedBox(
-                                width: 340 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: DropdownSearch<String?>(
-                                  mode: Mode.MENU,
-                                  items: state.warehouse,
-                                  showSearchBox: true,
-                                  label: "Chọn kho hàng",
-                                  // hint: "country in menu mode",
-                                  // onChanged: (value) {
-                                  //   //  print(value);
-                                  //   setState(() {
-                                  //     selectedItemClass = state.itemClass.firstWhere(
-                                  //         (element) => element.itemClassId == value);
-                                  //   });
-                                  // },
-                                  // selectedItem: selectedWarehouse == null
-                                  //     ? ''
-                                  //     : selectedWarehouse!.warehouse,
-                                ),
-                              ),
-                            ],
+        body: Column(children: [
+          BlocConsumer<WarningBloc, WarningState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is GetWarehouseSuccessState) {
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 340 * SizeConfig.ratioWidth,
+                            height: 60 * SizeConfig.ratioHeight,
+                            child: DropdownSearch<String>(
+                              mode: Mode.MENU,
+                              items: state.itemClass
+                                  .map((e) => e.itemClassId)
+                                  .toList(),
+                              showSearchBox: true,
+                              label: "Kho hàng",
+                              // hint: "country in menu mode",
+                              onChanged: (value) {
+                                //  print(value);
+                                setState(() {
+                                  selectedItemClass = state.itemClass
+                                      .firstWhere((element) =>
+                                          element.itemClassId == value);
+                                });
+                              },
+                              selectedItem: selectedItemClass == null
+                                  ? ''
+                                  : selectedItemClass!.itemClassId,
+                            ),
                           ),
                         ),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<WarningBloc>(context).add(
+                                  MinimumStockWarningEvent(
+                                      DateTime.now(),
+                                      selectedItemClass!.itemClassId,
+                                      state.itemClass));
+                            }),
                         const Divider(
                           indent: 30,
                           endIndent: 30,
                           color: Constants.mainColor,
                           thickness: 1,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(10, 350, 10, 10),
-                          child: CustomizedButton(
-                              text: "Truy xuất",
-                              onPressed: () {
-                                BlocConsumer<WarningBloc, WarningState>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) {
-                                      if (state
-                                          is MinimumStockWarningSuccessState) {
-                                        return Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Column(children: [
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Text(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        "Danh sách các lô hàng",
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 20 *
-                                                              SizeConfig
-                                                                  .ratioFont,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        child: Column(
-                                                          children: [
-                                                            const Divider(
-                                                              indent: 30,
-                                                              endIndent: 30,
-                                                              color: Constants
-                                                                  .mainColor,
-                                                              thickness: 1,
-                                                            ),
-                                                            SizedBox(
-                                                              height: 10 *
-                                                                  SizeConfig
-                                                                      .ratioHeight,
-                                                              child: ListView
-                                                                  .builder(
-                                                                      itemCount: state
-                                                                          .itemLot
-                                                                          .length,
-                                                                      itemBuilder:
-                                                                          (BuildContext context,
-                                                                              int index) {
-                                                                        return Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(10),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                350 * SizeConfig.ratioWidth,
-                                                                            height:
-                                                                                80 * SizeConfig.ratioHeight,
-                                                                            color:
-                                                                                Constants.buttonColor,
-                                                                          ),
-                                                                        );
-                                                                      }),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ])
-                                              ])
-                                            ]);
-                                      } else {
-                                        return const Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    });
-                                //           {
-                                //   BlocProvider.of<WarningBloc>(context).add(
-                                //       MinimumStockWarningEvent(
-                                //           DateTime.now(), warehouse));
-                                // }
-                              }),
                         )
-                      ])
-                    ]);
-              }
-              // if (state is MinimumStockWarningSuccessState) {
-              //   return Column(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         Column(children: [
-              //           Column(
-              //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //               children: [
-              //                 Text(
-              //                   overflow: TextOverflow.ellipsis,
-              //                   "Danh sách các lô hàng",
-              //                   style: TextStyle(
-              //                     fontWeight: FontWeight.w600,
-              //                     fontSize: 20 * SizeConfig.ratioFont,
-              //                     color: Colors.black,
-              //                   ),
-              //                 ),
-              //                 SingleChildScrollView(
-              //                   scrollDirection: Axis.vertical,
-              //                   child: Column(
-              //                     children: [
-              //                       const Divider(
-              //                         indent: 30,
-              //                         endIndent: 30,
-              //                         color: Constants.mainColor,
-              //                         thickness: 1,
-              //                       ),
-              //                       SizedBox(
-              //                         height: 10 * SizeConfig.ratioHeight,
-              //                         child: ListView.builder(
-              //                             itemCount: state.itemLot.length,
-              //                             itemBuilder:
-              //                                 (BuildContext context, int index) {
-              //                               return Padding(
-              //                                 padding: const EdgeInsets.all(10),
-              //                                 child: Container(
-              //                                   width: 350 * SizeConfig.ratioWidth,
-              //                                   height: 80 * SizeConfig.ratioHeight,
-              //                                   color: Constants.buttonColor,
-              //                                 ),
-              //                               );
-              //                             }),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 )
-              //               ])
-              //         ])
-              //       ]);
-              // }
-              else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }));
+                      ]);
+                }
+                if (state is MinimumStockWarningSuccessState) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 340 * SizeConfig.ratioWidth,
+                          height: 60 * SizeConfig.ratioHeight,
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            items: state.listItemClass
+                                .map((e) => e.itemClassId)
+                                .toList(),
+                            showSearchBox: true,
+                            label: "Kho hàng",
+                            // hint: "country in menu mode",
+                            onChanged: (value) {
+                              //  print(value);
+                              setState(() {
+                                selectedItemClass = state.listItemClass
+                                    .firstWhere((element) =>
+                                        element.itemClassId == value);
+                              });
+                            },
+                            selectedItem: selectedItemClass == null
+                                ? ''
+                                : selectedItemClass!.itemClassId,
+                          ),
+                        ),
+                      ),
+                      CustomizedButton(
+                          text: "Truy xuất",
+                          onPressed: () {
+                            BlocProvider.of<WarningBloc>(context).add(
+                                MinimumStockWarningEvent(
+                                    DateTime.now(),
+                                    selectedItemClass!.itemClassId,
+                                    state.listItemClass));
+                          }),
+                      const Divider(
+                        indent: 30,
+                        endIndent: 30,
+                        color: Constants.mainColor,
+                        thickness: 1,
+                      ),
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        "Danh sách các lô hàng",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20 * SizeConfig.ratioFont,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                          height: 450 * SizeConfig.ratioHeight,
+                          child: ListView.builder(
+                              itemCount: state.itemLot.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListTile(
+                                      leading: const Icon(Icons.list),
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(width: 1),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      trailing: Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 15 * SizeConfig.ratioFont),
+                                      title: Text(
+                                          "Mã lô : ${state.itemLot[index].lotId}"),
+                                      subtitle: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              "Sản phẩm : ${state.itemLot[index].item.itemId.toString()}  \nSố lượng : ${state.itemLot[index].quantity.toString()} \nVị trí : ${state.itemLot[index].location.toString()}"),
+                                          Text(
+                                              "Số PO : ${state.itemLot[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.itemLot[index].sublotSize.toString()}"),
+                                        ],
+                                      ),
+                                      isThreeLine: true,
+                                      onTap: () {}),
+                                );
+                              })),
+                    ],
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              })
+        ]));
   }
 }

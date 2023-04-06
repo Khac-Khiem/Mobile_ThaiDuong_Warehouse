@@ -2,6 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/item.dart';
+
 abstract class ShelveEvent extends Equatable {}
 
 // List mã sản phẩm
@@ -15,7 +17,8 @@ class GetAllItemIdEvent extends ShelveEvent {
 class GetLotByItemIdEvent extends ShelveEvent {
   DateTime timestamp;
   String itemId;
-  GetLotByItemIdEvent(this.timestamp, this.itemId);
+  List<Item> item;
+  GetLotByItemIdEvent(this.timestamp, this.itemId, this.item);
   @override
   List<Object> get props => [timestamp];
 }
@@ -30,8 +33,9 @@ class GetAllLocationEvent extends ShelveEvent {
 // Hiển thị danh sách tìm kiếm theo vị trí 
 class GetLotByLocationEvent extends ShelveEvent {
   DateTime timestamp;
-  String locationId;
-  GetLotByLocationEvent(this.timestamp, this.locationId);
+  String location;
+  List<String> listLocation;
+  GetLotByLocationEvent(this.timestamp, this.location, this.listLocation);
   @override
   List<Object> get props => [timestamp];
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +24,7 @@ class CreateNewReceiptScreen extends StatefulWidget {
 class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
   // search button
   TextEditingController controller = TextEditingController();
-  GoodsReceipt goodsReceipt = GoodsReceipt('', '', [], DateTime.now(), false);
+  GoodsReceipt goodsReceipt = GoodsReceipt('', '', const [], DateTime.now(), false);
   var receiptId = TextEditingController();
   var supplyId = TextEditingController();
 
@@ -195,7 +197,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                           child: ListTile(
                             //  leading: const Icon(Icons.list),
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(width: 1),
+                              side: const BorderSide(width: 1),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             trailing: Icon(Icons.edit,

@@ -1,4 +1,4 @@
-
+// ignore_for_file: avoid_print, deprecated_member_use
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +20,8 @@ class SearchItemScreen extends StatefulWidget {
 }
 
 class _SearchItemScreenState extends State<SearchItemScreen> {
-  List<Item> itemsDropdownData = [];
   Item? selectedItem;
-// class SearchItemScreen extends StatelessWidget {
-//   const SearchItemScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,83 +48,126 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                           width: 340 * SizeConfig.ratioWidth,
-                           height: 60 * SizeConfig.ratioHeight,
-                           child: DropdownSearch<String>(
-                             mode: Mode.MENU,
-                             items: state.items.map((e) => e.itemId).toList(),
-                             showSearchBox: true,
-                             label: "Mã sản phẩm",
-                             // hint: "country in menu mode",
-                             onChanged: (value) {
-                               //  print(value);
-                               setState(() {
-                                 selectedItem = state.items.firstWhere(
-                                     (element) => element.itemId == value);
-                               });
-                             },
-                                   selectedItem: selectedItem == null
-                                      ? ''
-                                      : selectedItem!.itemId,
-                             
-                           ),
-                         ),
+                      width: 340 * SizeConfig.ratioWidth,
+                      height: 60 * SizeConfig.ratioHeight,
+                      child: DropdownSearch<String>(
+                        mode: Mode.MENU,
+                        items: state.items.map((e) => e.itemId).toList(),
+                        showSearchBox: true,
+                        label: "Mã sản phẩm",
+                        // hint: "country in menu mode",
+                        onChanged: (value) {
+                          //  print(value);
+                          setState(() {
+                            selectedItem = state.items.firstWhere(
+                                (element) => element.itemId == value);
+                          });
+                        },
+                        selectedItem:
+                            selectedItem == null ? '' : selectedItem!.itemId,
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                          width: 340 * SizeConfig.ratioWidth,
-                          height: 60 * SizeConfig.ratioHeight,
-                          child: DropdownSearch<String>(
-                            mode: Mode.MENU,
-                            items: state.items.map((e) => e.itemName).toList(),
-                            showSearchBox: true,
-                            label: "Tên sản phẩm",
-                            // hint: "country in menu mode",
-                            onChanged: (value) {
-                              //  print(value);
-                              setState(() {
-                                selectedItem = state.items.firstWhere(
-                                    (element) => element.itemName == value);
-                              });
-                            },
-                            selectedItem: selectedItem == null
-                                      ? ''
-                                      : selectedItem!.itemName,
-                          
-                          ),
-                        ),
+                  SizedBox(
+                    width: 340 * SizeConfig.ratioWidth,
+                    height: 60 * SizeConfig.ratioHeight,
+                    child: DropdownSearch<String>(
+                      mode: Mode.MENU,
+                      items: state.items.map((e) => e.itemName).toList(),
+                      showSearchBox: true,
+                      label: "Tên sản phẩm",
+                      // hint: "country in menu mode",
+                      onChanged: (value) {
+                        //  print(value);
+                        setState(() {
+                          selectedItem = state.items.firstWhere(
+                              (element) => element.itemName == value);
+                        });
+                      },
+                      selectedItem:
+                          selectedItem == null ? '' : selectedItem!.itemName,
+                    ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                    child:
-                    CustomizedButton(
-                text: "Truy xuất",
-                onPressed: () {
-                  BlocProvider.of<ShelveBloc>(context).add(
-                      GetLotByItemIdEvent(
-                         DateTime.now(), 
-                         selectedItem!.itemId));
-                          // selectedItem!.itemId));
-                }) 
-                    // CustomizedButton
-                    // (text: "Tìm kiếm", onPressed: () 
-                    // {
-                    //     BlocProvider.of<ShelveBloc>(context).add(GetLotByItemIdEvent
-                            
-                    //           (selectedItem.itemId));
-
-                    // }),
-                  ),
-              
-                                   
+                  CustomizedButton(
+                      text: "Truy xuất",
+                      onPressed: () {
+                        BlocProvider.of<ShelveBloc>(context).add(
+                            GetLotByItemIdEvent(
+                                DateTime.now(), selectedItem!.itemId, state.items ));
+                        // selectedItem!.itemId));
+                      }),
                   const Divider(
                     indent: 30,
                     endIndent: 30,
                     color: Constants.mainColor,
                     thickness: 1,
                   ),
-                  Text(
+                
+                ]);
+              }
+              if (state is GetLotByItemIdSuccessState) {
+                return Column(
+                  children: [
+                    Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 340 * SizeConfig.ratioWidth,
+                      height: 60 * SizeConfig.ratioHeight,
+                      child: DropdownSearch<String>(
+                        mode: Mode.MENU,
+                        items: state.item.map((e) => e.itemId).toList(),
+                        showSearchBox: true,
+                        label: "Mã sản phẩm",
+                        // hint: "country in menu mode",
+                        onChanged: (value) {
+                          //  print(value);
+                          setState(() {
+                            selectedItem = state.item.firstWhere(
+                                (element) => element.itemId == value);
+                          });
+                        },
+                        selectedItem:
+                            selectedItem == null ? '' : selectedItem!.itemId,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 340 * SizeConfig.ratioWidth,
+                    height: 60 * SizeConfig.ratioHeight,
+                    child: DropdownSearch<String>(
+                      mode: Mode.MENU,
+                      items: state.item.map((e) => e.itemName).toList(),
+                      showSearchBox: true,
+                      label: "Tên sản phẩm",
+                      // hint: "country in menu mode",
+                      onChanged: (value) {
+                        //  print(value);
+                        setState(() {
+                          selectedItem = state.item.firstWhere(
+                              (element) => element.itemName == value);
+                        });
+                      },
+                      selectedItem:
+                          selectedItem == null ? '' : selectedItem!.itemName,
+                    ),
+                  ),
+                  CustomizedButton(
+                      text: "Truy xuất",
+                      onPressed: () {
+                        BlocProvider.of<ShelveBloc>(context).add(
+                            GetLotByItemIdEvent(
+                                DateTime.now(), selectedItem!.itemId, state.item));
+                        // selectedItem!.itemId));
+                      }),
+                  const Divider(
+                    indent: 30,
+                    endIndent: 30,
+                    color: Constants.mainColor,
+                    thickness: 1,
+                  ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: Text(
                     overflow: TextOverflow.ellipsis,
                     "Danh sách các lô hàng",
                     style: TextStyle(
@@ -135,45 +176,41 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       color: Colors.black,
                     ),
                   ),
-                ]);
-              }
-              if (state is GetLotByItemIdSuccessState) {
-                return SizedBox(
-                      height: 470 * SizeConfig.ratioHeight,
-                      child: ListView.builder(
-                          itemCount: state.itemLot.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return
-                        
-                                Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                leading: const Icon(Icons.list),
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                trailing: Icon(Icons.arrow_drop_down_sharp,
-                                    size: 15 * SizeConfig.ratioFont),
-                                title: Text(
-                                    "Mã lô : ${state.itemLot[index].lotId}"),
-                                subtitle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        "Sản phẩm : ${state.itemLot[index].item.itemId.toString()}  \nSố lượng : ${state.itemLot[index].quantity.toString()} \nVị trí : ${state.itemLot[index].location.toString()}"),
-                                    Text(
-                                        "Số PO : ${state.itemLot[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.itemLot[index].sublotSize.toString()}"),
-                                  ],
-                                ),
-                                isThreeLine: true,
-                                onTap: () {
-                                }
-                              ),
-                            );}
-         ) );}
-                          else {
+                       ),
+                    SizedBox(
+                        height: 300 * SizeConfig.ratioHeight,
+                        child: ListView.builder(
+                            itemCount: state.itemLot.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                    leading: const Icon(Icons.list),
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(width: 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    trailing: Icon(Icons.arrow_drop_down_sharp,
+                                        size: 15 * SizeConfig.ratioFont),
+                                    title: Text(
+                                        "Mã lô : ${state.itemLot[index].lotId}"),
+                                    subtitle: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                            "Sản phẩm : ${state.itemLot[index].item.itemId.toString()}  \nSố lượng : ${state.itemLot[index].quantity.toString()} \nVị trí : ${state.itemLot[index].location.toString()}"),
+                                        Text(
+                                            "Số PO : ${state.itemLot[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.itemLot[index].sublotSize.toString()}"),
+                                      ],
+                                    ),
+                                    isThreeLine: true,
+                                    onTap: () {}),
+                              );
+                            })),
+                  ],
+                );
+              } else {
                 print(state);
                 return const Center(child: CircularProgressIndicator());
               }

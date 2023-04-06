@@ -26,6 +26,7 @@ abstract class GoodsIssueRepository {
       DateTime endDate,
       String itemId,
       String department,
-      String receiver,
-      String purchaseOrderNumber);
+      //String receiver,
+      //String purchaseOrderNumber
+      );
 }

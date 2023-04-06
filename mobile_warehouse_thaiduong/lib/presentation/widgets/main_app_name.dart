@@ -22,7 +22,7 @@ class MainAppName extends StatelessWidget {
                 color: Constants.mainColor),
           ),
           SizedBox(height: 20 * SizeConfig.ratioHeight),
-          Image(
+          const Image(
             image: AssetImage('lib/assets/logo_TD.png'),
            // width: 200 * SizeConfig.ratioWidth,
           ),

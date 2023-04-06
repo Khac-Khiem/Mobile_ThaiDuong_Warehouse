@@ -36,7 +36,8 @@ class GetAllItemIdFailState extends ShelveState {
 class GetLotByItemIdSuccessState extends ShelveState {
   DateTime timestamp;
   List<ItemLot> itemLot;
-  GetLotByItemIdSuccessState(this.timestamp, this.itemLot);
+  List<Item> item;
+  GetLotByItemIdSuccessState(this.timestamp, this.itemLot, this.item);
   @override
   List<Object> get props => [timestamp];
 }
@@ -59,8 +60,8 @@ class GetLotByItemIdFailState extends ShelveState {
 // List vị trí
 class GetAllLocationSuccessState extends ShelveState {
   DateTime timestamp;
-  List<String> locationId;
-  GetAllLocationSuccessState(this.timestamp, this.locationId);
+  List<String> location;
+  GetAllLocationSuccessState(this.timestamp, this.location);
   @override
   List<Object> get props => [timestamp];
 }
@@ -84,7 +85,8 @@ class GetAllLocationFailState extends ShelveState {
 class GetLotByLocationSuccessState extends ShelveState {
   final DateTime timestamp;
   List<ItemLot> itemLot;
-  GetLotByLocationSuccessState(this.timestamp, this.itemLot);
+  List<String> listLocation;
+  GetLotByLocationSuccessState(this.timestamp, this.itemLot, this.listLocation);
   @override
   List<Object> get props => [timestamp, itemLot];
 }

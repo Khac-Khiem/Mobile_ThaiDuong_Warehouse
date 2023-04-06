@@ -7,10 +7,9 @@ abstract class InventoryState extends Equatable {}
 // List kho hàng
 class GetWarehouseIdSuccessState extends InventoryState {
   DateTime timestamp;
-  List<Item> item;
   List<ItemClass> itemClass;
 
-  GetWarehouseIdSuccessState(this.timestamp, this.itemClass, this.item);
+  GetWarehouseIdSuccessState(this.timestamp, this.itemClass);
   @override
 
   List<Object?> get props => [timestamp];

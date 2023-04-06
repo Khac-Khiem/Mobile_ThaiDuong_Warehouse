@@ -24,7 +24,7 @@ class ItemLot extends Equatable {
       this.productionDate,
       this.expirationDate);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [lotId];
 }
 
@@ -34,6 +34,6 @@ class ItemLotView extends Equatable {
   double quantity;
   ItemLotView(this.itemName, this.quantity);
   @override
-  // TODO: implement props
+ 
   List<Object?> get props => [];
 }

@@ -7,17 +7,20 @@ class ItemLotRepoImpl implements ItemLotRepository {
   ItemLotRepoImpl(this.itemLotService);
   @override
   Future<List<ItemLot>> getExpiredItemLots(DateTime dateTime) {
-    throw UnimplementedError();
+    final itemLots = itemLotService.getExpiredItemLots(dateTime);
+    return itemLots;
   }
 
   @override
   Future<List<ItemLot>> getIsolatedItemLots() {
-    throw UnimplementedError();
+   final itemLots = itemLotService.getIsolatedItemLots();
+    return itemLots;
   }
 
   @override
   Future<ItemLot> getItemLotById(String lotId) {
-    throw UnimplementedError();
+    final itemLots = itemLotService.getItemLotById(lotId);
+    return itemLots;
   }
 
   @override
@@ -28,11 +31,13 @@ class ItemLotRepoImpl implements ItemLotRepository {
 
   @override
   Future<List<ItemLot>> getItemLotsByLocation(String locationId) {
-    throw UnimplementedError();
+   final itemLots = itemLotService.getItemLotsByLocation(locationId);
+    return itemLots;
   }
 
   @override
-  Future<List<ItemLot>> getUnderStockminItemLots() {
-    throw UnimplementedError();
+  Future<List<ItemLot>> getUnderStockminItemLots(itemClass) {
+   final itemLots = itemLotService.getUnderStockminItemLots(itemClass);
+    return itemLots;
   }
 }

@@ -61,9 +61,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
                   event.startDate,
                   event.endDate,
                   event.itemId,
-                  event.department,
-                  event.receiver,
-                  event.purchaseOrderNumber
+                  event.department
+         
+              //  event.purchaseOrderNumber
                   );
           emit(
               AccessExportHistorySuccessState(DateTime.now(), goodIssueLots));

@@ -65,8 +65,8 @@ class AccessExportHistoryEvent extends HistoryEvent {
   DateTime endDate;
   String itemId;
   String department;
-  String receiver;
-  String purchaseOrderNumber;
+
+  //String purchaseOrderNumber;
   AccessExportHistoryEvent(
       this.timestamp,
       this.warehouse,
@@ -74,8 +74,9 @@ class AccessExportHistoryEvent extends HistoryEvent {
       this.endDate,
       this.itemId,
       this.department,
-      this.receiver,
-      this.purchaseOrderNumber);
+   
+      //this.purchaseOrderNumber
+      );
   @override
   List<Object> get props => [timestamp];
 }

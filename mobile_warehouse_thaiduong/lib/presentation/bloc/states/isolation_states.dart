@@ -35,7 +35,8 @@ class GetAllItemFailState extends IsolationState {
 class GetLotByItemIdSuccessState extends IsolationState {
   DateTime timestamp;
   List <ItemLot> itemLots;
-  GetLotByItemIdSuccessState(this.timestamp, this.itemLots);
+  List<Item> listItem;
+  GetLotByItemIdSuccessState(this.timestamp, this.itemLots, this.listItem);
   @override
   List<Object> get props => [timestamp];
 }

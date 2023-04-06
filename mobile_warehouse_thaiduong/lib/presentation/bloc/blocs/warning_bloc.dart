@@ -5,10 +5,13 @@ import 'package:mobile_warehouse_thaiduong/domain/usecases/location_usecase.dart
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/warning_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/warning_states.dart';
 
+import '../../../domain/usecases/item_usecase.dart';
+
 class WarningBloc extends Bloc<WarningEvent, WarningState> {
   ItemLotUsecase itemLotUsecase;
+  ItemUsecase itemUsecase;
   LocationUsecase locationUsecase;
-  WarningBloc(this.itemLotUsecase, this.locationUsecase)
+  WarningBloc(this.itemLotUsecase,this.itemUsecase, this.locationUsecase)
       : super(ExpirationWarningLoadingState(DateTime.now())) 
       {
 // cảnh báo hsd 
@@ -29,8 +32,8 @@ class WarningBloc extends Bloc<WarningEvent, WarningState> {
    on<GetWarehouseEvent>((event, emit) async {
       emit(GetWarehouseLoadingState(DateTime.now()));
       try {
-        final warehouseIds = await locationUsecase.getAllWarehouseId();
-        emit(GetWarehouseSuccessState(DateTime.now(), warehouseIds));
+        final itemClass = await itemUsecase.getAllItemClass();
+        emit(GetWarehouseSuccessState(DateTime.now(), itemClass));
       } catch (e) {
         emit(GetWarehouseFailState(DateTime.now()));
       }
@@ -40,9 +43,9 @@ class WarningBloc extends Bloc<WarningEvent, WarningState> {
    on<MinimumStockWarningEvent>((event, emit) async {
       emit(MinimumStockWarningLoadingState(DateTime.now()));
       try {
-        final itemLots = await itemLotUsecase.getUnderStockminItemLots();
+        final itemLots = await itemLotUsecase.getUnderStockminItemLots(event.itemClassId);
         itemLots.isNotEmpty
-            ? emit(MinimumStockWarningSuccessState(DateTime.now(), itemLots))
+            ? emit(MinimumStockWarningSuccessState(DateTime.now(), itemLots, event.listItemClass))
             : emit(MinimumStockWarningFailState(
                 DateTime.now(), ''));
       } catch (e) {

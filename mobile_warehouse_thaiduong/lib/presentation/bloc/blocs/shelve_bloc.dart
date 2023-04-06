@@ -28,7 +28,7 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
       try {
         final itemLot = await itemLotUsecase.getItemLotsByItemId(event.itemId);
         itemLot.isNotEmpty
-            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot))
+            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot, event.item))
             : emit(GetLotByItemIdFailState(
                 DateTime.now(), ''));
       } catch (e) {
@@ -50,10 +50,10 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
     on<GetLotByLocationEvent>((event, emit) async {
       emit(GetLotByLocationLoadingState(DateTime.now()));
       try {
-        final itemLots =
-            await itemLotUsecase.getItemLotsByLocation(event.locationId);
-        itemLots.isNotEmpty
-            ? emit(GetLotByLocationSuccessState(DateTime.now(), itemLots))
+        final itemLot =
+            await itemLotUsecase.getItemLotsByLocation(event.location);
+        itemLot.isNotEmpty
+            ? emit(GetLotByLocationSuccessState(DateTime.now(), itemLot, event.listLocation))
             : emit(GetLotByLocationFailState(
                 DateTime.now(), 'Không có lô ở vị trí này'));
       } catch (e) {

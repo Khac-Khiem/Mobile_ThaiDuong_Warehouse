@@ -9,10 +9,10 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/history_bloc.dart';
+import '../../bloc/events/history_events.dart';
 import '../../bloc/states/history_states.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
-import '../../widgets/dropdown_search_button.dart';
 
 class ImportHistoryScreen extends StatefulWidget {
   const ImportHistoryScreen({super.key});
@@ -30,7 +30,6 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String warehouse = '';
     DateTime date = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
@@ -55,133 +54,115 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
               if (state is GetAllInfoImportSuccessState) {
                 return Column(children: [
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                   
-                        SizedBox(
-                          width: 150 * SizeConfig.ratioWidth,
-                          height: 60 * SizeConfig.ratioHeight,
-                          child: DropdownSearch<String?>(
-                            mode: Mode.MENU,
-                            items: state.warehouse,
-                            showSearchBox: true,
-                            label: "Chọn kho hàng",
-
-                            // onChanged: (value) {
-                            //   //  print(value);
-                            //   setState(() {
-                            //     selectedItemClass = state.itemClass.firstWhere(
-                            //         (element) => element.itemClassId == value);
-                            //   });
-                            // },
-                            // selectedItem: selectedWarehouse == null
-                            //     ? ''
-                            //     : selectedWarehouse!.warehouse,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 160 * SizeConfig.ratioWidth,
+                            height: 60 * SizeConfig.ratioHeight,
+                            child: DropdownSearch<String?>(
+                                mode: Mode.MENU,
+                                items: state.warehouse,
+                                showSearchBox: true,
+                                label: "Kho hàng",
+                                onChanged: (value) {
+                                  //  print(value);
+                                  setState(() {
+                                    warehouse = value!;
+                                  });
+                                },
+                                selectedItem: warehouse),
                           ),
-                        ),
-                  
-
-             
-                    SizedBox(
-                      width: 150 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        items: state.department.map((e) => e.name).toList(),
-                        showSearchBox: true,
-                        label: "Bộ phận",
-                        onChanged: (value) {
-                          //  print(value);
-                          setState(() {
-                            selectedDepartment = state.department
-                                .firstWhere((element) => element.name == value);
-                          });
-                        },
-                     
-                      ),
-                    ),
-                    //],
-                    //     ),
-                    //   ),
-                    ]),
+                          SizedBox(
+                            width: 160 * SizeConfig.ratioWidth,
+                            height: 60 * SizeConfig.ratioHeight,
+                            child: DropdownSearch<String>(
+                              mode: Mode.MENU,
+                              items:
+                                  state.department.map((e) => e.name).toList(),
+                              showSearchBox: true,
+                              label: "Nhà cung cấp",
+                              onChanged: (value) {
+                                //  print(value);
+                                setState(() {
+                                  selectedDepartment = state.department
+                                      .firstWhere(
+                                          (element) => element.name == value);
+                                });
+                              },
+                               selectedItem: selectedDepartment == null
+                                        ? ''
+                                        : selectedDepartment!.name,
+                            ),
+                          ),
+                          //],
+                          //     ),
+                          //   ),
+                        ]),
                   ),
                   BlocConsumer<HistoryBloc, HistoryState>(
                       listener: (context, state) {},
                       builder: (context, state) {
                         if (state is GetAllInfoImportSuccessState) {
-                          return Column(children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                          return 
+                          Column(children: [
+                            SizedBox(
+                              width: 350 * SizeConfig.ratioWidth,
+                              height: 60 * SizeConfig.ratioHeight,
+                              child: DropdownSearch<String>(
+                                mode: Mode.MENU,
+                                items: state.item
+                                    .map((e) => e.itemId)
+                                    .toList(),
+                                showSearchBox: true,
+                                label: "Mã sản phẩm",
+                                // hint: "country in menu mode",
+                                onChanged: (value) {
+                                  //  print(value);
+                                  setState(() {
+                                    selectedItem = state.item.firstWhere(
+                                        (element) =>
+                                            element.itemId == value);
+                                  });
+                                },
+                                selectedItem: selectedItem == null
+                                    ? ''
+                                    : selectedItem!.itemId,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 350 * SizeConfig.ratioWidth,
+                                height: 60 * SizeConfig.ratioHeight,
+                                child: DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                                  items: state.item
+                                      .map((e) => e.itemName)
+                                      .toList(),
+                                  showSearchBox: true,
+                                  label: "Tên sản phẩm",
+                                  // hint: "country in menu mode",
+                                  onChanged: (value) {
+                                    //  print(value);
+                                    setState(() {
+                                      selectedItem = state.item.firstWhere(
+                                          (element) =>
+                                              element.itemName == value);
+                                    });
+                                  },
+                                  selectedItem: selectedItem == null
+                                      ? ''
+                                      : selectedItem!.itemName,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
-                                children: [
-                               
-                                  SizedBox(
-                                    width: 340 * SizeConfig.ratioWidth,
-                                    height: 60 * SizeConfig.ratioHeight,
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      items: state.item
-                                          .map((e) => e.itemId)
-                                          .toList(),
-                                      showSearchBox: true,
-                                      label: "Mã sản phẩm",
-                                      // hint: "country in menu mode",
-                                      onChanged: (value) {
-                                        //  print(value);
-                                        setState(() {
-                                          selectedItem = state.item.firstWhere(
-                                              (element) =>
-                                                  element.itemId == value);
-                                        });
-                                      },
-                                      selectedItem: selectedItem == null
-                                          ? ''
-                                          : selectedItem!.itemId,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                              
-                                  SizedBox(
-                                    width: 340 * SizeConfig.ratioWidth,
-                                    height: 60 * SizeConfig.ratioHeight,
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      items: state.item
-                                          .map((e) => e.itemName)
-                                          .toList(),
-                                      showSearchBox: true,
-                                      label: "Tên sản phẩm",
-                                      // hint: "country in menu mode",
-                                      onChanged: (value) {
-                                        //  print(value);
-                                        setState(() {
-                                          selectedItem = state.item.firstWhere(
-                                              (element) =>
-                                                  element.itemName == value);
-                                        });
-                                      },
-                                    
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 10, 0,0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
                                     margin: EdgeInsets.symmetric(
@@ -216,25 +197,23 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                                 ],
                               ),
                             ),
+                            CustomizedButton(
+                                text: "Truy xuất", onPressed: () {
+                                  BlocProvider.of<HistoryBloc>(context).add(
+                            AccessExportHistoryEvent(
+                              DateTime.now(), 
+                              warehouse, 
+                              DateTime.now(),
+                              DateTime.now(),
+                              selectedItem!.itemId,
+                              selectedDepartment!.name   
+                              ));
+                                }),
                             const Divider(
                               indent: 30,
                               endIndent: 30,
                               color: Constants.mainColor,
                               thickness: 1,
-                            ),
-                            Text(
-                              overflow: TextOverflow.ellipsis,
-                              "Danh sách các lô hàng",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20 * SizeConfig.ratioFont,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 150, 10, 10),
-                              child: CustomizedButton(
-                                  text: "Truy xuất", onPressed: () {}),
                             ),
                           ]);
                         }
@@ -243,11 +222,14 @@ class _ImportHistoryScreenState extends State<ImportHistoryScreen> {
                             scrollDirection: Axis.vertical,
                             child: Column(
                               children: [
-                                const Divider(
-                                  indent: 30,
-                                  endIndent: 30,
-                                  color: Constants.mainColor,
-                                  thickness: 1,
+                                Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "Danh sách các lô hàng",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20 * SizeConfig.ratioFont,
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 470 * SizeConfig.ratioHeight,

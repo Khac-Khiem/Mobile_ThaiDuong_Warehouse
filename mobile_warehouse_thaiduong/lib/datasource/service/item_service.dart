@@ -24,7 +24,11 @@ class ItemService {
   }
   //==
     Future<List<ItemModel>> getItemByWarehouseId(String itemClassId) async {
-    return [];
+    return [ItemModel('1', 'Một', UnitModel('cái'), ItemClassModel('TP'),  100, 10),
+    ItemModel('2', 'Hai', UnitModel('cái'), ItemClassModel('TP'),  100, 10),
+       ItemModel('3', 'Hai', UnitModel('cái'), ItemClassModel('BTP'),  100, 10),
+          ItemModel('4', 'Hai', UnitModel('cái'), ItemClassModel('NVL'),  100, 10)];
+      
   }
    Future<List<ItemClassModel>> getAllItemClass() async {
     return [ItemClassModel('TP'),ItemClassModel('BTP'), ItemClassModel('NVL')];

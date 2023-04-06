@@ -68,16 +68,18 @@ class GoodsIssueUseCase {
       DateTime endDate,
       String itemId,
       String department,
-      String receiver,
-      String purchaseOrderNumber) async {
+     // String receiver,
+     // String purchaseOrderNumber
+    ) async {
     final goodsReceipts = goodsIssueRepository.getGoodsIssueHistory(
         warehouse,
         startDate,
         endDate,
         itemId,
-        department,
-        receiver,
-        purchaseOrderNumber);
+        department
+        //receiver,
+        //purchaseOrderNumber
+        );
     return goodsReceipts;
   }
 }

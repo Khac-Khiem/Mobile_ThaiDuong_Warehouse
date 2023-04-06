@@ -27,8 +27,8 @@ class ItemLotUsecase {
     return itemLots;
   }
 
-  Future<List<ItemLot>> getUnderStockminItemLots()async {
-     final itemLots = itemLotRepository.getUnderStockminItemLots();
+  Future<List<ItemLot>> getUnderStockminItemLots(String itemClass)async {
+     final itemLots = itemLotRepository.getUnderStockminItemLots(itemClass);
     return itemLots;
   }
 }

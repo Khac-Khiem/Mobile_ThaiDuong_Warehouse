@@ -2,6 +2,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
+import '../../../domain/entities/item.dart';
+
 abstract class IsolationEvent extends Equatable {}
 // Lấy thông tin lô hàng
 class GetAllItemEvent extends IsolationEvent {
@@ -14,7 +16,8 @@ class GetAllItemEvent extends IsolationEvent {
 class GetLotByItemIdEvent extends IsolationEvent {
  DateTime timestamp;
  String itemId;
-  GetLotByItemIdEvent(this.timestamp, this.itemId);
+ List<Item> listItem;
+  GetLotByItemIdEvent(this.timestamp, this.itemId, this.listItem);
   @override
   List<Object> get props => [timestamp];
 }

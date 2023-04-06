@@ -23,7 +23,7 @@ class Unit extends Equatable {
 }
 
 class ItemClass extends Equatable {
-  String? itemClassId;
+  String itemClassId;
   ItemClass(this.itemClassId);
   @override
   List<Object?> get props => [itemClassId];
