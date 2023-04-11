@@ -7,7 +7,7 @@ class ErrorPackageModel extends ErrorPackage{
 factory ErrorPackageModel.fromJson(Map<String, dynamic> json) {
     return ErrorPackageModel(
       json['detail'],
-    
+
     );
   }
 }

@@ -22,17 +22,18 @@ class LocationService {
      return ['Vị trí 1','Vị trí 2', 'Vị trí 3', 'Vị trí 4'];
   }
    Future<List<String>> getAllWarehouse() async {
-    // final res = await http.get(Uri.parse(Constants.baseUrl + 'api/Warehouses/'));
-    // if (res.statusCode == 200) {
-    //   List<String> body = jsonDecode(res.body);
-    //   print(body.toString());
-    //   List<String> warehouse = body;
+    final res = await http.get(
+      Uri.parse(Constants.baseUrl + 'api/Warehouses'));
+    if (res.statusCode == 200) {
+      List<String> body = jsonDecode(res.body);
+      print(body.toString());
+      List<String> warehouse = body;
 
-    //   print(warehouse.toString());
-    //   return warehouse;
-    // } else {
-    //   throw "Unable to retrieve posts.";
-    // }
-   return ['TP','NVL', 'BTP', 'VT'];
+      print(warehouse.toString());
+      return warehouse;
+    } else {
+      throw "Unable to retrieve posts.";
+    }
+ //  return ['TP','NVL', 'BTP', 'VT'];
   }
 }

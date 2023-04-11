@@ -36,9 +36,7 @@ class Constants {
   static const Duration timeOutLimitation = Duration(seconds: 20);
   //static const String herokuServer =
   //    'https://hung-anh-storage-web-api.herokuapp.com';
-  static const String herokuServer =
-      'https://thaiduongwarehouse.azurewebsites.net/';
   static const String localServer = 'http://192.168.1.13:8081';
-  static String baseUrl = herokuServer;
+  static String baseUrl = 'https://thaiduongwarehouse.azurewebsites.net/';
   //static const baseUrl = 'http://192.168.1.13:8081';
 }

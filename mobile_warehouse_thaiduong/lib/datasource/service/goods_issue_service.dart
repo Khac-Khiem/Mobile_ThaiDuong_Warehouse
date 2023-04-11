@@ -39,51 +39,51 @@ class GoodsIssueService {
   }
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
-    // final res = await http.get(
-    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //     'Accept': '*/*',
-    //     'Authorization': 'Bearer ',
-    //   },
-    // );
+    final res = await http.get(
+      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': '*/*',
+        'Authorization': 'Bearer ',
+      },
+    );
 
-    // if (res.statusCode == 200) {
-    //   List<dynamic> body = jsonDecode(res.body);
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
 
-    //   List<GoodsIssueModel> allIssues = body
-    //       .map(
-    //         (dynamic item) => GoodsIssueModel.fromJson(item),
-    //       )
-    //       .toList();
-    //   return allIssues;
-    // } else {
-    //   throw "Unable to retrieve posts.";
-    // }
-    return [
-      GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
-        GoodsIssueEntry(
-            ItemModel(
-                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-            10,
-            100,
-            const []),
-            GoodsIssueEntry(
-            ItemModel(
-                '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
-            10,
-            100,
-            const [])
-      ]),
-      GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
-        GoodsIssueEntry(
-            ItemModel(
-                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-            10,
-            100,
-            const [])
-      ])
-    ];
+      List<GoodsIssueModel> allIssues = body
+          .map(
+            (dynamic item) => GoodsIssueModel.fromJson(item),
+          )
+          .toList();
+      return allIssues;
+    } else {
+      throw "Unable to retrieve posts.";
+    }
+    // return [
+    //   GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
+    //     GoodsIssueEntry(
+    //         ItemModel(
+    //             '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+    //         10,
+    //         100,
+    //         const []),
+    //         GoodsIssueEntry(
+    //         ItemModel(
+    //             '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
+    //         10,
+    //         100,
+    //         const [])
+    //   ]),
+    //   GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
+    //     GoodsIssueEntry(
+    //         ItemModel(
+    //             '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+    //         10,
+    //         100,
+    //         const [])
+    //   ])
+    // ];
   }
 
   Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {

@@ -52,7 +52,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       height: 60 * SizeConfig.ratioHeight,
                       child: DropdownSearch<String>(
                         mode: Mode.MENU,
-                        items: state.items.map((e) => e.itemId).toList(),
+                        items: state.items.map((e) => e.itemId.toString()).toList(),
                         showSearchBox: true,
                         label: "Mã sản phẩm",
                         // hint: "country in menu mode",
@@ -73,7 +73,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                     height: 60 * SizeConfig.ratioHeight,
                     child: DropdownSearch<String>(
                       mode: Mode.MENU,
-                      items: state.items.map((e) => e.itemName).toList(),
+                      items: state.items.map((e) => e.itemName.toString()).toList(),
                       showSearchBox: true,
                       label: "Tên sản phẩm",
                       // hint: "country in menu mode",
@@ -93,7 +93,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       onPressed: () {
                         BlocProvider.of<ShelveBloc>(context).add(
                             GetLotByItemIdEvent(DateTime.now(),
-                                selectedItem!.itemId, state.items));
+                                selectedItem!.itemId.toString(), state.items));
                       }),
                   const Divider(
                     indent: 30,
@@ -113,7 +113,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                         height: 60 * SizeConfig.ratioHeight,
                         child: DropdownSearch<String>(
                           mode: Mode.MENU,
-                          items: state.item.map((e) => e.itemId).toList(),
+                          items: state.item.map((e) => e.itemId.toString()).toList(),
                           showSearchBox: true,
                           label: "Mã sản phẩm",
                           // hint: "country in menu mode",
@@ -134,7 +134,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       height: 60 * SizeConfig.ratioHeight,
                       child: DropdownSearch<String>(
                         mode: Mode.MENU,
-                        items: state.item.map((e) => e.itemName).toList(),
+                        items: state.item.map((e) => e.itemName.toString()).toList(),
                         showSearchBox: true,
                         label: "Tên sản phẩm",
                         // hint: "country in menu mode",
@@ -154,7 +154,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                         onPressed: () {
                           BlocProvider.of<ShelveBloc>(context).add(
                               GetLotByItemIdEvent(DateTime.now(),
-                                  selectedItem!.itemId, state.item));
+                                  selectedItem!.itemId.toString(), state.item));
                           // selectedItem!.itemId));
                         }),
                     const Divider(

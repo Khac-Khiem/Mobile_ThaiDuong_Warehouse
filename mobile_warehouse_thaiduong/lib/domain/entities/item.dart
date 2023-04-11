@@ -3,13 +3,13 @@
 import 'package:equatable/equatable.dart';
 
 class Item extends Equatable {
-  String itemId;
-  String itemName;
-  Unit? unit;
-  ItemClass? itemClass;
+  String? itemId;
+  String? itemName;
+  String? unit;
+  String? itemClassId;
   double? minimumStockLevel;
   double? price;
-  Item(this.itemId, this.itemName, this.unit, this.itemClass,
+  Item(this.itemId, this.itemName, this.unit, this.itemClassId,
       this.minimumStockLevel, this.price);
   @override
   List<Object?> get props => [itemId];

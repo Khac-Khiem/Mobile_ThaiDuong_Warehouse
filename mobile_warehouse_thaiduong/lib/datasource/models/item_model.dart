@@ -8,10 +8,12 @@ factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
       json['itemId'],
       json['itemName'],
-      json['unit'] =  UnitModel.fromJson(json["unit"]),
-      json["itemClass"] == null ?  ItemClassModel('') : ItemClassModel.fromJson(json["itemClass"]),
-      json['minimumStockLevel'],
-      json['price'],
+      json['unit'],
+      //=  UnitModel.fromJson(json["unit"]),
+      json["itemClassId"],
+     // == null ?  ItemClassModel('') : ItemClassModel.fromJson(json["itemClass"]),
+      double.parse(json['minimumStockLevel'].toString()),
+    double.parse(json['price'].toString()),
     );
   }
 }

@@ -10,7 +10,6 @@ class DepartmentService {
   //  final res = await http.get(
   //     Uri.parse(Constants.baseUrl + 'api/items'),
   //   );
-
   //   if (res.statusCode == 200) {
   //     List<dynamic> body = jsonDecode(res.body);
   //     List<DepartmentModel> department = body
