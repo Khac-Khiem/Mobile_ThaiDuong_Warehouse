@@ -67,13 +67,13 @@ class GoodsIssueService {
                 '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
             10,
             100,
-            []),
+            const []),
             GoodsIssueEntry(
             ItemModel(
                 '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
             10,
             100,
-            [])
+            const [])
       ]),
       GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
         GoodsIssueEntry(
@@ -81,7 +81,7 @@ class GoodsIssueService {
                 '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
             10,
             100,
-            [])
+            const [])
       ])
     ];
   }

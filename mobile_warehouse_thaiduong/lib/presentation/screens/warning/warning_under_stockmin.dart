@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +7,6 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../../constant.dart';
-import '../../../domain/entities/item.dart';
 import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/warning_bloc.dart';
 import '../../bloc/events/warning_events.dart';
@@ -50,7 +51,7 @@ class _WarningUnderStockminScreenSate
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                           child: SizedBox(
                             width: 340 * SizeConfig.ratioWidth,
                             height: 60 * SizeConfig.ratioHeight,
@@ -60,8 +61,7 @@ class _WarningUnderStockminScreenSate
                                   .map((e) => e.itemClassId)
                                   .toList(),
                               showSearchBox: true,
-                              label: "Kho hàng",
-                              // hint: "country in menu mode",
+                              label: "Kho hàng",                 
                               onChanged: (value) {
                                 //  print(value);
                                 setState(() {
@@ -157,7 +157,7 @@ class _WarningUnderStockminScreenSate
                                   child: ListTile(
                                       leading: const Icon(Icons.list),
                                       shape: RoundedRectangleBorder(
-                                        side: BorderSide(width: 1),
+                                        side: const BorderSide(width: 1),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       trailing: Icon(

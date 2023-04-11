@@ -126,7 +126,7 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                     ),
                       ),
                     SizedBox(
-                        height: 200 * SizeConfig.ratioHeight,
+                        height: 430 * SizeConfig.ratioHeight,
                         child: ListView.builder(
                             itemCount: state.itemLot.length,
                             itemBuilder: (BuildContext context, int index) {

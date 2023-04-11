@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -108,7 +110,7 @@ class _ListUncompletedLotReceiptScreenState
                               child: ListTile(
                                 leading: const Icon(Icons.list),
                                 shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1),
+                                  side: const BorderSide(width: 1),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 trailing: Icon(Icons.arrow_drop_down_sharp,

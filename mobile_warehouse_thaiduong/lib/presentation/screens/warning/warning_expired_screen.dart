@@ -42,7 +42,7 @@ class _WarningExpiredScreenState extends State<WarningExpiredScreen> {
         ),
         body: Column(children: [
           Container(
-            padding: EdgeInsets.fromLTRB(8, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(8, 10, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -103,7 +103,7 @@ class _WarningExpiredScreenState extends State<WarningExpiredScreen> {
                                   child: ListTile(
                                       leading: const Icon(Icons.list),
                                       shape: RoundedRectangleBorder(
-                                        side: BorderSide(width: 1),
+                                        side: const BorderSide(width: 1),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       trailing: Icon(
@@ -116,7 +116,7 @@ class _WarningExpiredScreenState extends State<WarningExpiredScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                              "Sản phẩm : ${state.itemLot[index].item.itemId.toString()}  \nSố lượng : ${state.itemLot[index].quantity.toString()} \nVị trí : ${state.itemLot[index].location.toString()}"),
+                                              "Sản phẩm : ${state.itemLot[index].item.itemId.toString()}  \nSố lượng : ${state.itemLot[index].quantity.toString()} \nVị trí : ${state.itemLot[index].purchaseOrderNumber.toString()}"),
                                           Text(
                                               "Số PO : ${state.itemLot[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.itemLot[index].sublotSize.toString()}"),
                                         ],
@@ -128,7 +128,8 @@ class _WarningExpiredScreenState extends State<WarningExpiredScreen> {
                     ],
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  return Container();
+                  //const Center(child: CircularProgressIndicator());
                 }
               }),
         ]));

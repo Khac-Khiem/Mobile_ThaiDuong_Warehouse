@@ -19,10 +19,21 @@ class InventoryUsecase {
   }
 
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      DateTime startDate, DateTime endDate, String itemId ) async {
+      DateTime startDate, DateTime endDate, String itemId) async {
     final logEntries =
         inventoryRepository.getInventoryByItemId(startDate, endDate, itemId);
     return logEntries;
   }
-  
+
+  // thử giao diện
+  Future<List<InventoryLogEntry>> getInventoryLotByItemClassId(
+    DateTime dateTime, 
+      String itemClassId
+      ) async {
+    final logEntries =
+        inventoryRepository.getInventoryLotByItemClassId(
+          dateTime, 
+          itemClassId);
+    return logEntries;
+  }
 }

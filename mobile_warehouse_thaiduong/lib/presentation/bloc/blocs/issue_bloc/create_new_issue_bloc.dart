@@ -14,7 +14,7 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
       try {
         final department = await departmentUsecase.getAllDepartment();
         emit(LoadListDataSuccessState(
-            department, event.entriesIssue, [], DateTime.now()));
+            department, event.entriesIssue, const [], DateTime.now()));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));
       }

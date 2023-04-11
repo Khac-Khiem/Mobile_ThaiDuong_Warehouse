@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, sized_box_for_whitespace
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -227,7 +229,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   context, '/create_issue_screen');
                               //Navigator.of(context).pop();
                             },
-                            child: Text('Tạo mới'),
+                            child: const Text('Tạo mới'),
                           )
                         : ElevatedButton(
                             onPressed: () async {
@@ -241,14 +243,14 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   context, '/create_issue_screen');
                               //Navigator.of(context).pop();
                             },
-                            child: Text('Cập nhật'),
+                            child: const Text('Cập nhật'),
                           )
                   ],
                 ),
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

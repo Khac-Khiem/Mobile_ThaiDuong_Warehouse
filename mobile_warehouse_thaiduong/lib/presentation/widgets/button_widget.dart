@@ -131,7 +131,7 @@ class MainIconCustomizedButton extends StatelessWidget {
       {super.key,
       required this.text,
       required this.icon,
-      this.width = 120,
+      this.width = 130,
       this.height = 120,
       this.radius = 10,
       this.bgColor = Constants.buttonColor,

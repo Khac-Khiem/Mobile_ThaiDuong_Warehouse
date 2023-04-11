@@ -150,3 +150,36 @@ class AccessExportHistoryFailState extends HistoryState {
   @override
   List<Object> get props => [timestamp];
 }
+
+// test giao diện
+// Truy xuất lịch sử xuất kho
+class TestHistorySuccessState extends HistoryState {
+  DateTime timestamp;
+  List<GoodsReceiptLot> goodReceiptLots;
+  TestHistorySuccessState(
+    this.timestamp,
+    this.goodReceiptLots,
+  );
+  @override
+  List<Object> get props => [timestamp];
+}
+
+class TestHistoryLoadingState extends HistoryState {
+  DateTime timestamp;
+  TestHistoryLoadingState(
+    this.timestamp,
+  );
+  @override
+  List<Object> get props => [timestamp];
+}
+
+class TestHistoryFailState extends HistoryState {
+  DateTime timestamp;
+  ErrorPackage status;
+  TestHistoryFailState(
+    this.timestamp,
+    this.status,
+  );
+  @override
+  List<Object> get props => [timestamp];
+}

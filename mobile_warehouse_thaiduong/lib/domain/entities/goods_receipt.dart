@@ -24,7 +24,7 @@ class GoodsReceiptLot extends Equatable {
       this.productionDate,
       this.expirationDate);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [goodsReceiptLotId];
 }
 
@@ -37,6 +37,6 @@ class GoodsReceipt extends Equatable {
   GoodsReceipt(
       this.goodsReceiptId,this.supply, this.lots, this.timestamp, this.isConfirmed);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [goodsReceiptId];
 }

@@ -62,4 +62,13 @@ class GoodsReceiptUsecase {
         purchaseOrderNumber);
     return goodsReceipts;
   }
+  // test giao diện
+    Future<List<GoodsReceiptLot>> getGoodsReceiptsHistoryTest(
+      String itemClass,
+      ) async {
+    final goodsReceipts = goodsReceiptRepository.getGoodsReceiptsHistoryTest(
+        itemClass,
+      );
+    return goodsReceipts;
+  }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable
+// ignore_for_file: avoid_print, must_be_immutable, library_private_types_in_public_api, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -54,7 +54,7 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
            
-            side: BorderSide(
+            side: const BorderSide(
              width: 0.3
             ),
           ),

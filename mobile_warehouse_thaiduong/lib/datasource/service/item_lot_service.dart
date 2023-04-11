@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart';
 import 'dart:convert';
@@ -7,7 +9,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 class ItemLotService {
   Future<ItemLotModel> getItemLotById(String lotId) async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/containers/$lotId'),
+      Uri.parse('${Constants.baseUrl}api/containers/$lotId'),
     );
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
@@ -22,26 +24,122 @@ class ItemLotService {
   }
 
   Future<List<ItemLotModel>> getItemLotsByItemId(String itemId) async {
-    return [ItemLotModel('123', Item(itemId, 'kk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", 'Vị trí 1', null,null ),
-    ItemLotModel('456', Item('2', 'kk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    //   final res = await http.get(
+    //   Uri.parse('${Constants.baseUrl}api/containers/$itemId'),
+    // );
+    // if (res.statusCode == 200) {
+    //   dynamic body = jsonDecode(res.body);
+    //   //   print(body.toString());
+    //  List<ItemLotModel> itemLot = body
+    //       .map(
+    //         (dynamic item) => ItemLotModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return itemLot;
+   
+    // } else {
+    //   print('rổ không xác định');
+
+    //   return throw "Unable to retrieve posts.";
+    // }
+    return 
+    [ItemLotModel('2023-02-23', Item(itemId, '001', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121214", 'Vị trí 1', null,null ),
+    ItemLotModel('2023-02-23', Item('2', '002', Unit('cái'), ItemClass('TP'), 150, 30), false, 100, 10, "121215", 'Vị trí 2', null,null ),
+     ItemLotModel('2023-02-24', Item('2', '002', Unit('cái'), ItemClass('TP'), 120, 20), false, 100, 10, "121215", 'Vị trí 3', null,null ),
+     ItemLotModel('2023-02-24', Item('2', '002', Unit('cái'), ItemClass('TP'), 160, 80), false, 100, 10, "121215", 'Vị trí 3', null,null ),
+     ItemLotModel('2023-02-24', Item('2', '002', Unit('cái'), ItemClass('TP'), 120, 20), false, 100, 10, "121215", 'Vị trí 3', null,null ),
+     ItemLotModel('2023-02-24', Item('2', '002', Unit('cái'), ItemClass('TP'), 160, 80), false, 100, 10, "121215", 'Vị trí 3', null,null )];
   }
 
   Future<List<ItemLotModel>> getItemLotsByLocation(String locationId) async {
-    return [ItemLotModel('123', Item('1', '2', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", 'Vị trí 1', null,null ),
-    ItemLotModel('456', Item('2', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    //       final res = await http.get(
+    //   Uri.parse('${Constants.baseUrl}api/containers/$locationId'),
+    // );
+    // if (res.statusCode == 200) {
+    //   dynamic body = jsonDecode(res.body);
+    //   //   print(body.toString());
+    //  List<ItemLotModel> itemLot = body
+    //       .map(
+    //         (dynamic item) => ItemLotModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return itemLot;
+   
+    // } else {
+    //   print('rổ không xác định');
+
+    //   return throw "Unable to retrieve posts.";
+    // }
+    return  [ItemLotModel('2023-02-23', Item('1', '001', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121214", 'Vị trí 1', null,null ),
+    ItemLotModel('2023-02-23', Item('2', '002', Unit('cái'), ItemClass('TP'), 120, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('3', '002', Unit('cái'), ItemClass('TP'), 150, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('4', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null )];
   }
 
   Future<List<ItemLotModel>> getIsolatedItemLots() async {
-    return [ItemLotModel('123', Item('1', '2', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", 'Vị trí 1', null,null ),
-    ItemLotModel('456', Item('2', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    // final res = await http.get(
+    //   Uri.parse(Constants.baseUrl + '/api/items'),
+    // );
+    // if (res.statusCode == 200) {
+    //   List<dynamic> body = jsonDecode(res.body);
+    //   //   print(body.toString());
+    //   List<ItemLotModel> lot =
+    //       body.map((e) => ItemLotModel.fromJson(e)).toList();
+    //   return lot;
+    // } else {
+    //   return throw "Unable to retrieve posts.";
+    // }
+    return  [ItemLotModel('2023-02-23', Item('3', '001', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121214", 'Vị trí 1', null,null ),
+    ItemLotModel('2023-02-23', Item('3', '002', Unit('cái'), ItemClass('TP'), 80, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('3', '002', Unit('cái'), ItemClass('TP'), 120, 10), false, 100, 10, "121215", 'Vị trí 3', null,null ),
+     ItemLotModel('2023-02-24', Item('3', '002', Unit('cái'), ItemClass('TP'), 60, 10), false, 100, 10, "121215", 'Vị trí 1', null,null )];
   }
 
   Future<List<ItemLotModel>> getExpiredItemLots(DateTime dateTime) async {
-    return [ItemLotModel('123', Item('1', '2', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", 'Vị trí 1', null,null ),
-    ItemLotModel('456', Item('1', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    //           final res = await http.get(
+    //   Uri.parse('${Constants.baseUrl}api/containers/$dateTime'),
+    // );
+    // if (res.statusCode == 200) {
+    //   dynamic body = jsonDecode(res.body);
+    //   //   print(body.toString());
+    //  List<ItemLotModel> itemLot = body
+    //       .map(
+    //         (dynamic item) => ItemLotModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return itemLot;
+   
+    // } else {
+    //   print('rổ không xác định');
+
+    //   return throw "Unable to retrieve posts.";
+    // }
+    return  [ItemLotModel('2023-02-23', Item('1', '001', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121214", 'Vị trí 1', null,null ),
+    ItemLotModel('2023-02-23', Item('2', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('3', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('4', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null )];
   }
   Future<List<ItemLotModel>> getUnderStockminItemLots(String itemClassId) async {
-    return [ItemLotModel('123', Item('1', '2', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", 'Vị trí 1', null,null ),
-    ItemLotModel('456', Item('1', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    //       final res = await http.get(
+    //   Uri.parse('${Constants.baseUrl}api/containers/$itemClassId'),
+    // );
+    // if (res.statusCode == 200) {
+    //   dynamic body = jsonDecode(res.body);
+    //   //   print(body.toString());
+    //  List<ItemLotModel> itemLot = body
+    //       .map(
+    //         (dynamic item) => ItemLotModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return itemLot;
+   
+    // } else {
+    //   print('rổ không xác định');
+    //   return throw "Unable to retrieve posts.";
+    // }
+    return  [ItemLotModel('2023-02-23', Item('1', '001', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121214", 'Vị trí 1', null,null ),
+    ItemLotModel('2023-02-23', Item('2', '002', Unit('cái'), ItemClass('TP'), 60, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('3', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null ),
+     ItemLotModel('2023-02-24', Item('4', '002', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121215", 'Vị trí 1', null,null )];
   }
 }

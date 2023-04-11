@@ -18,9 +18,9 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<GetWarehouseIdEvent>((event, emit) async {
       emit(GetWarehouseIdLoadingState(DateTime.now()));
       try {
-        //  final item = await itemUsecase.getAllItem();
+         final item = await itemUsecase.getAllItem();
           final itemClass = await itemUsecase.getAllItemClass();
-        emit(GetWarehouseIdSuccessState(DateTime.now(), itemClass));
+        emit(GetWarehouseIdSuccessState(DateTime.now(), itemClass, item));
       } catch (e) {
         emit(GetWarehouseIdFailState(DateTime.now()));
       }
@@ -31,7 +31,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       try {
        {
         final items = await itemUsecase.getItemByWarehouseId(event.itemClassId);
-        emit(GetAllItemByWarehouseSuccessState(DateTime.now(), items));
+        emit(GetAllItemByWarehouseSuccessState(DateTime.now(), items, event.listItemClass ));
       }
     } catch (e) {
       emit(GetAllItemByWarehouseFailState(DateTime.now()));
@@ -50,7 +50,24 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       emit(LoadInventoryFailState(DateTime.now()));
     }
   });
-      }}
+      
+    // thử giao diện
+   on<LoadInventoryLotEvent>((event, emit) async {
+      emit(LoadInventoryLotLoadingState(DateTime.now()));
+    try {
+       {
+        final itemLots = await inventoryUsecase.
+        getInventoryLotByItemClassId(event.timestamp, event.itemClassId);
+ 
+        emit(LoadInventoryLotSuccessState(DateTime.now(), itemLots, event.listItemClass));
+      }
+    } catch (e) {
+      emit(LoadInventoryLotFailState(DateTime.now()));
+    }
+  });
+      } 
+
+      }
 
 
 

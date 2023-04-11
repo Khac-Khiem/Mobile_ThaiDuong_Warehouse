@@ -46,6 +46,8 @@ import '../screens/adjustment/scan_adjustment_screen.dart';
 import '../screens/history/export_history_screen.dart';
 import '../screens/history/history_function_screen.dart';
 import '../screens/history/import_history_screen.dart';
+import '../screens/history/list_export_history_screen.dart';
+import '../screens/history/list_import_history_screen.dart';
 import '../screens/inventory/product_inventory_screen.dart';
 import '../screens/inventory/stockcard_function_screen.dart';
 import '../screens/isolation/isolation_function_screen.dart';
@@ -103,7 +105,7 @@ class AppRoute {
 
                   BlocProvider<ExportingReceiptLotBloc>(
                       create: (context) => injector()),
-                ], child: FillInfoLotReceiptScreen()));
+                ], child: const FillInfoLotReceiptScreen()));
 
       case '/importing_receipt_screen':
         return MaterialPageRoute(
@@ -258,12 +260,23 @@ class AppRoute {
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<HistoryBloc>(create: (context) => injector()),
+            
                 ], child: const ImportHistoryScreen()));
+       case '/list_import_history_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<HistoryBloc>(create: (context) => injector()),
+                ], child: const ListImportHistoryScreen()));
       case '/export_history_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<HistoryBloc>(create: (context) => injector()),
                 ], child: const ExportHistoryScreen()));
+      case '/list_export_history_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<HistoryBloc>(create: (context) => injector()),
+                ], child: const ListExportHistoryScreen()));
       //--
       case '/lot_adjustment_screen':
         return MaterialPageRoute(

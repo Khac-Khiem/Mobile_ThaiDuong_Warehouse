@@ -16,7 +16,8 @@ class LoadItemDataSuccessState extends FillInfoReceiptLotState {
   @override
   LoadItemDataSuccessState(
       this.items, this.goodsReceipt, this.index, this.function, this.timestamp);
-  // TODO: implement props
+
+  @override
   List<Object?> get props => [timestamp];
 }
 
@@ -25,7 +26,7 @@ class LoadItemDataLoadingState extends FillInfoReceiptLotState {
   LoadItemDataLoadingState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -34,6 +35,6 @@ class LoadItemDataFailState extends FillInfoReceiptLotState {
   LoadItemDataFailState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

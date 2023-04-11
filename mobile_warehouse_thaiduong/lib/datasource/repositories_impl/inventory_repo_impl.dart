@@ -7,35 +7,33 @@ class InventoryRepoImpl implements InventoryRepository {
   InventoryRepoImpl(this.inventoryService);
   @override
   Future<List<InventoryLogEntry>> getInventoryByItemClass(
-        DateTime startDate, 
-        DateTime endDate, 
-        String itemClassId) {
-      final inventoryLogEntry = inventoryService.getInventoryByItemClass(
-        startDate,  
-        endDate,  
-        itemClassId);
-   return inventoryLogEntry;
+      DateTime startDate, DateTime endDate, String itemClassId) {
+    final inventoryLogEntry = inventoryService.getInventoryByItemClass(
+        startDate, endDate, itemClassId);
+    return inventoryLogEntry;
   }
 
   @override
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      DateTime startDate, 
-      DateTime endDate, 
-      String itemId) {
-   final inventoryLogEntry = inventoryService.getInventoryByItemId(
-        startDate,  
-        endDate,  
-        itemId);
-   return inventoryLogEntry;
+      DateTime startDate, DateTime endDate, String itemId) {
+    final inventoryLogEntry =
+        inventoryService.getInventoryByItemId(startDate, endDate, itemId);
+    return inventoryLogEntry;
   }
 
   @override
   Future<List<InventoryLogEntry>> getInventoryByTime(
-      String startDate, 
-      String endDate) {
-   final inventoryLogEntry = inventoryService.getInventoryByTime(
-        startDate,  
-        endDate);
-   return inventoryLogEntry;
+      String startDate, String endDate) {
+    final inventoryLogEntry =
+        inventoryService.getInventoryByTime(startDate, endDate);
+    return inventoryLogEntry;
+  }
+  // thử giao diện
+    @override
+  Future<List<InventoryLogEntry>> getInventoryLotByItemClassId(
+      DateTime dateTime, String itemClassId) {
+    final inventoryLogEntry =
+        inventoryService.getInventoryLotByItemClassId(dateTime, itemClassId);
+    return inventoryLogEntry;
   }
 }

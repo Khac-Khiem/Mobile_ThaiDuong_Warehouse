@@ -4,7 +4,8 @@ import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_receipt_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 class GoodsReceiptService {
   Future<ErrorPackageModel> postNewGoodsReceipt(
       String goodsReceiptId, List<GoodsReceiptLot> lots) async {
@@ -53,6 +54,28 @@ class GoodsReceiptService {
           ],
           DateTime.now(),
           false),
+    ];
+  }
+  // thử giao diện
+   
+  Future<List<GoodsReceiptLot>> getGoodsReceiptsHistoryTest(warehouse) async {
+    return [
+      GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),  
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),  
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),  
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),
+       GoodsReceiptLot('11', '11', 1, 1,'11', '11', '11', DateTime.now(),DateTime.now()
+       ),   
     ];
   }
 }

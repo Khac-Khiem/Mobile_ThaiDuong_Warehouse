@@ -1,6 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:mobile_warehouse_thaiduong/datasource/service/goods_receipt_service.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/goods_receipt_repository.dart';
 
 class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
@@ -58,5 +61,13 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
       String receiver,
       String purchaseOrderNumber) {
     throw UnimplementedError();
+  }
+   // thử giao diện
+    @override
+  Future<List<GoodsReceiptLot>> getGoodsReceiptsHistoryTest(
+       String warehouse) {
+    final goodsReceiptLot =
+        goodsReceiptService.getGoodsReceiptsHistoryTest( warehouse);
+    return goodsReceiptLot;
   }
 }

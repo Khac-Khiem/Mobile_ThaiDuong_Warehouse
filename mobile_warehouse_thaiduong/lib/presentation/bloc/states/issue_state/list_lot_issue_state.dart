@@ -9,7 +9,7 @@ class LoadingGoodsIssueLotsState extends GoodsIssueLotState {
   DateTime timestamp;
   LoadingGoodsIssueLotsState(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -21,7 +21,7 @@ class LoadGoodsIssueLotsSuccessState extends GoodsIssueLotState {
   LoadGoodsIssueLotsSuccessState(
       this.timestamp, this.lotsSuggest, this.lotsExpected);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -29,7 +29,7 @@ class LoadGoodsIssueLotsFailState extends GoodsIssueLotState {
   DateTime timestamp;
   LoadGoodsIssueLotsFailState(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 //-----
@@ -38,7 +38,7 @@ class LoadGoodsIssueLotsFailState extends GoodsIssueLotState {
 //   DateTime timestamp;
 //   AddGoodsIssueLotsLoadingState(this.timestamp);
 //   @override
-//   // TODO: implement props
+
 //   List<Object?> get props => [timestamp];
 // }
 
@@ -47,7 +47,7 @@ class LoadGoodsIssueLotsFailState extends GoodsIssueLotState {
 //   ItemLot lots;
 //   AddIssueLotsSuccessState(this.timestamp, this.lots);
 //   @override
-//   // TODO: implement props
+
 //   List<Object?> get props => [timestamp];
 // }
 
@@ -55,7 +55,7 @@ class LoadGoodsIssueLotsFailState extends GoodsIssueLotState {
 //   DateTime timestamp;
 //   AddIssueLotsFailState(this.timestamp);
 //   @override
-//   // TODO: implement props
+
 //   List<Object?> get props => [timestamp];
 // }
 
@@ -65,7 +65,7 @@ class PostGoodsIssueLotsLoadingState extends GoodsIssueLotState {
   DateTime timestamp;
   PostGoodsIssueLotsLoadingState(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 
@@ -76,7 +76,7 @@ class PostIssueLotsSuccessState extends GoodsIssueLotState {
     this.timestamp,
   );
   @override
-  // TODO: implement props
+ 
   List<Object?> get props => [timestamp];
 }
 
@@ -84,6 +84,6 @@ class PostGoodsIssueLotsFailState extends GoodsIssueLotState {
   DateTime timestamp;
   PostGoodsIssueLotsFailState(this.timestamp);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

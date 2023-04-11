@@ -2,23 +2,29 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/item.dart';
+
 abstract class InventoryEvent extends Equatable {}
-// list kho hang 
+
+// list kho hang
 class GetWarehouseIdEvent extends InventoryEvent {
   DateTime timestamp;
   GetWarehouseIdEvent(this.timestamp);
   @override
-
   List<Object?> get props => [timestamp];
 }
+
 // lấy mã sp
 class GetAllItemIdByWarehouseIdEvent extends InventoryEvent {
   DateTime timestamp;
   String itemClassId;
-  GetAllItemIdByWarehouseIdEvent(this.timestamp, this.itemClassId);
+  List<ItemClass> listItemClass;
+  GetAllItemIdByWarehouseIdEvent(
+      this.timestamp, this.itemClassId, this.listItemClass);
   @override
   List<Object?> get props => [timestamp];
 }
+
 // Hiển thị hàng tồn kho theo thông tin tìm kiếm
 class LoadInventoryEvent extends InventoryEvent {
   DateTime timestamp;
@@ -28,9 +34,23 @@ class LoadInventoryEvent extends InventoryEvent {
   LoadInventoryEvent(
     this.timestamp,
     this.itemId,
-    this.startDate, 
+    this.startDate,
     this.endDate,
-);
+  );
+  @override
+  List<Object> get props => [timestamp];
+}
+
+// thử giao diện
+class LoadInventoryLotEvent extends InventoryEvent {
+  DateTime timestamp;
+  String itemClassId;
+   List<ItemClass> listItemClass;
+  LoadInventoryLotEvent(
+    this.timestamp,
+    this.itemClassId,
+   this.listItemClass
+  );
   @override
   List<Object> get props => [timestamp];
 }

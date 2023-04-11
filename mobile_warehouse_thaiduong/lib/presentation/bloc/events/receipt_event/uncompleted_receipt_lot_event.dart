@@ -11,7 +11,7 @@ class LoadUncompletedReceiptLotEvent extends UncompletedReceiptLotEvent {
   GoodsReceipt receipt;
   LoadUncompletedReceiptLotEvent(this.timestamp, this.receipt);
   @override
-  // TODO: implement props
+  
   List<Object?> get props => [timestamp];
 }
 

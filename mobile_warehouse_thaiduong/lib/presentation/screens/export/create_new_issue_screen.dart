@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,7 +98,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                       text: "Tiếp tục",
                       onPressed: () {
                         BlocProvider.of<FillInfoIssueEntryBloc>(context)
-                            .add(GetAllItemIssueEvent(DateTime.now(), [], -1));
+                            .add(GetAllItemIssueEvent(DateTime.now(), const [], -1));
                         Navigator.pushNamed(
                           context,
                           '/fill_info_entry_screen',
@@ -198,7 +200,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                   ),
                 ]);
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

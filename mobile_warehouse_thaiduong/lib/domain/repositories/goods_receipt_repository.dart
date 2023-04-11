@@ -24,4 +24,7 @@ abstract class GoodsReceiptRepository {
       String department,
       String receiver,
       String purchaseOrderNumber);
+  // test giao diện
+    Future<List<GoodsReceiptLot>> getGoodsReceiptsHistoryTest(
+      String itemClass);
 }

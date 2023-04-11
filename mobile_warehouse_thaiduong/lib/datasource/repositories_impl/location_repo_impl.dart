@@ -11,8 +11,8 @@ class LocationRepoImpl implements LocationRepository {
   }
 
   @override
-  Future<List<String>> getAllWarehouseId() {
-    final warehouseIds = locationService.getAllWarehouseId();
-    return warehouseIds;
+  Future<List<String>> getAllWarehouse() {
+    final warehouse = locationService.getAllWarehouse();
+    return warehouse;
   }
 }

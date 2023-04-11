@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';

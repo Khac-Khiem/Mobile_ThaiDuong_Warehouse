@@ -6,7 +6,7 @@ import '../../../../domain/entities/item_lot.dart';
 
 class FillInfoLotReceiptEvent extends Equatable {
   @override
-  // TODO: implement props
+
   List<Object?> get props => throw UnimplementedError();
 }
 

@@ -11,7 +11,7 @@ class LoadItemDataLoadingState extends FillInfoIssueEntryState {
   LoadItemDataLoadingState(this.timestamp);
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }
 class LoadItemDataSuccessState extends FillInfoIssueEntryState {
@@ -24,7 +24,8 @@ class LoadItemDataSuccessState extends FillInfoIssueEntryState {
   DateTime timestamp;
   @override
   LoadItemDataSuccessState( this.items, this.entries, this.index, this.timestamp);
-  // TODO: implement props
+ 
+  @override
   List<Object?> get props => [timestamp];
 }
 
@@ -33,6 +34,6 @@ class LoadItemDataFailState extends FillInfoIssueEntryState {
   LoadItemDataFailState(this.timestamp);
 
   @override
-  // TODO: implement props
+ 
   List<Object?> get props => [timestamp];
 }

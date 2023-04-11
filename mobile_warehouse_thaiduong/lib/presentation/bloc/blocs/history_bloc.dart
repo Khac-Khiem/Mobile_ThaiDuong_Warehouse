@@ -1,6 +1,5 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/department_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
@@ -106,6 +105,23 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         }
       } catch (e) {
         emit(AccessImportHistoryFailState(DateTime.now(), ErrorPackage('')));
+      }
+    });
+    // test giao diện
+    on<TestHistoryEvent>((event, emit) async {
+      emit(TestHistoryLoadingState(DateTime.now()));
+      try {
+         {
+          final goodReceiptLots =
+              await goodsReceiptUseCase.getGoodsReceiptsHistoryTest(
+                  event.warehouse,
+               
+                  );
+          emit(
+              TestHistorySuccessState(DateTime.now(), goodReceiptLots));
+        }
+      } catch (e) {
+        emit(TestHistoryFailState(DateTime.now(), ErrorPackage('')));
       }
     });
   }

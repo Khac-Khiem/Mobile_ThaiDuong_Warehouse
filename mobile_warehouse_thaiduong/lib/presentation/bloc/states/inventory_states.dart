@@ -8,8 +8,8 @@ abstract class InventoryState extends Equatable {}
 class GetWarehouseIdSuccessState extends InventoryState {
   DateTime timestamp;
   List<ItemClass> itemClass;
-
-  GetWarehouseIdSuccessState(this.timestamp, this.itemClass);
+  List<Item> item;
+  GetWarehouseIdSuccessState(this.timestamp, this.itemClass, this.item);
   @override
 
   List<Object?> get props => [timestamp];
@@ -32,7 +32,8 @@ class GetWarehouseIdFailState extends InventoryState {
 class GetAllItemByWarehouseSuccessState extends InventoryState {
   DateTime timestamp;
   List<Item> item;
-  GetAllItemByWarehouseSuccessState(this.timestamp, this.item);
+ List<ItemClass> listItemClass;
+  GetAllItemByWarehouseSuccessState(this.timestamp, this.item, this.listItemClass);
   @override
 
   List<Object?> get props => [timestamp];
@@ -79,5 +80,35 @@ class LoadInventoryLoadingState extends InventoryState {
 
   List<Object?> get props => [timestamp, 
   // status
+  ];
+}
+// thử giao diện
+class LoadInventoryLotSuccessState extends InventoryState {
+  DateTime timestamp;
+  List<InventoryLogEntry> itemLots;
+   List<ItemClass> listItemClass;
+  LoadInventoryLotSuccessState(
+    this.timestamp,
+    this.itemLots,
+ this.listItemClass
+  );
+  @override
+  List<Object> get props => [timestamp];
+}
+class LoadInventoryLotFailState extends InventoryState {
+  DateTime timestamp;
+
+  LoadInventoryLotFailState(
+    this.timestamp,
+  );
+  @override
+  List<Object> get props => [timestamp];
+}
+class LoadInventoryLotLoadingState extends InventoryState {
+  DateTime timestamp;
+  LoadInventoryLotLoadingState(this.timestamp, 
+  );
+  @override
+  List<Object?> get props => [timestamp, 
   ];
 }

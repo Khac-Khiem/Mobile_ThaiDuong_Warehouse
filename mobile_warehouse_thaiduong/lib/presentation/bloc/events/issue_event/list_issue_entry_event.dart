@@ -11,6 +11,6 @@ class LoadGoodsIssueEntryEvent extends GoodsIssueEntryEvent {
   GoodsIssue goodsIssue;
   LoadGoodsIssueEntryEvent(this.timestamp,this.goodsIssue);
   @override
-  // TODO: implement props
+
   List<Object?> get props => [timestamp];
 }

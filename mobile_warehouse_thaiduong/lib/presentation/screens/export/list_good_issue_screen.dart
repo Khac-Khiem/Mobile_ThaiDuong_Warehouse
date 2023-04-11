@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -181,7 +183,7 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
                                                   const EdgeInsets.all(8.0),
                                               child: ListTile(
                                                 shape: RoundedRectangleBorder(
-                                                  side: BorderSide(width: 2),
+                                                  side: const BorderSide(width: 2),
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
@@ -293,7 +295,7 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

@@ -80,3 +80,16 @@ class AccessExportHistoryEvent extends HistoryEvent {
   @override
   List<Object> get props => [timestamp];
 }
+// test giao diện
+class TestHistoryEvent extends HistoryEvent {
+  DateTime timestamp;
+  String warehouse;
+  //String purchaseOrderNumber;
+  TestHistoryEvent(
+      this.timestamp,
+      this.warehouse,
+      //this.purchaseOrderNumber
+      );
+  @override
+  List<Object> get props => [timestamp];
+}

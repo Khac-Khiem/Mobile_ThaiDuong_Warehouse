@@ -9,7 +9,7 @@ class LocationUsecase {
   }
 
   Future<List<String>> getAllWarehouseId() async {
-    final warehouseIds = locationRepository.getAllWarehouseId();
+    final warehouseIds = locationRepository.getAllWarehouse();
     return warehouseIds;
   }
 }
