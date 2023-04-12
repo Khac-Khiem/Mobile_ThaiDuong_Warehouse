@@ -106,4 +106,5 @@ Future<void> initializeDependencies() async {
       ListGoodsIssueCompletedBloc(injector()));
   injector.registerSingleton<ListGoodsIssueLotCompletedBloc>(
       ListGoodsIssueLotCompletedBloc(injector()));
+  
 }

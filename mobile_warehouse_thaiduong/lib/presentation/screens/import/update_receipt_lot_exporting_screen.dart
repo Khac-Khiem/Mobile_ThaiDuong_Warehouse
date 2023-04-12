@@ -18,19 +18,20 @@ import 'package:dropdown_search/dropdown_search.dart';
 import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../dialog/dialog_one_button.dart';
 
-class FillInfoLotReceiptScreen extends StatefulWidget {
-  const FillInfoLotReceiptScreen({super.key});
+class UpdateInfoLotReceiptScreen extends StatefulWidget {
+  const UpdateInfoLotReceiptScreen({super.key});
 
   @override
-  State<FillInfoLotReceiptScreen> createState() =>
-      _FillInfoLotReceiptScreenState();
+  State<UpdateInfoLotReceiptScreen> createState() =>
+      _UpdateInfoLotReceiptScreenState();
 }
 
-class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
+class _UpdateInfoLotReceiptScreenState
+    extends State<UpdateInfoLotReceiptScreen> {
 //  Item? selectedItem;
   String unit = '';
   GoodsReceiptLot goodsReceiptLot =
-      GoodsReceiptLot('', null, null, null, null, null, null, null, null, null);
+      GoodsReceiptLot('', null, null, null, null, null, '', null, null, null);
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
   // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
@@ -48,7 +49,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/create_receipt_screen');
+            Navigator.pushNamed(context, '/importing_receipt_lot_screen');
           },
         ),
         backgroundColor: Constants.mainColor,
@@ -204,11 +205,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            onChanged: (value) => value != ''
-                                ? goodsReceiptLot.sublotSize =
-                                    double.parse(value)
-                                : goodsReceiptLot.sublotSize =
-                                    double.parse('0'),
+                            // onChanged: (value) => goodsReceiptLot.sublotSize =
+                            //     double.parse(value),
                           ),
                         ),
                         Container(
@@ -246,9 +244,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            onChanged: (value) => value != ''
-                                ? goodsReceiptLot.quantity = double.parse(value)
-                                : goodsReceiptLot.quantity = double.parse('0'),
+                            // onChanged: (value) =>
+                            //     goodsReceiptLot.quantity = double.parse(value),
                           ),
                         )
                       ],
@@ -373,7 +370,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         if (goodsReceiptLot.goodsReceiptLotId == '' ||
-                            goodsReceiptLot.item == null ||
+                            goodsReceiptLot.item!.itemId == '' ||
                             goodsReceiptLot.quantity == null) {
                           AlertDialogOneBtnCustomized(
                                   context,
@@ -387,26 +384,14 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           }, 18, 22, () {}, false)
                               .show();
                         } else {
-                          state.index == -1
-                              ? {
-                                  BlocProvider.of<CreateReceiptBloc>(context)
-                                      .add(AddLotToGoodsReceiptEvent(
-                                          goodsReceiptLot, state.goodsReceipt)),
-                                  Navigator.pushNamed(
-                                      context, '/create_receipt_screen')
-                                }
-                              : {
-                                  BlocProvider.of<CreateReceiptBloc>(context)
-                                      .add(UpdateLotReceiptEvent(
-                                          goodsReceiptLot,
-                                          state.goodsReceipt,
-                                          state.index)),
-                                  Navigator.pushNamed(
-                                      context, '/create_receipt_screen'),
-                                };
+                          BlocProvider.of<ExportingReceiptLotBloc>(context).add(
+                              UpdateReceiptLotEvent(state.index,
+                                  goodsReceiptLot, state.goodsReceipt));
+                          Navigator.pushNamed(
+                              context, '/importing_receipt_lot_screen');
                         }
                       },
-                      child: state.index == -1 ? const Text('Tạo mới'): const Text('Cập nhật'),
+                      child: const Text('Cập nhật'),
                     )
                   ],
                 ),

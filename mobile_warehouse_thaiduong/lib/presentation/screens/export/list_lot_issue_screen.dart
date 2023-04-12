@@ -104,12 +104,14 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                 Container(
                                   width: 300 * SizeConfig.ratioWidth,
                                   height: 60 * SizeConfig.ratioHeight,
-                                  margin: EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   child: TextField(
-                                    decoration: const InputDecoration(
-                                        filled: true,
-                                        fillColor: Constants.buttonColor,
+                                    decoration:  InputDecoration(
+                                       border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                        // filled: true,
+                                        // fillColor: Constants.buttonColor,
                                         labelText: "Ghi chú"),
                                     onChanged: (value) => note = value,
                                   ),
@@ -119,12 +121,14 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   alignment: Alignment.centerRight,
                                   width: 300 * SizeConfig.ratioWidth,
-                                  height: 55 * SizeConfig.ratioHeight,
+                                  height: 60 * SizeConfig.ratioHeight,
                                   //color: Colors.grey[200],
                                   child: TextField(
-                                    decoration: const InputDecoration(
-                                        filled: true,
-                                        fillColor: Constants.buttonColor,
+                                    decoration:  InputDecoration(
+                                       border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                        // filled: true,
+                                        // fillColor: Constants.buttonColor,
                                         labelText:
                                             "Nhập số lượng định cần xuất"),
                                     keyboardType:
@@ -136,6 +140,10 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                     ],
                                     onChanged: (value) =>
                                         quantity = double.parse(value),
+                                          onSubmitted: (value) =>
+                            value != '' ? quantity =
+                                double.parse(value) : quantity =
+                                double.parse('0'),
                                   ),
                                 ),
                                 TextButton(

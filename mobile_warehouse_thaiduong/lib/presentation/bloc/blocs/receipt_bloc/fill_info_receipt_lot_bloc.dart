@@ -16,7 +16,7 @@ class FillReceiptLotBloc
         final items = await itemUsecase.getAllItem();
 
         emit(LoadItemDataSuccessState(
-            items, event.goodsReceipt, event.index,event.function, DateTime.now()));
+            items, event.goodsReceipt, event.index, DateTime.now()));
       } catch (e) {
         //emit(Load(DateTime.now()));
       }

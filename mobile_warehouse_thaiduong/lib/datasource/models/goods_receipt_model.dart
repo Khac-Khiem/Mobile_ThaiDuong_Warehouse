@@ -1,4 +1,8 @@
+import 'package:intl/intl.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
+
+import 'employee_model.dart';
 
 class GoodsReceiptLotModel extends GoodsReceiptLot {
   GoodsReceiptLotModel(
@@ -10,44 +14,49 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
       super.employee,
       super.location,
       super.productionDate,
-      super.expirationDate);
+      super.expirationDate, super.note);
   factory GoodsReceiptLotModel.fromJson(Map<String, dynamic> json) {
     return GoodsReceiptLotModel(
       json['goodsReceiptLotId'],
-      json['itemId'],
-      //= ItemModel.fromJson(json["item"]),
-      json['quantity'],
-      json['sublotSize'],
+      json['item']
+      = ItemModel.fromJson(json["item"]),
+     double.parse( json['quantity'].toString()),
+  double.tryParse( json['sublotSize'].toString()),
       json['purchaseOrderNumber'],
-      json['employeeId'],
+      //json['employee'],
       // json['location'] = Location('', <ItemLot>[]),
-      // json['employee'] == null
-      //     ? EmployeeModel("", "")
-      //     : EmployeeModel.fromJson(json["employee"]),
-      json['location'],
+      json['employee'] == null
+          ? EmployeeModel("", "")
+          : EmployeeModel.fromJson(json["employee"]),
+      json['locationId'],
       //  == null
       //     ? LocationModel('', <ItemLot>[])
       //     : LocationModel.fromJson(json["location"]),
-      json['productionDate'],
-      json['expirationDate'],
+     DateTime.tryParse( json['productionDate'].toString()),
+     DateTime.tryParse( json['expirationDate'].toString()),
+        json['note'],
     );
   }
 }
 
 class GoodsReceiptModel extends GoodsReceipt {
   GoodsReceiptModel(super.goodsReceiptId,super.supply, super.lots,
-      super.timestamp, super.isConfirmed);
+      super.timestamp,super.empployee, super.isConfirmed);
   factory GoodsReceiptModel.fromJson(Map<String, dynamic> json) {
     return GoodsReceiptModel(
       json['goodsReceiptId'],
-      json['supply'],
+      json['supplier'],
       json['lots'] == null
           ? []
           : (json["lots"] as List)
               .map((e) => GoodsReceiptLotModel.fromJson(e))
               .toList(),
-      json['timestamp'],
-      json['isCompleted'],
+    //  DateFormat('dd-MM-yy').parse(json['timestamp'],),
+      DateTime.tryParse(json['timestamp'].toString()),
+     json['employee'] == null
+          ? EmployeeModel("", "")
+          : EmployeeModel.fromJson(json["employee"]),
+      json['isConfirmed'],
     );
   }
 }

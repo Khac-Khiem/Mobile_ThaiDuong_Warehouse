@@ -52,9 +52,9 @@ class LoadListDataSuccessState extends CreaNewIssueState {
   List<Department> departments;
   List<String> listPo;
   DateTime timestamp;
-  List<IssueEntryView> entries;
+  List<IssueEntryView> issueEntries;
   LoadListDataSuccessState(
-      this.departments, this.entries, this.listPo, this.timestamp);
+      this.departments, this.issueEntries, this.listPo, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

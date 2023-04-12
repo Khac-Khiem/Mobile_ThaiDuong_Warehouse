@@ -9,7 +9,7 @@ class ListGoodsIssueCompletedBloc extends Bloc<CompletedGoodsIssueEvent, Complet
       on<LoadCompletedGoodsIssuesEvent>((event, emit) async {
       emit(LoadCompletedGoodsIssuesLoadingState(DateTime.now()));
       try {
-        final issues = await goodsIssueUseCase.getUncompletedGoodsIssue();
+        final issues = await goodsIssueUseCase.getCompletedGoodsissue();
         emit(LoadCompletedGoodsIssuesSuccessState( DateTime.now(), issues));
       } catch (e) {
          emit(LoadCompletedGoodsIssuesFailState( DateTime.now(), ));

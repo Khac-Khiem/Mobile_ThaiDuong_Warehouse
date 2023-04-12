@@ -38,7 +38,8 @@ class ExceptionErrorState extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                        fontSize: 20 * SizeConfig.ratioHeight,
+                      fontWeight: FontWeight.bold,
+                        fontSize: 25 * SizeConfig.ratioHeight,
                         height: 1.5 *
                             SizeConfig
                                 .ratioHeight), //do ko cho null dc nen cho fontSize nho xiu

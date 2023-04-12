@@ -22,7 +22,28 @@ class ItemLotService {
   }
 
   Future<List<ItemLotModel>> getItemLotsByItemId(String itemId) async {
-    return [ItemLotModel('123', Item(itemId, itemId, Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null ),ItemLotModel('456', Item('kkkkkk', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10), false, 100, 10, "121212", null, null,null )];
+    return [
+      // ItemLotModel(
+      //     '123',
+      //     Item(itemId, itemId, Unit('cái'), ItemClass('TP'), 100, 10),
+      //     false,
+      //     100,
+      //     10,
+      //     "121212",
+      //     null,
+      //     null,
+      //     null),
+      // ItemLotModel(
+      //     '456',
+      //     Item('kkkkkk', 'kkkkkk', Unit('cái'), ItemClass('TP'), 100, 10),
+      //     false,
+      //     100,
+      //     10,
+      //     "121212",
+      //     null,
+      //     null,
+      //     null)
+    ];
   }
 
   Future<List<ItemLotModel>> getItemLotsByLocation(String locationId) async {

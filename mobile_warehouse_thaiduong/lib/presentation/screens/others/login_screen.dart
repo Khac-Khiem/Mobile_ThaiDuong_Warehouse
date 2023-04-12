@@ -8,6 +8,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/login_states
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/drawer_widget.dart';
 
+import '../../widgets/main_app_name.dart';
+
 class LoginScreen extends StatelessWidget {
   TextEditingController userController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -52,11 +54,17 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 40 * SizeConfig.ratioHeight,
-                ),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: MainAppName(),
+                                ),
+
+                // SizedBox(
+                //   height: 40 * SizeConfig.ratioHeight,
+                // ),
                 BlocBuilder<LoginBloc, LoginState>(
-                  builder: (context, state) {
+                  builder:
+                   (context, state) {
                     return SizedBox(
                       
                       width: 300 * SizeConfig.ratioWidth,

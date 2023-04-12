@@ -82,37 +82,16 @@ class _ListUncompletedLotReceiptScreenState
                           itemCount: state.goodsReceipt.lots.length,
                           itemBuilder: (BuildContext context, int index) {
                             return
-                                // LotDetailComponent(
-                                //   lotid: state.goodsReceipt.lots[index].goodsReceiptLotId
-                                //       .toString(),
-                                //   itemId:
-                                //      state.goodsReceipt.lots[index].itemId.toString(),
-                                //   location:
-                                //       state.goodsReceipt.lots[index].location.toString(),
-                                //   enableEdit: true,
-                                //   unit: '',
-                                //   quantity: double.parse(
-                                //       state.goodsReceipt.lots[index].quantity.toString()),
-                                //   sublotSize: double.parse(state.goodsReceipt.lots[index].sublotSize
-                                //       .toString()),
-                                //   onPressed: () {
-                                //     BlocProvider.of<FillReceiptLotBloc>(context)
-                                //         .add(FillReceiptLotEvent(DateTime.now(),
-                                //             state.goodsReceipt, index, false));
-                                //     Navigator.pushNamed(
-                                //       context,
-                                //       '/fill_lot_receipt_screen',
-                                //     );
-                                //   });
+                               
                                 Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
-                                leading: const Icon(Icons.list),
+                               // leading: const Icon(Icons.list),
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(width: 1),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                trailing: Icon(Icons.arrow_drop_down_sharp,
+                                trailing: Icon(Icons.edit,
                                     size: 15 * SizeConfig.ratioFont),
                                 title: Text(
                                     "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}"),
@@ -121,19 +100,19 @@ class _ListUncompletedLotReceiptScreenState
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                        "Sản phẩm : ${state.goodsReceipt.lots[index].itemId.toString()}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity.toString().toString()} \nVị trí : ${state.goodsReceipt.lots[index].location.toString()}"),
+                                        "Mã SP : ${state.goodsReceipt.lots[index].item!.itemId}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity} \nVị trí : ${state.goodsReceipt.lots[index].location ?? 'Chưa cập nhật'} \nNSX : ${state.goodsReceipt.lots[index].productionDate ?? 'Chưa cập nhật'}"),
                                     Text(
-                                        "Số PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize.toString()}"),
+                                        "Tên SP : ${state.goodsReceipt.lots[index].item!.itemName} \nSố PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? 'Chưa cập nhật'} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize ?? 'Chưa cập nhật' } \nHSD : ${state.goodsReceipt.lots[index].expirationDate ?? 'Chưa cập nhật'}"),
                                   ],
                                 ),
                                 isThreeLine: true,
                                 onTap: () {
                                   BlocProvider.of<FillReceiptLotBloc>(context)
                                       .add(FillReceiptLotEvent(DateTime.now(),
-                                          state.goodsReceipt, index, false));
+                                          state.goodsReceipt, index));
                                   Navigator.pushNamed(
                                     context,
-                                    '/fill_lot_receipt_screen',
+                                    '/update_lot_receipt_screen',
                                   );
                                 },
                               ),

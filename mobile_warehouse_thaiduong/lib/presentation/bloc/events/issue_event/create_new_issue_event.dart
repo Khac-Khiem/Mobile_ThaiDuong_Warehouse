@@ -10,6 +10,7 @@ abstract class CreateNewIssueEvent extends Equatable {}
 //   List<Object?> get props => [timestamp];
 // }
 
+// get danh số bộ phận, PO
 class LoadListDataEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   List<IssueEntryView> entriesIssue;
@@ -18,7 +19,7 @@ class LoadListDataEvent extends CreateNewIssueEvent {
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
-
+ //thêm 1 entry mới
 class AddIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   // String issueId;
@@ -33,6 +34,7 @@ class AddIssueEntryEvent extends CreateNewIssueEvent {
   List<Object?> get props => [timestamp];
 }
 
+// cập nhật entry cũ
 class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   // String issueId;
@@ -48,6 +50,23 @@ class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   List<Object?> get props => [timestamp];
 }
 
+// load lại danh sách entry 
+class LoadIssueEntryEvent extends CreateNewIssueEvent {
+  DateTime timestamp;
+  // String issueId;
+  // String receiver;
+  // String poNumber;
+  List<IssueEntryView> issueEntries;
+  LoadIssueEntryEvent(
+       this.issueEntries, this.timestamp);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [timestamp];
+}
+
+
+
+// post 1 đơn mới
 class PostNewGoodsIssueEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   List<IssueEntryView> issueEntries;

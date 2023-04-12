@@ -39,8 +39,9 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
               height: 10 * SizeConfig.ratioHeight,
             ),
             Text(
+              textAlign:TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              "Danh sách các đơn nhập",
+              "Danh sách các phiếu nhập \n chưa hoàn thành",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 25 * SizeConfig.ratioFont,
@@ -64,21 +65,30 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is LoadReceiptExportingStateSuccess) {
                   return SizedBox(
-                     height: 300 * SizeConfig.ratioHeight,
+                     height: 400 * SizeConfig.ratioHeight,
                     child: ListView.builder(
                         itemCount: state.receipts.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                              leading: const Icon(Icons.list),
-                              trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
-                              title: Text(state.receipts[index].goodsReceiptId),
-                                subtitle: Text(state.receipts[index].timestamp.toString()),
-                            onTap: () {
-                              BlocProvider.of<ExportingReceiptLotBloc>(context)
-                                  .add(LoadUncompletedReceiptLotEvent( DateTime.now(), state.receipts[index]));
-                                   Navigator.pushNamed(context, '/importing_receipt_lot_screen');
-
-                            },);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              
+                               shape: RoundedRectangleBorder(
+                                    side: BorderSide(width: 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                leading: const Icon(Icons.list),
+                                trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
+                                title: Text( "Mã đơn : ${state.receipts[index].goodsReceiptId}"),
+                                  subtitle: 
+                                   Text("NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${state.receipts[index].timestamp.toString()}"),
+                              onTap: () {
+                                BlocProvider.of<ExportingReceiptLotBloc>(context)
+                                    .add(LoadUncompletedReceiptLotEvent( DateTime.now(), state.receipts[index]));
+                                     Navigator.pushNamed(context, '/importing_receipt_lot_screen');
+                          
+                              },),
+                          );
                         }),
                   );
                 }

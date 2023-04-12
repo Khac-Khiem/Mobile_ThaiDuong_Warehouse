@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class Item extends Equatable {
   String itemId;
   String itemName;
-  Unit? unit;
-  ItemClass? itemClass;
+  String? unit;
+  String? itemClass;
   double? minimumStockLevel;
   double? price;
   Item(this.itemId, this.itemName, this.unit, this.itemClass,

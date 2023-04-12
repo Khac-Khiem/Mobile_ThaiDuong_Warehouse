@@ -49,13 +49,20 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
       }
     }
 
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-           
-            side: BorderSide(
-             width: 0.3
-            ),
+    return TextButton(
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: widget.name,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
           ),
+        ),
+      // style: OutlinedButton.styleFrom(
+           
+      //       side: BorderSide(
+      //        width: 0.3
+      //       ),
+      //     ),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -80,7 +87,7 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
               size: 20 * SizeConfig.ratioFont,
             )
           ],
-        ),
+        ),),
       onPressed: () {
         selectTimePicker(context);
       },

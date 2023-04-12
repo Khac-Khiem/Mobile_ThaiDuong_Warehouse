@@ -75,23 +75,19 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          "Danh sách các lô hàng",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20 * SizeConfig.ratioFont,
-                            color: Colors.black,
-                          ),
-                        ),
-                        ExceptionErrorState(
-                          title: "Phiếu đang rỗng",
-                          message: "Chọn Tiếp tục để chọn hàng hóa cần xuất",
-                        ),
-                      ]),
+                  Text(
+                    overflow: TextOverflow.ellipsis,
+                    "Danh sách các lô hàng",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25 * SizeConfig.ratioFont,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ExceptionErrorState(
+                    title: "Phiếu đang rỗng",
+                    message: "Chọn Tiếp tục để chọn hàng hóa cần xuất",
+                  ),
                   CustomizedButton(
                       text: "Tiếp tục",
                       onPressed: () {
@@ -132,7 +128,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return ListTile(
                                 leading: const Icon(Icons.list),
-                                trailing: Icon(Icons.arrow_drop_down_sharp,
+                                trailing: Icon(Icons.edit,
                                     size: 15 * SizeConfig.ratioFont),
                                 isThreeLine: true,
                                 title: Text(
@@ -197,7 +193,98 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                     ],
                   ),
                 ]);
-          } else {
+          } if (state is LoadListDataSuccessState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          "Danh sách các lô hàng",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25 * SizeConfig.ratioFont,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 300 * SizeConfig.ratioHeight,
+                        child: ListView.builder(
+                            itemCount: state.issueEntries.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                leading: const Icon(Icons.list),
+                                trailing: Icon(Icons.edit,
+                                    size: 15 * SizeConfig.ratioFont),
+                                isThreeLine: true,
+                                title: Text(
+                                    "Sản phẩm : ${state.issueEntries[index].itemName.toString()}"),
+                                subtitle: Text(
+                                    "Số lượng yêu cầu : ${state.issueEntries[index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${state.issueEntries[index].requestSublotSize.toString()} "),
+                                onTap: () {
+                                  BlocProvider.of<FillInfoIssueEntryBloc>(
+                                          context)
+                                      .add(GetAllItemIssueEvent(
+                                          // issueId.text,
+                                          // poNumber.text,
+                                          // selectedDepartment,
+                                          DateTime.now(),
+                                          state.issueEntries,
+                                          index));
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/fill_info_entry_screen',
+                                  );
+                                },
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      CustomizedButton(
+                          text: "Tiếp tục",
+                          onPressed: () {
+                            BlocProvider.of<FillInfoIssueEntryBloc>(context)
+                                .add(GetAllItemIssueEvent(
+                                    DateTime.now(), state.issueEntries, -1));
+                            Navigator.pushNamed(
+                              context,
+                              '/fill_info_entry_screen',
+                            );
+                          }),
+                      CustomizedButton(
+                          text: "Hoàn thành",
+                          onPressed: () {
+                            BlocProvider.of<CreateIssueBloc>(context).add(
+                                LoadListDataEvent(
+                                    DateTime.now(), state.issueEntries));
+                            AlertDialogOneBtnCustomized(
+                                    context,
+                                    "Thông báo",
+                                    "Để hoàn hành vui lòng chọn tiếp tục để điền thông tin phiếu",
+                                    "Tiếp tục", () {
+                              Navigator.pushNamed(
+                                context,
+                                '/fill_main_info_issue_screen',
+                              );
+                            }, 18, 22, () {}, false)
+                                .show();
+                            // Navigator.pushNamed(
+                            //   context,
+                            //   '/fill_main_info_issue_screen',
+                            // );
+                          })
+                    ],
+                  ),
+                ]);
+          }  else {
             return Center(
               child: CircularProgressIndicator(),
             );

@@ -31,15 +31,15 @@ class _ListCompletedReceiptScreenState
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
-            ),
-            onPressed: () {
-             Navigator.pushNamed(context, '/main_receipt_screen');
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.west, //mũi tên back
+            color: Colors.white,
           ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/main_receipt_screen');
+          },
+        ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách phiếu đã nhập',
@@ -56,8 +56,8 @@ class _ListCompletedReceiptScreenState
                 Container(
                   margin: EdgeInsets.symmetric(
                       vertical: 5 * SizeConfig.ratioHeight),
-                  width: 160 * SizeConfig.ratioWidth,
-                  height: 60 * SizeConfig.ratioHeight,
+                  width: 175 * SizeConfig.ratioWidth,
+                  height: 80 * SizeConfig.ratioHeight,
                   child: CustomizeDatePicker(
                     name: "Từ ngày",
                     fontColor: Colors.black,
@@ -71,8 +71,8 @@ class _ListCompletedReceiptScreenState
                 Container(
                   margin: EdgeInsets.symmetric(
                       vertical: 5 * SizeConfig.ratioHeight),
-                  width: 160 * SizeConfig.ratioWidth,
-                  height: 60 * SizeConfig.ratioHeight,
+                  width: 175 * SizeConfig.ratioWidth,
+                  height: 80 * SizeConfig.ratioHeight,
                   child: CustomizeDatePicker(
                     name: "Đến ngày",
                     fontColor: Colors.black,
@@ -91,6 +91,16 @@ class _ListCompletedReceiptScreenState
               color: Constants.mainColor,
               thickness: 1,
             ),
+            Text(
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              "Danh sách các phiếu nhập \n đã hoàn thành",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 25 * SizeConfig.ratioFont,
+                color: Colors.black,
+              ),
+            ),
             BlocBuilder<CompletedReceiptBloc, CompletedReceiptState>(
               builder: (context, state) {
                 if (state is CompletedReceiptInitState) {
@@ -100,21 +110,36 @@ class _ListCompletedReceiptScreenState
                   );
                 }
                 if (state is LoadReceiptCompletedStateSuccess) {
-                  return ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          leading: const Icon(Icons.list),
-                          trailing: Icon(Icons.arrow_drop_down_sharp,
-                              size: 15 * SizeConfig.ratioFont),
-                          title: Text(state.receipts[index].goodsReceiptId),
-                          subtitle: Text(state.receipts[index].timestamp.toString()),
-                          onTap: () {
-                            BlocProvider.of<CompletedReceiptLotBloc>(context)
-                                .add(LoadReceiptLotEvent(DateTime.now()));
-                          },
-                        );
-                      });
+                  return SizedBox(
+                    height: 300 * SizeConfig.ratioHeight,
+                    child: ListView.builder(
+                        itemCount: state.receipts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.list),
+                              trailing: Icon(Icons.arrow_drop_down_sharp,
+                                  size: 15 * SizeConfig.ratioFont),
+                              title: Text(state.receipts[index].goodsReceiptId),
+                              subtitle: Text(
+                                  "NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.receipts[index].timestamp.toString())}"),
+                              onTap: () {
+                                BlocProvider.of<CompletedReceiptLotBloc>(
+                                        context)
+                                    .add(LoadReceiptLotCompletedEvent(
+                                        DateTime.now(), state.receipts[index]));
+                                Navigator.pushNamed(
+                                    context, '/imported_receipt_lot_screen');
+                              },
+                            ),
+                          );
+                        }),
+                  );
                   // return SizedBox(
                   //     child: ExpansionPanelList(
                   //   animationDuration: Duration(seconds: 2),

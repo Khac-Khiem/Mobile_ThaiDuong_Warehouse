@@ -37,54 +37,6 @@ class GoodsIssueService {
   }
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
-    // final res = await http.get(
-    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //     'Accept': '*/*',
-    //     'Authorization': 'Bearer ',
-    //   },
-    // );
-
-    // if (res.statusCode == 200) {
-    //   List<dynamic> body = jsonDecode(res.body);
-
-    //   List<GoodsIssueModel> allIssues = body
-    //       .map(
-    //         (dynamic item) => GoodsIssueModel.fromJson(item),
-    //       )
-    //       .toList();
-    //   return allIssues;
-    // } else {
-    //   throw "Unable to retrieve posts.";
-    // }
-    return [
-      GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
-        GoodsIssueEntry(
-            ItemModel(
-                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-            10,
-            100,
-            []),
-            GoodsIssueEntry(
-            ItemModel(
-                '2', 'Hai', UnitModel('cái'), ItemClassModel('BTP'), 100, 10),
-            10,
-            100,
-            [])
-      ]),
-      GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
-        GoodsIssueEntry(
-            ItemModel(
-                '1', 'Một', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-            10,
-            100,
-            [])
-      ])
-    ];
-  }
-
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
     final res = await http.get(
       Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
       headers: {
@@ -106,6 +58,78 @@ class GoodsIssueService {
     } else {
       throw "Unable to retrieve posts.";
     }
+    return [
+      // GoodsIssueModel('đơn 22-03-23', '119203', null, false, 'PKK', [
+      //   GoodsIssueEntry(
+      //       ItemModel('CDP001', '43111-Card HOLEE','cái', ItemClassModel('TP'), 100, 10),
+     
+      //       10,
+      //       100,
+      //       []),
+      //       GoodsIssueEntry(
+      //      ItemModel('CDP002', '43031-Card ISQUEAK', UnitModel('kg'), ItemClassModel('BTP'), 100, 10),
+      //       10,
+      //       100,
+      //       [])
+      // ]),
+      // GoodsIssueModel('đơn 15-03-23', null, null, false, 'PKK', [
+      //   GoodsIssueEntry(
+      //           ItemModel('CDP003ALP2MD00', '190401-Card Fetch ball XL', UnitModel('bộ'), ItemClassModel('NVL'), 100, 10),
+
+      //       10,
+      //       100,
+      //       [])
+      // ]),
+      
+    ];
+  }
+
+  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
+    // final res = await http.get(
+    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //     'Accept': '*/*',
+    //     'Authorization': 'Bearer ',
+    //   },
+    // );
+
+    // if (res.statusCode == 200) {
+    //   List<dynamic> body = jsonDecode(res.body);
+
+    //   List<GoodsIssueModel> allIssues = body
+    //       .map(
+    //         (dynamic item) => GoodsIssueModel.fromJson(item),
+    //       )
+    //       .toList();
+    //   return allIssues;
+    // } else {
+    //   throw "Unable to retrieve posts.";
+    // }
+     return [
+      // GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
+      //   GoodsIssueEntry(
+      //          ItemModel('XON001', '32439G-Card Zipflight MD', UnitModel('cuộn'), ItemClassModel('BTP'), 100, 10),
+
+      //       10,
+      //       100,
+      //       [GoodsIssueLotModel('lô a', 50, 10, 'pkk', ''),GoodsIssueLotModel('lô b', 50, 10, 'pkk', '')],),
+      //       GoodsIssueEntry(
+      //             ItemModel('CDP003ALP2MD01', '0520520G-Card Fetch Mdley Asst 3pk-MD', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
+
+      //       10,
+      //       100,
+      //       [])
+      // ]),
+      // GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
+      //   GoodsIssueEntry(
+      //            ItemModel('CDP0072G0', '46305- Card JW Megalast bone toy LG', UnitModel('met'), ItemClassModel('BB'), 100, 10),
+
+      //       10,
+      //       100,
+      //       [GoodsIssueLotModel('lô a', 50, 10, 'pkk', ''),GoodsIssueLotModel('lô b', 50, 10, 'pkk', '')])
+      // ])
+    ];
   }
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {

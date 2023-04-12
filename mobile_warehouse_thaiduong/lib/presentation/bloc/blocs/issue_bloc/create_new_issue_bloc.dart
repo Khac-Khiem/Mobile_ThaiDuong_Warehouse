@@ -14,7 +14,7 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
       try {
         final department = await departmentUsecase.getAllDepartment();
         emit(LoadListDataSuccessState(
-            department, event.entriesIssue, [], DateTime.now()));
+            department, event.entriesIssue, ["020423","112390","001290"], DateTime.now()));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));
       }
@@ -37,6 +37,19 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
       try {
         event.issueEntries.removeAt(event.index);
         event.issueEntries.insert(event.index, event.issueEntry);
+        emit(UpdateEntryToGoodsIssueSuccess(
+          DateTime.now(),
+         
+          event.issueEntries,
+        ));
+      } catch (e) {
+        // emit(LoginStateLoginFailure(DateTime.now()));
+      }
+    });
+     on<LoadIssueEntryEvent>((event, emit) async {
+      emit(UpdateEntryToGoodsIssueLoading(DateTime.now()));
+      try {
+       
         emit(UpdateEntryToGoodsIssueSuccess(
           DateTime.now(),
          

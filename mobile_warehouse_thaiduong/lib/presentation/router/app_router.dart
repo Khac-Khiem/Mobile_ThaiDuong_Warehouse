@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/injector.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_completed_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_issue_entry_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_lot_issue_completed_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_lot_issue_uncompleted_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_bloc.dart';
@@ -17,6 +19,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_ne
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/fill_info_lot_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_entry_issue_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_completed_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/create_new_receipt_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/fill_info_lot_screen.dart';
@@ -31,7 +34,9 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_scre
 
 import '../bloc/events/issue_event/list_lot_issue_event.dart';
 import '../screens/export/fill_main_info_issue_screen.dart';
+import '../screens/export/list_lot_issue_completed.dart';
 import '../screens/export/list_lot_issue_screen.dart';
+import '../screens/import/update_receipt_lot_exporting_screen.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
@@ -74,8 +79,7 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
-                  BlocProvider<ExportingReceiptLotBloc>(
-                      create: (context) => injector()),
+              
                 ], child: FillInfoLotReceiptScreen()));
       case '/importing_receipt_screen':
         return MaterialPageRoute(
@@ -93,6 +97,17 @@ class AppRoute {
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
                 ], child: const ListUncompletedLotReceiptScreen()));
+
+                case '/update_lot_receipt_screen':
+        return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (context) => MultiBlocProvider(providers: [
+                
+                  BlocProvider<FillReceiptLotBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<ExportingReceiptLotBloc>(
+                      create: (context) => injector()),
+                ], child: UpdateInfoLotReceiptScreen()));
       case '/imported_receipt_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
@@ -113,6 +128,8 @@ class AppRoute {
                   BlocProvider<CreateIssueBloc>(
                       create: (context) => injector()),
                   BlocProvider<ListGoodsIssueUncompletedBloc>(
+                      create: (context) => injector()),
+                  BlocProvider<ListGoodsIssueCompletedBloc>(
                       create: (context) => injector()),
                 ], child: const ExportFunctionScreen()));
       case '/create_issue_screen':
@@ -166,6 +183,22 @@ class AppRoute {
                   BlocProvider<ListGoodsIssueUncompletedBloc>(
                       create: (context) => injector()),
                 ], child: const ListLotIssueScreen()));
+      case '/list_goods_issue_completed_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<ListGoodsIssueCompletedBloc>(
+                      create: (context) => injector()),
+                       BlocProvider<ListGoodsIssueLotCompletedBloc>(
+                      create: (context) => injector()),
+                ], child: const ListGoodIssueCompletedScreen()));
+        case '/list_goods_issue_lot_completed_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                BlocProvider<ListGoodsIssueCompletedBloc>(
+                      create: (context) => injector()),
+                       BlocProvider<ListGoodsIssueLotCompletedBloc>(
+                      create: (context) => injector()),
+                ], child: const ListLotIssueCompletedScreen()));
       default:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
     }

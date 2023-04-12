@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_completed_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_goods_issue_completed_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_goods_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_completed_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_screen.dart';
@@ -67,12 +69,15 @@ class ExportFunctionScreen extends StatelessWidget {
               icon: Icons.fact_check_outlined,
               text: "DANH SÁCH PHIẾU ĐÃ XUẤT",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const ListGoodIssueCompletedScreen()),
-                );
+                    BlocProvider.of<ListGoodsIssueCompletedBloc>(context)
+                    .add(LoadCompletedGoodsIssuesEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/list_goods_issue_completed_screen');
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) =>
+                //           const ListGoodIssueCompletedScreen()),
+                // );
               }),
         ],
       )),

@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              //   MainAppName(),
+                MainAppName(),
                 SizedBox(
                   height: 80 * SizeConfig.ratioHeight,
                 ),

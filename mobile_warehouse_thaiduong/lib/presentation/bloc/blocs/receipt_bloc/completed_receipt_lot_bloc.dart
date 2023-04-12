@@ -6,5 +6,11 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_stat
 class CompletedReceiptLotBloc
     extends Bloc<CompletedReceiptLotEvent, CompletedReceiptLotState> {
   GoodsReceiptUsecase goodsReceiptUsecase;
-  CompletedReceiptLotBloc(this.goodsReceiptUsecase):super(CompletedReceiptLotLoadingState(DateTime.now()));
+  CompletedReceiptLotBloc(this.goodsReceiptUsecase)
+      : super(CompletedReceiptLotLoadingState(DateTime.now())) {
+    on<LoadReceiptLotCompletedEvent>((event, emit) async {
+      emit(LoadGoodsReceiptLotSuccessState(event.goodsReceipt, DateTime.now()));
+    });
+   
+  }
 }

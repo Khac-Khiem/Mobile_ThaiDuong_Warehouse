@@ -38,27 +38,90 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
+                // Column( 
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //                   overflow: TextOverflow.ellipsis,
+                //                   "Mã đơn : ${state.goodsReceipt.goodsReceiptId}",
+                //                   style: TextStyle(
+                //       //fontWeight: FontWeight.w600,
+                //       fontSize: 20 * SizeConfig.ratioFont,
+                //       color: Colors.black,
+                //                   ),
+                //                 ),
+                //                  Text(
+                //               overflow: TextOverflow.ellipsis,
+                //               "NCC : ${state.goodsReceipt.supply}",
+                //               style: TextStyle(
+                //   //fontWeight: FontWeight.w600,
+                //   fontSize: 20 * SizeConfig.ratioFont,
+                //   color: Colors.black,
+                //               ),
+                //             ),
+                //   ],
+                // ),
+                           
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              "Danh sách các lô hàng",
+                              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 25 * SizeConfig.ratioFont,
+                  color: Colors.black,
+                              ),
+                            ),
+                ),
                 const Divider(
                   indent: 30,
                   endIndent: 30,
                   color: Constants.mainColor,
                   thickness: 1,
                 ),
-                SizedBox(
-                  height: 470 * SizeConfig.ratioHeight,
-                  child: ListView.builder(
-                      itemCount: state.goodsReceiptLots.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            width: 350 * SizeConfig.ratioWidth,
-                            height: 80 * SizeConfig.ratioHeight,
-                            color: Constants.buttonColor,
-                          ),
-                        );
-                      }),
-                ),
+               SizedBox(
+                      height: 470 * SizeConfig.ratioHeight,
+                      child: ListView.builder(
+                          itemCount: state.goodsReceipt.lots.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return
+                               
+                                Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                               // leading: const Icon(Icons.list),
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                trailing: Icon(Icons.edit,
+                                    size: 15 * SizeConfig.ratioFont),
+                                title: Text(
+                                    "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}"),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        "Sản phẩm : ${state.goodsReceipt.lots[index].item!.itemId.toString()}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity.toString().toString()} \nVị trí : ${state.goodsReceipt.lots[index].location.toString()}"),
+                                    Text(
+                                        "Số PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize.toString()}"),
+                                  ],
+                                ),
+                                isThreeLine: true,
+                                onTap: () {
+                                  // BlocProvider.of<FillReceiptLotBloc>(context)
+                                  //     .add(FillReceiptLotEvent(DateTime.now(),
+                                  //         state.goodsReceipt, index, false));
+                                  // Navigator.pushNamed(
+                                  //   context,
+                                  //   '/fill_lot_receipt_screen',
+                                  // );
+                                },
+                              ),
+                            );
+                          }))
                // CustomizedButton(text: "Truy xuất", onPressed: () {})
               ],
             ),

@@ -20,6 +20,6 @@ class DepartmentService {
     // } else {
     //   throw "Unable to retrieve posts.";
     // }
-    return [DepartmentModel('TP'),DepartmentModel('BTP'), DepartmentModel('VT')];
+    return [DepartmentModel('Sản xuất'),DepartmentModel('Đóng gói'), DepartmentModel('QC')];
   }
 }
