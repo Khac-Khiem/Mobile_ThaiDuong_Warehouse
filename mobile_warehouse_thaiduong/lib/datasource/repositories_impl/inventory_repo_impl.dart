@@ -31,9 +31,9 @@ class InventoryRepoImpl implements InventoryRepository {
   // thử giao diện
     @override
   Future<List<InventoryLogEntry>> getInventoryLotByItemClassId(
-      DateTime dateTime, String itemClassId) {
+      DateTime dateTime, String warehouseName) {
     final inventoryLogEntry =
-        inventoryService.getInventoryLotByItemClassId(dateTime, itemClassId);
+        inventoryService.getInventoryLotByItemClassId(dateTime, warehouseName);
     return inventoryLogEntry;
   }
 }

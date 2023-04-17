@@ -132,12 +132,20 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ListTile(
-                                    leading: const Icon(Icons.list),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(width: 1),
+                                   child: Container(
+                                    height: 110.0 * SizeConfig.ratioHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
+                                child: ListTile(
+                                    leading: const Icon(Icons.list),
+                                    // shape: RoundedRectangleBorder(
+                                    //   side: BorderSide(width: 1),
+                                    //   borderRadius: BorderRadius.circular(10),
+                                    // ),
                                     trailing: Icon(Icons.arrow_drop_down_sharp,
                                         size: 15 * SizeConfig.ratioFont),
                                     title: Text(
@@ -154,7 +162,7 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                                     ),
                                     isThreeLine: true,
                                     onTap: () {}),
-                              );
+                              ));
                             })),
                   ],
                 );

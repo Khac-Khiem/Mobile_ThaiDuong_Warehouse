@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'package:mobile_warehouse_thaiduong/datasource/models/inventory_lot_entry_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart';
@@ -139,90 +139,74 @@ class InventoryService {
   // thử giao diện
   Future<List<InventoryLogEntryModel>> getInventoryLotByItemClassId(
     DateTime dateTime, String itemId) async {
-    final res = await http.get(Uri.parse(Constants.baseUrl +
-        'api/stockcardentries/?DateTime=$dateTime&itemId=$itemId'));
-    if (res.statusCode == 200) {
-      print(res.body);
-      List<dynamic> body = jsonDecode(res.body);
-      List<InventoryLogEntryModel> stockcard = body
-          .map(
-            (dynamic item) => InventoryLogEntryModel.fromJson(item),
-          )
-          .toList();
+    // final res = await http.get(Uri.parse(Constants.baseUrl +
+    //     'api/stockcardentries/?DateTime=$dateTime&itemId=$itemId'));
+    // if (res.statusCode == 200) {
+    //   print(res.body);
+    //   List<dynamic> body = jsonDecode(res.body);
+    //   List<InventoryLogEntryModel> stockcard = body
+    //       .map(
+    //         (dynamic item) => InventoryLogEntryModel.fromJson(item),
+    //       )
+    //       .toList();
 
-      return stockcard;
-    } else {
-      throw "Unable to retrieve posts.";
-    }
-    // return [
-    //   InventoryLogEntryModel(
-    //       ItemModel('2023-03-02', '01', UnitModel('cái'), ItemClassModel('TP'),
-    //           100, 10),
-    //       100,
-    //       10,
-    //       DateTime.now(),
-    //       ItemLotModel(
-    //           '123',
-    //           ItemModel(
-    //               '2', 'kk', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-    //           false,
-    //           100,
-    //           10,
-    //           "121212",
-    //           'Vị trí 1',
-    //           null,
-    //           null)),
-    //   InventoryLogEntryModel(
-    //       ItemModel('2023-03-02', '02', UnitModel('cái'), ItemClassModel('TP'),
-    //           100, 10),
-    //       100,
-    //       10,
-    //       DateTime.now(),
-    //       ItemLotModel(
-    //           '123',
-    //           ItemModel(
-    //               '2', 'kk', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-    //           false,
-    //           100,
-    //           10,
-    //           "121213",
-    //           'Vị trí 2',
-    //           null,
-    //           null)),
-    //           InventoryLogEntryModel(
-    //       ItemModel('2023-03-02', '01', UnitModel('cái'), ItemClassModel('TP'),
-    //           100, 10),
-    //       100,
-    //       10,
-    //       DateTime.now(),
-    //       ItemLotModel(
-    //           '123',
-    //           ItemModel(
-    //               '2', 'kk', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-    //           false,
-    //           100,
-    //           10,
-    //           "121212",
-    //           'Vị trí 1',
-    //           null,
-    //           null)),
-    //   InventoryLogEntryModel(
-    //       ItemModel('2023-03-02', '02', UnitModel('cái'), ItemClassModel('TP'),
-    //           100, 10),
-    //       100,
-    //       10,
-    //       DateTime.now(),
-    //       ItemLotModel(
-    //           '123',
-    //           ItemModel(
-    //               '2', 'kk', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-    //           false,
-    //           100,
-    //           10,
-    //           "121213",
-    //           'Vị trí 2',
-    //           null,
-    //           null)),
-    // ];
+    //   return stockcard;
+    // } else {
+    //   throw "Unable to retrieve posts.";
+    // }
+    return [
+      InventoryLogEntryModel(
+          ItemModel('2023-03-02', '01', 'cái', 'TP',
+              100, 10),
+          100,
+          10,
+          DateTime.now(),
+          ItemLotModel(
+              '123',
+              ItemModel(
+                  '2', 'kk', 'cái', 'TP', 100, 10),
+              false,
+              100,
+              10,
+              "121212",
+              'Vị trí 1',
+              null,
+              null)),
+      InventoryLogEntryModel(
+          ItemModel('2023-03-02', '02', 'cái', 'TP',
+              100, 10),
+          100,
+          10,
+          DateTime.now(),
+          ItemLotModel(
+              '123',
+              ItemModel(
+                  '2', 'kk','cái', 'TP', 100, 10),
+              false,
+              100,
+              10,
+              "121213",
+              'Vị trí 2',
+              null,
+              null)),
+              InventoryLogEntryModel(
+          ItemModel('2023-03-02', '01', 'cái', 'TP',
+              100, 10),
+          100,
+          10,
+          DateTime.now(),
+          ItemLotModel(
+              '123',
+              ItemModel(
+                  '2', 'kk', 'cái', 'TP', 100, 10),
+              false,
+              100,
+              10,
+              "121212",
+              'Vị trí 1',
+              null,
+              null)),
+ 
+    ];
   }
 }

@@ -9,31 +9,36 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../../constant.dart';
+import '../../../domain/entities/location.dart';
 import '../../bloc/blocs/inventory_bloc.dart';
 import '../../bloc/events/inventory_events.dart';
 import '../../bloc/states/inventory_states.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
 
-class MaterialStockcardScreen extends StatefulWidget {
-  const MaterialStockcardScreen({super.key});
+class StockcardScreen extends StatefulWidget {
+  const StockcardScreen({super.key});
 
   @override
-  State<MaterialStockcardScreen> createState() =>
-      _MaterialStockcardScreenState();
+  State<StockcardScreen> createState() => _StockcardScreenState();
 }
 
-class _MaterialStockcardScreenState extends State<MaterialStockcardScreen> {
+class _StockcardScreenState extends State<StockcardScreen> {
   List<Item> itemsDropdownData = [];
   Item? selectedItem;
   List<ItemClass> itemClassDropdownData = [];
   ItemClass? selectedItemClass;
+  Warehouse? selectedWarehouse;
 
   @override
   Widget build(BuildContext context) {
     DateTime date = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     SizeConfig().init(context);
+    DateTime startDate = DateFormat('yyyy-MM-dd')
+        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+    DateTime endDate = DateFormat('yyyy-MM-dd')
+        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
     return Scaffold(
         appBar: AppBar(
@@ -58,13 +63,122 @@ class _MaterialStockcardScreenState extends State<MaterialStockcardScreen> {
                     return Column(
                       children: [
                         Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: SizedBox(
+                            width: 340 * SizeConfig.ratioWidth,
+                            height: 60 * SizeConfig.ratioHeight,
+                            child: DropdownSearch<String>(
+                              mode: Mode.MENU,
+                              items: state.warehouse
+                                  .map((e) => e.warehouseName)
+                                  .toList(),
+                              showSearchBox: true,
+                              label: "Kho hàng",
+                              onChanged: (value) {
+                                //  print(value);
+                                setState(() {
+                                  selectedWarehouse = state.warehouse
+                                      .firstWhere((element) =>
+                                          element.warehouseName == value);
+                                });
+                              },
+                              selectedItem: selectedWarehouse == null
+                                  ? ''
+                                  : selectedWarehouse!.warehouseName,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 340 * SizeConfig.ratioWidth,
+                          height: 60 * SizeConfig.ratioHeight,
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            showSearchBox: true,
+                            label: "Mã sản phẩm",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 340 * SizeConfig.ratioWidth,
+                            height: 60 * SizeConfig.ratioHeight,
+                            child: DropdownSearch<String>(
+                              mode: Mode.MENU,
+                              showSearchBox: true,
+                              label: "Tên sản phẩm",
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 5 * SizeConfig.ratioHeight),
+                                width: 160 * SizeConfig.ratioWidth,
+                                height: 60 * SizeConfig.ratioHeight,
+                                child: CustomizeDatePicker(
+                                  name: "Từ ngày",
+                                  fontColor: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  initDateTime: date,
+                                  okBtnClickedFunction: (pickedTime) {
+                                    date = pickedTime;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 5 * SizeConfig.ratioHeight),
+                                width: 160 * SizeConfig.ratioWidth,
+                                height: 60 * SizeConfig.ratioHeight,
+                                child: CustomizeDatePicker(
+                                  name: "Đến ngày",
+                                  fontColor: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  initDateTime: date,
+                                  okBtnClickedFunction: (pickedTime) {
+                                    date = pickedTime;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<InventoryBloc>(context).add(
+                                  LoadInventoryEvent(
+                                      DateTime.now(),
+                                      selectedWarehouse!.warehouseName,
+                                      startDate,
+                                      endDate
+                                      //state.warehouse
+                                      ));
+                            }),
+                        const Divider(
+                          indent: 30,
+                          endIndent: 30,
+                          color: Constants.mainColor,
+                          thickness: 1,
+                        ),
+                      ],
+                    );
+                  }
+                  if (state is LoadInventoryLotSuccessState) {
+                    return Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.all(8),
                           child: SizedBox(
                             width: 340 * SizeConfig.ratioWidth,
                             height: 60 * SizeConfig.ratioHeight,
                             child: DropdownSearch<String?>(
                               mode: Mode.MENU,
-                              items: state.itemClass
+                              items: state.listItemClass
                                   .map((e) => e.itemClassId)
                                   .toList(),
                               showSearchBox: true,
@@ -72,7 +186,7 @@ class _MaterialStockcardScreenState extends State<MaterialStockcardScreen> {
                               onChanged: (value) {
                                 //  print(value);
                                 setState(() {
-                                  selectedItemClass = state.itemClass
+                                  selectedItemClass = state.listItemClass
                                       .firstWhere((element) =>
                                           element.itemClassId == value);
                                 });
@@ -149,256 +263,7 @@ class _MaterialStockcardScreenState extends State<MaterialStockcardScreen> {
                                   LoadInventoryLotEvent(
                                       DateTime.now(),
                                       selectedItemClass!.itemClassId,
-                                      state.itemClass
-                                      ));
-                            }),
-                        const Divider(
-                          indent: 30,
-                          endIndent: 30,
-                          color: Constants.mainColor,
-                          thickness: 1,
-                        ),
-                       
-                      ],
-                    );
-                  }
-//--
-                  // if (state is GetAllItemByWarehouseSuccessState) {
-                  //   return Column(children: [
-                  // Padding(
-                  //     padding: const EdgeInsets.fromLTRB(10, 5, 0, 0),
-                  //     child: SizedBox(
-                  //       width: 340 * SizeConfig.ratioWidth,
-                  //       height: 60 * SizeConfig.ratioHeight,
-                  //       child: DropdownSearch<String?>(
-                  //         mode: Mode.MENU,
-                  //         items: state.listItemClass
-                  //             .map((e) => e.itemClassId)
-                  //             .toList(),
-                  //         showSearchBox: true,
-                  //         label: "Kho hàng",
-                  //         // hint: "country in menu mode",
-                  //         onChanged: (value) {
-                  //           //  print(value);
-                  //           setState(() {
-                  //             selectedItemClass = state.listItemClass.firstWhere(
-                  //                 (element) => element.itemClassId == value);
-                  //           });
-                  //         },
-                  //         selectedItem: selectedItemClass == null
-                  //             ? ''
-                  //             : selectedItemClass!.itemClassId,
-                  //       ),
-                  //     ),
-                  //   ),
-
-                  //     SizedBox(
-                  //       width: 340 * SizeConfig.ratioWidth,
-                  //       height: 60 * SizeConfig.ratioHeight,
-                  //       child: DropdownSearch<String>(
-                  //         mode: Mode.MENU,
-                  //         items: state.item.map((e) => e.itemId).toList(),
-                  //         showSearchBox: true,
-                  //         label: "Mã sản phẩm",
-                  //         // hint: "country in menu mode",
-                  //         onChanged: (value) {
-                  //           //  print(value);
-                  //           setState(() {
-                  //             selectedItem = state.item.firstWhere(
-                  //                 (element) => element.itemId == value);
-                  //           });
-                  //         },
-                  //         selectedItem:
-                  //             selectedItem == null ? '' : selectedItem!.itemId,
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 340 * SizeConfig.ratioWidth,
-                  //       height: 60 * SizeConfig.ratioHeight,
-                  //       child: DropdownSearch<String>(
-                  //         mode: Mode.MENU,
-                  //         items: state.item.map((e) => e.itemName).toList(),
-                  //         showSearchBox: true,
-                  //         label: "Tên sản phẩm",
-                  //         // hint: "country in menu mode",
-                  //         onChanged: (value) {
-                  //           //  print(value);
-                  //           setState(() {
-                  //             selectedItem = state.item.firstWhere(
-                  //                 (element) => element.itemName == value);
-                  //           });
-                  //         },
-                  //         selectedItem: selectedItem == null
-                  //             ? ''
-                  //             : selectedItem!.itemName,
-                  //       ),
-                  //     ),
-                  //     Padding(
-                  //       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //         children: [
-                  //           Container(
-                  //             margin: EdgeInsets.symmetric(
-                  //                 vertical: 5 * SizeConfig.ratioHeight),
-                  //             width: 160 * SizeConfig.ratioWidth,
-                  //             height: 60 * SizeConfig.ratioHeight,
-                  //             child: CustomizeDatePicker(
-                  //               name: "Từ ngày",
-                  //               fontColor: Colors.black,
-                  //               fontWeight: FontWeight.normal,
-                  //               initDateTime: date,
-                  //               okBtnClickedFunction: (pickedTime) {
-                  //                 date = pickedTime;
-                  //               },
-                  //             ),
-                  //           ),
-                  //           Container(
-                  //             margin: EdgeInsets.symmetric(
-                  //                 vertical: 5 * SizeConfig.ratioHeight),
-                  //             width: 160 * SizeConfig.ratioWidth,
-                  //             height: 60 * SizeConfig.ratioHeight,
-                  //             child: CustomizeDatePicker(
-                  //               name: "Đến ngày",
-                  //               fontColor: Colors.black,
-                  //               fontWeight: FontWeight.normal,
-                  //               initDateTime: date,
-                  //               okBtnClickedFunction: (pickedTime) {
-                  //                 date = pickedTime;
-                  //               },
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //     const Divider(
-                  //       indent: 30,
-                  //       endIndent: 30,
-                  //       color: Constants.mainColor,
-                  //       thickness: 1,
-                  //     ),
-                  //     Text(
-                  //       overflow: TextOverflow.ellipsis,
-                  //       "Danh sách các lô hàng",
-                  //       style: TextStyle(
-                  //         fontWeight: FontWeight.w600,
-                  //         fontSize: 20 * SizeConfig.ratioFont,
-                  //         color: Colors.black,
-                  //       ),
-                  //     ),
-                  //     Container(
-                  //         padding: EdgeInsets.fromLTRB(10, 300, 10, 10),
-                  //         child: CustomizedButton(
-                  //             text: "Truy xuất",
-                  //             onPressed: () {
-                  //               BlocProvider.of<InventoryBloc>(context).add(
-                  //                   LoadInventoryEvent(
-                  //                       DateTime.now(),
-                  //                       selectedItem!.itemId,
-                  //                       DateTime.now(),
-                  //                       DateTime.now()));
-                  //             })),
-                  //   ]);
-                  // }
-//--
-                  if (state is LoadInventoryLotSuccessState) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: SizedBox(
-                            width: 340 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: DropdownSearch<String?>(
-                              mode: Mode.MENU,
-                            items: state.listItemClass
-                                  .map((e) => e.itemClassId)
-                                 .toList(),
-                              showSearchBox: true,
-                              label: "Kho hàng",
-                              onChanged: (value) {
-                                //  print(value);
-                                setState(() {
-                                selectedItemClass = state.listItemClass
-                                     .firstWhere((element) =>
-                                        element.itemClassId == value);
-                                });
-                              },
-                              selectedItem: selectedItemClass == null
-                                  ? ''
-                                  : selectedItemClass!.itemClassId,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 340 * SizeConfig.ratioWidth,
-                          height: 60 * SizeConfig.ratioHeight,
-                          child: DropdownSearch<String>(
-                            mode: Mode.MENU,
-                            showSearchBox: true,
-                            label: "Mã sản phẩm",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:8),
-                          child: SizedBox(
-                            width: 340 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              showSearchBox: true,
-                              label: "Tên sản phẩm",
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5 * SizeConfig.ratioHeight),
-                                width: 160 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: CustomizeDatePicker(
-                                  name: "Từ ngày",
-                                  fontColor: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                  initDateTime: date,
-                                  okBtnClickedFunction: (pickedTime) {
-                                    date = pickedTime;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5 * SizeConfig.ratioHeight),
-                                width: 160 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: CustomizeDatePicker(
-                                  name: "Đến ngày",
-                                  fontColor: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                  initDateTime: date,
-                                  okBtnClickedFunction: (pickedTime) {
-                                    date = pickedTime;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        CustomizedButton(
-                            text: "Truy xuất",
-                            onPressed: () {
-                              BlocProvider.of<InventoryBloc>(context).add(
-                                  LoadInventoryLotEvent(
-                                      DateTime.now(),
-                                      selectedItemClass!.itemClassId,
-                                      state.listItemClass
-                                      ));
+                                      state.listItemClass));
                             }),
                         const Divider(
                           indent: 30,
@@ -418,39 +283,41 @@ class _MaterialStockcardScreenState extends State<MaterialStockcardScreen> {
                         SizedBox(
                             height: 250 * SizeConfig.ratioHeight,
                             child: ListView.builder(
-                                itemCount: state.itemLots.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                              itemCount: state.itemLots.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 110.0 * SizeConfig.ratioHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                     child: ListTile(
                                         leading: const Icon(Icons.list),
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
                                         trailing: Icon(
                                             Icons.arrow_drop_down_sharp,
-                                            size:
-                                                15 * SizeConfig.ratioFont),
+                                            size: 15 * SizeConfig.ratioFont),
                                         title: Text(
-                                            "Mã lô : ${state.itemLots[index].itemLot}"),
+                                            "Mã lô : ${state.itemLots[index].item.itemId}"),
                                         subtitle: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                                "Sản phẩm : ${state.itemLots[index].itemLot.lotId.toString()}  \nSố lượng : ${state.itemLots[index].beforeQuantity.toString()} \nVị trí : ${state.itemLots[index].itemLot.location.toString()}"),
+                                                "Sản phẩm : ${state.itemLots[index].item.itemName.toString()}  \nSố lượng : ${state.itemLots[index].beforeQuantity.toString()} \nVị trí : ${state.itemLots[index].itemLot.location.toString()}"),
                                             Text(
                                                 "Số PO : ${state.itemLots[index].itemLot.purchaseOrderNumber.toString()} \nĐịnh mức : ${state.itemLots[index].itemLot.sublotSize.toString()}"),
                                           ],
                                         ),
                                         isThreeLine: true,
                                         onTap: () {}),
-                                  );
-                                })),
+                                  ),
+                                );
+                              },
+                            )),
                       ],
                     );
                   } else {

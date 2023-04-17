@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import '../../../constant.dart';
 import '../../bloc/blocs/history_bloc.dart';
+import '../../bloc/events/history_events.dart';
 import '../../bloc/states/history_states.dart';
 import '../../widgets/button_widget.dart';
 
@@ -26,7 +27,7 @@ class _ListExportHistoryScreenState extends State<ListExportHistoryScreen> {
           leading: IconButton(
             icon: const Icon(Icons.west_outlined),
             onPressed: () {
-              Navigator.pushNamed(context, '/history_function_screen');
+              Navigator.pushNamed(context, '/export_history_screen');
             },
           ),
           title: Text(
@@ -98,7 +99,16 @@ class _ListExportHistoryScreenState extends State<ListExportHistoryScreen> {
                                 );
                               })),
                       CustomizedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<HistoryBloc>(context)
+                              .add(GetAllInfoExportEvent(
+                            DateTime.now(),
+                          ));
+                          Navigator.pushNamed(
+                            context,
+                            '/import_history_screen',
+                          );
+                        },
                         text: "Trở lại",
                       )
                     ],

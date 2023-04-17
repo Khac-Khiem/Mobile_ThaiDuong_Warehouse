@@ -1,4 +1,5 @@
 import 'package:mobile_warehouse_thaiduong/datasource/service/location_service.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 
 class LocationRepoImpl implements LocationRepository {
@@ -11,7 +12,7 @@ class LocationRepoImpl implements LocationRepository {
   }
 
   @override
-  Future<List<String>> getAllWarehouse() {
+  Future<List<Warehouse>> getAllWarehouse() {
     final warehouse = locationService.getAllWarehouse();
     return warehouse;
   }

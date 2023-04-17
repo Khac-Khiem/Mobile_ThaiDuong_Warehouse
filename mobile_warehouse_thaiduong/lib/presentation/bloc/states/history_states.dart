@@ -1,12 +1,14 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_import
 
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 
 import '../../../domain/entities/goods_issue.dart';
+import '../../../domain/entities/location.dart';
 
 abstract class HistoryState extends Equatable {}
 
@@ -14,7 +16,7 @@ abstract class HistoryState extends Equatable {}
 class GetAllInfoImportSuccessState extends HistoryState {
   DateTime timestamp;
   List<Item> item;
-  List<String> warehouse;
+  List<Warehouse> warehouse;
   List<Department> department;
   GetAllInfoImportSuccessState(this.timestamp, this. warehouse,this.item, this.department);
   @override
@@ -40,7 +42,7 @@ class GetAllInfoImportFailState extends HistoryState {
 class GetAllInfoExportSuccessState extends HistoryState {
   DateTime timestamp;
   List<Item> item;
-  List<String> warehouse;
+  List<Warehouse> warehouse;
   List<Department> department;
   GetAllInfoExportSuccessState(this.timestamp, this.item,this.warehouse, this.department);
   @override
@@ -66,8 +68,10 @@ class GetAllInfoExportFailState extends HistoryState {
 // lọc danh sách item theo kho hàng
 class GetItemByWarehouseSuccessState extends HistoryState {
   DateTime timestamp;
+  List<Warehouse> warehouse;
+  List<Department> department;
   List<Item> item;
-  GetItemByWarehouseSuccessState(this.timestamp, this.item);
+  GetItemByWarehouseSuccessState(this.timestamp, this.item, this.warehouse, this.department);
   @override
   List<Object> get props => [timestamp];
 }

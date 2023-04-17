@@ -1,5 +1,9 @@
 // ignore_for_file: must_be_immutable
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
+
+import '../../../domain/entities/item.dart';
+import '../../../domain/entities/location.dart';
 
 abstract class HistoryEvent extends Equatable {}
 
@@ -28,8 +32,11 @@ class GetAllInfoExportEvent extends HistoryEvent {
 // lọc danh sách item theo kho hàng
 class GetItemByWarehouseEvent extends HistoryEvent {
   DateTime timestamp;
-  String itemClass;
-  GetItemByWarehouseEvent(this.timestamp, this.itemClass);
+  String warehouseId;
+  List <Department> department;
+  List<Item> item;
+  List<Warehouse> warehouse;
+  GetItemByWarehouseEvent(this.timestamp, this.warehouseId, this.item,this.warehouse, this.department);
   @override
   List<Object> get props => [timestamp];
 }

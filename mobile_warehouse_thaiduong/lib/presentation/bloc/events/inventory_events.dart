@@ -15,11 +15,11 @@ class GetWarehouseIdEvent extends InventoryEvent {
 }
 
 // lấy mã sp
-class GetAllItemIdByWarehouseIdEvent extends InventoryEvent {
+class GetAllItemIdByWarehouseEvent extends InventoryEvent {
   DateTime timestamp;
   String itemClassId;
   List<ItemClass> listItemClass;
-  GetAllItemIdByWarehouseIdEvent(
+  GetAllItemIdByWarehouseEvent(
       this.timestamp, this.itemClassId, this.listItemClass);
   @override
   List<Object?> get props => [timestamp];
@@ -44,11 +44,11 @@ class LoadInventoryEvent extends InventoryEvent {
 // thử giao diện
 class LoadInventoryLotEvent extends InventoryEvent {
   DateTime timestamp;
-  String itemClassId;
+  String warehouseName;
    List<ItemClass> listItemClass;
   LoadInventoryLotEvent(
     this.timestamp,
-    this.itemClassId,
+    this.warehouseName,
    this.listItemClass
   );
   @override

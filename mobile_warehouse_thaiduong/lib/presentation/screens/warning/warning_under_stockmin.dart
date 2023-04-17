@@ -3,11 +3,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../../constant.dart';
-import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/warning_bloc.dart';
 import '../../bloc/events/warning_events.dart';
 import '../../bloc/states/warning_states.dart';
@@ -23,7 +22,7 @@ class WarningUnderStockminScreen extends StatefulWidget {
 
 class _WarningUnderStockminScreenSate
     extends State<WarningUnderStockminScreen> {
-  ItemClass? selectedItemClass;
+  Warehouse? selectedWarehouse;
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +56,22 @@ class _WarningUnderStockminScreenSate
                             height: 60 * SizeConfig.ratioHeight,
                             child: DropdownSearch<String>(
                               mode: Mode.MENU,
-                              items: state.itemClass
-                                  .map((e) => e.itemClassId)
+                              items: state.warehouse
+                                  .map((e) => e.warehouseName)
                                   .toList(),
                               showSearchBox: true,
                               label: "Kho hàng",                 
                               onChanged: (value) {
                                 //  print(value);
                                 setState(() {
-                                  selectedItemClass = state.itemClass
+                                  selectedWarehouse = state.warehouse
                                       .firstWhere((element) =>
-                                          element.itemClassId == value);
+                                          element.warehouseName == value);
                                 });
                               },
-                              selectedItem: selectedItemClass == null
+                              selectedItem: selectedWarehouse == null
                                   ? ''
-                                  : selectedItemClass!.itemClassId,
+                                  : selectedWarehouse!.warehouseName,
                             ),
                           ),
                         ),
@@ -82,8 +81,8 @@ class _WarningUnderStockminScreenSate
                               BlocProvider.of<WarningBloc>(context).add(
                                   MinimumStockWarningEvent(
                                       DateTime.now(),
-                                      selectedItemClass!.itemClassId,
-                                      state.itemClass));
+                                      selectedWarehouse!.warehouseName,
+                                      state.warehouse));
                             }),
                         const Divider(
                           indent: 30,
@@ -101,10 +100,10 @@ class _WarningUnderStockminScreenSate
                         child: SizedBox(
                           width: 340 * SizeConfig.ratioWidth,
                           height: 60 * SizeConfig.ratioHeight,
-                          child: DropdownSearch<String>(
+                          child: DropdownSearch<dynamic>(
                             mode: Mode.MENU,
-                            items: state.listItemClass
-                                .map((e) => e.itemClassId)
+                            items: state.listWarehouse
+                                .map((e) => e.warehouseName)
                                 .toList(),
                             showSearchBox: true,
                             label: "Kho hàng",
@@ -112,14 +111,14 @@ class _WarningUnderStockminScreenSate
                             onChanged: (value) {
                               //  print(value);
                               setState(() {
-                                selectedItemClass = state.listItemClass
+                                selectedWarehouse = state.listWarehouse
                                     .firstWhere((element) =>
-                                        element.itemClassId == value);
+                                        element.warehouseName == value);
                               });
                             },
-                            selectedItem: selectedItemClass == null
+                            selectedItem: selectedWarehouse == null
                                 ? ''
-                                : selectedItemClass!.itemClassId,
+                                : selectedWarehouse!.warehouseName,
                           ),
                         ),
                       ),
@@ -129,8 +128,8 @@ class _WarningUnderStockminScreenSate
                             BlocProvider.of<WarningBloc>(context).add(
                                 MinimumStockWarningEvent(
                                     DateTime.now(),
-                                    selectedItemClass!.itemClassId,
-                                    state.listItemClass));
+                                    selectedWarehouse!.warehouseName,
+                                    state.listWarehouse));
                           }),
                       const Divider(
                         indent: 30,
@@ -154,12 +153,22 @@ class _WarningUnderStockminScreenSate
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                    height: 110.0 * SizeConfig.ratioHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                   child: ListTile(
                                       leading: const Icon(Icons.list),
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(width: 1),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                                      
+                                      // shape: RoundedRectangleBorder(
+                                      //   side: const BorderSide(width: 1),
+                                      //   borderRadius: BorderRadius.circular(10),
+                                      // ),
+                                  
                                       trailing: Icon(
                                           Icons.arrow_drop_down_sharp,
                                           size: 15 * SizeConfig.ratioFont),
@@ -177,7 +186,7 @@ class _WarningUnderStockminScreenSate
                                       ),
                                       isThreeLine: true,
                                       onTap: () {}),
-                                );
+                                ));
                               })),
                     ],
                   );

@@ -182,6 +182,14 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
+                                   child: Container(
+                                    height: 110.0 * SizeConfig.ratioHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                 child: ListTile(
                                     leading: const Icon(Icons.list),
                                     shape: RoundedRectangleBorder(
@@ -204,7 +212,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                     ),
                                     isThreeLine: true,
                                     onTap: () {}),
-                              );
+                              ));
                             })),
                   ],
                 );

@@ -30,7 +30,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_comp
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_completed_receipt_lot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt_lot_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/material_inventory_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/inventory_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/home_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/login_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_screen.dart';
@@ -240,16 +240,16 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<InventoryBloc>(create: (context) => injector()),
                 ], child: const BarcodeScannerScreen()));
-      case '/material_inventory_screen':
+      case '/inventory_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<InventoryBloc>(create: (context) => injector()),
-                ], child:const  MaterialStockcardScreen()));
-      case '/product_inventory_screen':
-        return MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<InventoryBloc>(create: (context) => injector()),
-                ], child: const ProductStockcardScreen()));
+                ], child:const StockcardScreen()));
+      // case '/product_inventory_screen':
+      //   return MaterialPageRoute(
+      //       builder: (context) => MultiBlocProvider(providers: [
+      //             BlocProvider<InventoryBloc>(create: (context) => injector()),
+      //           ], child: const ProductStockcardScreen()));
       //--
       case '/history_function_screen':
         return MaterialPageRoute(

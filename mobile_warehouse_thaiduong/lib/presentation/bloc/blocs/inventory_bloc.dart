@@ -18,15 +18,15 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<GetWarehouseIdEvent>((event, emit) async {
       emit(GetWarehouseIdLoadingState(DateTime.now()));
       try {
-         final item = await itemUsecase.getAllItem();
-          final itemClass = await itemUsecase.getAllItemClass();
-        emit(GetWarehouseIdSuccessState(DateTime.now(), itemClass, item));
+         final item = await itemUsecase.getAllItem(); // test giao dien
+          final warehouse = await locationUsecase.getAllWarehouse();
+        emit(GetWarehouseIdSuccessState(DateTime.now(), warehouse, item));
       } catch (e) {
         emit(GetWarehouseIdFailState(DateTime.now()));
       }
     });
     //list mã sản phẩm theo kho hàng
-    on<GetAllItemIdByWarehouseIdEvent>((event, emit) async {
+    on<GetAllItemIdByWarehouseEvent>((event, emit) async {
       emit(GetAllItemByWarehouseLoadingState(DateTime.now()));
       try {
        {
@@ -51,13 +51,13 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     }
   });
       
-    // thử giao diện
+   // thử giao diện
    on<LoadInventoryLotEvent>((event, emit) async {
       emit(LoadInventoryLotLoadingState(DateTime.now()));
     try {
        {
         final itemLots = await inventoryUsecase.
-        getInventoryLotByItemClassId(event.timestamp, event.itemClassId);
+        getInventoryLotByItemClassId(event.timestamp, event.warehouseName);
  
         emit(LoadInventoryLotSuccessState(DateTime.now(), itemLots, event.listItemClass));
       }

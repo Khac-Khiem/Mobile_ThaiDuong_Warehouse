@@ -196,6 +196,14 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
+                                 child: Container(
+                                    height: 110.0 * SizeConfig.ratioHeight,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                               child: ListTile(
                                   leading: const Icon(Icons.list),
                                   shape: RoundedRectangleBorder(
@@ -222,7 +230,7 @@ class _IsolationItemScreenState extends State<IsolationItemScreen> {
                     .add(PostNewIsolationEvent(DateTime.now(),''));
                 Navigator.pushNamed(context, '/isolation_update_screen');  }, (){}, 16, 20).show();
                                   }),
-                            );
+                            ));
                           }))
                 ]);
           } else {

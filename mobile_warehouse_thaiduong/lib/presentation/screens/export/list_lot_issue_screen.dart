@@ -150,7 +150,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                               state.lotsSuggest,
                                               state.lotsExpected));
                                       DefaultTabController.of(context)
-                                          ?.animateTo(1);
+                                          .animateTo(1);
                                     },
                                     child: const Text('Xác nhận'))
                               ],

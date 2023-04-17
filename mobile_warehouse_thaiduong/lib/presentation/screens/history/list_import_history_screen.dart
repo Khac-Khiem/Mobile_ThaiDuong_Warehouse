@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import '../../../constant.dart';
 import '../../bloc/blocs/history_bloc.dart';
+import '../../bloc/events/history_events.dart';
 import '../../bloc/states/history_states.dart';
 import '../../widgets/button_widget.dart';
 
@@ -27,11 +28,11 @@ class _ListImportHistoryScreenState extends State<ListImportHistoryScreen> {
           leading: IconButton(
             icon: const Icon(Icons.west_outlined),
             onPressed: () {
-              Navigator.pushNamed(context, '/history_function_screen');
+              Navigator.pushNamed(context, '/import_history_screen');
             },
           ),
           title: Text(
-            'Lịch sử xuất kho',
+            'Lịch sử nhập kho',
             style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
         ),
@@ -99,7 +100,16 @@ class _ListImportHistoryScreenState extends State<ListImportHistoryScreen> {
                                 );
                               })),
                       CustomizedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<HistoryBloc>(context)
+                              .add(GetAllInfoImportEvent(
+                            DateTime.now(),
+                          ));
+                          Navigator.pushNamed(
+                            context,
+                            '/import_history_screen',
+                          );
+                        },
                         text: "Trở lại",
                       )
                     ],

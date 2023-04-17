@@ -1,8 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
-import '../../../domain/entities/item.dart';
+
 
 abstract class WarningEvent extends Equatable {}
 // hiển thị danh sách sản phẩm theo hạn sử dụng còn lại
@@ -20,15 +21,15 @@ class GetWarehouseEvent extends WarningEvent {
   GetWarehouseEvent(this.timestamp);
   @override
 
-  List<Object?> get props => [timestamp];
+  List<Object> get props => [timestamp];
 }
 
 // hiển thị danh sách sản phẩm dưới số lượng tồn kho tối thiểu
 class MinimumStockWarningEvent extends WarningEvent {
   DateTime timestamp;
-  String itemClassId;
-  List<ItemClass> listItemClass;
-  MinimumStockWarningEvent(this.timestamp, this.itemClassId, this.listItemClass);
+  String warehouseName;
+  List<Warehouse> listWarehouse;
+  MinimumStockWarningEvent(this.timestamp, this.warehouseName, this.listWarehouse);
   @override
   List<Object> get props => [timestamp];
 }

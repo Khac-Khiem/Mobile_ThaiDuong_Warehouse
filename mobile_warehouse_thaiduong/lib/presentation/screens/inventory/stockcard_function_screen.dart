@@ -41,20 +41,13 @@ class StockcardFunctionScreen extends StatelessWidget {
               ),
           IconCustomizedButton(
               icon: Icons.inventory_2, 
-              text: "TỒN KHO THÀNH PHẨM", 
+              text: "TRUY XUẤT TỒN KHO", 
                onPressed: () {
                 BlocProvider.of<InventoryBloc>(context)
                     .add(GetWarehouseIdEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/product_inventory_screen');} 
+                Navigator.pushNamed(context, '/inventory_screen');} 
               ),
-          IconCustomizedButton(
-              icon: Icons.storm_rounded, 
-              text: "TỒN KHO NGUYÊN VẬT LIỆU", 
-             onPressed: () {
-                BlocProvider.of<InventoryBloc>(context)
-                    .add(GetWarehouseIdEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/material_inventory_screen');} 
-              ),
+         
               
         ],
       )),

@@ -2,14 +2,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/inventory_log_entry.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 abstract class InventoryState extends Equatable {}
 // List kho hàng
 class GetWarehouseIdSuccessState extends InventoryState {
   DateTime timestamp;
-  List<ItemClass> itemClass;
-  List<Item> item;
-  GetWarehouseIdSuccessState(this.timestamp, this.itemClass, this.item);
+  List<Warehouse> warehouse;
+  List<Item> item; // test giao dien
+  GetWarehouseIdSuccessState(this.timestamp, this.warehouse, this.item);
   @override
 
   List<Object?> get props => [timestamp];
@@ -32,7 +33,7 @@ class GetWarehouseIdFailState extends InventoryState {
 class GetAllItemByWarehouseSuccessState extends InventoryState {
   DateTime timestamp;
   List<Item> item;
- List<ItemClass> listItemClass;
+  List<ItemClass> listItemClass;
   GetAllItemByWarehouseSuccessState(this.timestamp, this.item, this.listItemClass);
   @override
 
@@ -90,7 +91,7 @@ class LoadInventoryLotSuccessState extends InventoryState {
   LoadInventoryLotSuccessState(
     this.timestamp,
     this.itemLots,
- this.listItemClass
+    this.listItemClass
   );
   @override
   List<Object> get props => [timestamp];

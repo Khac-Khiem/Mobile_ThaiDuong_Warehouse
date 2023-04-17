@@ -32,8 +32,8 @@ class WarningBloc extends Bloc<WarningEvent, WarningState> {
    on<GetWarehouseEvent>((event, emit) async {
       emit(GetWarehouseLoadingState(DateTime.now()));
       try {
-        final itemClass = await itemUsecase.getAllItemClass();
-        emit(GetWarehouseSuccessState(DateTime.now(), itemClass));
+        final warehouse = await locationUsecase.getAllWarehouse();
+        emit(GetWarehouseSuccessState(DateTime.now(), warehouse));
       } catch (e) {
         emit(GetWarehouseFailState(DateTime.now()));
       }
@@ -43,9 +43,9 @@ class WarningBloc extends Bloc<WarningEvent, WarningState> {
    on<MinimumStockWarningEvent>((event, emit) async {
       emit(MinimumStockWarningLoadingState(DateTime.now()));
       try {
-        final itemLots = await itemLotUsecase.getUnderStockminItemLots(event.itemClassId);
+        final itemLots = await itemLotUsecase.getUnderStockminItemLots(event.warehouseName);
         itemLots.isNotEmpty
-            ? emit(MinimumStockWarningSuccessState(DateTime.now(), itemLots, event.listItemClass))
+            ? emit(MinimumStockWarningSuccessState(DateTime.now(), itemLots, event.listWarehouse))
             : emit(MinimumStockWarningFailState(
                 DateTime.now(), ''));
       } catch (e) {

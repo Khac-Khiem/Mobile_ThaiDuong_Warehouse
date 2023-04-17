@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, sized_box_for_whitespace
+// ignore_for_file: deprecated_member_use, sized_box_for_whitespace, unused_import
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';

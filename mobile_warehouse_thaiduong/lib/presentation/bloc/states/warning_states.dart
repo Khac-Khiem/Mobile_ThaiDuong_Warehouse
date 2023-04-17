@@ -2,8 +2,9 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
-import '../../../domain/entities/item.dart';
+
 
 abstract class WarningState extends Equatable {}
 
@@ -38,9 +39,9 @@ class ExpirationWarningFailState extends WarningState {
 // hiển thị list kho hàng
 class GetWarehouseSuccessState extends WarningState {
   DateTime timestamp;
-  List<ItemClass> itemClass;
+  List<Warehouse> warehouse;
  
-  GetWarehouseSuccessState(this.timestamp, this.itemClass);
+  GetWarehouseSuccessState(this.timestamp, this.warehouse);
   @override
   List<Object?> get props => [timestamp];
 }
@@ -56,17 +57,17 @@ class GetWarehouseFailState extends WarningState {
   DateTime timestamp;
   GetWarehouseFailState(this.timestamp);
   @override
-  List<Object?> get props => [timestamp];
+  List<Object?> get props =>[timestamp];
 }
 // hiển thị danh sách sản phẩm dưới số lượng tồn kho tối thiểu
 
 class MinimumStockWarningSuccessState extends WarningState {
   DateTime timestamp;
   List<ItemLot> itemLot;
-   List<ItemClass> listItemClass;
-  MinimumStockWarningSuccessState(this.timestamp, this.itemLot, this.listItemClass);
+   List<Warehouse> listWarehouse;
+  MinimumStockWarningSuccessState(this.timestamp, this.itemLot, this.listWarehouse);
   @override
-  List<Object> get props => [timestamp];
+  List<Object?> get props => [timestamp];
 }
 
 class MinimumStockWarningLoadingState extends WarningState {
@@ -83,5 +84,5 @@ class MinimumStockWarningFailState extends WarningState {
   MinimumStockWarningFailState(this.timestamp, this.detail);
   @override
 
-  List<Object?> get props => [timestamp];
+  List<Object> get props => [timestamp];
 }
