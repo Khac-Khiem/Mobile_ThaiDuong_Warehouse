@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_receipt_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
@@ -30,7 +31,7 @@ class CreateReceiptBloc extends Bloc<CreateReceiptEvent, CreateReceiptState> {
 
         emit(UpdateLotReceiptStateSuccess(DateTime.now(), event.goodsReceipt));
       } catch (e) {
-       // emit(UpdateLotReceiptStateSuccess(DateTime.now(), event.goodsReceipt));
+        // emit(UpdateLotReceiptStateSuccess(DateTime.now(), event.goodsReceipt));
         // emit(LoginStateLoginFailure(DateTime.now()));
       }
     });
@@ -45,6 +46,32 @@ class CreateReceiptBloc extends Bloc<CreateReceiptEvent, CreateReceiptState> {
         ));
       } catch (e) {
         // emit(LoginStateLoginFailure(DateTime.now()));
+      }
+    });
+    on<PostNewReceiptEvent>((event, emit) async {
+      emit(PostReceiptStateLoadingState(DateTime.now()));
+      try {
+        final status = await goodsReceiptUsecase.postNewGoodsReceipt(
+            event.goodsReceipt);
+        if (status.detail == 'success') {
+          emit(PostReceiptStateSuccess(
+            DateTime.now(),
+            status,
+            event.goodsReceipt
+          ));
+        } else {
+          emit(PostReceiptStateFailure(ErrorPackage('fail'), DateTime.now(), event.goodsReceipt));
+          emit(UpdateLotReceiptStateSuccess(
+          DateTime.now(),
+          event.goodsReceipt,
+        ));
+        }
+      } catch (e) {
+        emit(PostReceiptStateFailure(ErrorPackage('fail'), DateTime.now(), event.goodsReceipt));
+        emit(UpdateLotReceiptStateSuccess(
+          DateTime.now(),
+          event.goodsReceipt,
+        ));
       }
     });
   }

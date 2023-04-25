@@ -23,7 +23,6 @@ class LoginScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
-          
           toolbarHeight: 60 * SizeConfig.ratioHeight,
           backgroundColor: Constants.mainColor,
           title: Text(
@@ -34,7 +33,7 @@ class LoginScreen extends StatelessWidget {
             icon: const Icon(Icons.west_outlined),
             iconSize: 25 * SizeConfig.ratioRadius,
             onPressed: () {
-             Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/');
             },
           ),
           actions: [
@@ -54,19 +53,16 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: MainAppName(),
-                                ),
+                SizedBox(height: 10 * SizeConfig.ratioHeight),
+
+                MainAppName(),
 
                 // SizedBox(
                 //   height: 40 * SizeConfig.ratioHeight,
                 // ),
                 BlocBuilder<LoginBloc, LoginState>(
-                  builder:
-                   (context, state) {
+                  builder: (context, state) {
                     return SizedBox(
-                      
                       width: 300 * SizeConfig.ratioWidth,
                       child: TextField(
                         controller: userController,

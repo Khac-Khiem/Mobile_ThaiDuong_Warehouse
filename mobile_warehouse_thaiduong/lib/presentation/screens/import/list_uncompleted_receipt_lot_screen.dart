@@ -6,6 +6,7 @@ import '../../bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
 import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import '../../bloc/states/receipt_state/uncompleted_receipt_lot_state.dart';
+import '../../widgets/button_widget.dart';
 import '../../widgets/lot_detail_component.dart';
 
 class ListUncompletedLotReceiptScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _ListUncompletedLotReceiptScreenState
         ),
         backgroundColor: Constants.mainColor,
         title: Text(
-          'Danh sách lô chưa hoàn thành',
+          'Danh sách lô',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
@@ -76,48 +77,152 @@ class _ListUncompletedLotReceiptScreenState
               },
               builder: (context, state) {
                 if (state is UpdateReceiptLotSuccessState) {
-                  return SizedBox(
-                      height: 470 * SizeConfig.ratioHeight,
-                      child: ListView.builder(
-                          itemCount: state.goodsReceipt.lots.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return
-                               
-                                Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                               // leading: const Icon(Icons.list),
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                trailing: Icon(Icons.edit,
-                                    size: 15 * SizeConfig.ratioFont),
-                                title: Text(
-                                    "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}"),
-                                subtitle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        "Mã SP : ${state.goodsReceipt.lots[index].item!.itemId}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity} \nVị trí : ${state.goodsReceipt.lots[index].location ?? 'Chưa cập nhật'} \nNSX : ${state.goodsReceipt.lots[index].productionDate ?? 'Chưa cập nhật'}"),
-                                    Text(
-                                        "Tên SP : ${state.goodsReceipt.lots[index].item!.itemName} \nSố PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? 'Chưa cập nhật'} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize ?? 'Chưa cập nhật' } \nHSD : ${state.goodsReceipt.lots[index].expirationDate ?? 'Chưa cập nhật'}"),
-                                  ],
-                                ),
-                                isThreeLine: true,
-                                onTap: () {
-                                  BlocProvider.of<FillReceiptLotBloc>(context)
-                                      .add(FillReceiptLotEvent(DateTime.now(),
-                                          state.goodsReceipt, index));
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/update_lot_receipt_screen',
-                                  );
-                                },
+                  return Column(
+                    children: [
+                      SizedBox(
+                          height: 470 * SizeConfig.ratioHeight,
+                          child: ListView.builder(
+                              itemCount: state.goodsReceipt.lots.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return
+                                   
+                                    Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                     decoration: BoxDecoration(
+                                border: Border.all(width: 1),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            );
-                          }));
+                                    child: ListTile(
+                                     // leading: const Icon(Icons.list),
+                                      // shape: RoundedRectangleBorder(
+                                      //   side: BorderSide(width: 1),
+                                      //   borderRadius: BorderRadius.circular(10),
+                                      // ),
+                                      trailing: Icon(Icons.edit,
+                                          size: 15 * SizeConfig.ratioFont),
+                                      title: Text(
+                                          "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}"),
+                                      subtitle:Row(
+                                                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                                                  children: [
+                                    SizedBox(
+                                      width: 150 * SizeConfig.ratioWidth,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Mã SP: ${state.goodsReceipt.lots[index].item!.itemId}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Số lượng: ${state.goodsReceipt.lots[index].quantity}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Vị trí: ${state.goodsReceipt.lots[index].location ?? '...'}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "NSX: ${state.goodsReceipt.lots[index].productionDate ?? '...'}"),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 150 * SizeConfig.ratioWidth,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                                                                        overflow: TextOverflow.ellipsis,
+                                  
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Tên SP: ${state.goodsReceipt.lots[index].item!.itemName}"),
+                                          Text(
+                                                                                        overflow: TextOverflow.ellipsis,
+                                  
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Định mức: ${state.goodsReceipt.lots[index].sublotSize ?? '...'}  "),
+                                          Text(
+                                                                                        overflow: TextOverflow.ellipsis,
+                                  
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Số PO: ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? '...'}"),
+                                          Text(
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "HSD: ${state.goodsReceipt.lots[index].expirationDate ?? '...'}"),
+                                        ],
+                                      ),
+                                    ),
+                                                                  ],
+                                                                ),
+                                      isThreeLine: true,
+                                      onTap: () {
+                                        BlocProvider.of<FillReceiptLotBloc>(context)
+                                            .add(FillReceiptLotEvent(DateTime.now(),
+                                                state.goodsReceipt, index));
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/update_lot_receipt_screen',
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              })),
+                               CustomizedButton(
+                            text: "Trở lại",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/importing_receipt_screen');
+                            })
+                    ],
+                  );
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),

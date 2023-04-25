@@ -132,9 +132,9 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                                     size: 15 * SizeConfig.ratioFont),
                                 isThreeLine: true,
                                 title: Text(
-                                    "Sản phẩm : ${state.issueEntries[index].itemName.toString()}"),
+                                    "Sản phẩm : ${state.issueEntries[index].item!.itemName.toString()}"),
                                 subtitle: Text(
-                                    "Số lượng yêu cầu : ${state.issueEntries[index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${state.issueEntries[index].requestSublotSize.toString()} "),
+                                    "Số lượng yêu cầu : ${state.issueEntries[index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${state.issueEntries[index].requestSublotSize ?? "..."} "),
                                 onTap: () {
                                   BlocProvider.of<FillInfoIssueEntryBloc>(
                                           context)
@@ -223,7 +223,7 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
                                     size: 15 * SizeConfig.ratioFont),
                                 isThreeLine: true,
                                 title: Text(
-                                    "Sản phẩm : ${state.issueEntries[index].itemName.toString()}"),
+                                    "Sản phẩm : ${state.issueEntries[index].item!.itemName.toString()}"),
                                 subtitle: Text(
                                     "Số lượng yêu cầu : ${state.issueEntries[index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${state.issueEntries[index].requestSublotSize.toString()} "),
                                 onTap: () {

@@ -6,6 +6,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/create_new_receipt_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/create_new_receipt_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
@@ -51,7 +52,22 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
         ),
       ),
       body: BlocConsumer<CreateReceiptBloc, CreateReceiptState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is PostReceiptStateSuccess) {
+            AlertDialogOneBtnCustomized(context, 'Thành công',
+                    'Đã hoàn thành việc tạo đơn', 'Tiếp tục', () {
+              Navigator.pushNamed(context, '/main_receipt_screen');
+            }, 20, 15, () {}, false)
+                .show();
+          }
+          if (state is PostReceiptStateFailure) {
+            AlertDialogOneBtnCustomized(context, 'Thất bại',
+                    'Không thể hoàn thành việc tạo đơn', 'Trở lại', () {
+              // Navigator.pushNamed(context, '/main_receipt_screen');
+            }, 20, 15, () {}, false)
+                .show();
+          }
+        },
         builder: (context, state) {
           if (state is AddLotToGoodsReceiptStateLoading ||
               state is UpdateLotReceiptStateLoading) {
@@ -59,65 +75,59 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is UpdateLotReceiptStateSuccess) {
-            goodsReceipt = state.goodsReceipt;
-            receiptId.text = goodsReceipt.goodsReceiptId;
-            supplyId.text = goodsReceipt.supply;
+          if (state is UpdateLotReceiptStateSuccess || state is PostReceiptStateFailure) {
+            goodsReceipt = state.goodsReceipt as GoodsReceipt;
+            receiptId.text = goodsReceipt.goodsReceiptId.toString();
+            supplyId.text = goodsReceipt.supply.toString();
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: 350 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      margin: EdgeInsets.symmetric(
-                          vertical: 5 * SizeConfig.ratioHeight),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            // filled: true,
-                            // fillColor: Constants.buttonColor,
-                            labelText: "Mã NCC (nếu có)"),
-                        controller: receiptId,
-                        onChanged: (value) => {
-                          goodsReceipt.goodsReceiptId = value,
-                          supplyId.text =
-                              "${DateFormat('dd-MM-yy').format(DateTime.now())}-$value"
-                        },
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10 * SizeConfig.ratioHeight,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: 350 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      margin: EdgeInsets.symmetric(
-                          vertical: 5 * SizeConfig.ratioHeight),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            // filled: true,
-                            // fillColor: Constants.buttonColor,
-                            labelText: "Số phiếu"),
-                        controller: supplyId,
-                        onChanged: (value) => goodsReceipt.supply = value,
-                      ),
-                    ),
-                  ],
+                Container(
+                  width: 350 * SizeConfig.ratioWidth,
+                  height: 60 * SizeConfig.ratioHeight,
+                  margin: EdgeInsets.symmetric(
+                      vertical: 5 * SizeConfig.ratioHeight),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        // filled: true,
+                        // fillColor: Constants.buttonColor,
+                        labelText: "Mã NCC (nếu có)"),
+                    controller: supplyId,
+                    onChanged: (value) => {
+                      goodsReceipt.supply = value,
+                      receiptId.text =
+                          "${DateFormat('dd-MM-yy').format(DateTime.now())}-$value",
+                      goodsReceipt.goodsReceiptId = receiptId.text,
+                    },
+                  ),
                 ),
-                const Divider(
-                  indent: 30,
-                  endIndent: 30,
-                  color: Constants.mainColor,
-                  thickness: 1,
+                Container(
+                  width: 350 * SizeConfig.ratioWidth,
+                  height: 60 * SizeConfig.ratioHeight,
+                  margin: EdgeInsets.symmetric(
+                      vertical: 5 * SizeConfig.ratioHeight),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        // filled: true,
+                        // fillColor: Constants.buttonColor,
+                        labelText: "Số phiếu"),
+                    controller: receiptId,
+                    onChanged: (value) => goodsReceipt.goodsReceiptId = value,
+                  ),
                 ),
+                // const Divider(
+                //   indent: 30,
+                //   endIndent: 30,
+                //   color: Constants.mainColor,
+                //   thickness: 1,
+                // ),
                 Text(
                   overflow: TextOverflow.ellipsis,
                   "Danh sách các lô hàng",
@@ -128,45 +138,141 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 300 * SizeConfig.ratioHeight,
+                  height: 330 * SizeConfig.ratioHeight,
                   child: ListView.builder(
-                      itemCount: state.goodsReceipt.lots.length,
+                      itemCount: state.goodsReceipt!.lots.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            //  leading: const Icon(Icons.list),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(width: 1),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            trailing: Icon(Icons.edit,
-                                size: 15 * SizeConfig.ratioFont),
-                            title: Text(
-                                "Mã lô : ${state.goodsReceipt.lots[index].goodsReceiptLotId}", style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16 * SizeConfig.ratioFont,
-                    color: Colors.black,
-                  ), ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    "Mã SP : ${state.goodsReceipt.lots[index].item!.itemId}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity} \nVị trí : ${state.goodsReceipt.lots[index].location ?? 'Chưa cập nhật'} \nNSX : ${state.goodsReceipt.lots[index].productionDate ?? 'Chưa cập nhật'}"),
-                                Text(
-                                    "Tên SP : ${state.goodsReceipt.lots[index].item!.itemName} \nSố PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? 'Chưa cập nhật'} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize ?? 'Chưa cập nhật'} \nHSD : ${state.goodsReceipt.lots[index].expirationDate ?? 'Chưa cập nhật'}"),
-                              ],
+                            child: ListTile(
+                              trailing: Icon(Icons.edit,
+                                  size: 17 * SizeConfig.ratioFont),
+                              title: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
+                                child: Text(
+                                  "Mã lô : ${state.goodsReceipt?.lots[index].goodsReceiptLotId}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16 * SizeConfig.ratioFont,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              subtitle: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: 150 * SizeConfig.ratioWidth,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Mã SP: ${state.goodsReceipt?.lots[index].item!.itemId}"),
+                                        Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Số lượng: ${state.goodsReceipt?.lots[index].quantity}"),
+                                        Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Vị trí: ${state.goodsReceipt?.lots[index].location ?? '...'}"),
+                                        Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "NSX: ${state.goodsReceipt?.lots[index].productionDate ?? '...'}"),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 150 * SizeConfig.ratioWidth,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                                                                      overflow: TextOverflow.ellipsis,
+
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Tên SP: ${state.goodsReceipt?.lots[index].item!.itemName}"),
+                                        Text(
+                                                                                      overflow: TextOverflow.ellipsis,
+
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Định mức: ${state.goodsReceipt?.lots[index].sublotSize ?? '...'}  "),
+                                        Text(
+                                                                                      overflow: TextOverflow.ellipsis,
+
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "Số PO: ${state.goodsReceipt?.lots[index].purchaseOrderNumber ?? '...'}"),
+                                        Text(
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize:
+                                                  16 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                            "HSD: ${state.goodsReceipt?.lots[index].expirationDate ?? '...'}"),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: true,
+                              onTap: () {
+                                BlocProvider.of<FillReceiptLotBloc>(context)
+                                    .add(FillReceiptLotEvent(DateTime.now(),
+                                        state.goodsReceipt as GoodsReceipt, index));
+                                Navigator.pushNamed(
+                                  context,
+                                  '/fill_lot_receipt_screen',
+                                );
+                              },
                             ),
-                            isThreeLine: true,
-                            onTap: () {
-                              BlocProvider.of<FillReceiptLotBloc>(context).add(
-                                  FillReceiptLotEvent(DateTime.now(),
-                                      state.goodsReceipt, index));
-                              Navigator.pushNamed(
-                                context,
-                                '/fill_lot_receipt_screen',
-                              );
-                            },
                           ),
                         );
                       }),
@@ -177,7 +283,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       BlocProvider.of<FillReceiptLotBloc>(context)
                           .add(FillReceiptLotEvent(
                         DateTime.now(),
-                        state.goodsReceipt,
+                        state.goodsReceipt as GoodsReceipt,
                         -1,
                       ));
                       Navigator.pushNamed(
@@ -189,14 +295,15 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                     text: "Hoàn thành",
                     onPressed: () {
                       //  _showForm('', state.items);
-                      // BlocProvider.of<FillReceiptLotBloc>(context).add(
-                      //     FillReceiptLotEvent(
-                      //         DateTime.now(), goodsReceipt, -1, true));
-                      AlertDialogOneBtnCustomized(context, 'Thành công',
-                              'Đã hoàn thành việc tạo đơn', 'Tiếp tục', () {
-                        Navigator.pushNamed(context, '/main_receipt_screen');
+                      
+                    state.goodsReceipt!.goodsReceiptId == '' ?
+                      AlertDialogOneBtnCustomized(context, 'Cảnh báo',
+                              'Vui lòng nhập Mã Lô', 'Tiếp tục', () {
+                       
                       }, 20, 15, () {}, false)
-                          .show();
+                          .show(): BlocProvider.of<CreateReceiptBloc>(context).add(
+                          PostNewReceiptEvent(
+                              DateTime.now(), state.goodsReceipt as GoodsReceipt));
                     })
               ],
             );
@@ -216,12 +323,12 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30)),
                         labelText: "Mã NCC (nếu có)"),
-                    controller: receiptId,
+                    controller: supplyId,
                     onChanged: (value) => {
-                      goodsReceipt.goodsReceiptId = value,
-                      supplyId.text =
+                      goodsReceipt.supply = value,
+                      receiptId.text =
                           "${DateFormat('dd-MM-yy').format(DateTime.now())}-$value",
-                      goodsReceipt.supply = supplyId.text,
+                      goodsReceipt.goodsReceiptId = receiptId.text,
                     },
                   ),
                 ),
@@ -237,8 +344,8 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                         // filled: true,
                         // fillColor: Constants.buttonColor,
                         labelText: "Số phiếu"),
-                    controller: supplyId,
-                    onChanged: (value) => goodsReceipt.supply = value,
+                    controller: receiptId,
+                    onChanged: (value) => goodsReceipt.goodsReceiptId = value,
                   ),
                 ),
                 const Divider(

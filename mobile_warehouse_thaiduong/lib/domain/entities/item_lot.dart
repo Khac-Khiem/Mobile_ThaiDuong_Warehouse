@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 class ItemLot extends Equatable {
   String lotId;
-  Item item;
-  bool isolated;
-  double quantity;
-  double sublotSize;
+  Item? item;
+  bool? isolated;
+  double? quantity;
+  double? sublotSize;
   String? purchaseOrderNumber;
-  String? location;
+  Location? location;
   DateTime? productionDate;
   DateTime? expirationDate;
   ItemLot(

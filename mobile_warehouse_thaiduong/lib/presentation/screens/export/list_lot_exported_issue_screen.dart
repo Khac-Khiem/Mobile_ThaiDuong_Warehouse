@@ -3,8 +3,8 @@ import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_issue_screen.dart';
 import '../../../function.dart';
 
-class ListGoodIssueEntryScreen extends StatelessWidget {
-  const ListGoodIssueEntryScreen({super.key});
+class ListLotExportedScreen extends StatelessWidget {
+  const ListLotExportedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ListGoodIssueEntryScreen extends StatelessWidget {
           ),
         backgroundColor: Constants.mainColor,
         title: Text(
-          'Danh sách hàng hóa cần xuất',
+          'Danh sách hàng hóa đã xuất',
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),

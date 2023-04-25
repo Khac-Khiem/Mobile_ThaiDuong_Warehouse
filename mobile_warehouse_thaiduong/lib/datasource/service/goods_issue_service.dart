@@ -1,12 +1,10 @@
+import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_issue_model.dart';
-import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
-import 'package:mobile_warehouse_thaiduong/global.dart';
 
 class GoodsIssueService {
   List bodyJson = [];
@@ -16,34 +14,52 @@ class GoodsIssueService {
       DateTime timestamp,
       String receiver,
       List<GoodsIssueEntry> entries) async {
+    List bodyJson = [];
+    for (int i = 0; i < entries.length; i++) {
+      Map<String, dynamic> dimensionJson = {
+        "itemId": entries[i].item!.itemId.toString(),
+        "unit": entries[i].item!.unit.toString(),
+        "requestedSublotSize":
+            double.tryParse(entries[i].requestSublotSize.toString()),
+        "requestedQuantity":
+            double.tryParse(entries[i].requestQuantity.toString())
+      };
+      bodyJson.add(dimensionJson);
+    }
     final res =
-        await http.post(Uri.parse(Constants.baseUrl + 'api/goodsreceipts/'),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ',
+        await http.post(Uri.parse('${Constants.baseUrl}/api/GoodsIssues'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Accept': '*/*',
             },
             body: jsonEncode(
-              <String, dynamic>{},
+              <String, dynamic>{
+                "goodsIssueId": goodsIssueId.toString(),
+                "receiver": receiver.toString(),
+                "purchaseOrderNumber": purchaseOrderNumber.toString(),
+                "timestamp": DateFormat('yyyy-MM-dd').format(timestamp),
+                //"timestamp": "2023-04-18",
+                "employeeId": "NV01",
+                "entries": bodyJson
+              },
             ));
     if (res.statusCode == 200) {
       return ErrorPackageModel(
         "success",
       );
     } else {
-      dynamic body = jsonDecode(res.body);
-      ErrorPackageModel error = ErrorPackageModel.fromJson(body);
-      return error;
+      return ErrorPackageModel("fail");
     }
   }
 
   Future<List<GoodsIssueModel>> getUncompletedGoodsIssue() async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': '*/*',
-        'Authorization': 'Bearer ',
-      },
+      Uri.parse('${Constants.baseUrl}api/GoodsIssues/Unconfirmed'),
+      // headers: {
+      //   'Content-Type': 'application/json; charset=UTF-8',
+      //   'Accept': '*/*',
+      //   'Authorization': 'Bearer ',
+      // },
     );
 
     if (res.statusCode == 200) {
@@ -55,81 +71,41 @@ class GoodsIssueService {
           )
           .toList();
       return allIssues;
+    }
+    if (res.statusCode == 204) {
+      return [];
     } else {
       throw "Unable to retrieve posts.";
     }
-    return [
-      // GoodsIssueModel('đơn 22-03-23', '119203', null, false, 'PKK', [
-      //   GoodsIssueEntry(
-      //       ItemModel('CDP001', '43111-Card HOLEE','cái', ItemClassModel('TP'), 100, 10),
-     
-      //       10,
-      //       100,
-      //       []),
-      //       GoodsIssueEntry(
-      //      ItemModel('CDP002', '43031-Card ISQUEAK', UnitModel('kg'), ItemClassModel('BTP'), 100, 10),
-      //       10,
-      //       100,
-      //       [])
-      // ]),
-      // GoodsIssueModel('đơn 15-03-23', null, null, false, 'PKK', [
-      //   GoodsIssueEntry(
-      //           ItemModel('CDP003ALP2MD00', '190401-Card Fetch ball XL', UnitModel('bộ'), ItemClassModel('NVL'), 100, 10),
-
-      //       10,
-      //       100,
-      //       [])
-      // ]),
-      
-    ];
   }
 
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
-    // final res = await http.get(
-    //   Uri.parse(Constants.baseUrl + 'api/goodsissues/pending'),
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //     'Accept': '*/*',
-    //     'Authorization': 'Bearer ',
-    //   },
-    // );
+  Future<List<GoodsIssueModel>> getCompletedGoodsissue(
+      DateTime startDate, DateTime endDate) async {
+    final res = await http.get(
+      Uri.parse(
+          '${Constants.baseUrl}api/GoodsIssues?StartDate=$startDate&EndDate=$endDate'),
+      // headers: {
+      //   'Content-Type': 'application/json; charset=UTF-8',
+      //   'Accept': '*/*',
+      //   'Authorization': 'Bearer ',
+      // },
+    );
 
-    // if (res.statusCode == 200) {
-    //   List<dynamic> body = jsonDecode(res.body);
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
 
-    //   List<GoodsIssueModel> allIssues = body
-    //       .map(
-    //         (dynamic item) => GoodsIssueModel.fromJson(item),
-    //       )
-    //       .toList();
-    //   return allIssues;
-    // } else {
-    //   throw "Unable to retrieve posts.";
-    // }
-     return [
-      // GoodsIssueModel('đơn 1', null, null, false, 'PKK', [
-      //   GoodsIssueEntry(
-      //          ItemModel('XON001', '32439G-Card Zipflight MD', UnitModel('cuộn'), ItemClassModel('BTP'), 100, 10),
-
-      //       10,
-      //       100,
-      //       [GoodsIssueLotModel('lô a', 50, 10, 'pkk', ''),GoodsIssueLotModel('lô b', 50, 10, 'pkk', '')],),
-      //       GoodsIssueEntry(
-      //             ItemModel('CDP003ALP2MD01', '0520520G-Card Fetch Mdley Asst 3pk-MD', UnitModel('cái'), ItemClassModel('TP'), 100, 10),
-
-      //       10,
-      //       100,
-      //       [])
-      // ]),
-      // GoodsIssueModel('đơn 2', null, null, false, 'PKK', [
-      //   GoodsIssueEntry(
-      //            ItemModel('CDP0072G0', '46305- Card JW Megalast bone toy LG', UnitModel('met'), ItemClassModel('BB'), 100, 10),
-
-      //       10,
-      //       100,
-      //       [GoodsIssueLotModel('lô a', 50, 10, 'pkk', ''),GoodsIssueLotModel('lô b', 50, 10, 'pkk', '')])
-      // ])
-    ];
+      List<GoodsIssueModel> allIssues = body
+          .map(
+            (dynamic item) => GoodsIssueModel.fromJson(item),
+          )
+          .toList();
+      return allIssues;
+    }
+    if (res.statusCode == 204) {
+      return [];
+    } else {
+      throw "Unable to retrieve posts.";
+    }
   }
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {
@@ -171,9 +147,33 @@ class GoodsIssueService {
   }
 
   Future<ErrorPackageModel> addLotToGoodsIssue(
-      String goodsIssueId, List<GoodsIssueLot> lots) async {
-    return ErrorPackageModel(
-      "success",
-    );
+      String goodsIssueId, String itemId, List<GoodsIssueLot> lots) async {
+    List bodyJson = [];
+    for (int i = 0; i < lots.length; i++) {
+      Map<String, dynamic> dimensionJson = {
+        "goodsIssueLotId": lots[i].goodsIssueLotId.toString(),
+        "itemId": itemId,
+        "quantity": double.tryParse(lots[i].quantity.toString()),
+        "sublotSize": double.tryParse(lots[i].sublotSize.toString()),
+        "note": lots[i].note.toString(),
+        "employeeId": "NV01"
+      };
+      bodyJson.add(dimensionJson);
+    }
+    final res = await http.patch(
+        Uri.parse(
+            '${Constants.baseUrl}api/GoodsIssues/$goodsIssueId/goodsIssueLots'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': '*/*',
+        },
+        body: jsonEncode(bodyJson));
+    if (res.statusCode == 200) {
+      return ErrorPackageModel(
+        "success",
+      );
+    } else {
+      return ErrorPackageModel("fail");
+    }
   }
 }

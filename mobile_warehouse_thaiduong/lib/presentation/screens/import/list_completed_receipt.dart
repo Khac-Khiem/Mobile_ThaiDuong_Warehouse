@@ -111,31 +111,39 @@ class _ListCompletedReceiptScreenState
                 }
                 if (state is LoadReceiptCompletedStateSuccess) {
                   return SizedBox(
-                    height: 300 * SizeConfig.ratioHeight,
+                    height: 360 * SizeConfig.ratioHeight,
                     child: ListView.builder(
                         itemCount: state.receipts.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(width: 1),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              leading: const Icon(Icons.list),
-                              trailing: Icon(Icons.arrow_drop_down_sharp,
-                                  size: 15 * SizeConfig.ratioFont),
-                              title: Text(state.receipts[index].goodsReceiptId),
-                              subtitle: Text(
-                                  "NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.receipts[index].timestamp.toString())}"),
-                              onTap: () {
-                                BlocProvider.of<CompletedReceiptLotBloc>(
-                                        context)
-                                    .add(LoadReceiptLotCompletedEvent(
-                                        DateTime.now(), state.receipts[index]));
-                                Navigator.pushNamed(
-                                    context, '/imported_receipt_lot_screen');
-                              },
+                              child: ListTile(
+                                // shape: RoundedRectangleBorder(
+                                //   side: BorderSide(width: 1),
+                                //   borderRadius: BorderRadius.circular(10),
+                                // ),
+                                leading: const Icon(Icons.list),
+                                trailing: Icon(Icons.arrow_drop_down_sharp,
+                                    size: 15 * SizeConfig.ratioFont),
+                                title: Text(
+                                    "${state.receipts[index].goodsReceiptId}"),
+                                subtitle: Text(
+                                    "NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.receipts[index].timestamp.toString())}"),
+                                onTap: () {
+                                  BlocProvider.of<CompletedReceiptLotBloc>(
+                                          context)
+                                      .add(LoadReceiptLotCompletedEvent(
+                                          DateTime.now(),
+                                          state.receipts[index]));
+                                  Navigator.pushNamed(
+                                      context, '/imported_receipt_lot_screen');
+                                },
+                              ),
                             ),
                           );
                         }),
@@ -175,14 +183,42 @@ class _ListCompletedReceiptScreenState
                   // ));
                 }
                 if (state is LoadReceiptCompletedStateFail) {
-                  return ExceptionErrorState(
-                    title: state.detail,
-                    message: "Vui lòng quay lại sau",
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ExceptionErrorState(
+                          title: state.detail,
+                          message: "Chọn lại khoảng thời gian phù hợp",
+                        ),
+                        CustomizedButton(
+                            text: "Trở lại",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/main_receipt_screen');
+                            })
+                      ],
+                    ),
                   );
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return SingleChildScrollView(
+                      child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.,
+                    children: [
+                      SizedBox(
+                        height: 150 * SizeConfig.ratioHeight,
+                      ),
+                      const CircularProgressIndicator(),
+                      SizedBox(
+                        height: 150 * SizeConfig.ratioHeight,
+                      ),
+                      CustomizedButton(
+                          text: "Trở lại",
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, '/main_receipt_screen');
+                          })
+                    ],
+                  ));
                 }
               },
             ),

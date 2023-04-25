@@ -6,13 +6,14 @@ abstract class GoodsIssueLotCompletedEvent extends Equatable {}
 
 class LoadGoodsIssueLotCompletedEvent extends GoodsIssueLotCompletedEvent {
   DateTime timestamp;
-  List<GoodsIssueLot> lotsExpected;
-  LoadGoodsIssueLotCompletedEvent(this.timestamp, this.lotsExpected);
+  GoodsIssue goodsIssue;
+  LoadGoodsIssueLotCompletedEvent(this.timestamp, this.goodsIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
-// 
+
+//
 class UpdateGoodsIssueLotEvent extends GoodsIssueLotCompletedEvent {
   DateTime timestamp;
   UpdateGoodsIssueLotEvent(this.timestamp);
@@ -20,4 +21,3 @@ class UpdateGoodsIssueLotEvent extends GoodsIssueLotCompletedEvent {
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
-

@@ -13,22 +13,22 @@ abstract class CreateNewIssueEvent extends Equatable {}
 // get danh số bộ phận, PO
 class LoadListDataEvent extends CreateNewIssueEvent {
   DateTime timestamp;
-  List<IssueEntryView> entriesIssue;
+  List<GoodsIssueEntry> entriesIssue;
   LoadListDataEvent(this.timestamp, this.entriesIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
- //thêm 1 entry mới
+
+//thêm 1 entry mới
 class AddIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   // String issueId;
   // String receiver;
   // String poNumber;
-  IssueEntryView issueEntry;
-  List<IssueEntryView> issueEntries;
-  AddIssueEntryEvent(
-      this.issueEntry, this.issueEntries, this.timestamp);
+  GoodsIssueEntry issueEntry;
+  List<GoodsIssueEntry> issueEntries;
+  AddIssueEntryEvent(this.issueEntry, this.issueEntries, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -40,8 +40,8 @@ class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   // String issueId;
   // String receiver;
   // String poNumber;
-  List<IssueEntryView> issueEntries;
-  IssueEntryView issueEntry;
+  List<GoodsIssueEntry> issueEntries;
+  GoodsIssueEntry issueEntry;
   int index;
   UpdateIssueEntryEvent(
       this.issueEntry, this.issueEntries, this.index, this.timestamp);
@@ -50,27 +50,27 @@ class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   List<Object?> get props => [timestamp];
 }
 
-// load lại danh sách entry 
+// load lại danh sách entry
 class LoadIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
   // String issueId;
   // String receiver;
   // String poNumber;
-  List<IssueEntryView> issueEntries;
-  LoadIssueEntryEvent(
-       this.issueEntries, this.timestamp);
+  List<GoodsIssueEntry> issueEntries;
+  LoadIssueEntryEvent(this.issueEntries, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
-
-
 // post 1 đơn mới
 class PostNewGoodsIssueEvent extends CreateNewIssueEvent {
   DateTime timestamp;
-  List<IssueEntryView> issueEntries;
-  PostNewGoodsIssueEvent(this.issueEntries, this.timestamp);
+  String goodsIssueId;
+  String purchaseOrderNumber;
+  String receiver;
+  List<GoodsIssueEntry> issueEntries;
+  PostNewGoodsIssueEvent(this.issueEntries, this.goodsIssueId, this.purchaseOrderNumber, this.receiver, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

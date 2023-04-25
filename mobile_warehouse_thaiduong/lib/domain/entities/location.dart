@@ -3,8 +3,8 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 class Location extends Equatable {
   String locationId;
-  List<ItemLot>? lots;
-  Location(this.locationId, this.lots);
+  //List<ItemLot>? lots;
+  Location(this.locationId, );
   @override
   // TODO: implement props
   List<Object?> get props => [locationId];

@@ -8,7 +8,6 @@ class CustomizeDatePicker extends StatefulWidget {
   Function okBtnClickedFunction;
   FontWeight fontWeight;
   Color fontColor;
-
   DateTime initDateTime;
   CustomizeDatePicker(
       {super.key, required this.name,

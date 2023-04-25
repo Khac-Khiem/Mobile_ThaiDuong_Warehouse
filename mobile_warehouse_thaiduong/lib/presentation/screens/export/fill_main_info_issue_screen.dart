@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/create_new_issue_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/dialog/dialog_one_button.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
@@ -73,6 +74,13 @@ class _FillMainInfoIssueScreenState extends State<FillMainInFoIssueScreen> {
         body: BlocConsumer<CreateIssueBloc, CreaNewIssueState>(
           listener: (context, state) {
             // TODO: implement listener
+            if (state is PostNewGoodsIssueSuccessState) {
+              AlertDialogOneBtnCustomized(context, 'Thành công',
+                      'Đã hoàn thành việc tạo đơn', 'Tiếp tục', () {
+                Navigator.pushNamed(context, '/export_main_screen');
+              }, 20, 15, () {}, false)
+                  .show();
+            }
           },
           builder: (context, state) {
             if (state is LoadListDataSuccessState) {
@@ -102,23 +110,40 @@ class _FillMainInfoIssueScreenState extends State<FillMainInFoIssueScreen> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 350 * SizeConfig.ratioWidth,
-                          height: 60 * SizeConfig.ratioHeight,
-                          child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              items:
-                                  state.departments.map((e) => e.name).toList(),
-                              showSearchBox: true,
-                              label: "Khách hàng/ bộ phận",
-                              // hint: "country in menu mode",
-                              onChanged: (value) {
-                                //  print(value);
-                                setState(() {});
-                              },
-                              selectedItem: selectedDepartment),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: SizedBox(
+                      //     width: 350 * SizeConfig.ratioWidth,
+                      //     height: 60 * SizeConfig.ratioHeight,
+                      //     child: DropdownSearch<String>(
+                      //         mode: Mode.MENU,
+                      //         items:
+                      //             state.departments.map((e) => e.name).toList(),
+                      //         showSearchBox: true,
+                      //         label: "Bộ phận (xuất nội bộ)",
+                      //         // hint: "country in menu mode",
+                      //         onChanged: (value) {
+                      //           //  print(value);
+                      //           setState(() {});
+                      //         },
+                      //         selectedItem: selectedDepartment),
+                      //   ),
+                      // ),
+                      Container(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 5 * SizeConfig.ratioHeight),
+                        child: TextField(
+                          controller:
+                              TextEditingController(text: selectedDepartment),
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              // filled: true,
+                              // fillColor: Constants.buttonColor,
+                              labelText: "Người nhận"),
+                          onChanged: (value) => selectedDepartment = value,
                         ),
                       ),
                       Padding(
@@ -134,33 +159,27 @@ class _FillMainInfoIssueScreenState extends State<FillMainInFoIssueScreen> {
                               // hint: "country in menu mode",
                               onChanged: (value) {
                                 //  print(value);
-                                setState(() {});
+                                setState(() {
+                                  poNumber = value.toString();
+                                });
                               },
-                              selectedItem: selectedDepartment),
+                              selectedItem: poNumber),
                         ),
                       ),
                       CustomizedButton(
                           text: "Hoàn thành",
                           onPressed: () {
-                            // BlocProvider.of<FillInfoIssueEntryBloc>(context).add(
-                            //     GetAllItemIssueEvent(issueId.text, poNumber,
-                            //         selectedDepartment, DateTime.now(), [], -1));
+                            BlocProvider.of<CreateIssueBloc>(context).add(
+                                PostNewGoodsIssueEvent(
+                                    state.issueEntries,
+                                    issueId.text,
+                                    poNumber,
+                                    selectedDepartment,
+                                    DateTime.now()));
                             // Navigator.pushNamed(
                             //   context,
                             //   '/fill_info_entry_screen',
                             // );
-                            AlertDialogOneBtnCustomized(
-                                    context,
-                                    'Thành công',
-                                    'Đã hoàn thành việc tạo đơn',
-                                    'Tiếp tục',
-                                    () { Navigator.pushNamed(context,
-                                                    '/export_main_screen');},
-                                    20,
-                                    15,
-                                    () {},
-                                    false)
-                                .show();
                           })
                     ]),
               );

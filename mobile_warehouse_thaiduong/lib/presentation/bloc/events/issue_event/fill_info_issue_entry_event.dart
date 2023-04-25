@@ -8,7 +8,7 @@ class GetAllItemIssueEvent extends FillInfoIssueEntryEvent {
   //    String issueId;
   // String receiver;
   // String poNumber;
-  List<IssueEntryView> entries;
+  List<GoodsIssueEntry> entries;
   int index;
   GetAllItemIssueEvent( this.timestamp, this.entries, this.index);
   @override

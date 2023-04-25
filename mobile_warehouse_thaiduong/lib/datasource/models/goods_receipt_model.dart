@@ -8,6 +8,7 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
   GoodsReceiptLotModel(
       super.goodsReceiptLotId,
       super.item,
+      super.unit,
       super.quantity,
       super.sublotSize,
       super.purchaseOrderNumber,
@@ -20,6 +21,7 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
       json['goodsReceiptLotId'],
       json['item']
       = ItemModel.fromJson(json["item"]),
+      json['unit'],
      double.parse( json['quantity'].toString()),
   double.tryParse( json['sublotSize'].toString()),
       json['purchaseOrderNumber'],

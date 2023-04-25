@@ -17,7 +17,7 @@ class LoadItemDataSuccessState extends FillInfoIssueEntryState {
   // String receiver;
   // String poNumber;
   List<Item> items;
-  List<IssueEntryView> entries;
+  List<GoodsIssueEntry> entries;
   int index;
   DateTime timestamp;
   @override

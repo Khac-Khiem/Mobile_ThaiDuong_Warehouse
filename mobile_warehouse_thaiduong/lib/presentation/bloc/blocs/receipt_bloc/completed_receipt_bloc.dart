@@ -10,8 +10,9 @@ class CompletedReceiptBloc
       on<LoadCompletedGoodsReceiptEvent>((event, emit) async {
       emit(LoadingReceiptCompletedState(DateTime.now()));
       try {
+        
         final receipts =
-            await goodsReceiptUsecase.getCompletedGoodsReceipts();
+            await goodsReceiptUsecase.getCompletedGoodsReceipts(event.startdate,event.enddate);
         receipts.isNotEmpty
             ? emit(LoadReceiptCompletedStateSuccess(DateTime.now(), receipts))
             : emit(LoadReceiptCompletedStateFail(

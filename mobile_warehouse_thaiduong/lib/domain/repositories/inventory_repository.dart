@@ -2,9 +2,9 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/inventory_log_entry.d
 
 abstract class InventoryRepository {
   Future<List<InventoryLogEntry>> getInventoryByTime(
-      String startDate, String endDate);
+      DateTime startDate, DateTime endDate);
   Future<List<InventoryLogEntry>> getInventoryByItemClass(
-      String startDate, String endDate, String itemClassId);
+      DateTime startDate, DateTime endDate, String itemClassId);
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      String startDate, String endDate, String itemId);
+      DateTime startDate, DateTime endDate, String itemId);
 }

@@ -5,21 +5,21 @@ class Inventoryusecase {
   final InventoryRepository inventoryRepository;
   Inventoryusecase(this.inventoryRepository);
   Future<List<InventoryLogEntry>> getInventoryByTime(
-      String startDate, String endDate) async {
+      DateTime startDate, DateTime endDate) async {
     final logEntries =
         inventoryRepository.getInventoryByTime(startDate, endDate);
     return logEntries;
   }
 
   Future<List<InventoryLogEntry>> getInventoryByItemClass(
-      String startDate, String endDate, String itemClassId) async {
+      DateTime startDate, DateTime endDate, String itemClassId) async {
     final logEntries = inventoryRepository.getInventoryByItemClass(
         startDate, endDate, itemClassId);
     return logEntries;
   }
 
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      String startDate, String endDate, String itemId) async {
+      DateTime startDate, DateTime endDate, String itemId) async {
     final logEntries =
         inventoryRepository.getInventoryByItemId(startDate, endDate, itemId);
     return logEntries;

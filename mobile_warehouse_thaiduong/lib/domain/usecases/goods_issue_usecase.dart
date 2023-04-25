@@ -1,7 +1,8 @@
+import 'package:mobile_warehouse_thaiduong/datasource/models/goods_issue_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/department.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
-import 'package:mobile_warehouse_thaiduong/domain/repositories/department_repository.dart';
+import 'package:mobile_warehouse_thaiduong/domain/repositories/info_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/goods_issue_repository.dart';
 
 class GoodsIssueUseCase {
@@ -25,8 +26,8 @@ class GoodsIssueUseCase {
     return goodsIssues;
   }
 
-  Future<List<GoodsIssue>> getCompletedGoodsissue() async {
-    final goodsIssues = goodsIssueRepository.getCompletedGoodsissue();
+  Future<List<GoodsIssue>> getCompletedGoodsissue(DateTime startDate, DateTime endDate) async {
+    final goodsIssues = goodsIssueRepository.getCompletedGoodsissue(startDate, endDate);
     return goodsIssues;
   }
 
@@ -50,8 +51,8 @@ class GoodsIssueUseCase {
   }
 
   Future<ErrorPackage> addLotToGoodsIssue(
-      String goodsIssueId, List<GoodsIssueLot> lots) async {
-    final status = goodsIssueRepository.addLotToGoodsIssue(goodsIssueId, lots);
+      String goodsIssueId,String itemId,  List<GoodsIssueLot> lots) async {
+    final status = goodsIssueRepository.addLotToGoodsIssue(goodsIssueId,itemId, lots);
     return status;
   }
 

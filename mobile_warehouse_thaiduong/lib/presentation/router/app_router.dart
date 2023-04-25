@@ -18,7 +18,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/fill_info_lot_issue_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_entry_issue_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_exported_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_completed_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/create_new_receipt_screen.dart';
@@ -28,15 +28,23 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_comp
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_completed_receipt_lot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt_lot_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/scan_item_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/home_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/login_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/main_screen.dart';
 
+import '../bloc/blocs/adjustment_bloc.dart';
+import '../bloc/blocs/inventory_bloc.dart';
 import '../bloc/events/issue_event/list_lot_issue_event.dart';
+import '../screens/adjustment/lot_adjust_screen.dart';
+import '../screens/adjustment/scan_adjustment_screen.dart';
 import '../screens/export/fill_main_info_issue_screen.dart';
 import '../screens/export/list_lot_issue_completed.dart';
 import '../screens/export/list_lot_issue_screen.dart';
 import '../screens/import/update_receipt_lot_exporting_screen.dart';
+import '../screens/inventory/product_inventory_screen.dart';
+import '../screens/inventory/sort_detail_inventory_screen.dart';
+import '../screens/inventory/stockcard_function_screen.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
@@ -79,7 +87,6 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
-              
                 ], child: FillInfoLotReceiptScreen()));
       case '/importing_receipt_screen':
         return MaterialPageRoute(
@@ -98,11 +105,10 @@ class AppRoute {
                       create: (context) => injector()),
                 ], child: const ListUncompletedLotReceiptScreen()));
 
-                case '/update_lot_receipt_screen':
+      case '/update_lot_receipt_screen':
         return MaterialPageRoute(
             settings: routeSettings,
             builder: (context) => MultiBlocProvider(providers: [
-                
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
                   BlocProvider<ExportingReceiptLotBloc>(
@@ -188,17 +194,48 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<ListGoodsIssueCompletedBloc>(
                       create: (context) => injector()),
-                       BlocProvider<ListGoodsIssueLotCompletedBloc>(
+                  BlocProvider<ListGoodsIssueLotCompletedBloc>(
                       create: (context) => injector()),
                 ], child: const ListGoodIssueCompletedScreen()));
-        case '/list_goods_issue_lot_completed_screen':
+      case '/list_goods_issue_lot_completed_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                BlocProvider<ListGoodsIssueCompletedBloc>(
+                  BlocProvider<ListGoodsIssueCompletedBloc>(
                       create: (context) => injector()),
-                       BlocProvider<ListGoodsIssueLotCompletedBloc>(
+                  BlocProvider<ListGoodsIssueLotCompletedBloc>(
                       create: (context) => injector()),
                 ], child: const ListLotIssueCompletedScreen()));
+      case '/lot_adjustment_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<AdjustmentBloc>(create: (context) => injector()),
+                ], child: const LotAdjustmentScreen()));
+      case '/scan_adjustment_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<AdjustmentBloc>(create: (context) => injector()),
+                ], child: const BarcodeScannerScreen()));
+// inventory
+      case '/stockcard_function_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const StockcardFunctionScreen()));
+      case '/scan_item_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const BarcodeScannerItemScreen()));
+      case '/inventory_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const StockcardScreen()));
+      case '/list_inventory_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const ListInventoryScreen()));
       default:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
     }

@@ -1,4 +1,5 @@
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 class ItemLotModel extends ItemLot{
@@ -7,13 +8,13 @@ factory ItemLotModel.fromJson(Map<String, dynamic> json) {
     return ItemLotModel(
       json['lotId'],
       json['item'] =  ItemModel.fromJson(json["item"]),
-      json['isolated'],
-      json['quantity'],
-      json['sublotSize'],
+      json['isIsolated'],
+       double.parse( json['quantity'].toString()),
+     double.parse(  json['sublotSize'].toString()), 
       json['purchaseOrderNumber'],
-      json['location'] ,
-      json['productionDate'],
-      json['expirationDate'],
+      json['location'] == null ? null : LocationModel.fromJson(json['location']),
+      DateTime.tryParse( json['productionDate'].toString()),  
+      DateTime.tryParse( json['expirationDate'].toString()),
     );
   }
 }

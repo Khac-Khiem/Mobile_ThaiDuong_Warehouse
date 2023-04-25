@@ -5,14 +5,15 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/
 
 class ListGoodsIssueCompletedBloc extends Bloc<CompletedGoodsIssueEvent, CompletedGoodsIssueState> {
   GoodsIssueUseCase goodsIssueUseCase;
-  ListGoodsIssueCompletedBloc(this.goodsIssueUseCase):super(LoadCompletedGoodsIssuesLoadingState(DateTime.now())){
+  ListGoodsIssueCompletedBloc(this.goodsIssueUseCase):super(LoadCompletedGoodsIssueInitState(DateTime.now())){
       on<LoadCompletedGoodsIssuesEvent>((event, emit) async {
       emit(LoadCompletedGoodsIssuesLoadingState(DateTime.now()));
       try {
-        final issues = await goodsIssueUseCase.getCompletedGoodsissue();
-        emit(LoadCompletedGoodsIssuesSuccessState( DateTime.now(), issues));
+        final issues = await goodsIssueUseCase.getCompletedGoodsissue(event.startDate,event.endDate);
+        issues.isNotEmpty ?
+        emit(LoadCompletedGoodsIssuesSuccessState( DateTime.now(), issues)): emit(LoadCompletedGoodsIssuesFailState( DateTime.now(),'Không có phiếu để hiển thị' ));
       } catch (e) {
-         emit(LoadCompletedGoodsIssuesFailState( DateTime.now(), ));
+         emit(LoadCompletedGoodsIssuesFailState( DateTime.now(),'Lỗi hệ thống' ));
         // emit(LoadReceiptExportingStateFail(
         //     DateTime.now(), 'Không truy xuất được dữ liệu'));
       }

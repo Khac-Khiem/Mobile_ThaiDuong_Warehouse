@@ -2,11 +2,13 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/lot_adjment_repository.dart';
 
+import '../entities/item_lot.dart';
+
 class LotAdjustmentUsecase {
   final LotAdjustmentRepository lotAdjustmentRepository;
   LotAdjustmentUsecase(this.lotAdjustmentRepository);
-  Future<ErrorPackage> postNewLotAdjustment() async {
-    final status = lotAdjustmentRepository.postNewLotAdjustment();
+  Future<ErrorPackage> postNewLotAdjustment(ItemLot itemLot, String employeename, String newPO, String note, double newQuantity) async {
+    final status = lotAdjustmentRepository.postNewLotAdjustment(itemLot, employeename, newPO, note,newQuantity);
     return status;
   }
 

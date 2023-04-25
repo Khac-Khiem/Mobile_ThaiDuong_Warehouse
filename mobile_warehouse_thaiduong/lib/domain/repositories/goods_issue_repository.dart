@@ -9,10 +9,12 @@ abstract class GoodsIssueRepository {
       String receiver,
       List<GoodsIssueEntry> entries);
   Future<List<GoodsIssue>> getUncompletedGoodsIssue();
-  Future<List<GoodsIssue>> getCompletedGoodsissue();
+  Future<List<GoodsIssue>> getCompletedGoodsissue(DateTime startDate, DateTime endDate);
   Future<GoodsIssue> getGoodsIssueById(String goodsIssueId);
   Future<ErrorPackage> addLotToGoodsIssue(
-      String goodsIssueId, List<GoodsIssueLot> lots);
+      String goodsIssueId,String itemId,  List<GoodsIssueLot> lots);
+
+
   Future<ErrorPackage> updateGoodsIssueEntry(
       String goodsIssueId, String itemEntryId, double newQuantity);
   Future<ErrorPackage> addGoodsIssueEntry(

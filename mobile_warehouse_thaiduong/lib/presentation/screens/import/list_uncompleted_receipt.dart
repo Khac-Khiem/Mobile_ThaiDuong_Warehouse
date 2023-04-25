@@ -6,6 +6,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/uncomplted_receipt_state.dart';
 import '../../../function.dart';
 import '../../bloc/events/receipt_event/uncompleted_receipt_lot_event.dart';
+import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
 
 class ListUncompletedGoodReceiptScreen extends StatelessWidget {
@@ -16,15 +17,15 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
-            ),
-            onPressed: () {
-             Navigator.pushNamed(context, '/main_receipt_screen');
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.west, //mũi tên back
+            color: Colors.white,
           ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/main_receipt_screen');
+          },
+        ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách phiếu chưa hoàn thành',
@@ -39,7 +40,7 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
               height: 10 * SizeConfig.ratioHeight,
             ),
             Text(
-              textAlign:TextAlign.center,
+              textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               "Danh sách các phiếu nhập \n chưa hoàn thành",
               style: TextStyle(
@@ -64,41 +65,91 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
             BlocBuilder<ExportingReceiptBloc, ReceiptExportingState>(
               builder: (context, state) {
                 if (state is LoadReceiptExportingStateSuccess) {
-                  return SizedBox(
-                     height: 400 * SizeConfig.ratioHeight,
-                    child: ListView.builder(
-                        itemCount: state.receipts.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              
-                               shape: RoundedRectangleBorder(
-                                    side: BorderSide(width: 1),
-                                    borderRadius: BorderRadius.circular(10),
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 400 * SizeConfig.ratioHeight,
+                        child: ListView.builder(
+                            itemCount: state.receipts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                   decoration: BoxDecoration(
+                                border: Border.all(width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                                  child: ListTile(
+                                    // shape: RoundedRectangleBorder(
+                                    //   side: BorderSide(width: 1),
+                                    //   borderRadius: BorderRadius.circular(10),
+                                    // ),
+                                    leading: const Icon(Icons.list),
+                                    trailing: Icon(Icons.arrow_drop_down_sharp,
+                                        size: 15 * SizeConfig.ratioFont),
+                                    title: Text(
+                                        "Mã đơn : ${state.receipts[index].goodsReceiptId}"),
+                                    subtitle: Text(
+                                        "NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${state.receipts[index].timestamp.toString()}"),
+                                    onTap: () {
+                                      BlocProvider.of<ExportingReceiptLotBloc>(
+                                              context)
+                                          .add(LoadUncompletedReceiptLotEvent(
+                                              DateTime.now(), state.receipts[index]));
+                                      Navigator.pushNamed(
+                                          context, '/importing_receipt_lot_screen');
+                                    },
                                   ),
-                                leading: const Icon(Icons.list),
-                                trailing:  Icon(Icons.arrow_drop_down_sharp, size:15*SizeConfig.ratioFont),
-                                title: Text( "Mã đơn : ${state.receipts[index].goodsReceiptId}"),
-                                  subtitle: 
-                                   Text("NCC : ${state.receipts[index].supply.toString()}  \nNgày tạo : ${state.receipts[index].timestamp.toString()}"),
-                              onTap: () {
-                                BlocProvider.of<ExportingReceiptLotBloc>(context)
-                                    .add(LoadUncompletedReceiptLotEvent( DateTime.now(), state.receipts[index]));
-                                     Navigator.pushNamed(context, '/importing_receipt_lot_screen');
-                          
-                              },),
-                          );
-                        }),
+                                ),
+                              );
+                            }),
+                      ),
+                       CustomizedButton(
+                            text: "Trở lại",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/main_receipt_screen');
+                            })
+                    ],
                   );
                 }
                 if (state is LoadReceiptExportingStateFail) {
-                  return ExceptionErrorState(
-                    title: state.detail,
-                    message: "Vui lòng quay lại sau",
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ExceptionErrorState(
+                          title: state.detail,
+                          message: "Vui lòng quay lại sau",
+                        ),
+                        CustomizedButton(
+                            text: "Trở lại",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/main_receipt_screen');
+                            })
+                      ],
+                    ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return SingleChildScrollView(
+                      child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.,
+                    children: [
+                      SizedBox(
+                        height: 200 * SizeConfig.ratioHeight,
+                      ),
+                      const CircularProgressIndicator(),
+                      SizedBox(
+                        height: 150 * SizeConfig.ratioHeight,
+                      ),
+                      CustomizedButton(
+                          text: "Trở lại",
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, '/main_receipt_screen');
+                          })
+                    ],
+                  ));
                 }
               },
             ),

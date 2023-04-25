@@ -10,10 +10,10 @@ class GoodsIssueLotModel extends GoodsIssueLot {
       json['goodsIssueLotId'],
       json['quantity'],
       json['sublotSize'],
-      json['employee'] ,
-      // == null
-      //     ? null as EmployeeModel
-      //     : EmployeeModel.fromJson(json["employee"]),
+      json['employee']
+      == null
+          ? null as EmployeeModel
+          : EmployeeModel.fromJson(json["employee"]),
       json['note'],
     );
   }
@@ -25,8 +25,9 @@ class GoodsIssueEntryModel extends GoodsIssueEntry {
   factory GoodsIssueEntryModel.fromJson(Map<String, dynamic> json) {
     return GoodsIssueEntryModel(
       json['item'] = ItemModel.fromJson(json["item"]),
-      json['requestSublotSize'],
-      json['requestQuantity'],
+      double.tryParse( json['requestedSublotSize'].toString()), 
+     double.tryParse( json['requestedQuantity'].toString()),  
+      
       json['lots'] == null
           ? []
           : (json["lots"] as List)
@@ -38,14 +39,17 @@ class GoodsIssueEntryModel extends GoodsIssueEntry {
 
 class GoodsIssueModel extends GoodsIssue {
   GoodsIssueModel(super.goodsIssueId, super.purchaseOrderNumber,
-      super.timestamp, super.isConfirmed, super.receiver, super.entries);
+      super.timestamp, super.isConfirmed, super.receiver,super.employee, super.entries);
   factory GoodsIssueModel.fromJson(Map<String, dynamic> json) {
     return GoodsIssueModel(
       json['goodsIssueId'],
       json['purchaseOrderNumber'],
-      json['timestamp'],
+     DateTime.tryParse( json['timestamp'].toString()),  
       json['isConfirmed'],
       json['receiver'],
+       json['employee'] == null
+          ? EmployeeModel("", "")
+          : EmployeeModel.fromJson(json["employee"]),
       json['entries'] == null
           ? []
           : (json["entries"] as List)
@@ -57,15 +61,15 @@ class GoodsIssueModel extends GoodsIssue {
 
 
 
-class GoodsIssueEntryViewModel extends IssueEntryView {
-  GoodsIssueEntryViewModel(
-      super.itemName, super.requestSublotSize, super.requestQuantity, super.unit);
-  factory GoodsIssueEntryViewModel.fromJson(Map<String, dynamic> json) {
-    return GoodsIssueEntryViewModel(
-      json['itemName'],
-      json['requestSublotSize'],
-      json['requestQuantity'],
-      json['unit'] 
-    );
-  }
-}
+// class GoodsIssueEntryViewModel extends IssueEntryView {
+//   GoodsIssueEntryViewModel(
+//       super.itemName, super.requestSublotSize, super.requestQuantity, super.unit);
+//   factory GoodsIssueEntryViewModel.fromJson(Map<String, dynamic> json) {
+//     return GoodsIssueEntryViewModel(
+//       json['itemName'],
+//       json['requestSublotSize'],
+//       json['requestQuantity'],
+//       json['unit'] 
+//     );
+//   }
+// }

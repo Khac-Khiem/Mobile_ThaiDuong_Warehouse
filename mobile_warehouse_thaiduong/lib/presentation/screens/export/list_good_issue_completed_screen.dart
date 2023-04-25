@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_goods_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_lot_issue_completed_event.dart';
 import '../../../domain/entities/goods_issue.dart';
 import '../../../function.dart';
 import '../../bloc/blocs/issue_bloc/list_goods_issue_completed_bloc.dart';
 import '../../bloc/blocs/issue_bloc/list_lot_issue_completed_bloc.dart';
+import '../../bloc/events/issue_event/list_goods_issue_completed_event.dart';
 import '../../bloc/states/issue_state/list_completed_goods_issue_state.dart';
+import '../../widgets/button_widget.dart';
+import '../../widgets/customized_date_picker.dart';
+import '../../widgets/exception_widget.dart';
 
 class ListGoodIssueCompletedScreen extends StatefulWidget {
   const ListGoodIssueCompletedScreen({super.key});
 
   @override
-  State<ListGoodIssueCompletedScreen> createState() => _ListGoodIssueCompletedScreenState();
+  State<ListGoodIssueCompletedScreen> createState() =>
+      _ListGoodIssueCompletedScreenState();
 }
 
-class _ListGoodIssueCompletedScreenState extends State<ListGoodIssueCompletedScreen> {
+class _ListGoodIssueCompletedScreenState
+    extends State<ListGoodIssueCompletedScreen> {
+  DateTime startDate =
+      DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+
+  DateTime endDate = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -36,103 +49,126 @@ class _ListGoodIssueCompletedScreenState extends State<ListGoodIssueCompletedScr
           style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
       ),
-      body: BlocBuilder<ListGoodsIssueCompletedBloc, CompletedGoodsIssueState>(
-          builder: (context, state) {
-        if (state is LoadCompletedGoodsIssuesSuccessState) {
-          return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    "Danh sách các phiếu cần xuất",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22 * SizeConfig.ratioFont,
-                      color: Colors.black,
-                    ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: 5 * SizeConfig.ratioHeight),
+                  width: 175 * SizeConfig.ratioWidth,
+                  height: 80 * SizeConfig.ratioHeight,
+                  child: CustomizeDatePicker(
+                    name: "Từ ngày",
+                    fontColor: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    initDateTime: startDate,
+                    okBtnClickedFunction: (pickedTime) {
+                      startDate = pickedTime;
+                    },
                   ),
                 ),
-                SingleChildScrollView(
-                  child: ExpansionPanelList.radio(
-                    children: state.goodsIssues
-                        .map((e) => ExpansionPanelRadio(
-                              backgroundColor: Colors.grey[200],
-                              canTapOnHeader: true,
-                              value: e.goodsIssueId.toString(),
-                              headerBuilder: ((context, isExpanded) {
-                                return ListTile(
-                                  //leading: const Icon(Icons.list),
-                                  // trailing: Icon(
-                                  //     Icons.arrow_drop_down_sharp,
-                                  //     size: 15 * SizeConfig.ratioFont),
-                                  //      tileColor: Colors.grey[200],
-
-                                  isThreeLine: true,
-                                  title: Text("Số phiếu : ${e.goodsIssueId}"),
-                                  subtitle: Text(
-                                      "Receiver : ${e.receiver.toString()} "),
-                                );
-                              }),
-                              body: Column(
-                                children: [
-                                  SizedBox(
-                                    height: e.entries!.length *
-                                        120 *
-                                        SizeConfig.ratioHeight,
-                                    child: ListView.builder(
-                                        itemCount: e.entries!.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: ListTile(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(width: 2),
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              //  leading: const Icon(Icons.list),
-                                              trailing: const Icon(
-                                                  Icons.post_add_outlined),
-                                              isThreeLine: true,
-                                              title: Text(
-                                                  "Sản phẩm : ${e.entries![index].item!.itemName}"),
-                                              subtitle: Text(
-                                                  "Số lượng yêu cầu : ${e.entries![index].requestQuantity.toString()} \nĐịnh mức yêu cầu : ${e.entries![index].requestSublotSize.toString()} "),
-                                              onTap: () {
-                                                BlocProvider.of<
-                                                            ListGoodsIssueLotCompletedBloc>(
-                                                        context)
-                                                    .add(LoadGoodsIssueLotCompletedEvent(
-                                                        DateTime.now(),
-                                                        e.entries![index].lots
-                                                            as List<
-                                                                GoodsIssueLot>));
-                                                Navigator.pushNamed(context,
-                                                    '/list_goods_issue_lot_completed_screen');
-                                              },
-                                            ),
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              ),
-                            ))
-                        .toList(),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: 5 * SizeConfig.ratioHeight),
+                  width: 175 * SizeConfig.ratioWidth,
+                  height: 80 * SizeConfig.ratioHeight,
+                  child: CustomizeDatePicker(
+                    name: "Đến ngày",
+                    fontColor: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    initDateTime: endDate,
+                    okBtnClickedFunction: (pickedTime) {
+                      endDate = pickedTime;
+                      print(endDate);
+                    },
                   ),
                 ),
               ],
             ),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      }),
+            const Divider(
+              indent: 30,
+              endIndent: 30,
+              color: Constants.mainColor,
+              thickness: 1,
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              "Danh sách các phiếu nhập \n đã hoàn thành",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 25 * SizeConfig.ratioFont,
+                color: Colors.black,
+              ),
+            ),
+            BlocBuilder<ListGoodsIssueCompletedBloc, CompletedGoodsIssueState>(
+              builder: (context, state) {
+                if (state is LoadCompletedGoodsIssueInitState) {
+                  return ExceptionErrorState(
+                    title: '',
+                    message: "Chọn thời gian để truy xuất",
+                  );
+                }
+                if (state is LoadCompletedGoodsIssuesSuccessState) {
+                  return SizedBox(
+                    height: 300 * SizeConfig.ratioHeight,
+                    child: ListView.builder(
+                        itemCount: state.goodsIssues.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.list),
+                              trailing: Icon(Icons.arrow_drop_down_sharp,
+                                  size: 15 * SizeConfig.ratioFont),
+                              title: Text(state.goodsIssues[index].goodsIssueId
+                                  .toString()),
+                              subtitle: Text(
+                                  "Người nhận : ${state.goodsIssues[index].receiver.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.goodsIssues[index].timestamp.toString())}"),
+                              onTap: () {
+                                BlocProvider.of<ListGoodsIssueLotCompletedBloc>(
+                                        context)
+                                    .add(LoadGoodsIssueLotCompletedEvent(
+                                        DateTime.now(),
+                                        state.goodsIssues[index]));
+                                Navigator.pushNamed(
+                                    context, '/list_goods_issue_lot_completed_screen');
+                              },
+                            ),
+                          );
+                        }),
+                  );
+                }
+                if (state is LoadCompletedGoodsIssuesFailState) {
+                  return ExceptionErrorState(
+                    title: state.detail,
+                    message: "Vui lòng quay lại sau",
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+            CustomizedButton(
+                text: "Truy xuất",
+                onPressed: () {
+                  BlocProvider.of<ListGoodsIssueCompletedBloc>(context).add(
+                      LoadCompletedGoodsIssuesEvent(
+                          DateTime.now(), startDate, endDate));
+                })
+          ],
+        ),
+      ),
     );
   }
 }

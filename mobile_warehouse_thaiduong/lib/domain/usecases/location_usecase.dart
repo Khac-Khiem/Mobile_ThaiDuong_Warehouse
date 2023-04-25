@@ -1,3 +1,4 @@
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 
 class LocationUsecase {
@@ -8,7 +9,7 @@ class LocationUsecase {
     return locationIds;
   }
 
-  Future<List<String>> getAllWarehouseId() async {
+  Future<List<Warehouse>> getAllWarehouseId() async {
     final warehouseIds = locationRepository.getAllWarehouseId();
     return warehouseIds;
   }

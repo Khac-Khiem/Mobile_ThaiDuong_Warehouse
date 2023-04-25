@@ -75,22 +75,24 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.warehouse,
                     text: "TỒN KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const StockcardFunctionScreen()),
-                      );
+                        Navigator.pushNamed(context, '/stockcard_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const StockcardFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.fact_check_outlined,
                     text: "KIỂM KÊ",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BarcodeScannerScreen()),
-                      );
+                      Navigator.pushNamed(context, '/scan_adjustment_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => BarcodeScannerScreen()),
+                      // );
                     }),
               ],
             ),

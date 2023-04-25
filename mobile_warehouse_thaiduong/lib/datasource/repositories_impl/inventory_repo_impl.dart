@@ -7,19 +7,25 @@ class InventoryRepoImpl implements InventoryRepository {
   InventoryRepoImpl(this.inventoryService);
   @override
   Future<List<InventoryLogEntry>> getInventoryByItemClass(
-      String startDate, String endDate, String itemClassId) {
-    throw UnimplementedError();
+      DateTime startDate, DateTime endDate, String itemClassId) {
+    final inventoryLog = inventoryService.getInventoryByItemClass(
+        startDate, endDate, itemClassId);
+    return inventoryLog;
   }
 
   @override
   Future<List<InventoryLogEntry>> getInventoryByItemId(
-      String startDate, String endDate, String itemId) {
-    throw UnimplementedError();
+      DateTime startDate, DateTime endDate, String itemId) {
+    final inventoryLog =
+        inventoryService.getInventoryByItemId(startDate, endDate, itemId);
+    return inventoryLog;
   }
 
   @override
   Future<List<InventoryLogEntry>> getInventoryByTime(
-      String startDate, String endDate) {
-    throw UnimplementedError();
+      DateTime startDate, DateTime endDate) {
+    final inventoryLog =
+        inventoryService.getInventoryByTime(startDate, endDate);
+    return inventoryLog;
   }
 }

@@ -4,6 +4,7 @@ import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/completed_receipt_lot_state.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import '../../../function.dart';
 
 class ListCompletedLotReceiptScreen extends StatelessWidget {
@@ -16,15 +17,15 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-         leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
-            ),
-            onPressed: () {
-             Navigator.pushNamed(context, '/imported_receipt_screen');
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.west, //mũi tên back
+            color: Colors.white,
           ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/imported_receipt_screen');
+          },
+        ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Danh sách lô đã nhập',
@@ -38,7 +39,7 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                // Column( 
+                // Column(
                 //   crossAxisAlignment: CrossAxisAlignment.start,
                 //   children: [
                 //     Text(
@@ -61,18 +62,18 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                 //             ),
                 //   ],
                 // ),
-                           
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              "Danh sách các lô hàng",
-                              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 25 * SizeConfig.ratioFont,
-                  color: Colors.black,
-                              ),
-                            ),
+                    overflow: TextOverflow.ellipsis,
+                    "Danh sách các lô hàng",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25 * SizeConfig.ratioFont,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
                 const Divider(
                   indent: 30,
@@ -80,21 +81,24 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                   color: Constants.mainColor,
                   thickness: 1,
                 ),
-               SizedBox(
-                      height: 470 * SizeConfig.ratioHeight,
-                      child: ListView.builder(
-                          itemCount: state.goodsReceipt.lots.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return
-                               
-                                Padding(
+                SizedBox(
+                    height: 470 * SizeConfig.ratioHeight,
+                    child: ListView.builder(
+                        itemCount: state.goodsReceipt.lots.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
-                               // leading: const Icon(Icons.list),
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                // leading: const Icon(Icons.list),
+                                // shape: RoundedRectangleBorder(
+                                //   side: BorderSide(width: 1),
+                                //   borderRadius: BorderRadius.circular(10),
+                                // ),
                                 trailing: Icon(Icons.edit,
                                     size: 15 * SizeConfig.ratioFont),
                                 title: Text(
@@ -103,10 +107,95 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                        "Sản phẩm : ${state.goodsReceipt.lots[index].item!.itemId.toString()}  \nSố lượng : ${state.goodsReceipt.lots[index].quantity.toString().toString()} \nVị trí : ${state.goodsReceipt.lots[index].location.toString()}"),
-                                    Text(
-                                        "Số PO : ${state.goodsReceipt.lots[index].purchaseOrderNumber.toString()} \nĐịnh mức : ${state.goodsReceipt.lots[index].sublotSize.toString()}"),
+                                    SizedBox(
+                                      width: 150 * SizeConfig.ratioWidth,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Mã SP: ${state.goodsReceipt.lots[index].item!.itemId}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Số lượng: ${state.goodsReceipt.lots[index].quantity}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Vị trí: ${state.goodsReceipt.lots[index].location ?? '...'}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "NSX: ${state.goodsReceipt.lots[index].productionDate ?? '...'}"),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 150 * SizeConfig.ratioWidth,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Tên SP: ${state.goodsReceipt.lots[index].item!.itemName}"),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Định mức: ${state.goodsReceipt.lots[index].sublotSize ?? '...'}  "),
+                                          Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "Số PO: ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? '...'}"),
+                                          Text(
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    16 * SizeConfig.ratioFont,
+                                                color: Colors.black,
+                                              ),
+                                              "HSD: ${state.goodsReceipt.lots[index].expirationDate ?? '...'}"),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 isThreeLine: true,
@@ -120,9 +209,15 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                                   // );
                                 },
                               ),
-                            );
-                          }))
-               // CustomizedButton(text: "Truy xuất", onPressed: () {})
+                            ),
+                          );
+                        })),
+                // CustomizedButton(text: "Truy xuất", onPressed: () {})
+                CustomizedButton(
+                    text: "Trở lại",
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/imported_receipt_screen');
+                    })
               ],
             ),
           );

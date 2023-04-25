@@ -18,14 +18,14 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<ErrorPackageModel> addLotToGoodsIssue(
-      String goodsIssueId, List<GoodsIssueLot> lots) async {
-    final status = goodsIssueService.addLotToGoodsIssue(goodsIssueId, lots);
+      String goodsIssueId, String itemId, List<GoodsIssueLot> lots) async {
+    final status = goodsIssueService.addLotToGoodsIssue(goodsIssueId,itemId, lots);
     return status;
   }
 
   @override
-  Future<List<GoodsIssueModel>> getCompletedGoodsissue() async {
-    final goodsIssues = goodsIssueService.getCompletedGoodsissue();
+  Future<List<GoodsIssueModel>> getCompletedGoodsissue(DateTime startDate, DateTime endDate) async {
+    final goodsIssues = goodsIssueService.getCompletedGoodsissue(startDate,endDate);
     return goodsIssues;
   }
 

@@ -6,6 +6,8 @@ import '../../../../domain/entities/goods_receipt.dart';
 import '../../../../domain/entities/item.dart';
 
 class CreateReceiptState extends Equatable {
+  GoodsReceipt? goodsReceipt;
+  CreateReceiptState(this.goodsReceipt);
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
@@ -13,14 +15,15 @@ class CreateReceiptState extends Equatable {
 
 class ReceiptInitState extends CreateReceiptState {
   DateTime timestamp;
-  ReceiptInitState(this.timestamp);
+  ReceiptInitState(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
+
 class ReceiptLoadingState extends CreateReceiptState {
   DateTime timestamp;
-  ReceiptLoadingState(this.timestamp);
+  ReceiptLoadingState(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -59,8 +62,9 @@ class ReceiptLoadingState extends CreateReceiptState {
 //--------
 class AddLotToGoodsReceiptStateSuccess extends CreateReceiptState {
   DateTime timestamp;
-   GoodsReceipt goodsReceipt;
-  AddLotToGoodsReceiptStateSuccess(this.timestamp, this.goodsReceipt);
+  GoodsReceipt? goodsReceipt;
+  AddLotToGoodsReceiptStateSuccess(this.timestamp, this.goodsReceipt)
+      : super(goodsReceipt);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -68,7 +72,7 @@ class AddLotToGoodsReceiptStateSuccess extends CreateReceiptState {
 
 class AddLotToGoodsReceiptStateLoading extends CreateReceiptState {
   DateTime timestamp;
-  AddLotToGoodsReceiptStateLoading(this.timestamp);
+  AddLotToGoodsReceiptStateLoading(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -78,7 +82,8 @@ class AddLotToGoodsReceiptStateLoading extends CreateReceiptState {
 class PostReceiptStateSuccess extends CreateReceiptState {
   ErrorPackage statusRequest;
   DateTime timestamp;
-  PostReceiptStateSuccess(this.timestamp, this.statusRequest);
+  GoodsReceipt? goodsReceipt;
+  PostReceiptStateSuccess(this.timestamp, this.statusRequest,this.goodsReceipt) : super(goodsReceipt);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -86,16 +91,18 @@ class PostReceiptStateSuccess extends CreateReceiptState {
 
 class PostReceiptStateLoadingState extends CreateReceiptState {
   DateTime timestamp;
-  PostReceiptStateLoadingState(this.timestamp);
+  PostReceiptStateLoadingState(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
 class PostReceiptStateFailure extends CreateReceiptState {
-  String error;
+  ErrorPackage error;
   DateTime timestamp;
-  PostReceiptStateFailure(this.error, this.timestamp);
+  GoodsReceipt? goodsReceipt;
+  PostReceiptStateFailure(this.error, this.timestamp, this.goodsReceipt)
+      : super(goodsReceipt);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -104,9 +111,12 @@ class PostReceiptStateFailure extends CreateReceiptState {
 //-------------------
 class UpdateLotReceiptStateSuccess extends CreateReceiptState {
   DateTime timestamp;
-   GoodsReceipt goodsReceipt;
+  GoodsReceipt? goodsReceipt;
   //int index;
-  UpdateLotReceiptStateSuccess(this.timestamp, this.goodsReceipt, );
+  UpdateLotReceiptStateSuccess(
+    this.timestamp,
+    this.goodsReceipt,
+  ) : super(goodsReceipt);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -114,7 +124,7 @@ class UpdateLotReceiptStateSuccess extends CreateReceiptState {
 
 class UpdateLotReceiptStateLoading extends CreateReceiptState {
   DateTime timestamp;
-  UpdateLotReceiptStateLoading(this.timestamp);
+  UpdateLotReceiptStateLoading(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

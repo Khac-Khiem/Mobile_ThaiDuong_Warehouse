@@ -14,11 +14,14 @@ class LoadingGoodsIssueLotsState extends GoodsIssueLotState {
 
 class LoadGoodsIssueLotsSuccessState extends GoodsIssueLotState {
   DateTime timestamp;
+  String goodsIssueId;
+    String itemId;
+
   List<ItemLot> lotsSuggest;
   List<GoodsIssueLot> lotsExpected;
 
   LoadGoodsIssueLotsSuccessState(
-      this.timestamp, this.lotsSuggest, this.lotsExpected);
+      this.timestamp, this.goodsIssueId,this.itemId, this.lotsSuggest, this.lotsExpected);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

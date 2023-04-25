@@ -7,8 +7,9 @@ abstract class GoodsIssueLotEvent extends Equatable {}
 class LoadGoodsIssueLotEvent extends GoodsIssueLotEvent {
   DateTime timestamp;
   String itemId;
-  List<GoodsIssueLot> lotsExpected;
-  LoadGoodsIssueLotEvent(this.timestamp, this.itemId,this.lotsExpected);
+  String goodsIssueId;
+//  List<GoodsIssueLot> lotsExpected;
+  LoadGoodsIssueLotEvent(this.timestamp, this.itemId, this.goodsIssueId);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -16,15 +17,21 @@ class LoadGoodsIssueLotEvent extends GoodsIssueLotEvent {
 
 class AddGoodsIssueLotEvent extends GoodsIssueLotEvent {
   DateTime timestamp;
-  // ItemLot goodsIssueLot;
-  // do
-  // String note;
-  // String employeeId;
+  bool addFullLot;
+  String itemId;
+  String goodsIssueId;
   GoodsIssueLot goodsIssueLot;
   List<ItemLot> listLotsSuggest;
-  List<GoodsIssueLot> listLotExpected;
-  AddGoodsIssueLotEvent(this.timestamp, this.goodsIssueLot,
-      this.listLotsSuggest, this.listLotExpected);
+  
+  List<GoodsIssueLot> listLotExported;
+  AddGoodsIssueLotEvent(
+      this.timestamp,
+      this.addFullLot,
+      this.itemId,
+      this.goodsIssueId,
+      this.goodsIssueLot,
+      this.listLotsSuggest,
+      this.listLotExported);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -32,8 +39,12 @@ class AddGoodsIssueLotEvent extends GoodsIssueLotEvent {
 
 class PostGoodsIssueLotEvent extends GoodsIssueLotEvent {
   DateTime timestamp;
-  List<ItemLot> lots;
-  PostGoodsIssueLotEvent(this.timestamp, this.lots);
+  String itemId;
+
+  String goodsIssueId;
+  List<GoodsIssueLot> lots;
+  PostGoodsIssueLotEvent(
+      this.timestamp, this.itemId, this.goodsIssueId, this.lots);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

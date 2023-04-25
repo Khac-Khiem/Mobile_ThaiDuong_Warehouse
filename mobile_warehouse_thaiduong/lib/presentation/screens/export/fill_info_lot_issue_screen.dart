@@ -10,6 +10,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fi
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
 import '../../../domain/entities/item.dart';
+import '../../dialog/dialog_one_button.dart';
 
 class FillInfoEntryIssueScreen extends StatefulWidget {
   const FillInfoEntryIssueScreen({super.key});
@@ -20,9 +21,9 @@ class FillInfoEntryIssueScreen extends StatefulWidget {
 }
 
 class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
-  List<Item> itemsDropdownData = [];
-  Item? selectedItem;
-  IssueEntryView issueEntryView = IssueEntryView('', null, null, '');
+  // List<Item> itemsDropdownData = [];
+  //Item? selectedItem;
+  GoodsIssueEntry issueEntryView = GoodsIssueEntry(null, null, null, null);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -90,14 +91,16 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                 onChanged: (value) {
                                   //  print(value);
                                   setState(() {
-                                    selectedItem = state.items.firstWhere(
-                                        (element) => element.itemId == value);
-                                    issueEntryView.itemName = value;
+                                    issueEntryView.item = state.items
+                                        .firstWhere((element) =>
+                                            element.itemId == value);
+                                    issueEntryView.item!.itemName =
+                                        value.toString();
                                   });
                                 },
-                                selectedItem: selectedItem == null
+                                selectedItem: issueEntryView.item == null
                                     ? ''
-                                    : selectedItem!.itemId),
+                                    : issueEntryView.item!.itemId),
                           ),
                         ),
                         Padding(
@@ -115,13 +118,16 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                 onChanged: (value) {
                                   //  print(value);
                                   setState(() {
-                                    selectedItem = state.items.firstWhere(
-                                        (element) => element.itemName == value);
-                                    issueEntryView.itemName =
-                                        selectedItem!.itemName;
+                                    issueEntryView.item = state.items
+                                        .firstWhere((element) =>
+                                            element.itemName == value);
+                                    issueEntryView.item!.itemName =
+                                        issueEntryView.item!.itemName;
                                   });
                                 },
-                                selectedItem: issueEntryView.itemName),
+                                selectedItem: issueEntryView.item == null
+                                    ? ''
+                                    : issueEntryView.item!.itemId),
                           ),
                         ),
                         Padding(
@@ -140,14 +146,14 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                               onChanged: (value) {
                                 //  print(value);
                                 setState(() {
-                                  issueEntryView.unit = value;
+                                  issueEntryView.item!.unit = value;
 
                                   //  unit = value.toString();
                                 });
                               },
-                              selectedItem: selectedItem == null
+                              selectedItem: issueEntryView.item == null
                                   ? ''
-                                  : selectedItem!.unit!,
+                                  : issueEntryView.item!.unit,
                             ),
                           ),
                         ),
@@ -162,15 +168,13 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                               height: 55 * SizeConfig.ratioHeight,
                               //color: Colors.grey[200],
                               child: TextField(
-                                // controller: state.index == -1
-                                //     ? TextEditingController()
-                                //     : TextEditingController(
-                                //         text: issueEntryView.requestSublotSize
-                                //             .toString()),
-                                 controller: TextEditingController(
-                                text: issueEntryView.requestSublotSize == null
-                                    ? ''
-                                    : issueEntryView.requestSublotSize.toString()),
+                              
+                                controller: TextEditingController(
+                                    text:
+                                        issueEntryView.requestSublotSize == null
+                                            ? ''
+                                            : issueEntryView.requestSublotSize
+                                                .toString()),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5)),
@@ -189,8 +193,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                         double.parse(value)
                                     : issueEntryView.requestSublotSize =
                                         double.parse('0'),
-                                onChanged: (value) =>
-                                    value != ''
+                                onChanged: (value) => value != ''
                                     ? issueEntryView.requestSublotSize =
                                         double.parse(value)
                                     : issueEntryView.requestSublotSize =
@@ -210,10 +213,11 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                 //     : TextEditingController(
                                 //         text: issueEntryView.requestQuantity
                                 //             .toString()),
-                                 controller: TextEditingController(
-                                text: issueEntryView.requestQuantity == null
-                                    ? ''
-                                    : issueEntryView.requestQuantity.toString()),
+                                controller: TextEditingController(
+                                    text: issueEntryView.requestQuantity == null
+                                        ? ''
+                                        : issueEntryView.requestQuantity
+                                            .toString()),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5)),
@@ -244,30 +248,62 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                       ],
                     ),
                     state.index == -1
-                        ? ElevatedButton(
-                            onPressed: () async {
-                              BlocProvider.of<CreateIssueBloc>(context).add(
-                                  AddIssueEntryEvent(issueEntryView,
-                                      state.entries, DateTime.now()));
-                              Navigator.pushNamed(
-                                  context, '/create_issue_screen');
-                              //Navigator.of(context).pop();
-                            },
-                            child: Text('Tạo mới'),
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                issueEntryView.item == null ||
+                                        issueEntryView.requestQuantity == null
+                                    ? AlertDialogOneBtnCustomized(
+                                            context,
+                                            "Cảnh báo",
+                                            "Vui lòng điền đầy đủ các thông tin",
+                                            "Trở lại",
+                                            () {},
+                                            18,
+                                            22,
+                                            () {},
+                                            false)
+                                        .show()
+                                    : BlocProvider.of<CreateIssueBloc>(context)
+                                        .add(AddIssueEntryEvent(issueEntryView,
+                                            state.entries, DateTime.now()));
+                                Navigator.pushNamed(
+                                    context, '/create_issue_screen');
+                                //Navigator.of(context).pop();
+                              },
+                              child: Text('Tạo mới'),
+                            ),
                           )
-                        : ElevatedButton(
-                            onPressed: () async {
-                              BlocProvider.of<CreateIssueBloc>(context).add(
-                                  UpdateIssueEntryEvent(
-                                      issueEntryView,
-                                      state.entries,
-                                      state.index,
-                                      DateTime.now()));
-                              Navigator.pushNamed(
-                                  context, '/create_issue_screen');
-                              //Navigator.of(context).pop();
-                            },
-                            child: Text('Cập nhật'),
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                issueEntryView.item == null ||
+                                        issueEntryView.requestQuantity == null
+                                    ? AlertDialogOneBtnCustomized(
+                                            context,
+                                            "Cảnh báo",
+                                            "Vui lòng điền đầy đủ các thông tin",
+                                            "Trở lại",
+                                            () {},
+                                            18,
+                                            22,
+                                            () {},
+                                            false)
+                                        .show()
+                                    : BlocProvider.of<CreateIssueBloc>(context)
+                                        .add(UpdateIssueEntryEvent(
+                                            issueEntryView,
+                                            state.entries,
+                                            state.index,
+                                            DateTime.now()));
+                                Navigator.pushNamed(
+                                    context, '/create_issue_screen');
+                                //Navigator.of(context).pop();
+                              },
+                              child: Text('Cập nhật'),
+                            ),
                           )
                   ],
                 ),

@@ -52,7 +52,7 @@ class LoadListDataSuccessState extends CreaNewIssueState {
   List<Department> departments;
   List<String> listPo;
   DateTime timestamp;
-  List<IssueEntryView> issueEntries;
+  List<GoodsIssueEntry> issueEntries;
   LoadListDataSuccessState(
       this.departments, this.issueEntries, this.listPo, this.timestamp);
   @override
@@ -75,7 +75,7 @@ class UpdateEntryToGoodsIssueSuccess extends CreaNewIssueState {
   // String issueId;
   // String receiver;
   // String poNumber;
-  List<IssueEntryView> issueEntries;
+  List<GoodsIssueEntry> issueEntries;
   UpdateEntryToGoodsIssueSuccess(
     this.timestamp,
     // this.issueId,
@@ -107,7 +107,8 @@ class PostNewGoodsIssueLoadingState extends CreaNewIssueState {
 
 class PostNewGoodsIssueSuccessState extends CreaNewIssueState {
   DateTime timestamp;
-  PostNewGoodsIssueSuccessState(this.timestamp);
+  String detail;
+  PostNewGoodsIssueSuccessState(this.timestamp, this.detail);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -115,7 +116,8 @@ class PostNewGoodsIssueSuccessState extends CreaNewIssueState {
 
 class PostNewGoodsIssueFailState extends CreaNewIssueState {
   DateTime timestamp;
-  PostNewGoodsIssueFailState(this.timestamp);
+  String detail;
+  PostNewGoodsIssueFailState(this.timestamp, this.detail);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

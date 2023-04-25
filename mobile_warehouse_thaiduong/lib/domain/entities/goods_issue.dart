@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/employee.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 
 class GoodsIssueLot extends Equatable {
   String? goodsIssueLotId;
   double quantity;
   double sublotSize;
-  String? employee;
+  Employee? employee;
   String? note;
   GoodsIssueLot(this.goodsIssueLotId, this.quantity, this.sublotSize,
       this.employee, this.note);
@@ -30,21 +31,22 @@ class GoodsIssue extends Equatable {
   DateTime? timestamp;
   bool isConfirmed;
   String? receiver;
+  Employee? employee;
   List<GoodsIssueEntry>? entries;
   GoodsIssue(this.goodsIssueId, this.purchaseOrderNumber, this.timestamp,
-      this.isConfirmed, this.receiver, this.entries);
+      this.isConfirmed, this.receiver,this.employee, this.entries);
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 //  View Issue Entry: dùng để hiển thị và post
 
-class IssueEntryView extends Equatable {
-  String? itemName;
-  double? requestSublotSize;
-  double? requestQuantity;
-  String? unit;
-  IssueEntryView(
-      this.itemName, this.requestQuantity, this.requestSublotSize, this.unit);
-  @override
-  List<Object?> get props => throw UnimplementedError();
-}
+// class IssueEntryView extends Equatable {
+//   String? itemName;
+//   double? requestSublotSize;
+//   double? requestQuantity;
+//   String? unit;
+//   IssueEntryView(
+//       this.itemName, this.requestQuantity, this.requestSublotSize, this.unit);
+//   @override
+//   List<Object?> get props => throw UnimplementedError();
+// }

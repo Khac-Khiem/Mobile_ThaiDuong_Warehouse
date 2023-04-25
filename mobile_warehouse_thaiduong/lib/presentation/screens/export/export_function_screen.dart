@@ -69,8 +69,8 @@ class ExportFunctionScreen extends StatelessWidget {
               icon: Icons.fact_check_outlined,
               text: "DANH SÁCH PHIẾU ĐÃ XUẤT",
               onPressed: () {
-                    BlocProvider.of<ListGoodsIssueCompletedBloc>(context)
-                    .add(LoadCompletedGoodsIssuesEvent(DateTime.now()));
+                    // BlocProvider.of<ListGoodsIssueCompletedBloc>(context)
+                    // .add(LoadCompletedGoodsIssuesEvent(DateTime.now()));
                 Navigator.pushNamed(context, '/list_goods_issue_completed_screen');
                 // Navigator.push(
                 //   context,

@@ -23,7 +23,8 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/list_goods_issue_completed_screen');
+              Navigator.pushNamed(
+                  context, '/list_goods_issue_completed_screen');
             },
           ),
           backgroundColor: Constants.mainColor,
@@ -41,48 +42,152 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
             if (state is LoadCompletedGoodsIssueLotSuccessState) {
               return Column(
                 children: [
-                   Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Text(
-                                 overflow: TextOverflow.ellipsis,
-                                 "Danh sách các lô hàng đã xuất",
-                                 style: TextStyle(
-                                   fontWeight: FontWeight.w600,
-                                   fontSize: 25 * SizeConfig.ratioFont,
-                                   color: Colors.black,
-                                 ),
-                               ),
-                   ),
-                     const Divider(
-                  indent: 30,
-                  endIndent: 30,
-                  color: Constants.mainColor,
-                  thickness: 1,
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      "Danh sách các lô hàng đã xuất",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25 * SizeConfig.ratioFont,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    indent: 30,
+                    endIndent: 30,
+                    color: Constants.mainColor,
+                    thickness: 1,
+                  ),
                   SizedBox(
-                                          height: 470 * SizeConfig.ratioHeight,
-
+                    height: 470 * SizeConfig.ratioHeight,
                     child: ListView.builder(
-                        itemCount: state.lots.length,
+                        itemCount: state.goodsIssue.entries!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return LotDetailComponent(
-                              itemId: state.lots[index].goodsIssueLotId.toString(),
-                              location: '',
-                              enableEdit: false,
-                              lotid: '220123_NCC',
-                              numberPO: '264836',
-                              unit: 'cái',
-                              quantity: 100,
-                              sublotSize: 10,
-                              onPressed: () {});
+                          return Column(
+                            children: [
+                              Container(
+                                   decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListTile(
+                                    // leading: const Icon(Icons.list),
+                                    // shape: RoundedRectangleBorder(
+                                    //   side: BorderSide(width: 1),
+                                    //   borderRadius: BorderRadius.circular(10),
+                                    // ),
+                                    // trailing: Icon(Icons.edit,
+                                    //     size: 15 * SizeConfig.ratioFont),
+                                    title: Column(
+                                      children: [
+                                        Text(
+                                            "Sản phẩm : ${state.goodsIssue.entries![index].item!.itemName}"),
+                                        Text(
+                                            "Số lượng yêu cầu : ${state.goodsIssue.entries![index].requestQuantity}"),
+                                      ],
+                                    ),
+                                    // subtitle: Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Text(
+                                    //         "Số lượng yêu cầu : ${state.goodsIssue.entries![index].requestQuantity} \nĐịnh mức yêu cầu : ${state.goodsIssue.entries![index].requestSublotSize.toString()} "),
+                                    //   ],
+                                    // ),
+                                    //   isThreeLine: true,
+                                    onTap: () {},
+                                  ),
+                                ),
+                              ),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  itemCount: state
+                                      .goodsIssue.entries![index].lots!.length,
+                                  itemBuilder: (BuildContext context, int int) {
+                                    return Column(
+                                      children: [
+                                        // LotDetailComponent(
+                                        //     itemId: state
+                                        //         .goodsIssue
+                                        //         .entries![index]
+                                        //         .lots![int]
+                                        //         .goodsIssueLotId
+                                        //         .toString(),
+                                        //     location: '',
+                                        //     enableEdit: false,
+                                        //     lotid: '220123_NCC',
+                                        //     numberPO: '264836',
+                                        //     unit: 'cái',
+                                        //     quantity: 100,
+                                        //     sublotSize: 10,
+                                        //     onPressed: () {}),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: ListTile(
+                                              trailing: Icon(Icons.edit,
+                                                  size: 17 *
+                                                      SizeConfig.ratioFont),
+                                              title: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 8.0, 0, 8.0),
+                                                child: Text(
+                                                  "Mã lô : ${state.goodsIssue.entries![index].lots![int].goodsIssueLotId}",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16 *
+                                                        SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                              subtitle: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                          "Số lượng : ${state.goodsIssue.entries![index].lots![int].quantity} "),
+                                                 Text(
+                                                          "Định mức : ${state.goodsIssue.entries![index].lots![int].sublotSize} "),
+                                                Text(
+                                                          "Ghi chú : ${state.goodsIssue.entries![index].lots![int].note}"),
+                                                
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              isThreeLine: true,
+                                              onTap: () {},
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  }),
+                            ],
+                          );
                         }),
                   ),
                 ],
               );
-            }else{
-               return const Center(
-                  child: CircularProgressIndicator(),
-                );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ),

@@ -21,7 +21,7 @@ class MainAppName extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Constants.mainColor),
           ),
-          SizedBox(height: 20 * SizeConfig.ratioHeight),
+        // SizedBox(height: 10 * SizeConfig.ratioHeight),
           Image(
             image: AssetImage('lib/assets/Logo_demo.png'),
             width: 400 * SizeConfig.ratioWidth,

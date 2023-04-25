@@ -17,7 +17,8 @@ class ItemLotRepoImpl implements ItemLotRepository {
 
   @override
   Future<ItemLot> getItemLotById(String lotId) {
-    throw UnimplementedError();
+    final itemLots = itemLotService.getItemLotById(lotId);
+    return itemLots;
   }
 
   @override

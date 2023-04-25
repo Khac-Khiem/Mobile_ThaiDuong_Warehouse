@@ -28,9 +28,9 @@ class FillInfoLotReceiptScreen extends StatefulWidget {
 
 class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
 //  Item? selectedItem;
-  String unit = '';
-  GoodsReceiptLot goodsReceiptLot =
-      GoodsReceiptLot('', null, null, null, null, null, null, null, null, null);
+ // String unit = '';
+  GoodsReceiptLot goodsReceiptLot = GoodsReceiptLot(
+      '', null, null, null, null, null, null, null, null, null, null);
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
   // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
@@ -106,7 +106,9 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           setState(() {
                             goodsReceiptLot.item = state.items.firstWhere(
                                 (element) => element.itemId == value);
-                            goodsReceiptLot.item!.itemId = value.toString();
+                            goodsReceiptLot.unit = goodsReceiptLot.item!.unit.toString();
+
+                            //  goodsReceiptLot.item!.itemId = value.toString();
                           });
                         },
                         selectedItem: goodsReceiptLot.item == null
@@ -134,8 +136,9 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             setState(() {
                               goodsReceiptLot.item = state.items.firstWhere(
                                   (element) => element.itemName == value);
-                              goodsReceiptLot.item!.itemId =
-                                  goodsReceiptLot.item!.itemId;
+                              goodsReceiptLot.unit = goodsReceiptLot.item!.unit.toString();
+                              // goodsReceiptLot.item!.itemId =
+                              //     goodsReceiptLot.item!.itemId;
                             });
                           },
                           selectedItem: goodsReceiptLot.item == null
@@ -157,7 +160,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         onChanged: (value) {
                           //  print(value);
                           setState(() {
-                            unit = value.toString();
+                            goodsReceiptLot.unit = value.toString();
                           });
                         },
                         selectedItem: goodsReceiptLot.item == null
@@ -257,20 +260,10 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // margin: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
+                   
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // decoration: BoxDecoration(
-                          //     color: Constants.buttonColor,
-                          //     border: Border.all(
-                          //         width: 1, color: Constants.buttonColor),
-                          //     borderRadius:
-                          //         const BorderRadius.all(Radius.circular(5))),
+                        
                           child: CustomizeDatePicker(
                             name: "NSX",
                             fontColor: Colors.black,
@@ -285,19 +278,10 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           ),
                         ),
                         Container(
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // margin: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
+                        
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // decoration: BoxDecoration(
-                          //     color: Constants.buttonColor,
-                          //     border: Border.all(width: 1, color: Colors.grey),
-                          //     borderRadius:
-                          //         const BorderRadius.all(Radius.circular(5))),
+                        
                           child: CustomizeDatePicker(
                             name: "HSD",
                             fontColor: Colors.black,
@@ -345,6 +329,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             )),
                       ),
                     ]),
+                    
                     Container(
                       width: 350 * SizeConfig.ratioWidth,
                       height: 60 * SizeConfig.ratioHeight,
@@ -406,7 +391,9 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                 };
                         }
                       },
-                      child: state.index == -1 ? const Text('Tạo mới'): const Text('Cập nhật'),
+                      child: state.index == -1
+                          ? const Text('Tạo mới')
+                          : const Text('Cập nhật'),
                     )
                   ],
                 ),

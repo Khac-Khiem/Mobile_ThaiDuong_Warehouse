@@ -8,9 +8,9 @@ class GoodsReceiptUsecase {
   final GoodsReceiptRepository goodsReceiptRepository;
   GoodsReceiptUsecase(this.goodsReceiptRepository);
   Future<ErrorPackage> postNewGoodsReceipt(
-      String goodsReceiptId, List<GoodsReceiptLot> lots) async {
+      GoodsReceipt goodsReceipt) async {
     final status =
-        goodsReceiptRepository.postNewGoodsReceipt(goodsReceiptId, lots);
+        goodsReceiptRepository.postNewGoodsReceipt( goodsReceipt);
     return status;
   }
 
@@ -35,8 +35,8 @@ class GoodsReceiptUsecase {
     return status;
   }
 
-  Future<List<GoodsReceipt>> getCompletedGoodsReceipts() async {
-    final goodsReceipts = goodsReceiptRepository.getCompletedGoodsReceipts();
+  Future<List<GoodsReceipt>> getCompletedGoodsReceipts(DateTime startDate, DateTime endDate) async {
+    final goodsReceipts = goodsReceiptRepository.getCompletedGoodsReceipts(startDate,endDate);
     return goodsReceipts;
   }
 

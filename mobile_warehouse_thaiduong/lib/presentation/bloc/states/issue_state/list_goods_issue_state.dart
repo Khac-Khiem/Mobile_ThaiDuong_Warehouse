@@ -22,7 +22,8 @@ class LoadGoodsIssuesSuccessState extends GoodsIssueState {
 
 class LoadGoodsIssuesFailState extends GoodsIssueState {
   DateTime timestamp;
-  LoadGoodsIssuesFailState(this.timestamp);
+  String detail;
+  LoadGoodsIssuesFailState(this.timestamp, this.detail);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
