@@ -179,10 +179,17 @@ class DrawerUser extends StatelessWidget {
   }
 }
 
-class IconTextButtonDrawer extends StatelessWidget {
+// ignore: must_be_immutable
+class IconTextButtonDrawer extends StatefulWidget {
   IconData icon;
   String text;
-  IconTextButtonDrawer({this.icon = Icons.logout, this.text = "Đăng xuất"});
+  IconTextButtonDrawer({super.key, this.icon = Icons.logout, this.text = "Đăng xuất"});
+
+  @override
+  State<IconTextButtonDrawer> createState() => _IconTextButtonDrawerState();
+}
+
+class _IconTextButtonDrawerState extends State<IconTextButtonDrawer> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -195,7 +202,7 @@ class IconTextButtonDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(
-            icon,
+            widget.icon,
             size: 30 * SizeConfig.ratioRadius,
             color: Colors.white,
           ),
@@ -205,7 +212,7 @@ class IconTextButtonDrawer extends StatelessWidget {
             child: SizedBox(
               width: 110 * SizeConfig.ratioWidth,
               child: Text(
-                text,
+                widget.text,
                 style: TextStyle(
                     color: Colors.white, fontSize: 20 * SizeConfig.ratioFont),
               ),

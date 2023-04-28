@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/history/export_history_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/history/import_history_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/export_history_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/import_history_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
+
+import '../../bloc/events/history_event/export_history_event.dart';
+import '../../bloc/events/history_event/import_history_event.dart';
 
 class HistoryFunctionScreen extends StatelessWidget {
   const HistoryFunctionScreen({super.key});
@@ -13,6 +17,15 @@ class HistoryFunctionScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Lịch sử',
@@ -27,21 +40,27 @@ class HistoryFunctionScreen extends StatelessWidget {
               icon: Icons.input_rounded,
               text: "LỊCH SỬ NHẬP",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ImportHistoryScreen()),
-                );
+                  BlocProvider.of<ImportHistoryBloc>(context)
+                    .add(GetAllInfoImportEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/import_history_screen');    
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const ImportHistoryScreen()),
+                // );
               }),
           IconCustomizedButton(
               icon: Icons.output_rounded,
               text: "LỊCH SỬ XUẤT",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ExportHistoryScreen()),
-                );
+                 BlocProvider.of<ExportHistoryBloc>(context)
+                    .add(GetAllInfoExportEvent(DateTime.now()));
+                Navigator.pushNamed(context, '/export_history_screen');   
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const ExportHistoryScreen()),
+                // );
               }),
         ],
       )),

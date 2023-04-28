@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
+// ignore: must_be_immutable
 class ExceptionErrorState extends StatelessWidget {
   String title;
   ///Nếu không có message, thì phải gán message = ""

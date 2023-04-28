@@ -108,7 +108,7 @@ class _ListUncompletedLotReceiptScreenState
                                       MainAxisAlignment.spaceBetween,
                                                                   children: [
                                     SizedBox(
-                                      width: 150 * SizeConfig.ratioWidth,
+                                      width: 130 * SizeConfig.ratioWidth,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ class _ListUncompletedLotReceiptScreenState
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 150 * SizeConfig.ratioWidth,
+                                      width: 130 * SizeConfig.ratioWidth,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

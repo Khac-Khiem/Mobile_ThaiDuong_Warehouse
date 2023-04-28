@@ -169,7 +169,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: 150 * SizeConfig.ratioWidth,
+                                    width: 130 * SizeConfig.ratioWidth,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -214,7 +214,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 150 * SizeConfig.ratioWidth,
+                                    width: 130 * SizeConfig.ratioWidth,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

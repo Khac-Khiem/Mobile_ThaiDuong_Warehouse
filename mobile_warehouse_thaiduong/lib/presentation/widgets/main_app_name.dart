@@ -23,7 +23,7 @@ class MainAppName extends StatelessWidget {
           ),
         // SizedBox(height: 10 * SizeConfig.ratioHeight),
           Image(
-            image: AssetImage('lib/assets/Logo_demo.png'),
+            image: const AssetImage('lib/assets/Logo_demo.png'),
             width: 400 * SizeConfig.ratioWidth,
           ),
         ]);

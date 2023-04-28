@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/import/import_function_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/adjustment/scan_adjustment_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/shelves/shelves_function_screen.dart';
 
 import '../../widgets/button_widget.dart';
 import '../history/history_function_screen.dart';
 import '../isolation/isolation_function_screen.dart';
-import '../inventory/stockcard_function_screen.dart';
 import '../warning/warning_function_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -20,15 +16,15 @@ class MainScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-           leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
-            ),
-            onPressed: () {
-             Navigator.pushNamed(context, '//');
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.west, //mũi tên back
+            color: Colors.white,
           ),
+          onPressed: () {
+            Navigator.pushNamed(context, '//');
+          },
+        ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Quản lý kho',
@@ -58,7 +54,6 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.output,
                     text: "XUẤT KHO",
                     onPressed: () {
-                      
                       Navigator.pushNamed(context, '/export_main_screen');
                       // Navigator.push(
                       //   context,
@@ -75,7 +70,8 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.warehouse,
                     text: "TỒN KHO",
                     onPressed: () {
-                        Navigator.pushNamed(context, '/stockcard_function_screen');
+                      Navigator.pushNamed(
+                          context, '/stockcard_function_screen');
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -103,22 +99,25 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.cabin,
                     text: "KỆ KHO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShelveFunctionScreen()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const ShelveFunctionScreen()),
+                      // );
+                       Navigator.pushNamed(context, '/shelves_function_screen');
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.history_outlined,
                     text: "LỊCH SỬ",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const HistoryFunctionScreen()),
-                      );
+                      Navigator.pushNamed(context, '/history_function_screen');
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const HistoryFunctionScreen()),
+                      // );
                     }),
               ],
             ),
@@ -129,23 +128,25 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.hourglass_disabled_outlined,
                     text: "CÁCH LY",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const IsolationFunctionScreen()),
-                      );
+                        Navigator.pushNamed(context, '/isolation_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const IsolationFunctionScreen()),
+                      // );
                     }),
                 MainIconCustomizedButton(
                     icon: Icons.warning_amber_outlined,
                     text: "CẢNH BÁO",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const WarningFunctionScreen()),
-                      );
+                        Navigator.pushNamed(context, '/warning_function_screen');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const WarningFunctionScreen()),
+                      // );
                     }),
               ],
             ),

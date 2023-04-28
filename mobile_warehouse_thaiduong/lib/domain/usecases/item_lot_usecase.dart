@@ -1,3 +1,4 @@
+import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/item_lot_repository.dart';
 
@@ -22,13 +23,17 @@ class ItemLotUsecase {
     final itemLots = itemLotRepository.getIsolatedItemLots();
     return itemLots;
   }
-  Future<List<ItemLot>> getExpiredItemLots(DateTime dateTime)async {
-     final itemLots = itemLotRepository.getExpiredItemLots(dateTime);
+  Future<List<ItemLot>> getExpiredItemLots(int month)async {
+     final itemLots = itemLotRepository.getExpiredItemLots(month);
     return itemLots;
   }
 
-  Future<List<ItemLot>> getUnderStockminItemLots()async {
-     final itemLots = itemLotRepository.getUnderStockminItemLots();
+  Future<List<ItemLot>> getUnderStockminItemLots(String itemClassId)async {
+     final itemLots = itemLotRepository.getUnderStockminItemLots(itemClassId);
     return itemLots;
+  }
+  Future<ErrorPackage> patchIsolationItemLot(bool isolated, String itemLotId )async {
+     final status = itemLotRepository.patchIsolationItemLot(isolated, itemLotId);
+    return status;
   }
 }

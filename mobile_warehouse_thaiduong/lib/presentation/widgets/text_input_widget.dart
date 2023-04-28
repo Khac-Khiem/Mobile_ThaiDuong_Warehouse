@@ -1,9 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
-class TextInputWidget extends StatelessWidget {
+class TextInputWidget extends StatefulWidget {
   TextEditingController contentTextField;
   TextInputWidget({super.key, required this.contentTextField});
+
+  @override
+  State<TextInputWidget> createState() => _TextInputWidgetState();
+}
+
+class _TextInputWidgetState extends State<TextInputWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,11 +21,11 @@ class TextInputWidget extends StatelessWidget {
         height: 55 * SizeConfig.ratioHeight,
         //color: Colors.grey[200],
         child: TextField(
-          onChanged: (value) => contentTextField.text = value,
+          onChanged: (value) => widget.contentTextField.text = value,
           enabled: true,
           
           //    readOnly: true,
-          controller:contentTextField,
+          controller:widget.contentTextField,
          // textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20 * SizeConfig.ratioFont),

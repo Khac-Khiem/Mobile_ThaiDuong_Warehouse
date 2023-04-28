@@ -40,15 +40,15 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: IconButton(
-          icon: const Icon(
-            Icons.west, //mũi tên back
-            color: Colors.white,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/main_screen');
+            },
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/main_screen');
-          },
-        ),
           // leading: IconButton(
           //     icon: const Icon(Icons.west_outlined),
           //     onPressed: () {
@@ -117,9 +117,9 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                                     .show();
                               }
                             : () {
-                               BlocProvider.of<AdjustmentBloc>(context).add(
-                                GetLotDetailEvent(
-                                    DateTime.now(), scanResult));
+                                BlocProvider.of<AdjustmentBloc>(context).add(
+                                    GetLotDetailEvent(
+                                        DateTime.now(), scanResult));
                                 Navigator.pushNamed(
                                     context, '/lot_adjustment_screen');
                               },

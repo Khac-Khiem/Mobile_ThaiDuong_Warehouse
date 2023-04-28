@@ -4,17 +4,17 @@ import 'package:mobile_warehouse_thaiduong/constant.dart';
 
 class ReceiverListService{
   Future<List<String>> getAllReceiverId() async {
-    final res = await http.get(Uri.parse('${Constants.baseUrl}api/GoodsReceipts/PurchaseOrderNumber'));
+    final res = await http.get(Uri.parse('${Constants.baseUrl}api/GoodsIssues/Receivers'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       print(body.toString());
-      List<String> listPO = body
+      List<String> listReceiver  = body
           .map(
             (dynamic item) => item.toString(),
           )
           .toList();
-      print(listPO.toString());
-      return listPO;
+      print(listReceiver.toString());
+      return listReceiver;
     } else {
       throw "Unable to retrieve posts.";
     }

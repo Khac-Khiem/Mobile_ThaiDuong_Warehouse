@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/export_history_repo_impl.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/import_history_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/info_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/goods_issue_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/goods_receipt_repo_impl.dart';
@@ -9,8 +11,10 @@ import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/location
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/login_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/repositories_impl/lot_adjustment_repo_impl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/department_service.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/service/export_history_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/goods_issue_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/goods_receipt_service.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/service/import_history_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/inventory_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/item_lot_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/item_service.dart';
@@ -19,6 +23,8 @@ import 'package:mobile_warehouse_thaiduong/datasource/service/list_supplier_serv
 import 'package:mobile_warehouse_thaiduong/datasource/service/location_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/login_service.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/service/lot_adjustment_service.dart';
+import 'package:mobile_warehouse_thaiduong/domain/repositories/export_history_repository.dart';
+import 'package:mobile_warehouse_thaiduong/domain/repositories/import_history_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/info_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/goods_issue_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/goods_receipt_repository.dart';
@@ -27,6 +33,8 @@ import 'package:mobile_warehouse_thaiduong/domain/repositories/item_lot_reposito
 import 'package:mobile_warehouse_thaiduong/domain/repositories/item_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/location_repository.dart';
 import 'package:mobile_warehouse_thaiduong/domain/repositories/lot_adjment_repository.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/export_history_usecase.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/import_history_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/info_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_receipt_usecase.dart';
@@ -37,7 +45,10 @@ import 'package:mobile_warehouse_thaiduong/domain/usecases/location_usecase.dart
 import 'package:mobile_warehouse_thaiduong/domain/usecases/login_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/lot_adjustment_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/adjustment_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/export_history_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/import_history_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/isolation_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/create_new_issue_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/list_goods_issue_completed_bloc.dart';
@@ -52,6 +63,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/shelve_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/warning_bloc.dart';
 
 import 'datasource/service/list_receiver_service.dart';
 import 'domain/repositories/login_repository.dart';
@@ -74,6 +87,8 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<LotAdjustmentService>(LotAdjustmentService());
   injector.registerSingleton<LocationService>(LocationService());
   injector.registerSingleton<InventoryService>(InventoryService());
+  injector.registerSingleton<ImportHistoryService>(ImportHistoryService());
+  injector.registerSingleton<ExportHistoryService>(ExportHistoryService());
 
 // register repository
   injector.registerSingleton<LoginRepository>(LoginRepositoryImpl(injector()));
@@ -91,6 +106,10 @@ Future<void> initializeDependencies() async {
       .registerSingleton<GoodsIssueRepository>(GoodsIssueRepoImpl(injector()));
   injector
       .registerSingleton<InventoryRepository>(InventoryRepoImpl(injector()));
+  injector.registerSingleton<ImportHistoryRepoitory>(
+      ImportHistoryRepoImpl(injector()));
+  injector.registerSingleton<ExportHistoryRepoitory>(
+      ExportHistoryRepoImpl(injector()));
 
 // register usecase
   injector.registerSingleton<LoginUsecase>(LoginUsecase(injector()));
@@ -105,6 +124,10 @@ Future<void> initializeDependencies() async {
       .registerSingleton<GoodsReceiptUsecase>(GoodsReceiptUsecase(injector()));
   injector.registerSingleton<GoodsIssueUseCase>(GoodsIssueUseCase(injector()));
   injector.registerSingleton<Inventoryusecase>(Inventoryusecase(injector()));
+  injector.registerSingleton<ImportHistoryUsecase>(
+      ImportHistoryUsecase(injector()));
+  injector.registerSingleton<ExportHistoryUsecase>(
+      ExportHistoryUsecase(injector()));
 
 // register bloc
   injector.registerSingleton<LoginBloc>(LoginBloc(injector()));
@@ -142,4 +165,17 @@ Future<void> initializeDependencies() async {
   //invenory
   injector.registerSingleton<InventoryBloc>(
       InventoryBloc(injector(), injector(), injector()));
+  // history
+  injector.registerSingleton<ImportHistoryBloc>(
+      ImportHistoryBloc(injector(), injector(), injector(), injector()));
+  injector.registerSingleton<ExportHistoryBloc>(
+      ExportHistoryBloc(injector(), injector(), injector(), injector()));
+  injector.registerSingleton<WarningBloc>(
+      WarningBloc(injector(), injector(), injector()));
+  injector.registerSingleton<ShelveBloc>(
+      ShelveBloc(injector(), injector(), injector()));
+  injector.registerSingleton<IsolationBloc>(IsolationBloc(
+    injector(),
+    injector(),
+  ));
 }

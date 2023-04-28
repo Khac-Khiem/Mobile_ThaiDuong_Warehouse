@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 10 * SizeConfig.ratioHeight),
 
-                MainAppName(),
+                const MainAppName(),
 
                 // SizedBox(
                 //   height: 40 * SizeConfig.ratioHeight,

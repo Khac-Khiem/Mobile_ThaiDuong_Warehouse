@@ -108,7 +108,7 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                      width: 150 * SizeConfig.ratioWidth,
+                                      width: 130 * SizeConfig.ratioWidth,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 150 * SizeConfig.ratioWidth,
+                                      width: 130 * SizeConfig.ratioWidth,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

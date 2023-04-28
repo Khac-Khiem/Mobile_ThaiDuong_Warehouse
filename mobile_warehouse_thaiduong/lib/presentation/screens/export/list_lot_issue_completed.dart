@@ -111,21 +111,7 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                                   itemBuilder: (BuildContext context, int int) {
                                     return Column(
                                       children: [
-                                        // LotDetailComponent(
-                                        //     itemId: state
-                                        //         .goodsIssue
-                                        //         .entries![index]
-                                        //         .lots![int]
-                                        //         .goodsIssueLotId
-                                        //         .toString(),
-                                        //     location: '',
-                                        //     enableEdit: false,
-                                        //     lotid: '220123_NCC',
-                                        //     numberPO: '264836',
-                                        //     unit: 'cái',
-                                        //     quantity: 100,
-                                        //     sublotSize: 10,
-                                        //     onPressed: () {}),
+                                      
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(

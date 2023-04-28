@@ -17,6 +17,15 @@ class StockcardFunctionScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+             Navigator.pushNamed(context, '/main_screen');
+            },
+          ),
         backgroundColor: Constants.mainColor,
         title: Text(
           'Tồn kho',

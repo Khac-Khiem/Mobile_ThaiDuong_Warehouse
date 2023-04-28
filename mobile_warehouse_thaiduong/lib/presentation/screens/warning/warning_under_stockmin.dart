@@ -1,58 +1,453 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/dropdown_search_button.dart';
-
 import '../../../constant.dart';
+import '../../bloc/blocs/warning_bloc.dart';
+import '../../bloc/events/warning_stocklevel_events.dart';
+import '../../bloc/states/warning_states.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/exception_widget.dart';
 
-class WarningUnderStockminScreen extends StatelessWidget {
+class WarningUnderStockminScreen extends StatefulWidget {
   const WarningUnderStockminScreen({super.key});
+
+  @override
+  State<WarningUnderStockminScreen> createState() =>
+      _WarningUnderStockminScreenSate();
+}
+
+class _WarningUnderStockminScreenSate
+    extends State<WarningUnderStockminScreen> {
+  List<Warehouse> warehouseDropdownData = [];
+  Warehouse? selectedWarehouse;
+
   @override
   Widget build(BuildContext context) {
-    String expiredDay = '';
     SizeConfig().init(context);
-
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Cảnh báo',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
-        ),
-      ),
-      body: Column(children: [
-         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              overflow: TextOverflow.ellipsis,
-              "Kho hàng",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 20 * SizeConfig.ratioFont,
-                color: Colors.black,
-              ),
-            ),
-            DropdownSearchButton(buttonName: "Chọn loại kho hàng", height: 60, width: 200, listItem: [], reference: expiredDay, onChanged: (){})
-          ],
-        ),
-         const Divider(
-          indent: 30,
-          endIndent: 30,
-          color: Constants.mainColor,
-          thickness: 1,
-        ),
-        Text(
-          overflow: TextOverflow.ellipsis,
-          "Danh sách các lô hàng",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20 * SizeConfig.ratioFont,
-            color: Colors.black,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.west_outlined),
+            onPressed: () {
+              Navigator.pushNamed(context, '/warning_function_screen');
+            },
+          ),
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Cảnh báo',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
         ),
-         CustomizedButton(text: "Truy xuất" ,onPressed: (){})
-      ]),
-    );
+        body: Column(
+          children: [
+            BlocConsumer<WarningBloc, WarningState>(listener: (context, state) {
+              if (state is GetWarehouseSuccessState) {
+                warehouseDropdownData = state.warehouse;
+              }
+              if (state is MinimumStockWarningSuccessState) {
+                warehouseDropdownData = state.warehouse;
+              }
+            }, builder: (context, state) {
+              if (state is GetWarehouseSuccessState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.warehouse
+                              .map((e) => e.warehouseName)
+                              .toList(),
+                          showSearchBox: true,
+                          label: "Kho hàng",
+                          onChanged: (value) {
+                            print(value);
+                            selectedWarehouse = null;
+                            setState(() {
+                              selectedWarehouse = state.warehouse.firstWhere(
+                                  (element) => element.warehouseName == value);
+                            });
+                          },
+                          selectedItem: selectedWarehouse == null
+                              ? ''
+                              : selectedWarehouse!.warehouseId,
+                        ),
+                      ),
+                    ),
+                    CustomizedButton(
+                        text: "Truy xuất",
+                        onPressed: () {
+                          BlocProvider.of<WarningBloc>(context).add(
+                              LoadMinimumStockWarningEvent(
+                                  DateTime.now(),
+                                  selectedWarehouse!.warehouseId,
+                                  state.warehouse
+
+                                  //state.warehouse
+                                  ));
+                        }),
+                    const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                      color: Constants.mainColor,
+                      thickness: 1,
+                    ),
+                    ExceptionErrorState(
+                      title: 'Chưa có thông tin để truy xuất',
+                      message: "Chọn kho hàng để truy xuất",
+                    ),
+                  ],
+                );
+              }
+              if (state is MinimumStockWarningSuccessState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.warehouse
+                              .map((e) => e.warehouseName)
+                              .toList(),
+                          showSearchBox: true,
+                          label: "Kho hàng",
+                          onChanged: (value) {
+                            print(value);
+                            selectedWarehouse = null;
+                            setState(() {
+                              selectedWarehouse = state.warehouse.firstWhere(
+                                  (element) => element.warehouseName == value);
+                            });
+                          },
+                          selectedItem: selectedWarehouse == null
+                              ? ''
+                              : selectedWarehouse!.warehouseId,
+                        ),
+                      ),
+                    ),
+                    CustomizedButton(
+                        text: "Truy xuất",
+                        onPressed: () {
+                          BlocProvider.of<WarningBloc>(context).add(
+                              LoadMinimumStockWarningEvent(
+                                  DateTime.now(),
+                                  selectedWarehouse!.warehouseId,
+                                  state.warehouse
+
+                                  //state.warehouse
+                                  ));
+                        }),
+                    const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                      color: Constants.mainColor,
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 330 * SizeConfig.ratioHeight,
+                      child: ListView.builder(
+                          itemCount: state.itemLot.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ListTile(
+                                  trailing: Icon(Icons.edit,
+                                      size: 17 * SizeConfig.ratioFont),
+                                  title: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        0, 8.0, 0, 8.0),
+                                    child: Text(
+                                      "Mã lô : ${state.itemLot[index].lotId}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 150 * SizeConfig.ratioWidth,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Mã SP: ${state.itemLot[index].item!.itemId}"),
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Số lượng: ${state.itemLot[index].quantity}"),
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Vị trí: ${state.itemLot[index].location ?? '...'}"),
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "NSX: ${state.itemLot[index].productionDate ?? '...'}"),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 150 * SizeConfig.ratioWidth,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Tên SP: ${state.itemLot[index].item!.itemName}"),
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Định mức: ${state.itemLot[index].sublotSize ?? '...'}  "),
+                                            Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "Số PO: ${state.itemLot[index].purchaseOrderNumber ?? '...'}"),
+                                            Text(
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w100,
+                                                  fontSize:
+                                                      16 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                                "HSD: ${state.itemLot[index].expirationDate ?? '...'}"),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  isThreeLine: true,
+                                  onTap: () {},
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                );
+              }
+              if (state is MinimumStockWarningFailState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.warehouse
+                              .map((e) => e.warehouseName)
+                              .toList(),
+                          showSearchBox: true,
+                          label: "Kho hàng",
+                          onChanged: (value) {
+                            print(value);
+                            selectedWarehouse = null;
+                            setState(() {
+                              selectedWarehouse = state.warehouse.firstWhere(
+                                  (element) => element.warehouseName == value);
+                            });
+                          },
+                          selectedItem: selectedWarehouse == null
+                              ? ''
+                              : selectedWarehouse!.warehouseId,
+                        ),
+                      ),
+                    ),
+                    CustomizedButton(
+                        text: "Truy xuất",
+                        onPressed: () {
+                          BlocProvider.of<WarningBloc>(context).add(
+                              LoadMinimumStockWarningEvent(
+                                  DateTime.now(),
+                                  selectedWarehouse!.warehouseId,
+                                  state.warehouse
+
+                                  //state.warehouse
+                                  ));
+                        }),
+                    const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                      color: Constants.mainColor,
+                      thickness: 1,
+                    ),
+                    Center(
+                      child: ExceptionErrorState(
+                        title: state.detail,
+                        message: "Chọn lại thông tin để truy xuất",
+                      ),
+                    ),
+                  ],
+                );
+              }
+              if (state is MinimumStockWarningLoadingState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.warehouse
+                              .map((e) => e.warehouseName)
+                              .toList(),
+                          showSearchBox: true,
+                          label: "Kho hàng",
+                          onChanged: (value) {
+                            print(value);
+                            selectedWarehouse = null;
+                            setState(() {
+                              selectedWarehouse = state.warehouse.firstWhere(
+                                  (element) => element.warehouseName == value);
+                            });
+                          },
+                          selectedItem: selectedWarehouse == null
+                              ? ''
+                              : selectedWarehouse!.warehouseId,
+                        ),
+                      ),
+                    ),
+                    CustomizedButton(
+                        text: "Truy xuất",
+                        onPressed: () {
+                          BlocProvider.of<WarningBloc>(context).add(
+                              LoadMinimumStockWarningEvent(
+                                  DateTime.now(),
+                                  selectedWarehouse!.warehouseId,
+                                  state.warehouse
+
+                                  //state.warehouse
+                                  ));
+                        }),
+                    const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                      color: Constants.mainColor,
+                      thickness: 1,
+                    ),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
+                );
+              } else {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          items: state.warehouse
+                              .map((e) => e.warehouseName)
+                              .toList(),
+                          showSearchBox: true,
+                          label: "Kho hàng",
+                          onChanged: (value) {
+                            print(value);
+                            selectedWarehouse = null;
+                            setState(() {
+                              selectedWarehouse = state.warehouse.firstWhere(
+                                  (element) => element.warehouseName == value);
+                            });
+                          },
+                          selectedItem: selectedWarehouse == null
+                              ? ''
+                              : selectedWarehouse!.warehouseId,
+                        ),
+                      ),
+                    ),
+                    CustomizedButton(
+                        text: "Truy xuất",
+                        onPressed: () {
+                          BlocProvider.of<WarningBloc>(context).add(
+                              LoadMinimumStockWarningEvent(
+                                  DateTime.now(),
+                                  selectedWarehouse!.warehouseId,
+                                  state.warehouse
+
+                                  //state.warehouse
+                                  ));
+                        }),
+                    const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                      color: Constants.mainColor,
+                      thickness: 1,
+                    ),
+                  Center(
+                          child: ExceptionErrorState(
+                            title: 'Chưa có thông tin để truy xuất',
+                            message: "Chọn kho hàng để truy xuất",
+                          ),
+                        ),
+                      
+                  ],
+                );
+              }
+            }),
+          ],
+        ));
   }
 }
