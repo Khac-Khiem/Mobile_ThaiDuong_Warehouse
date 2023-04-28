@@ -34,10 +34,9 @@ class GetAllLocationEvent extends ShelveEvent {
 // Hiển thị danh sách tìm kiếm theo vị trí
 class GetLotByLocationEvent extends ShelveEvent {
   DateTime timestamp;
-  List<Warehouse> listLocation;
+  List<Location> listLocation;
   String locations;
-  List<Warehouse> warehouse;
-  GetLotByLocationEvent(this.timestamp, this.listLocation, this.locations, this.warehouse);
+  GetLotByLocationEvent(this.timestamp, this.listLocation, this.locations,);
   @override
   List<Object> get props => [timestamp];
 }

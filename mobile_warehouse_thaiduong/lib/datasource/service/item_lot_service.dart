@@ -40,7 +40,7 @@ class ItemLotService {
   }
  
   Future<List<ItemLotModel>> getItemLotsByLocation(String locationId) async {
-    final res = await http.get(Uri.parse('${Constants.baseUrl}api/Warnings/ExpirationDate/'));
+    final res = await http.get(Uri.parse('${Constants.baseUrl}/api/ItemLots/ByLocation/$locationId'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       print(body.toString());

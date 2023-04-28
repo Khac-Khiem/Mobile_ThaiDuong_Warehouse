@@ -1,6 +1,6 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/location_model.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/location_usecase.dart';
@@ -29,9 +29,9 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
       try {
         final itemLot = await itemLotUsecase.getItemLotsByItemId(event.itemId);
         itemLot.isNotEmpty
-            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot, event.listItem, event.itemId, event.listItem))
-            : emit(GetLotByItemIdFailState(
-                DateTime.now(), ''));
+            ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot,
+                event.listItem, event.itemId, event.listItem))
+            : emit(GetLotByItemIdFailState(DateTime.now(), ''));
       } catch (e) {
         emit(GetLotByItemIdFailState(
             DateTime.now(), 'Không truy xuất được dữ liệu'));
@@ -39,10 +39,16 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
     });
     // lấy list vị trí
     on<GetAllLocationEvent>((event, emit) async {
+      List<Location> locations = [];
+
       emit(GetAllLocationLoadingState(DateTime.now()));
       try {
-          final warehouse = await locationUsecase.getAllWarehouseId();
-        emit(GetAllLocationSuccessState(DateTime.now(), warehouse));
+        final warehouse = await locationUsecase.getAllWarehouseId();
+
+        for (var element in warehouse) {
+          locations = locations + element.locations;
+        }
+        emit(GetAllLocationSuccessState(DateTime.now(), locations));
       } catch (e) {
         emit(GetAllLocationFailState(DateTime.now()));
       }
@@ -54,7 +60,8 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
         final itemLot =
             await itemLotUsecase.getItemLotsByLocation(event.locations);
         itemLot.isNotEmpty
-            ? emit(GetLotByLocationSuccessState(DateTime.now(), itemLot, event.listLocation, event.warehouse, event.locations))
+            ? emit(GetLotByLocationSuccessState(DateTime.now(), itemLot,
+                event.listLocation, event.locations))
             : emit(GetLotByLocationFailState(
                 DateTime.now(), 'Không có lô ở vị trí này'));
       } catch (e) {
