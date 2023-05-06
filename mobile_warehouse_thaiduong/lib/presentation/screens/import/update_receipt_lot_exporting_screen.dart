@@ -4,11 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/create_new_receipt_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/uncompleted_receipt_lot_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/fill_info_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/barcode_input_widget.dart';
@@ -376,7 +373,7 @@ class _UpdateInfoLotReceiptScreenState
                                   context,
                                   "Cảnh báo",
                                   "Vui lòng điền đầy đủ các thông tin trong phần bắt buộc",
-                                  "Trở lại", () {
+                                  "Trở lại",'', () {
                             // Navigator.pushNamed(
                             //   context,
                             //   '/fill_main_info_issue_screen',

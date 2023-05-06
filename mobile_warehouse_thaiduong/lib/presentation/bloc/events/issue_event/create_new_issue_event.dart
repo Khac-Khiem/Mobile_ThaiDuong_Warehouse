@@ -11,14 +11,14 @@ abstract class CreateNewIssueEvent extends Equatable {}
 // }
 
 // get danh số bộ phận, PO
-class LoadListDataEvent extends CreateNewIssueEvent {
-  DateTime timestamp;
-  List<GoodsIssueEntry> entriesIssue;
-  LoadListDataEvent(this.timestamp, this.entriesIssue);
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+// class LoadListDataEvent extends CreateNewIssueEvent {
+//   DateTime timestamp;
+//   List<GoodsIssueEntry> entriesIssue;
+//   LoadListDataEvent(this.timestamp, this.entriesIssue);
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
 //thêm 1 entry mới
 class AddIssueEntryEvent extends CreateNewIssueEvent {
@@ -27,8 +27,8 @@ class AddIssueEntryEvent extends CreateNewIssueEvent {
   // String receiver;
   // String poNumber;
   GoodsIssueEntry issueEntry;
-  List<GoodsIssueEntry> issueEntries;
-  AddIssueEntryEvent(this.issueEntry, this.issueEntries, this.timestamp);
+  GoodsIssue goodsIssue;
+  AddIssueEntryEvent(this.issueEntry, this.goodsIssue, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -37,14 +37,12 @@ class AddIssueEntryEvent extends CreateNewIssueEvent {
 // cập nhật entry cũ
 class UpdateIssueEntryEvent extends CreateNewIssueEvent {
   DateTime timestamp;
-  // String issueId;
-  // String receiver;
-  // String poNumber;
-  List<GoodsIssueEntry> issueEntries;
+
+  GoodsIssue goodsIssue;
   GoodsIssueEntry issueEntry;
   int index;
   UpdateIssueEntryEvent(
-      this.issueEntry, this.issueEntries, this.index, this.timestamp);
+      this.issueEntry, this.goodsIssue, this.index, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -56,8 +54,8 @@ class LoadIssueEntryEvent extends CreateNewIssueEvent {
   // String issueId;
   // String receiver;
   // String poNumber;
-  List<GoodsIssueEntry> issueEntries;
-  LoadIssueEntryEvent(this.issueEntries, this.timestamp);
+  GoodsIssue goodsIssue;
+  LoadIssueEntryEvent(this.goodsIssue, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -66,11 +64,8 @@ class LoadIssueEntryEvent extends CreateNewIssueEvent {
 // post 1 đơn mới
 class PostNewGoodsIssueEvent extends CreateNewIssueEvent {
   DateTime timestamp;
-  String goodsIssueId;
-  String purchaseOrderNumber;
-  String receiver;
-  List<GoodsIssueEntry> issueEntries;
-  PostNewGoodsIssueEvent(this.issueEntries, this.goodsIssueId, this.purchaseOrderNumber, this.receiver, this.timestamp);
+  GoodsIssue goodsIssue;
+  PostNewGoodsIssueEvent(this.goodsIssue, this.timestamp);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

@@ -3,11 +3,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 
 abstract class GoodsIssueRepository {
   Future<ErrorPackage> postNewGoodsIssue(
-      String goodsIssueId,
-      String purchaseOrderNumber,
-      DateTime timestamp,
-      String receiver,
-      List<GoodsIssueEntry> entries);
+    GoodsIssue goodsIssue);
   Future<List<GoodsIssue>> getUncompletedGoodsIssue();
   Future<List<GoodsIssue>> getCompletedGoodsissue(DateTime startDate, DateTime endDate);
   Future<GoodsIssue> getGoodsIssueById(String goodsIssueId);

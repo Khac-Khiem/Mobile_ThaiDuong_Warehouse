@@ -21,15 +21,17 @@ class GoodsReceiptService {
     List bodyJson = [];
     for (int i = 0; i < goodsReceipt.lots.length; i++) {
       Map<String, dynamic> dimensionJson = {
-        "goodsReceiptLotId":  goodsReceipt.lots[i].goodsReceiptLotId.toString(),
+        "goodsReceiptLotId": goodsReceipt.lots[i].goodsReceiptLotId.toString(),
         "quantity": double.tryParse(goodsReceipt.lots[i].quantity.toString()),
         "unit": goodsReceipt.lots[i].unit.toString(),
         "itemId": goodsReceipt.lots[i].item!.itemId.toString(),
-        "purchaseOrderNumber": goodsReceipt.lots[i].purchaseOrderNumber.toString(),
+        "purchaseOrderNumber":
+            goodsReceipt.lots[i].purchaseOrderNumber.toString(),
         "employeeId": 'NV01',
         "note": goodsReceipt.lots[i].note.toString(),
         "locationId": goodsReceipt.lots[i].location.toString(),
-        "sublotSize": double.tryParse(goodsReceipt.lots[i].sublotSize.toString()),
+        "sublotSize":
+            double.tryParse(goodsReceipt.lots[i].sublotSize.toString()),
         "productionDate": goodsReceipt.lots[i].productionDate.toString(),
         "expirationDate": goodsReceipt.lots[i].expirationDate.toString(),
         //  "goodsReceiptLotId": "lo1_0004",
@@ -47,7 +49,8 @@ class GoodsReceiptService {
       bodyJson.add(dimensionJson);
     }
     final res = await http.post(
-        Uri.parse('${Constants.baseUrl}api/GoodsReceipts/goodsReceipt/goodsReceiptLots'),
+        Uri.parse(
+            '${Constants.baseUrl}api/GoodsReceipts/goodsReceipt/goodsReceiptLots'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': '*/*',
@@ -57,7 +60,7 @@ class GoodsReceiptService {
             "goodsReceiptId": goodsReceipt.goodsReceiptId,
             "supplier": goodsReceipt.supply,
             "employeeId": "NV01",
-            "goodsReceiptLots":bodyJson 
+            "goodsReceiptLots": bodyJson
             //  [
             //   {
             //     "goodsReceiptLotId": "lo1_0003",
@@ -96,8 +99,11 @@ class GoodsReceiptService {
 
   Future<List<GoodsReceiptModel>> getCompletedGoodsReceipts(
       DateTime startDate, DateTime endDate) async {
+    final start = DateFormat('yyyy-MM-dd').format(startDate);
+    final end = DateFormat('yyyy-MM-dd').format(endDate);
     final res = await http.get(
-      Uri.parse('${Constants.baseUrl}api/GoodsReceipts/goodsReceipts/true'),
+      Uri.parse(
+          '${Constants.baseUrl}api/GoodsReceipts/TimeRange?startTime=$start&endTime=$end'),
       // headers: {
       //   'Content-Type': 'application/json; charset=UTF-8',
       //   'Accept': '*/*',
@@ -120,7 +126,6 @@ class GoodsReceiptService {
     } else {
       throw "Unable to retrieve posts.";
     }
-   
   }
 
   Future<List<GoodsReceiptModel>> getUnCompletedGoodsReceipts() async {
@@ -148,6 +153,5 @@ class GoodsReceiptService {
     } else {
       throw "Unable to retrieve posts.";
     }
-   
   }
 }

@@ -28,7 +28,7 @@ class FillInfoLotReceiptScreen extends StatefulWidget {
 
 class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
 //  Item? selectedItem;
- // String unit = '';
+  // String unit = '';
   GoodsReceiptLot goodsReceiptLot = GoodsReceiptLot(
       '', null, null, null, null, null, null, null, null, null, null);
   // String lotId = '', poNumber = '';
@@ -106,7 +106,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           setState(() {
                             goodsReceiptLot.item = state.items.firstWhere(
                                 (element) => element.itemId == value);
-                            goodsReceiptLot.unit = goodsReceiptLot.item!.unit.toString();
+                            goodsReceiptLot.unit =
+                                goodsReceiptLot.item!.unit.toString();
 
                             //  goodsReceiptLot.item!.itemId = value.toString();
                           });
@@ -136,7 +137,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             setState(() {
                               goodsReceiptLot.item = state.items.firstWhere(
                                   (element) => element.itemName == value);
-                              goodsReceiptLot.unit = goodsReceiptLot.item!.unit.toString();
+                              goodsReceiptLot.unit =
+                                  goodsReceiptLot.item!.unit.toString();
                               // goodsReceiptLot.item!.itemId =
                               //     goodsReceiptLot.item!.itemId;
                             });
@@ -180,6 +182,46 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           //color: Colors.grey[200],
                           child: TextField(
                             controller: TextEditingController(
+                                text: goodsReceiptLot.quantity == null
+                                    ? ''
+                                    : goodsReceiptLot.quantity.toString()),
+                            // state.index == -1
+                            //     ? TextEditingController()
+                            //     :
+                            // TextEditingController(
+                            //         text: goodsReceiptLot.sublotSize
+                            //             .toString()),
+                            onSubmitted: (value) => value != ''
+                                ? goodsReceiptLot.quantity = double.parse(value)
+                                : goodsReceiptLot.quantity = double.parse('0'),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                // filled: true,
+                                // fillColor: Constants.buttonColor,
+                                labelStyle: TextStyle(
+                                    fontSize: 15 * SizeConfig.ratioFont),
+                                labelText: "Tổng lượng"),
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[0-9.,]')),
+                            ],
+                            onChanged: (value) => value != ''
+                                ? goodsReceiptLot.quantity = double.parse(value)
+                                : goodsReceiptLot.quantity = double.parse('0'),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10 * SizeConfig.ratioHeight),
+                          alignment: Alignment.centerRight,
+                          width: 160 * SizeConfig.ratioWidth,
+                          height: 80 * SizeConfig.ratioHeight,
+                          //color: Colors.grey[200],
+                          child: TextField(
+                            controller: TextEditingController(
                                 text: goodsReceiptLot.sublotSize == null
                                     ? ''
                                     : goodsReceiptLot.sublotSize.toString()),
@@ -214,56 +256,41 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                     double.parse('0'),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10 * SizeConfig.ratioHeight),
-                          alignment: Alignment.centerRight,
-                          width: 160 * SizeConfig.ratioWidth,
-                          height: 80 * SizeConfig.ratioHeight,
-                          //color: Colors.grey[200],
-                          child: TextField(
-                            controller: TextEditingController(
-                                text: goodsReceiptLot.quantity == null
-                                    ? ''
-                                    : goodsReceiptLot.quantity.toString()),
-                            // state.index == -1
-                            //     ? TextEditingController()
-                            //     :
-                            // TextEditingController(
-                            //         text: goodsReceiptLot.sublotSize
-                            //             .toString()),
-                            onSubmitted: (value) => value != ''
-                                ? goodsReceiptLot.quantity = double.parse(value)
-                                : goodsReceiptLot.quantity = double.parse('0'),
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                // filled: true,
-                                // fillColor: Constants.buttonColor,
-                                labelStyle: TextStyle(
-                                    fontSize: 15 * SizeConfig.ratioFont),
-                                labelText: "Tổng lượng"),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp('[0-9.,]')),
-                            ],
-                            onChanged: (value) => value != ''
-                                ? goodsReceiptLot.quantity = double.parse(value)
-                                : goodsReceiptLot.quantity = double.parse('0'),
-                          ),
-                        )
                       ],
                     ),
+                    // Container(
+                    //   width: 350 * SizeConfig.ratioWidth,
+                    //   height: 60 * SizeConfig.ratioHeight,
+                    //   margin: EdgeInsets.symmetric(
+                    //       vertical: 5 * SizeConfig.ratioHeight),
+                    //   child: TextField(
+                    //     controller: TextEditingController(
+                    //         text: goodsReceiptLot.sublotSize == null || goodsReceiptLot.sublotSize == 0
+                    //             ? ''
+                    //             : (goodsReceiptLot.quantity! 
+                    //                     )
+                    //                 .toString()),
+                    //     // state.index == -1
+                    //     //     ? TextEditingController()
+                    //     //     : TextEditingController(
+                    //     //         text: state
+                    //     //             .lots[state.index].purchaseOrderNumber
+                    //     //             .toString(),
+                    //     //       ),
+                    //     decoration: InputDecoration(
+                    //         border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(5)),
+                    //         // filled: true,
+                    //         // fillColor: Constants.buttonColor,
+                    //         labelText: ""),
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                   
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                        
                           child: CustomizeDatePicker(
                             name: "NSX",
                             fontColor: Colors.black,
@@ -278,10 +305,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           ),
                         ),
                         Container(
-                        
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                        
                           child: CustomizeDatePicker(
                             name: "HSD",
                             fontColor: Colors.black,
@@ -329,7 +354,6 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             )),
                       ),
                     ]),
-                    
                     Container(
                       width: 350 * SizeConfig.ratioWidth,
                       height: 60 * SizeConfig.ratioHeight,
@@ -364,7 +388,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                   context,
                                   "Cảnh báo",
                                   "Vui lòng điền đầy đủ các thông tin trong phần bắt buộc",
-                                  "Trở lại", () {
+                                  "Trở lại",
+                                  '', () {
                             // Navigator.pushNamed(
                             //   context,
                             //   '/fill_main_info_issue_screen',

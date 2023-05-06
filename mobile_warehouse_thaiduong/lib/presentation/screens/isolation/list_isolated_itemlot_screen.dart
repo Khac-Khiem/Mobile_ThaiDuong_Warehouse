@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/isolation_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/isolation_states.dart';
@@ -117,15 +118,20 @@ class _ListIsolatedItemLotScreenState extends State<ListIsolatedItemLotScreen> {
                                                   color: Colors.black,
                                                 ),
                                                 "Vị trí: ${state.itemLot[index].location ?? '...'}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "NSX: ${state.itemLot[index].productionDate ?? '...'}"),
+                                           Text(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w100,
+                                                        fontSize: 16 *
+                                                            SizeConfig
+                                                                .ratioFont,
+                                                        color: Colors.black,
+                                                      ),
+                                                      "NSX: ${DateFormat('yyyy-MM-dd')
+                                          .format(
+                                              state.itemLot[index].productionDate as DateTime)}"),
                                           ],
                                         ),
                                       ),
@@ -163,13 +169,19 @@ class _ListIsolatedItemLotScreenState extends State<ListIsolatedItemLotScreen> {
                                                 ),
                                                 "Số PO: ${state.itemLot[index].purchaseOrderNumber ?? '...'}"),
                                             Text(
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "HSD: ${state.itemLot[index].expirationDate ?? '...'}"),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w100,
+                                                        fontSize: 16 *
+                                                            SizeConfig
+                                                                .ratioFont,
+                                                        color: Colors.black,
+                                                      ),
+                                                      "HSD: ${DateFormat('yyyy-MM-dd')
+                                          .format(
+                                              state.itemLot[index].expirationDate as DateTime)}"),
                                           ],
                                         ),
                                       ),

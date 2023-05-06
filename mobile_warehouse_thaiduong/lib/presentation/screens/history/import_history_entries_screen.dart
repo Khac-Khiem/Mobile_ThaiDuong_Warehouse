@@ -46,7 +46,7 @@ class _ImportHistoryEntryScreenState extends State<ImportHistoryEntryScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           overflow: TextOverflow.ellipsis,
-                          "Danh sách các lô hàng",
+                          "Lịch sử nhập kho",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20 * SizeConfig.ratioFont,
@@ -54,150 +54,187 @@ class _ImportHistoryEntryScreenState extends State<ImportHistoryEntryScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: 500 * SizeConfig.ratioHeight,
-                          child: ListView.builder(
-                              // shrinkWrap: true,
-                              itemCount: state.importHistoryEntries.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Visibility(
-                                  visible: state.importHistoryEntries[index]
-                                      .lots!.isNotEmpty,
-                                  child: Column(
-                                    children: [
-                                      ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: state
-                                              .importHistoryEntries[index]
-                                              .lots!
-                                              .length,
-                                          itemBuilder: (BuildContext context,
-                                              int index2) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              child: Container(
-                                                height: 90.0 *
-                                                    SizeConfig.ratioHeight,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    width: 1,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: ListTile(
-                                                    // leading: const Icon(
-                                                    //     Icons.list),
-                                                    leading: Text(
-                                                        "  ${DateFormat('yyyy-MM-dd').format(state.importHistoryEntries[index].timestamp as DateTime)}"),
-                                                    title: Text(
-                                                        "NCC : ${state.importHistoryEntries[index].supplier}"),
-                                                    subtitle: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 130 *
-                                                              SizeConfig
-                                                                  .ratioWidth,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w100,
-                                                                    fontSize: 16 *
-                                                                        SizeConfig
-                                                                            .ratioFont,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                  "Mã lô: ${state.importHistoryEntries[index].lots![index2].goodsReceiptLotId}"),
-                                                              Text(
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w100,
-                                                                    fontSize: 16 *
-                                                                        SizeConfig
-                                                                            .ratioFont,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                  "Tên SP: ${state.importHistoryEntries[index].lots![index2].item!.itemName}"),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 130 *
-                                                              SizeConfig
-                                                                  .ratioWidth,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w100,
-                                                                    fontSize: 16 *
-                                                                        SizeConfig
-                                                                            .ratioFont,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                  "SL: ${state.importHistoryEntries[index].lots![index2].quantity}"),
-                                                              Text(
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w100,
-                                                                    fontSize: 16 *
-                                                                        SizeConfig
-                                                                            .ratioFont,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                  "Số PO: ${state.importHistoryEntries[index].lots![index2].purchaseOrderNumber ?? '...'}"),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    isThreeLine: true,
-                                                    onTap: () {}),
-                                              ),
-                                            );
-                                          })
-                                    ],
-                                  ),
-                                );
-                              })),
+
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      
+                          child: DataTable(
+                            columns: [
+                              DataColumn(label: Text('NCC')),
+                              DataColumn(label: Text('Mã lô')),
+                              DataColumn(label: Text('SP')),
+                              DataColumn(label: Text('SL')),
+                              DataColumn(label: Text('PO')),
+                            ],
+                            rows: state
+                                .importHistoryEntries // Loops through dataColumnText, each iteration assigning the value to element
+                                .map(
+                                  ((element) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(element.supplier
+                                              .toString())), //Extracting from Map element the value
+                                          DataCell(
+                                              Text(element.goodsReceiptLotId.toString())),
+                                          DataCell(
+                                              Text(element.itemName.toString())),
+                                               DataCell(
+                                              Text(element.quantity.toString())),
+                                          DataCell(
+                                              Text(element.purchaseOrderNumber.toString())),
+                                        ],
+                                      )),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      // SizedBox(
+                      //     height: 500 * SizeConfig.ratioHeight,
+                      //     child:
+                      //     ListView.builder(
+                      //         // shrinkWrap: true,
+                      //         itemCount: state.importHistoryEntries.length,
+                      //         itemBuilder: (BuildContext context, int index) {
+                      //           return Visibility(
+                      //             visible: state.importHistoryEntries[index]
+                      //                 .lots!.isNotEmpty,
+                      //             child: Column(
+                      //               children: [
+                      //                 ListView.builder(
+                      //                     shrinkWrap: true,
+                      //                     physics: ScrollPhysics(),
+                      //                     itemCount: state
+                      //                         .importHistoryEntries[index]
+                      //                         .lots!
+                      //                         .length,
+                      //                     itemBuilder: (BuildContext context,
+                      //                         int index2) {
+                      //                       return Padding(
+                      //                         padding:
+                      //                             const EdgeInsets.all(5.0),
+                      //                         child: Container(
+                      //                           height: 90.0 *
+                      //                               SizeConfig.ratioHeight,
+                      //                           decoration: BoxDecoration(
+                      //                             border: Border.all(
+                      //                               width: 1,
+                      //                             ),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: ListTile(
+                      //                               // leading: const Icon(
+                      //                               //     Icons.list),
+                      //                               leading: Text(
+                      //                                   DateFormat('yyyy-MM-dd').format(state.importHistoryEntries[index].timestamp as DateTime)),
+                      //                               title: Text(
+                      //                                   "NCC : ${state.importHistoryEntries[index].supplier}"),
+                      //                               subtitle: Row(
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment
+                      //                                         .spaceBetween,
+                      //                                 children: [
+                      //                                   SizedBox(
+                      //                                     width: 130 *
+                      //                                         SizeConfig
+                      //                                             .ratioWidth,
+                      //                                     child: Column(
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Text(
+                      //                                             overflow:
+                      //                                                 TextOverflow
+                      //                                                     .ellipsis,
+                      //                                             style:
+                      //                                                 TextStyle(
+                      //                                               fontWeight:
+                      //                                                   FontWeight
+                      //                                                       .w100,
+                      //                                               fontSize: 16 *
+                      //                                                   SizeConfig
+                      //                                                       .ratioFont,
+                      //                                               color: Colors
+                      //                                                   .black,
+                      //                                             ),
+                      //                                             "Mã lô: ${state.importHistoryEntries[index].lots![index2].goodsReceiptLotId}"),
+                      //                                         Text(
+                      //                                             overflow:
+                      //                                                 TextOverflow
+                      //                                                     .ellipsis,
+                      //                                             style:
+                      //                                                 TextStyle(
+                      //                                               fontWeight:
+                      //                                                   FontWeight
+                      //                                                       .w100,
+                      //                                               fontSize: 16 *
+                      //                                                   SizeConfig
+                      //                                                       .ratioFont,
+                      //                                               color: Colors
+                      //                                                   .black,
+                      //                                             ),
+                      //                                             "Tên SP: ${state.importHistoryEntries[index].lots![index2].item!.itemName}"),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                   SizedBox(
+                      //                                     width: 130 *
+                      //                                         SizeConfig
+                      //                                             .ratioWidth,
+                      //                                     child: Column(
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Text(
+                      //                                             overflow:
+                      //                                                 TextOverflow
+                      //                                                     .ellipsis,
+                      //                                             style:
+                      //                                                 TextStyle(
+                      //                                               fontWeight:
+                      //                                                   FontWeight
+                      //                                                       .w100,
+                      //                                               fontSize: 16 *
+                      //                                                   SizeConfig
+                      //                                                       .ratioFont,
+                      //                                               color: Colors
+                      //                                                   .black,
+                      //                                             ),
+                      //                                             "SL: ${state.importHistoryEntries[index].lots![index2].quantity}"),
+                      //                                         Text(
+                      //                                             overflow:
+                      //                                                 TextOverflow
+                      //                                                     .ellipsis,
+                      //                                             style:
+                      //                                                 TextStyle(
+                      //                                               fontWeight:
+                      //                                                   FontWeight
+                      //                                                       .w100,
+                      //                                               fontSize: 16 *
+                      //                                                   SizeConfig
+                      //                                                       .ratioFont,
+                      //                                               color: Colors
+                      //                                                   .black,
+                      //                                             ),
+                      //                                             "Số PO: ${state.importHistoryEntries[index].lots![index2].purchaseOrderNumber ?? '...'}"),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               isThreeLine: true,
+                      //                               onTap: () {}),
+                      //                         ),
+                      //                       );
+                      //                     })
+                      //               ],
+                      //             ),
+                      //           );
+                      //         })),
                       CustomizedButton(
                         onPressed: () {
                           // BlocProvider.of<HistoryBloc>(context)
@@ -216,43 +253,31 @@ class _ImportHistoryEntryScreenState extends State<ImportHistoryEntryScreen> {
                 }
                 if (state is AccessImportHistoryFailState) {
                   return SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ExceptionErrorState(
-                          title: state.status.detail,
-                          message: "Vui lòng thử lại sau",
-                        ),
-                      ],
+                    child: Center(
+                      child: ExceptionErrorState(
+                        title: state.status.detail,
+                        message: "Vui lòng thử lại sau",
+                      ),
                     ),
                   );
                 }
                 if (state is AccessImportHistoryLoadingState) {
                   return SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ExceptionErrorState(
-                          icon: Icons.wifi_protected_setup_sharp,
-                          title: 'Loading',
-                          message: "Vui lòng đợi....",
-                        ),
-                      ],
+                    child: Center(
+                      child: ExceptionErrorState(
+                        icon: Icons.wifi_protected_setup_sharp,
+                        title: 'Loading',
+                        message: "Vui lòng đợi....",
+                      ),
                     ),
                   );
                 } else {
                   return SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ExceptionErrorState(
-                          title: 'Lỗi hệ thống',
-                          message: "Vui lòng thử lại sau",
-                        ),
-                      ],
+                    child: Center(
+                      child: ExceptionErrorState(
+                        title: 'Lỗi hệ thống',
+                        message: "Vui lòng thử lại sau",
+                      ),
                     ),
                   );
                 }

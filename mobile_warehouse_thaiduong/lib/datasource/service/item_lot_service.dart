@@ -8,7 +8,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 class ItemLotService {
   Future<ItemLotModel> getItemLotById(String lotId) async {
     final res = await http.get(
-      Uri.parse(Constants.baseUrl + 'api/ItemLots/ByLotId/$lotId'),
+      Uri.parse('${Constants.baseUrl}api/ItemLots/ByLotId/$lotId'),
     );
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);

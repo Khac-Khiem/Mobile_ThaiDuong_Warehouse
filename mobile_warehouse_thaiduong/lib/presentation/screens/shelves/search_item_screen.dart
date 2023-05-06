@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../../constant.dart';
@@ -251,7 +252,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                                       16 * SizeConfig.ratioFont,
                                                   color: Colors.black,
                                                 ),
-                                                "NSX: ${state.itemLot[index].productionDate ?? '...'}"),
+                                                "NSX: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].productionDate as DateTime)}"),
                                           ],
                                         ),
                                       ),
@@ -289,13 +290,14 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                                 ),
                                                 "Số PO: ${state.itemLot[index].purchaseOrderNumber ?? '...'}"),
                                             Text(
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w100,
                                                   fontSize:
                                                       16 * SizeConfig.ratioFont,
                                                   color: Colors.black,
                                                 ),
-                                                "HSD: ${state.itemLot[index].expirationDate ?? '...'}"),
+                                                "HSD: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].expirationDate as DateTime)}"),
                                           ],
                                         ),
                                       ),

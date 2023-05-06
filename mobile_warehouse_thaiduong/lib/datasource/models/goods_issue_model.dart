@@ -1,3 +1,4 @@
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/employee_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
@@ -8,8 +9,8 @@ class GoodsIssueLotModel extends GoodsIssueLot {
   factory GoodsIssueLotModel.fromJson(Map<String, dynamic> json) {
     return GoodsIssueLotModel(
       json['goodsIssueLotId'],
-      json['quantity'],
-      json['sublotSize'],
+      double.tryParse( json['quantity'].toString()) ,  
+     double.tryParse( json['sublotSize'].toString())  ,
       json['employee']
       == null
           ? null as EmployeeModel

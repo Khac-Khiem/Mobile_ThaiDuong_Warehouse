@@ -17,11 +17,11 @@ class LoadItemDataSuccessState extends FillInfoIssueEntryState {
   // String receiver;
   // String poNumber;
   List<Item> items;
-  List<GoodsIssueEntry> entries;
+  GoodsIssue? goodsIssue;
   int index;
   DateTime timestamp;
   @override
-  LoadItemDataSuccessState( this.items, this.entries, this.index, this.timestamp);
+  LoadItemDataSuccessState( this.items, this.goodsIssue, this.index, this.timestamp);
   // TODO: implement props
   List<Object?> get props => [timestamp];
 }

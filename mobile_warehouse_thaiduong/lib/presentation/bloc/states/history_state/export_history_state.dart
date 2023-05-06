@@ -38,6 +38,8 @@ class GetAllInfoExportLoadingState extends ExportHistoryState {
 class GetAllInfoExportFailState extends ExportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+
+  
   GetAllInfoExportFailState(this.timestamp, this.status) :  super([], [], [], [], []);
   @override
   List<Object> get props => [timestamp];
@@ -67,6 +69,8 @@ class GetExportItemByWarehouseLoadingState extends ExportHistoryState {
 class GetExportItemByWarehouseFailState extends ExportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+
+  
   GetExportItemByWarehouseFailState(this.timestamp, this.status) :  super([], [], [], [], []);
   @override
   List<Object> get props => [timestamp];
@@ -75,7 +79,7 @@ class GetExportItemByWarehouseFailState extends ExportHistoryState {
 // lich su xuat kho
 class AccessExportHistorySuccessState extends ExportHistoryState {
   DateTime timestamp;
-  List<ExportHistoryEntry> exportHistoryEntries;
+  List<ExportHistoryView> exportHistoryEntries;
 
    List<Warehouse> warehouse;
   List<String> poNumber;
@@ -102,10 +106,17 @@ class AccessExportHistoryLoadingState extends ExportHistoryState {
 class AccessExportHistoryFailState extends ExportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+
+   List<Warehouse> warehouse;
+  List<String> poNumber;
+  List<String> receiver;
+  List<Item> listAllItem;
+  List<Item> itemSort;
   AccessExportHistoryFailState(
     this.timestamp,
-    this.status,
-  ) :  super([], [], [], [], []);
+    this.status,this.warehouse, this.itemSort, this.listAllItem,
+      this.poNumber, this.receiver
+  ) :  super(warehouse, listAllItem, listAllItem, poNumber, receiver);
   @override
   List<Object> get props => [timestamp];
 }

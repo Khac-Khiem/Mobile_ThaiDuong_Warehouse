@@ -42,11 +42,20 @@ class HomeScreen extends StatelessWidget {
                 CustomizedButton(
                   text: "Đăng nhập",
                   onPressed: () {
+                    //  AlertDialogTwoBtnCustomized(
+                    //                     context,
+                    //                     'Bạn có chắc',
+                    //                     'Chưa có sản phẩm được quét? Ấn tiếp tục để quét lại',
+                    //                     'Fail_image.png',
+                    //                     'Tiếp tục',
+                    //                     'Trở lại',
+                    //                     () async {}, () {
+                    //               Navigator.pushNamed(
+                    //                   context, '/receipt_screen');
+                    //             }, 18, 22)
+                    //                 .show();
                      Navigator.pushNamed(context, '//');
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => LoginScreen()),
-                    // );
+                   
                   },
                 ),
               ],

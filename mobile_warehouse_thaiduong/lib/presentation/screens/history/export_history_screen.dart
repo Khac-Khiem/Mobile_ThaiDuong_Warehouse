@@ -12,6 +12,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/history_stat
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/history_state/import_history_state.dart';
 import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
+import '../../dialog/dialog_one_button.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
 
@@ -31,14 +32,14 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
   //List<Warehouse> warehouseDropdownData = [];
   Warehouse? selectedWarehouse;
   String? selectedPo;
- DateTime startDate = DateFormat('yyyy-MM-dd')
-        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
-    DateTime endDate = DateFormat('yyyy-MM-dd')
-        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+  DateTime startDate = DateFormat('yyyy-MM-dd')
+      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+  DateTime endDate = DateFormat('yyyy-MM-dd')
+      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-   
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Constants.mainColor,
@@ -89,107 +90,74 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                         builder: (context, state) {
                           return Column(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                                    child: SizedBox(
-                                      width: 170 * SizeConfig.ratioWidth,
-                                      height: 60 * SizeConfig.ratioHeight,
-                                      child: DropdownSearch<dynamic>(
-                                        mode: Mode.MENU,
-                                        items: state.warehouse
-                                            .map((e) => e.warehouseId)
-                                            .toList(),
-                                        // state is GetAllInfoExportSuccessState
-                                        //     ? state.warehouse
-                                        //         .map((e) => e.warehouseId)
-                                        //         .toList()
-                                        //     : state is GetItemByWarehouseSuccessState
-                                        //         ? state.warehouse
-                                        //             .map((e) => e.warehouseId)
-                                        //             .toList()
-                                        //         : [],
-                                        showSearchBox: true,
-                                        label: "Kho hàng",
-                                        onChanged: (value) {
-                                          selectedItem = null;
-                                          print(value);
-                                          setState(() {
-                                            selectedWarehouse = state.warehouse
-                                                .firstWhere((element) =>
-                                                    element.warehouseId ==
-                                                    value);
-                                            BlocProvider.of<ImportHistoryBloc>(
-                                                    context)
-                                                .add(
-                                                    GetImportItemByWarehouseEvent(
-                                                        DateTime.now(),
-                                                        state.poNumber,
-                                                        selectedWarehouse!
-                                                            .warehouseId,
-                                                        state.listAllItem,
-                                                        state.warehouse,
-                                                        state.receiver));
-                                          });
-                                        },
-                                        selectedItem: selectedWarehouse == null
-                                            ? ''
-                                            : selectedWarehouse!.warehouseName,
-                                      ),
-                                    ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 350 * SizeConfig.ratioWidth,
+                                  height: 60 * SizeConfig.ratioHeight,
+                                  child: DropdownSearch<dynamic>(
+                                    mode: Mode.MENU,
+                                    items: state.warehouse
+                                        .map((e) => e.warehouseId)
+                                        .toList(),
+                                    // state is GetAllInfoExportSuccessState
+                                    //     ? state.warehouse
+                                    //         .map((e) => e.warehouseId)
+                                    //         .toList()
+                                    //     : state is GetItemByWarehouseSuccessState
+                                    //         ? state.warehouse
+                                    //             .map((e) => e.warehouseId)
+                                    //             .toList()
+                                    //         : [],
+                                    showSearchBox: true,
+                                    label: "Kho hàng",
+                                    onChanged: (value) {
+                                      selectedItem = null;
+                                      print(value);
+                                      setState(() {
+                                        selectedWarehouse = state.warehouse
+                                            .firstWhere((element) =>
+                                                element.warehouseId == value);
+                                        BlocProvider.of<ImportHistoryBloc>(
+                                                context)
+                                            .add(GetImportItemByWarehouseEvent(
+                                                DateTime.now(),
+                                                state.poNumber,
+                                                selectedWarehouse!.warehouseId,
+                                                state.listAllItem,
+                                                state.warehouse,
+                                                state.receiver));
+                                      });
+                                    },
+                                    selectedItem: selectedWarehouse == null
+                                        ? ''
+                                        : selectedWarehouse!.warehouseName,
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                    child: SizedBox(
-                                      width: 170 * SizeConfig.ratioWidth,
-                                      height: 60 * SizeConfig.ratioHeight,
-                                      child: DropdownSearch<String>(
-                                        mode: Mode.MENU,
-                                        items: state.receiver
-                                            .map((e) => e)
-                                            .toList(),
-                                        showSearchBox: true,
-                                        label: "NCC",
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedReceiver = state.receiver
-                                                .firstWhere((element) =>
-                                                    element == value);
-                                          });
-                                        },
-                                        selectedItem: selectedReceiver == ''
-                                            ? ''
-                                            : selectedReceiver,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                              SizedBox(
-                                width: 350 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: DropdownSearch<String>(
-                                  mode: Mode.MENU,
-                                  items: state.itemSort
-                                      .map((e) => e.itemId.toString())
-                                      .toList(),
-                                  showSearchBox: true,
-                                  label: "Mã sản phẩm",
-                                  onChanged: (value) {
-                                    print(value);
-                                    print(value);
-                                    setState(() {
-                                      selectedItem = state.itemSort.firstWhere(
-                                          (element) => element.itemId == value);
-                                    });
-                                  },
-                                  selectedItem: selectedItem == null
-                                      ? ''
-                                      : selectedItem!.itemId,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 350 * SizeConfig.ratioWidth,
+                                  height: 60 * SizeConfig.ratioHeight,
+                                  child: DropdownSearch<String>(
+                                    mode: Mode.MENU,
+                                    items: state.itemSort
+                                        .map((e) => e.itemId.toString())
+                                        .toList(),
+                                    showSearchBox: true,
+                                    label: "Mã sản phẩm",
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedItem = state.itemSort
+                                            .firstWhere((element) =>
+                                                element.itemId == value);
+                                      });
+                                    },
+                                    selectedItem: selectedItem == null
+                                        ? ''
+                                        : selectedItem!.itemId,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -219,64 +187,82 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 5 * SizeConfig.ratioHeight),
-                                      width: 160 * SizeConfig.ratioWidth,
-                                      height: 60 * SizeConfig.ratioHeight,
-                                      child: CustomizeDatePicker(
-                                        name: "Từ ngày",
-                                        fontColor: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        initDateTime: startDate,
-                                        okBtnClickedFunction: (pickedTime) {
-                                          startDate = pickedTime;
-                                        },
-                                      ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    // margin: EdgeInsets.symmetric(
+                                    //     vertical: 5 * SizeConfig.ratioHeight),
+                                    width: 170 * SizeConfig.ratioWidth,
+                                    height: 80 * SizeConfig.ratioHeight,
+                                    child: CustomizeDatePicker(
+                                      name: "Từ ngày",
+                                      fontColor: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      initDateTime: startDate,
+                                      okBtnClickedFunction: (pickedTime) {
+                                        startDate = pickedTime;
+                                      },
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 5 * SizeConfig.ratioHeight),
-                                      width: 160 * SizeConfig.ratioWidth,
-                                      height: 60 * SizeConfig.ratioHeight,
-                                      child: CustomizeDatePicker(
-                                        name: "Đến ngày",
-                                        fontColor: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        initDateTime: endDate,
-                                        okBtnClickedFunction: (pickedTime) {
-                                          endDate = pickedTime;
-                                        },
-                                      ),
+                                  ),
+                                  Container(
+                                    // margin: EdgeInsets.symmetric(
+                                    //     vertical: 5 * SizeConfig.ratioHeight),
+                                    width: 170 * SizeConfig.ratioWidth,
+                                    height: 80 * SizeConfig.ratioHeight,
+                                    child: CustomizeDatePicker(
+                                      name: "Đến ngày",
+                                      fontColor: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      initDateTime: endDate,
+                                      okBtnClickedFunction: (pickedTime) {
+                                        endDate = pickedTime;
+                                      },
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                               CustomizedButton(
                                   text: "Truy xuất",
                                   onPressed: () {
-                                    BlocProvider.of<ExportHistoryBloc>(context)
-                                        .add(AccessExportHistoryByItemIdEvent(
-                                            DateTime.now(),
-                                            startDate,
-                                            endDate,
-                                            selectedItem!.itemId,
-                                            selectedWarehouse!.warehouseId,
-                                            state.warehouse,
-                                            state.itemSort,
-                                            state.listAllItem,
-                                            state.poNumber,
-                                            state.receiver));
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/list_export_history_screen',
-                                    );
+                                    selectedWarehouse == null
+                                        ? {
+                                            AlertDialogOneBtnCustomized(
+                                                    context,
+                                                    'Cảnh báo',
+                                                    'Vui lòng chọn kho hàng để truy xuất',
+                                                    'Trở lại','', () {
+                                              // Navigator.pushNamed(context, '/main_receipt_screen');
+                                            }, 20, 15, () {}, false)
+                                                .show()
+                                          }
+                                        : {
+                                            if (selectedItem == null)
+                                              {
+                                                selectedItem =
+                                                    Item('', '', '', '', 0, 0)
+                                              },
+                                            BlocProvider.of<ExportHistoryBloc>(
+                                                    context)
+                                                .add(
+                                                    AccessExportHistoryByItemIdEvent(
+                                                        DateTime.now(),
+                                                        startDate,
+                                                        endDate,
+                                                        selectedItem!.itemId,
+                                                        selectedWarehouse!
+                                                            .warehouseId,
+                                                        state.warehouse,
+                                                        state.itemSort,
+                                                        state.listAllItem,
+                                                        state.poNumber,
+                                                        state.receiver)),
+                                            Navigator.pushNamed(
+                                              context,
+                                              '/list_export_history_screen',
+                                            )
+                                          };
                                   }),
                             ],
                           );
@@ -303,7 +289,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                           size: 36.0,
                         ),
                         Text(
-                          'Truy xuất theo bộ phận         ',
+                          'Truy xuất theo người nhận         ',
                           style: TextStyle(
                             //fontFamily: 'MyFont',
                             fontSize: 18,
@@ -328,7 +314,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                               mode: Mode.MENU,
                               items: state.receiver.map((e) => e).toList(),
                               showSearchBox: true,
-                              label: "NCC",
+                              label: "Người nhận",
                               onChanged: (value) {
                                 setState(() {
                                   selectedReceiver = state.receiver.firstWhere(
@@ -339,43 +325,40 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5 * SizeConfig.ratioHeight),
-                                width: 160 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: CustomizeDatePicker(
-                                  name: "Từ ngày",
-                                  fontColor: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                  initDateTime: startDate,
-                                  okBtnClickedFunction: (pickedTime) {
-                                    startDate = pickedTime;
-                                  },
-                                ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              // margin: EdgeInsets.symmetric(
+                              //     vertical: 5 * SizeConfig.ratioHeight),
+                              width: 170 * SizeConfig.ratioWidth,
+                              height: 80 * SizeConfig.ratioHeight,
+                              child: CustomizeDatePicker(
+                                name: "Từ ngày",
+                                fontColor: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                initDateTime: startDate,
+                                okBtnClickedFunction: (pickedTime) {
+                                  startDate = pickedTime;
+                                },
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5 * SizeConfig.ratioHeight),
-                                width: 160 * SizeConfig.ratioWidth,
-                                height: 60 * SizeConfig.ratioHeight,
-                                child: CustomizeDatePicker(
-                                  name: "Đến ngày",
-                                  fontColor: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                  initDateTime: endDate,
-                                  okBtnClickedFunction: (pickedTime) {
-                                    endDate = pickedTime;
-                                  },
-                                ),
+                            ),
+                            Container(
+                              // margin: EdgeInsets.symmetric(
+                              //     vertical: 5 * SizeConfig.ratioHeight),
+                              width: 170 * SizeConfig.ratioWidth,
+                              height: 80 * SizeConfig.ratioHeight,
+                              child: CustomizeDatePicker(
+                                name: "Đến ngày",
+                                fontColor: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                initDateTime: endDate,
+                                okBtnClickedFunction: (pickedTime) {
+                                  endDate = pickedTime;
+                                },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         CustomizedButton(
                             text: "Truy xuất",

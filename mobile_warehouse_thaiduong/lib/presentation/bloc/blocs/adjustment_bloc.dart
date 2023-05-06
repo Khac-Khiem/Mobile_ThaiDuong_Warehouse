@@ -3,6 +3,7 @@ import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/inventory_usecase.dart';
@@ -17,11 +18,26 @@ class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
   ItemLotUsecase itemLotUsecase;
   AdjustmentBloc(this.lotAdjustmentUsecase, this.itemLotUsecase)
       : super(GetLotDetailLoadingState(DateTime.now())) {
-    on<GetLotDetailEvent>((event, emit) async {
+    on<GetLotEvent>((event, emit) async {
+      List<LotAdjustment> listLotAjustment = [];
       emit(GetLotDetailLoadingState(DateTime.now()));
       try {
-        final ItemLot lotsAdjust = await itemLotUsecase.getItemLotById(event.lotId);
-        emit(GetLotDetailSuccessState(DateTime.now(), lotsAdjust));
+        final List<ItemLot> lotsAdjust =
+            await itemLotUsecase.getItemLotsByItemId(event.itemId);
+        for (var element in lotsAdjust) {
+          listLotAjustment.add(LotAdjustment(
+              element.lotId,
+              '',
+              null,
+              null,
+              null,
+              element.quantity,
+              element.purchaseOrderNumber,
+              null,
+              element.item,
+              null));
+        }
+        emit(GetLotDetailSuccessState(DateTime.now(), listLotAjustment));
       } catch (e) {
         emit(GetLotDetailFailState(DateTime.now()));
       }
@@ -30,21 +46,22 @@ class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
     on<UpdateLotAdjustmentQuantityEvent>((event, emit) async {
       emit(UpdateLotQuantityLoadingState(DateTime.now()));
       try {
-        final ErrorPackage postNewAdjust = await lotAdjustmentUsecase.postNewLotAdjustment(event.itemLot, event.employeeName, event.newPo, event.note, event.newQuantity);
-       if(postNewAdjust.detail == 'success'){
- emit(UpdateLotQuantitySuccessState(
-          DateTime.now(),
-          ErrorPackageModel('Thành công'),
-        ));
-       }else{
-         emit(UpdateLotQuantityFailState(
-          DateTime.now(),
-          ErrorPackageModel('Thất bại'),
-        ));
-       }
-       
+        final ErrorPackage postNewAdjust =
+            await lotAdjustmentUsecase.postNewLotAdjustment(event.itemLot,
+                event.employeeName, event.newPo, event.note, event.newQuantity);
+        if (postNewAdjust.detail == 'success') {
+          emit(UpdateLotQuantitySuccessState(
+            DateTime.now(),
+            ErrorPackageModel('Thành công'),
+          ));
+        } else {
+          emit(UpdateLotQuantityFailState(
+            DateTime.now(),
+            ErrorPackageModel('Thất bại'),
+          ));
+        }
       } catch (e) {
-         emit(UpdateLotQuantityFailState(
+        emit(UpdateLotQuantityFailState(
           DateTime.now(),
           ErrorPackageModel('Thất bại'),
         ));

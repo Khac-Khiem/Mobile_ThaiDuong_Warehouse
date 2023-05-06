@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,6 @@ import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_lot_issue_event.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/lot_detail_component.dart';
 
 import '../../bloc/blocs/issue_bloc/list_lot_issue_uncompleted_bloc.dart';
 import '../../bloc/states/issue_state/list_lot_issue_state.dart';
@@ -65,7 +65,6 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
           body: TabBarView(children: [
             BlocConsumer<ListGoodsIssueLotUncompletedBloc, GoodsIssueLotState>(
                 listener: (context, state) {
-
               //     if(state is PostIssueLotsSuccessState){
               //         AlertDialogOneBtnCustomized(context, 'Thành công',
               //         'Đã hoàn thành việc xuất lô', 'Tiếp tục', () {
@@ -141,7 +140,9 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                           RegExp('[0-9.,]')),
                                     ],
                                     onChanged: (value) =>
-                                        quantity = double.parse(value),
+                                        value != ''
+                                        ? quantity = double.parse(value)
+                                        : quantity = double.parse('0'),
                                     onSubmitted: (value) => value != ''
                                         ? quantity = double.parse(value)
                                         : quantity = double.parse('0'),
@@ -149,53 +150,62 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      e.quantity == quantity
-                                          ? {
-                                              BlocProvider.of<
-                                                          ListGoodsIssueLotUncompletedBloc>(
-                                                      context)
-                                                  .add(AddGoodsIssueLotEvent(
-                                                      DateTime.now(),
-                                                      true,
-                                                   
-                                                      state.itemId,
-                                                         state.goodsIssueId,
-                                                      GoodsIssueLot(
-                                                          e.lotId,
-                                                          quantity,
-                                                          double.parse(e
-                                                              .sublotSize
-                                                              .toString()),
-                                                          null,
-                                                          note),
-                                                      state.lotsSuggest,
-                                                      state.lotsExpected)),
-                                              DefaultTabController.of(context)
-                                                  ?.animateTo(1)
-                                            }
-                                          : {
-                                              BlocProvider.of<
-                                                          ListGoodsIssueLotUncompletedBloc>(
-                                                      context)
-                                                  .add(AddGoodsIssueLotEvent(
-                                                      DateTime.now(),
-                                                      false,
-                                                      
-                                                      state.itemId,
-                                                      state.goodsIssueId,
-                                                      GoodsIssueLot(
-                                                          e.lotId,
-                                                          quantity,
-                                                          double.parse(e
-                                                              .sublotSize
-                                                              .toString()),
-                                                          null,
-                                                          note),
-                                                      state.lotsSuggest,
-                                                      state.lotsExpected)),
-                                              DefaultTabController.of(context)
-                                                  ?.animateTo(1)
-                                            };
+                                      if (e.quantity! < quantity) {
+                                        AlertDialogOneBtnCustomized(
+                                                context,
+                                                'Không hợp lệ',
+                                                'Số lượng nhập không phù hợp',
+                                                'Trở lại','', () {
+                                          // Navigator.pushNamed(context, '/main_receipt_screen');
+                                        }, 15, 20, () {}, false)
+                                            .show();
+                                      } else {
+                                        e.quantity == quantity
+                                            ? {
+                                                BlocProvider.of<
+                                                            ListGoodsIssueLotUncompletedBloc>(
+                                                        context)
+                                                    .add(AddGoodsIssueLotEvent(
+                                                        DateTime.now(),
+                                                        true,
+                                                        state.itemId,
+                                                        state.goodsIssueId,
+                                                        GoodsIssueLot(
+                                                            e.lotId,
+                                                            quantity,
+                                                            double.parse(e
+                                                                .sublotSize
+                                                                .toString()),
+                                                            null,
+                                                            note),
+                                                        state.lotsSuggest,
+                                                        state.lotsExpected)),
+                                                DefaultTabController.of(context)
+                                                    ?.animateTo(1)
+                                              }
+                                            : {
+                                                BlocProvider.of<
+                                                            ListGoodsIssueLotUncompletedBloc>(
+                                                        context)
+                                                    .add(AddGoodsIssueLotEvent(
+                                                        DateTime.now(),
+                                                        false,
+                                                        state.itemId,
+                                                        state.goodsIssueId,
+                                                        GoodsIssueLot(
+                                                            e.lotId,
+                                                            quantity,
+                                                            double.parse(e
+                                                                .sublotSize
+                                                                .toString()),
+                                                            null,
+                                                            note),
+                                                        state.lotsSuggest,
+                                                        state.lotsExpected)),
+                                                DefaultTabController.of(context)
+                                                    ?.animateTo(1)
+                                              };
+                                      }
                                     },
                                     child: Text('Xác nhận'))
                               ],
@@ -211,13 +221,13 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
             }),
             BlocConsumer<ListGoodsIssueLotUncompletedBloc, GoodsIssueLotState>(
                 listener: (context, state) {
-                  if(state is PostIssueLotsSuccessState){
-                      AlertDialogOneBtnCustomized(context, 'Thành công',
-                      'Đã hoàn thành việc xuất lô', 'Tiếp tục', () {
-                Navigator.pushNamed(context, '/export_main_screen');
-              }, 20, 15, () {}, false)
-                  .show();
-                  }
+              if (state is PostIssueLotsSuccessState) {
+                AlertDialogOneBtnCustomized(context, 'Thành công',
+                        'Đã hoàn thành việc xuất lô', 'Tiếp tục','', () {
+                  Navigator.pushNamed(context, '/export_main_screen');
+                }, 20, 15, () {}, false)
+                    .show();
+              }
               // TODO: implement listener
             }, builder: (context, state) {
               if (state is LoadGoodsIssueLotsSuccessState) {

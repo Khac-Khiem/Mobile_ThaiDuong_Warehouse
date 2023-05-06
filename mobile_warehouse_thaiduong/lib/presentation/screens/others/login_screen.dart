@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ],
         ),
-        endDrawer: DrawerUser(),
+      //  endDrawer: DrawerUser(),
         body: SingleChildScrollView(
             child: Center(
           child: Column(

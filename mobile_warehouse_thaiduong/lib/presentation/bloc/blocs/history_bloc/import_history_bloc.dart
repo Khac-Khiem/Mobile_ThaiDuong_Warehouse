@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/import_history_entry.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/export_history_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/info_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
@@ -57,50 +58,92 @@ class ImportHistoryBloc extends Bloc<ImportHistoryEvent, ImportHistoryState> {
     });
     // truy xuất lịch sử nhập kho
     on<AccessImportHistoryByPOEvent>((event, emit) async {
+            List<ImportHistoryView> test = [];
+
       emit(AccessImportHistoryLoadingState(DateTime.now()));
       try {
         final goodReceiptLots = await importHistoryUsecase
             .getImportHistoryByPO(event.purchaseOrderNumber);
+             for (var element in goodReceiptLots) {
+          if (element.lots!.isNotEmpty) {
+            for (var e in element.lots!) {
+              test.add(ImportHistoryView(e.goodsReceiptLotId, e.quantity, e.purchaseOrderNumber, e.item!.itemName, e.note, element.supplier, element.timestamp));
+            }
+          }
+        }
         goodReceiptLots.isNotEmpty
             ? emit(AccessImportHistorySuccessState(
                 DateTime.now(),
-                goodReceiptLots,
+                test,
                 event.warehouse,
                 event.itemSort,
                 event.listAllItem,
                 event.poNumber,
                 event.supplier))
             : emit(AccessImportHistoryFailState(
-                DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.supplier));
       } catch (e) {
         emit(AccessImportHistoryFailState(
-            DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.supplier));
       }
     });
     on<AccessImportHistoryBySupplierEvent>((event, emit) async {
+      List<ImportHistoryView> test = [];
+
       emit(AccessImportHistoryLoadingState(DateTime.now()));
       try {
         final goodReceiptLots =
             await importHistoryUsecase.getImportHistoryBySupplier(
                 event.supplier, event.startDate, event.endDate);
-
+ for (var element in goodReceiptLots) {
+          if (element.lots!.isNotEmpty) {
+            for (var e in element.lots!) {
+              test.add(ImportHistoryView(e.goodsReceiptLotId, e.quantity, e.purchaseOrderNumber, e.item!.itemName, e.note, element.supplier, element.timestamp));
+            }
+          }
+        }
         goodReceiptLots.isNotEmpty
             ? emit(AccessImportHistorySuccessState(
                 DateTime.now(),
-                goodReceiptLots,
+                test,
                 event.warehouse,
                 event.itemSort,
                 event.listAllItem,
                 event.poNumber,
                 event.supplierList))
             : emit(AccessImportHistoryFailState(
-                DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.supplierList));
       } catch (e) {
         emit(AccessImportHistoryFailState(
-            DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.supplierList));
       }
     });
     on<AccessImportHistoryByItemIdEvent>((event, emit) async {
+      List<ImportHistoryView> test = [];
       emit(AccessImportHistoryLoadingState(DateTime.now()));
       try {
         final goodReceiptLots =
@@ -110,20 +153,40 @@ class ImportHistoryBloc extends Bloc<ImportHistoryEvent, ImportHistoryState> {
           event.startDate,
           event.endDate,
         );
+      
+        for (var element in goodReceiptLots) {
+          if (element.lots!.isNotEmpty) {
+            for (var e in element.lots!) {
+              test.add(ImportHistoryView(e.goodsReceiptLotId, e.quantity, e.purchaseOrderNumber, e.item!.itemName, e.note, element.supplier, element.timestamp));
+            }
+          }
+        }
         goodReceiptLots.isNotEmpty
             ? emit(AccessImportHistorySuccessState(
                 DateTime.now(),
-                goodReceiptLots,
+                test,
                 event.warehouse,
                 event.itemSort,
                 event.listAllItem,
                 event.poNumber,
                 event.supplierList))
             : emit(AccessImportHistoryFailState(
-                DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.supplierList));
       } catch (e) {
         emit(AccessImportHistoryFailState(
-            DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.supplierList));
       }
     });
   }

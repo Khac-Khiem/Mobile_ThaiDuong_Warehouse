@@ -9,8 +9,8 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/cr
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/issue_bloc/fill_info_issue_enry_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/create_new_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
-import '../../../domain/entities/item.dart';
 import '../../dialog/dialog_one_button.dart';
+
 
 class FillInfoEntryIssueScreen extends StatefulWidget {
   const FillInfoEntryIssueScreen({super.key});
@@ -52,7 +52,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
         builder: (context, state) {
           if (state is LoadItemDataSuccessState) {
             if (state.index != -1) {
-              issueEntryView = state.entries[state.index];
+              issueEntryView = state.goodsIssue!.entries![state.index];
             }
             return SingleChildScrollView(
               child: Container(
@@ -94,8 +94,8 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                     issueEntryView.item = state.items
                                         .firstWhere((element) =>
                                             element.itemId == value);
-                                    issueEntryView.item!.itemName =
-                                        value.toString();
+                                    // issueEntryView.item!.itemName =
+                                    //     value.toString();
                                   });
                                 },
                                 selectedItem: issueEntryView.item == null
@@ -121,13 +121,13 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                     issueEntryView.item = state.items
                                         .firstWhere((element) =>
                                             element.itemName == value);
-                                    issueEntryView.item!.itemName =
-                                        issueEntryView.item!.itemName;
+                                    // issueEntryView.item!.itemName =
+                                    //     issueEntryView.item!.itemName;
                                   });
                                 },
                                 selectedItem: issueEntryView.item == null
                                     ? ''
-                                    : issueEntryView.item!.itemId),
+                                    : issueEntryView.item!.itemName),
                           ),
                         ),
                         Padding(
@@ -258,7 +258,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                             context,
                                             "Cảnh báo",
                                             "Vui lòng điền đầy đủ các thông tin",
-                                            "Trở lại",
+                                            "Trở lại",'',
                                             () {},
                                             18,
                                             22,
@@ -267,7 +267,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                         .show()
                                     : BlocProvider.of<CreateIssueBloc>(context)
                                         .add(AddIssueEntryEvent(issueEntryView,
-                                            state.entries, DateTime.now()));
+                                            state.goodsIssue as GoodsIssue, DateTime.now()));
                                 Navigator.pushNamed(
                                     context, '/create_issue_screen');
                                 //Navigator.of(context).pop();
@@ -285,7 +285,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                             context,
                                             "Cảnh báo",
                                             "Vui lòng điền đầy đủ các thông tin",
-                                            "Trở lại",
+                                            "Trở lại",'',
                                             () {},
                                             18,
                                             22,
@@ -295,7 +295,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                     : BlocProvider.of<CreateIssueBloc>(context)
                                         .add(UpdateIssueEntryEvent(
                                             issueEntryView,
-                                            state.entries,
+                                            state.goodsIssue as GoodsIssue,
                                             state.index,
                                             DateTime.now()));
                                 Navigator.pushNamed(

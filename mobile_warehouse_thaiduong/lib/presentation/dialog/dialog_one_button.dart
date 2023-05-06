@@ -8,6 +8,7 @@ class AlertDialogOneBtnCustomized {
   String title;
   String desc;
   String textBtn;
+  String image;
   // Color bgBtn, fgBtn;
   double titleFSize, descFSize;
   VoidCallback onPressedBtn;
@@ -18,11 +19,12 @@ class AlertDialogOneBtnCustomized {
       this.title,
       this.desc,
       this.textBtn,
+      this.image,
       //  this.bgBtn ,
       // this.fgBtn ,
       this.onPressedBtn,
-      this.descFSize,
       this.titleFSize,
+      this.descFSize,
       this.closePressed,
       this.onWillPopActive);
   void show() {
@@ -35,6 +37,10 @@ class AlertDialogOneBtnCustomized {
             },
             context: context,
             title: title,
+            image: Image(
+              image: AssetImage('lib/assets/$image'),
+              width: 100 * SizeConfig.ratioWidth,
+            ),
             desc: desc,
             buttons: [
               DialogButton(
@@ -49,7 +55,7 @@ class AlertDialogOneBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                   if (onPressedBtn != null) {
+                  if (onPressedBtn != null) {
                     onPressedBtn();
                   }
                 },

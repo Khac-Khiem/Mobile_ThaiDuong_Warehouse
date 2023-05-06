@@ -1,9 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
-
 import '../../../../domain/entities/goods_receipt.dart';
-import '../../../../domain/entities/item.dart';
 
 class CreateReceiptState extends Equatable {
   GoodsReceipt? goodsReceipt;

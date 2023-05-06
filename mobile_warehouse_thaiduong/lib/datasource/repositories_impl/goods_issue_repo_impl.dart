@@ -43,13 +43,9 @@ class GoodsIssueRepoImpl implements GoodsIssueRepository {
 
   @override
   Future<ErrorPackageModel> postNewGoodsIssue(
-      String goodsIssueId,
-      String purchaseOrderNumber,
-      DateTime timestamp,
-      String receiver,
-      List<GoodsIssueEntry> entries)async {
+     GoodsIssue goodsIssue)async {
     final status = goodsIssueService.postNewGoodsIssue(
-        goodsIssueId, purchaseOrderNumber, timestamp, receiver, entries);
+      goodsIssue);
     return status;
   }
 

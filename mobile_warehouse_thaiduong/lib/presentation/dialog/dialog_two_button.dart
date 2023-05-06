@@ -7,6 +7,7 @@ class AlertDialogTwoBtnCustomized {
   BuildContext context;
   String title;
   String desc;
+  String image;
   String textBtn1;
   String textBtn2;
   //Color bgBtn1, bgBtn2, fgBtn1, fgBtn2;
@@ -16,6 +17,7 @@ class AlertDialogTwoBtnCustomized {
     this.context,
     this.title,
     this.desc,
+    this.image,
     this.textBtn1,
     this.textBtn2,
     // this.bgBtn1 = Constants.mainColor,
@@ -24,7 +26,7 @@ class AlertDialogTwoBtnCustomized {
     // this.fgBtn2 = Constants.mainColor,
     this.onPressedBtn1,
     this.onPressedBtn2,
-   // this.closeFunction,
+    // this.closeFunction,
     //18
     this.descFSize,
     //22
@@ -38,6 +40,10 @@ class AlertDialogTwoBtnCustomized {
             ),
             title: title,
             desc: desc,
+            image: Image(
+              image:  AssetImage('lib/assets/$image'),
+              width: 100 * SizeConfig.ratioWidth,
+            ),
             closeFunction: () {
               Navigator.of(context).pop();
             },
@@ -54,7 +60,7 @@ class AlertDialogTwoBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                   if (onPressedBtn1 != null) {
+                  if (onPressedBtn1 != null) {
                     onPressedBtn1();
                   }
                 },
@@ -68,7 +74,7 @@ class AlertDialogTwoBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                   if (onPressedBtn2 != null) {
+                  if (onPressedBtn2 != null) {
                     onPressedBtn2();
                   }
                 },

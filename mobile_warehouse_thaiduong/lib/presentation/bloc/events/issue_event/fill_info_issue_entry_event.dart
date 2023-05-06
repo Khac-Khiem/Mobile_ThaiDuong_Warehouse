@@ -8,9 +8,9 @@ class GetAllItemIssueEvent extends FillInfoIssueEntryEvent {
   //    String issueId;
   // String receiver;
   // String poNumber;
-  List<GoodsIssueEntry> entries;
+  GoodsIssue? goodsIssue;
   int index;
-  GetAllItemIssueEvent( this.timestamp, this.entries, this.index);
+  GetAllItemIssueEvent( this.timestamp, this.goodsIssue, this.index);
   @override
   List<Object> get props => [timestamp];
 }

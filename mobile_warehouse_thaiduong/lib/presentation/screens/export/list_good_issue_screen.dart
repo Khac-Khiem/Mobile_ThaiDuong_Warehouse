@@ -115,21 +115,25 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
                                                         "Số lượng yêu cầu : ${e.entries![index].requestQuantity} \nĐịnh mức yêu cầu : ${e.entries![index].requestSublotSize.toString()} "),
                                                     // Text(
                                                     //     "Số lượng đã xuất : ${e.entries![index]} "),
-                                                    e.entries![index].lots!
-                                                            .isNotEmpty
-                                                        ? ListView.builder(
-                                                            itemCount: e
-                                                                .entries![index]
-                                                                .lots!
-                                                                .length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                        context,
-                                                                    int int) {
-                                                              return Text(
-                                                                  "Số lượng đã xuất : ${e.entries![index].lots![int].quantity} ");
-                                                            })
-                                                        : const Text(
+                                                    // e.entries![index].lots!
+                                                    //         .isNotEmpty
+                                                    //     ? 
+                                                        // ListView.builder(
+                                                        //     itemCount: e
+                                                        //         .entries![index]
+                                                        //         .lots!
+                                                        //         .length,
+                                                        //     itemBuilder:
+                                                        //         (BuildContext
+                                                        //                 context,
+                                                        //             int int) {
+                                                        //       return Text(
+                                                        //           "Số lượng đã xuất : ${e.entries![index].lots![int].quantity} ");
+                                                        //     })
+                                                        // Text(
+                                                        //            "Số lượng đã xuất : ${e.entries![index].lots!.} ")
+                                                        //: 
+                                                        const Text(
                                                             "Số lượng đã xuất : 0 "),
                                                   ],
                                                 ),

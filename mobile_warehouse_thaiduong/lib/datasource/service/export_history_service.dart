@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/export_history_entry_model.dart';
-import 'package:mobile_warehouse_thaiduong/datasource/models/inventory_lot_entry_model.dart';
 import 'package:http/http.dart' as http;
+
 
 class ExportHistoryService {
   Future<List<ExportHistoryEntryModel>> getExportHistoryByPo(
@@ -27,9 +27,9 @@ class ExportHistoryService {
     }
   }
 
-  Future<List<ExportHistoryEntryModel>> getExportHistoryByReceiver (
-      DateTime startDate, DateTime endDate, String receiver ) async {
-           final start = DateFormat('yyyy-MM-dd').format(startDate);
+  Future<List<ExportHistoryEntryModel>> getExportHistoryByReceiver(
+      DateTime startDate, DateTime endDate, String receiver) async {
+    final start = DateFormat('yyyy-MM-dd').format(startDate);
     final end = DateFormat('yyyy-MM-dd').format(endDate);
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/ByReceiver/Export?receiver=$receiver&StartTime=$start&EndTime=$end'));
@@ -49,10 +49,15 @@ class ExportHistoryService {
   }
 
   Future<List<ExportHistoryEntryModel>> getExportHistoryByItem(
-      DateTime startDate, DateTime endDate, String itemId, String warehouseId) async {
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String warehouseId) async {
     final start = DateFormat('yyyy-MM-dd').format(startDate);
     final end = DateFormat('yyyy-MM-dd').format(endDate);
-
+    if (itemId != '') {
+      warehouseId = '';
+    }
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/Export?itemClassId=$warehouseId&StartTime=$start&EndTime=$end&itemId=$itemId'));
     if (res.statusCode == 200) {
@@ -63,7 +68,6 @@ class ExportHistoryService {
             (dynamic item) => ExportHistoryEntryModel.fromJson(item),
           )
           .toList();
-
       return entries;
     } else {
       throw "Unable to retrieve posts.";

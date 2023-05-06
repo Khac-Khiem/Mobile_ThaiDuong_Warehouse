@@ -216,6 +216,15 @@ class _ListUncompletedLotReceiptScreenState
                                 );
                               })),
                                CustomizedButton(
+                            text: "Xác nhận",
+                            onPressed: () {
+                              //  BlocProvider.of<FillReceiptLotBloc>(context)
+                              //               .add((DateTime.now(),
+                              //                   state.goodsReceipt, index));
+                              // Navigator.pushNamed(
+                              //     context, '/importing_receipt_screen');
+                            }),
+                               CustomizedButton(
                             text: "Trở lại",
                             onPressed: () {
                               Navigator.pushNamed(

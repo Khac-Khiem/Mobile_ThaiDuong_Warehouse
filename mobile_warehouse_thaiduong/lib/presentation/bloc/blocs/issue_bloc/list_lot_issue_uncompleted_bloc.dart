@@ -52,8 +52,8 @@ class ListGoodsIssueLotUncompletedBloc
             ? {event.listLotExported.add(event.goodsIssueLot)}
             : {
                 event.listLotExported[index2].quantity =
-                    (event.listLotExported[index2].quantity +
-                        event.goodsIssueLot.quantity)
+                    (event.listLotExported[index2].quantity! +
+                        event.goodsIssueLot.quantity!)
               };
 
         event.addFullLot
@@ -68,7 +68,7 @@ class ListGoodsIssueLotUncompletedBloc
                     element.lotId == event.goodsIssueLot.goodsIssueLotId),
                 event.listLotsSuggest[index1].quantity =
                     (event.listLotsSuggest[index1].quantity! -
-                        event.goodsIssueLot.quantity)
+                        event.goodsIssueLot.quantity!)
               };
         //   for (var element in event.listLotsSuggest) {
         //     if (element.lotId == event.goodsIssueLot.goodsIssueLotId) {

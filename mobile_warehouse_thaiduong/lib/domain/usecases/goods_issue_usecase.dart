@@ -11,13 +11,9 @@ class GoodsIssueUseCase {
  
 
   Future<ErrorPackage> postNewGoodsIssue(
-      String goodsIssueId,
-      String purchaseOrderNumber,
-      DateTime timestamp,
-      String receiver,
-      List<GoodsIssueEntry> entries) async {
+    GoodsIssue goodsIssue) async {
     final status = goodsIssueRepository.postNewGoodsIssue(
-        goodsIssueId, purchaseOrderNumber, timestamp, receiver, entries);
+       goodsIssue);
     return status;
   }
 

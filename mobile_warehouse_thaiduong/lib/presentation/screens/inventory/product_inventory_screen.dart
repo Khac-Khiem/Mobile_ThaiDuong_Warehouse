@@ -49,7 +49,7 @@ class _ListInventoryScreenState extends State<ListInventoryScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           overflow: TextOverflow.ellipsis,
-                          "Danh sách các lô hàng",
+                          "Lịch sử tồn kho",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20 * SizeConfig.ratioFont,

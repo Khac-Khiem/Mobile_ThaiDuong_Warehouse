@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/export_history_entry.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/export_history_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/info_issuecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
@@ -54,17 +55,61 @@ class ExportHistoryBloc extends Bloc<ExportHistoryEvent, ExportHistoryState> {
 
     // truy xuất lịch sử xuất kho
     on<AccessExportHistoryByPOEvent>((event, emit) async {
+      List<ExportHistoryView> exportHistoryView = [];
       emit(AccessExportHistoryLoadingState(DateTime.now()));
       try {
         final goodIssueLots = await exportHistoryUsecase
             .getExportHistoryByPO(event.purchaseOrderNumber);
-            goodIssueLots.isNotEmpty ?
-        emit(AccessExportHistorySuccessState(DateTime.now(), goodIssueLots,event.itemSort, event.listAllItem, event.warehouse, event.poNumber, event.receiverList)):  emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
+        for (var element in goodIssueLots) {
+          if (element.entries!.isNotEmpty) {
+            for (var entry in element.entries!) {
+              if (entry.lots!.isNotEmpty) {
+                for (var lot in entry.lots!) {
+                  exportHistoryView.add(ExportHistoryView(
+                      lot.goodsIssueLotId,
+                      lot.quantity,
+                      lot.note,
+                      element.receiver,
+                      element.purchaseOrderNumber,
+                      element.timestamp,
+                      entry.item!.itemName,
+                      entry.unit));
+                }
+              }
+            }
+          }
+        }
+        goodIssueLots.isNotEmpty
+            ? emit(AccessExportHistorySuccessState(
+                DateTime.now(),
+                exportHistoryView,
+                event.itemSort,
+                event.listAllItem,
+                event.warehouse,
+                event.poNumber,
+                event.receiverList))
+            : emit(AccessExportHistoryFailState(
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.receiverList));
       } catch (e) {
-        emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+        emit(AccessExportHistoryFailState(
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.receiverList));
       }
     });
     on<AccessExportHistoryByReceiverEvent>((event, emit) async {
+      List<ExportHistoryView> exportHistoryView = [];
+
       emit(AccessExportHistoryLoadingState(DateTime.now()));
       try {
         final goodIssueLots =
@@ -73,14 +118,56 @@ class ExportHistoryBloc extends Bloc<ExportHistoryEvent, ExportHistoryState> {
           event.startDate,
           event.endDate,
         );
-        
-      goodIssueLots.isNotEmpty ?
-        emit(AccessExportHistorySuccessState(DateTime.now(), goodIssueLots,event.itemSort, event.listAllItem, event.warehouse, event.poNumber, event.receiverList)):  emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
-         } catch (e) {
-        emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+        for (var element in goodIssueLots) {
+          if (element.entries!.isNotEmpty) {
+            for (var entry in element.entries!) {
+              if (entry.lots!.isNotEmpty) {
+                for (var lot in entry.lots!) {
+                  exportHistoryView.add(ExportHistoryView(
+                      lot.goodsIssueLotId,
+                      lot.quantity,
+                      lot.note,
+                      element.receiver,
+                      element.purchaseOrderNumber,
+                      element.timestamp,
+                      entry.item!.itemName,
+                      entry.unit));
+                }
+              }
+            }
+          }
+        }
+        goodIssueLots.isNotEmpty
+            ? emit(AccessExportHistorySuccessState(
+                DateTime.now(),
+                exportHistoryView,
+                event.itemSort,
+                event.listAllItem,
+                event.warehouse,
+                event.poNumber,
+                event.receiverList))
+            : emit(AccessExportHistoryFailState(
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.receiverList));
+      } catch (e) {
+        emit(AccessExportHistoryFailState(
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.receiverList));
       }
     });
     on<AccessExportHistoryByItemIdEvent>((event, emit) async {
+      List<ExportHistoryView> exportHistoryView = [];
+
       emit(AccessExportHistoryLoadingState(DateTime.now()));
       try {
         final goodIssueLots = await exportHistoryUsecase.getExportHistoryByItem(
@@ -89,10 +176,51 @@ class ExportHistoryBloc extends Bloc<ExportHistoryEvent, ExportHistoryState> {
           event.startDate,
           event.endDate,
         );
-      goodIssueLots.isNotEmpty ?
-        emit(AccessExportHistorySuccessState(DateTime.now(), goodIssueLots,event.itemSort, event.listAllItem, event.warehouse, event.poNumber, event.receiverList)):  emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lịch sử đang rỗng')));
-         } catch (e) {
-        emit(AccessExportHistoryFailState(DateTime.now(), ErrorPackage('Lỗi hệ thống')));
+        for (var element in goodIssueLots) {
+          if (element.entries!.isNotEmpty) {
+            for (var entry in element.entries!) {
+              if (entry.lots!.isNotEmpty) {
+                for (var lot in entry.lots!) {
+                  exportHistoryView.add(ExportHistoryView(
+                      lot.goodsIssueLotId,
+                      lot.quantity,
+                      lot.note,
+                      element.receiver,
+                      element.purchaseOrderNumber,
+                      element.timestamp,
+                      entry.item!.itemName,
+                      entry.unit));
+                }
+              }
+            }
+          }
+        }
+        goodIssueLots.isNotEmpty
+            ? emit(AccessExportHistorySuccessState(
+                DateTime.now(),
+                exportHistoryView,
+                event.itemSort,
+                event.listAllItem,
+                event.warehouse,
+                event.poNumber,
+                event.receiverList))
+            : emit(AccessExportHistoryFailState(
+                DateTime.now(),
+                ErrorPackage('Lịch sử đang rỗng'),
+                event.warehouse,
+                event.itemSort,
+                event.listAllItem,
+                event.poNumber,
+                event.receiverList));
+      } catch (e) {
+        emit(AccessExportHistoryFailState(
+            DateTime.now(),
+            ErrorPackage('Lỗi hệ thống'),
+            event.warehouse,
+            event.itemSort,
+            event.listAllItem,
+            event.poNumber,
+            event.receiverList));
       }
     });
   }

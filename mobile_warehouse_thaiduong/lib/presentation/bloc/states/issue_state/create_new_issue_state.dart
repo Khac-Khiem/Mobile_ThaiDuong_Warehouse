@@ -4,9 +4,14 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 
 import '../../../../domain/entities/item.dart';
 
-abstract class CreaNewIssueState extends Equatable {}
+abstract class CreaNewIssueState extends Equatable {
+  GoodsIssue? goodsIssue;
+  CreaNewIssueState(this.goodsIssue);
+}
 
 class CreateNewIssueInitialState extends CreaNewIssueState {
+  CreateNewIssueInitialState(super.goodsIssue);
+
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
@@ -39,31 +44,32 @@ class CreateNewIssueInitialState extends CreaNewIssueState {
 //   List<Object?> get props => [timestamp];
 // }
 
-class LoadDepartmentLoadingState extends CreaNewIssueState {
-  DateTime timestamp;
-  LoadDepartmentLoadingState(this.timestamp);
+// class LoadDepartmentLoadingState extends CreaNewIssueState {
+//   DateTime timestamp;
+//   LoadDepartmentLoadingState(this.timestamp) : super(null);
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
-class LoadListDataSuccessState extends CreaNewIssueState {
-  List<Department> departments;
-  List<String> listPo;
-  DateTime timestamp;
-  List<GoodsIssueEntry> issueEntries;
-  LoadListDataSuccessState(
-      this.departments, this.issueEntries, this.listPo, this.timestamp);
-  @override
-  // TODO: implement props
-  List<Object?> get props => [timestamp];
-}
+// class LoadListDataSuccessState extends CreaNewIssueState {
+//   List<Department> departments;
+//   List<String> listPo;
+//   DateTime timestamp;
+//   List<GoodsIssueEntry> issueEntries;
+//   LoadListDataSuccessState(
+//       this.departments, this.issueEntries, this.listPo, this.timestamp)
+//       : super(null);
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [timestamp];
+// }
 
 //-------------------
 class UpdateEntryToGoodsIssueLoading extends CreaNewIssueState {
   DateTime timestamp;
-  UpdateEntryToGoodsIssueLoading(this.timestamp);
+  UpdateEntryToGoodsIssueLoading(this.timestamp) : super(null);
 
   @override
   // TODO: implement props
@@ -72,17 +78,10 @@ class UpdateEntryToGoodsIssueLoading extends CreaNewIssueState {
 
 class UpdateEntryToGoodsIssueSuccess extends CreaNewIssueState {
   DateTime timestamp;
-  // String issueId;
-  // String receiver;
-  // String poNumber;
-  List<GoodsIssueEntry> issueEntries;
-  UpdateEntryToGoodsIssueSuccess(
-    this.timestamp,
-    // this.issueId,
-    // this.receiver,
-    // this.poNumber,
-    this.issueEntries,
-  );
+  GoodsIssue? goodsIssue;
+
+  UpdateEntryToGoodsIssueSuccess(this.timestamp, this.goodsIssue)
+      : super(goodsIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -90,7 +89,8 @@ class UpdateEntryToGoodsIssueSuccess extends CreaNewIssueState {
 
 class UpdateEntryToGoodsIssueFailState extends CreaNewIssueState {
   DateTime timestamp;
-  UpdateEntryToGoodsIssueFailState(this.timestamp);
+  GoodsIssue? goodsIssue;
+  UpdateEntryToGoodsIssueFailState(this.timestamp, this.goodsIssue) : super(goodsIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -99,7 +99,7 @@ class UpdateEntryToGoodsIssueFailState extends CreaNewIssueState {
 //--------------------
 class PostNewGoodsIssueLoadingState extends CreaNewIssueState {
   DateTime timestamp;
-  PostNewGoodsIssueLoadingState(this.timestamp);
+  PostNewGoodsIssueLoadingState(this.timestamp) : super(null);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -108,7 +108,9 @@ class PostNewGoodsIssueLoadingState extends CreaNewIssueState {
 class PostNewGoodsIssueSuccessState extends CreaNewIssueState {
   DateTime timestamp;
   String detail;
-  PostNewGoodsIssueSuccessState(this.timestamp, this.detail);
+  GoodsIssue? goodsIssue;
+  PostNewGoodsIssueSuccessState(this.timestamp, this.detail, this.goodsIssue)
+      : super(goodsIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];
@@ -117,7 +119,9 @@ class PostNewGoodsIssueSuccessState extends CreaNewIssueState {
 class PostNewGoodsIssueFailState extends CreaNewIssueState {
   DateTime timestamp;
   String detail;
-  PostNewGoodsIssueFailState(this.timestamp, this.detail);
+  GoodsIssue? goodsIssue;
+  PostNewGoodsIssueFailState(this.timestamp, this.detail, this.goodsIssue)
+      : super(goodsIssue);
   @override
   // TODO: implement props
   List<Object?> get props => [timestamp];

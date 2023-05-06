@@ -82,7 +82,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                     Text(
                         scanResult != '-1'
                             ? 'Kết quả : $scanResult\n'
-                            : 'Vui lòng quét mã lô',
+                            : 'Quét mã sản phẩm cần kiểm kê',
                         style: TextStyle(
                             fontSize: 22 * SizeConfig.ratioFont,
                             color: scanResult != '-1'
@@ -93,7 +93,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                     ),
                     CustomizedButton(
                       onPressed: () {
-                        scanResult = '1';
+                        scanResult = '-1';
                         scanQR();
                       },
                       text: "Quét mã",
@@ -107,7 +107,8 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                                 AlertDialogTwoBtnCustomized(
                                         context,
                                         'Bạn có chắc',
-                                        'Chưa có lô được quét? Ấn tiếp tục để quét lại',
+                                        'Chưa có sản phẩm được quét? Ấn tiếp tục để quét lại',
+                                        'Fail_image.png',
                                         'Tiếp tục',
                                         'Trở lại',
                                         () async {}, () {
@@ -115,11 +116,14 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                                       context, '/receipt_screen');
                                 }, 18, 22)
                                     .show();
+                                   BlocProvider.of<AdjustmentBloc>(context).add(
+                                    GetLotEvent(DateTime.now(), "CPD001"));
+                                Navigator.pushNamed(
+                                    context, '/lot_adjustment_screen');
                               }
                             : () {
                                 BlocProvider.of<AdjustmentBloc>(context).add(
-                                    GetLotDetailEvent(
-                                        DateTime.now(), scanResult));
+                                    GetLotEvent(DateTime.now(), scanResult));
                                 Navigator.pushNamed(
                                     context, '/lot_adjustment_screen');
                               },

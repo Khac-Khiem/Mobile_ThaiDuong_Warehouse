@@ -9,8 +9,8 @@ abstract class AdjustmentState extends Equatable {}
 // Scan Barcode
 class GetLotDetailSuccessState extends AdjustmentState {
   DateTime timestamp;
-  ItemLot lotAdjust;
-  GetLotDetailSuccessState(this.timestamp, this.lotAdjust);
+  List<LotAdjustment> itemLots;
+  GetLotDetailSuccessState(this.timestamp, this.itemLots);
   @override
   List<Object> get props => [timestamp];
 }

@@ -7,7 +7,13 @@ import 'package:mobile_warehouse_thaiduong/presentation/router/app_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  runApp( MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+    // MyApp(), 
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,13 +22,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       onGenerateRoute: AppRoute.onGenerateRoute,
       debugShowCheckedModeBanner: false,
       title: "Storage Management",
-      //  useInheritedMediaQuery: true,
-      // locale: DevicePreview.locale(context),
-      // builder: DevicePreview.appBuilder,
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
     );

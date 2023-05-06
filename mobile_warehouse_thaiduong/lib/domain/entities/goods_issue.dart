@@ -4,8 +4,8 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 
 class GoodsIssueLot extends Equatable {
   String? goodsIssueLotId;
-  double quantity;
-  double sublotSize;
+  double? quantity;
+  double? sublotSize;
   Employee? employee;
   String? note;
   GoodsIssueLot(this.goodsIssueLotId, this.quantity, this.sublotSize,

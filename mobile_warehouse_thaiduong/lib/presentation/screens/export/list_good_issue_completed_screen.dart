@@ -115,33 +115,39 @@ class _ListGoodIssueCompletedScreenState
                 }
                 if (state is LoadCompletedGoodsIssuesSuccessState) {
                   return SizedBox(
-                    height: 300 * SizeConfig.ratioHeight,
+                    height: 380 * SizeConfig.ratioHeight,
                     child: ListView.builder(
                         itemCount: state.goodsIssues.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(width: 1),
-                                borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                               decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                              child: ListTile(
+                                // shape: RoundedRectangleBorder(
+                                //   side: BorderSide(width: 1),
+                                //   borderRadius: BorderRadius.circular(10),
+                                // ),
+                                leading: const Icon(Icons.list),
+                                trailing: Icon(Icons.arrow_drop_down_sharp,
+                                    size: 15 * SizeConfig.ratioFont),
+                                title: Text(state.goodsIssues[index].goodsIssueId
+                                    .toString()),
+                                subtitle: Text(
+                                    "Người nhận : ${state.goodsIssues[index].receiver.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.goodsIssues[index].timestamp.toString())}"),
+                                onTap: () {
+                                  BlocProvider.of<ListGoodsIssueLotCompletedBloc>(
+                                          context)
+                                      .add(LoadGoodsIssueLotCompletedEvent(
+                                          DateTime.now(),
+                                          state.goodsIssues[index]));
+                                  Navigator.pushNamed(
+                                      context, '/list_goods_issue_lot_completed_screen');
+                                },
                               ),
-                              leading: const Icon(Icons.list),
-                              trailing: Icon(Icons.arrow_drop_down_sharp,
-                                  size: 15 * SizeConfig.ratioFont),
-                              title: Text(state.goodsIssues[index].goodsIssueId
-                                  .toString()),
-                              subtitle: Text(
-                                  "Người nhận : ${state.goodsIssues[index].receiver.toString()}  \nNgày tạo : ${DateFormat('yyyy-MM-dd').parse(state.goodsIssues[index].timestamp.toString())}"),
-                              onTap: () {
-                                BlocProvider.of<ListGoodsIssueLotCompletedBloc>(
-                                        context)
-                                    .add(LoadGoodsIssueLotCompletedEvent(
-                                        DateTime.now(),
-                                        state.goodsIssues[index]));
-                                Navigator.pushNamed(
-                                    context, '/list_goods_issue_lot_completed_screen');
-                              },
                             ),
                           );
                         }),

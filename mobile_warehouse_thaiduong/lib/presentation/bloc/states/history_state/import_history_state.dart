@@ -25,7 +25,7 @@ class GetAllInfoImportSuccessState extends ImportHistoryState {
   List<String> supplier;
   GetAllInfoImportSuccessState(this.timestamp, this.poNumber, this.warehouse,
       this.listAllItem, this.supplier)
-      : super(warehouse, [], listAllItem, poNumber, supplier);
+      : super(warehouse, listAllItem, listAllItem, poNumber, supplier);
   @override
   List<Object> get props => [timestamp];
 }
@@ -40,6 +40,7 @@ class GetAllInfoImportLoadingState extends ImportHistoryState {
 class GetAllInfoImportFailState extends ImportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+ 
   GetAllInfoImportFailState(this.timestamp, this.status)
       : super([], [], [], [], []);
   @override
@@ -72,6 +73,7 @@ class GetImportItemByWarehouseLoadingState extends ImportHistoryState {
 class GetImportItemByWarehouseFailState extends ImportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+ 
   GetImportItemByWarehouseFailState(this.timestamp, this.status)
       : super([], [], [], [], []);
   @override
@@ -81,7 +83,7 @@ class GetImportItemByWarehouseFailState extends ImportHistoryState {
 // lich su nhap kho
 class AccessImportHistorySuccessState extends ImportHistoryState {
   DateTime timestamp;
-  List<ImportHistoryEntry> importHistoryEntries;
+  List<ImportHistoryView> importHistoryEntries;
   List<Warehouse> warehouse;
   List<String> poNumber;
   List<String> supplier;
@@ -112,10 +114,16 @@ class AccessImportHistoryLoadingState extends ImportHistoryState {
 class AccessImportHistoryFailState extends ImportHistoryState {
   DateTime timestamp;
   ErrorPackage status;
+  List<Warehouse> warehouse;
+  List<String> poNumber;
+  List<String> supplier;
+  List<Item> listAllItem;
+  List<Item> itemSort;
   AccessImportHistoryFailState(
     this.timestamp,
-    this.status,
-  ) : super([], [], [], [], []);
+    this.status,this.warehouse, this.itemSort, this.listAllItem,
+      this.poNumber, this.supplier
+  ) : super(warehouse, listAllItem, listAllItem, poNumber, supplier);
   @override
   List<Object> get props => [timestamp];
 }

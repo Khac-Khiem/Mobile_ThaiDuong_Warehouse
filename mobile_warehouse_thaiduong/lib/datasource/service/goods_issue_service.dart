@@ -9,20 +9,16 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 class GoodsIssueService {
   List bodyJson = [];
   Future<ErrorPackageModel> postNewGoodsIssue(
-      String goodsIssueId,
-      String purchaseOrderNumber,
-      DateTime timestamp,
-      String receiver,
-      List<GoodsIssueEntry> entries) async {
+      GoodsIssue goodsIssue) async {
     List bodyJson = [];
-    for (int i = 0; i < entries.length; i++) {
+    for (int i = 0; i < goodsIssue.entries!.length; i++) {
       Map<String, dynamic> dimensionJson = {
-        "itemId": entries[i].item!.itemId.toString(),
-        "unit": entries[i].item!.unit.toString(),
+        "itemId": goodsIssue.entries![i].item!.itemId.toString(),
+        "unit": goodsIssue.entries![i].item!.unit.toString(),
         "requestedSublotSize":
-            double.tryParse(entries[i].requestSublotSize.toString()),
+            double.tryParse(goodsIssue.entries![i].requestSublotSize.toString()),
         "requestedQuantity":
-            double.tryParse(entries[i].requestQuantity.toString())
+            double.tryParse(goodsIssue.entries![i].requestQuantity.toString())
       };
       bodyJson.add(dimensionJson);
     }
@@ -34,10 +30,10 @@ class GoodsIssueService {
             },
             body: jsonEncode(
               <String, dynamic>{
-                "goodsIssueId": goodsIssueId.toString(),
-                "receiver": receiver.toString(),
-                "purchaseOrderNumber": purchaseOrderNumber.toString(),
-                "timestamp": DateFormat('yyyy-MM-dd').format(timestamp),
+                "goodsIssueId": goodsIssue.goodsIssueId.toString(),
+                "receiver": goodsIssue.receiver.toString(),
+                "purchaseOrderNumber": goodsIssue.purchaseOrderNumber.toString(),
+                "timestamp": DateFormat('yyyy-MM-dd').format(DateTime.now()),
                 //"timestamp": "2023-04-18",
                 "employeeId": "NV01",
                 "entries": bodyJson

@@ -23,8 +23,6 @@ class CreateNewReceiptScreen extends StatefulWidget {
 }
 
 class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
-  // search button
-  TextEditingController controller = TextEditingController();
   GoodsReceipt goodsReceipt =
       GoodsReceipt('', '', [], DateTime.now(), null, false);
   var receiptId = TextEditingController();
@@ -55,14 +53,14 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
         listener: (context, state) {
           if (state is PostReceiptStateSuccess) {
             AlertDialogOneBtnCustomized(context, 'Thành công',
-                    'Đã hoàn thành việc tạo đơn', 'Tiếp tục', () {
+                    'Đã hoàn thành việc tạo đơn', 'Tiếp tục','Success_image.png', () {
               Navigator.pushNamed(context, '/main_receipt_screen');
             }, 20, 15, () {}, false)
                 .show();
           }
           if (state is PostReceiptStateFailure) {
             AlertDialogOneBtnCustomized(context, 'Thất bại',
-                    'Không thể hoàn thành việc tạo đơn', 'Trở lại', () {
+                    'Không thể hoàn thành việc tạo đơn', 'Trở lại','Fail_image.png', () {
               // Navigator.pushNamed(context, '/main_receipt_screen');
             }, 20, 15, () {}, false)
                 .show();
@@ -70,12 +68,12 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
         },
         builder: (context, state) {
           if (state is AddLotToGoodsReceiptStateLoading ||
-              state is UpdateLotReceiptStateLoading) {
+              state is UpdateLotReceiptStateLoading ||state is PostReceiptStateLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is UpdateLotReceiptStateSuccess || state is PostReceiptStateFailure) {
+          if (state is UpdateLotReceiptStateSuccess || state is PostReceiptStateFailure|| state is PostReceiptStateSuccess || state is PostReceiptStateFailure) {
             goodsReceipt = state.goodsReceipt as GoodsReceipt;
             receiptId.text = goodsReceipt.goodsReceiptId.toString();
             supplyId.text = goodsReceipt.supply.toString();
@@ -101,7 +99,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                     onChanged: (value) => {
                       goodsReceipt.supply = value,
                       receiptId.text =
-                          "${DateFormat('dd-MM-yy').format(DateTime.now())}-$value",
+                          "${DateFormat('yyMMdd').format(DateTime.now())}-$value",
                       goodsReceipt.goodsReceiptId = receiptId.text,
                     },
                   ),
@@ -298,7 +296,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       
                     state.goodsReceipt!.goodsReceiptId == '' ?
                       AlertDialogOneBtnCustomized(context, 'Cảnh báo',
-                              'Vui lòng nhập Mã Lô', 'Tiếp tục', () {
+                              'Vui lòng nhập Mã Lô', 'Tiếp tục','', () {
                        
                       }, 20, 15, () {}, false)
                           .show(): BlocProvider.of<CreateReceiptBloc>(context).add(

@@ -142,43 +142,40 @@ class _StockcardScreenState extends State<StockcardScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 5 * SizeConfig.ratioHeight),
-                            width: 160 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: CustomizeDatePicker(
-                              name: "Từ ngày",
-                              fontColor: Colors.black,
-                              fontWeight: FontWeight.normal,
-                              initDateTime: startDate,
-                              okBtnClickedFunction: (pickedTime) {
-                                startDate = pickedTime;
-                              },
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.symmetric(
+                          //     vertical: 5 * SizeConfig.ratioHeight),
+                          width: 170 * SizeConfig.ratioWidth,
+                          height: 80 * SizeConfig.ratioHeight,
+                          child: CustomizeDatePicker(
+                            name: "Từ ngày",
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            initDateTime: startDate,
+                            okBtnClickedFunction: (pickedTime) {
+                              startDate = pickedTime;
+                            },
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 5 * SizeConfig.ratioHeight),
-                            width: 160 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: CustomizeDatePicker(
-                              name: "Đến ngày",
-                              fontColor: Colors.black,
-                              fontWeight: FontWeight.normal,
-                              initDateTime: endDate,
-                              okBtnClickedFunction: (pickedTime) {
-                                endDate = pickedTime;
-                              },
-                            ),
+                        ),
+                        Container(
+                          // margin: EdgeInsets.symmetric(
+                          //     vertical: 5 * SizeConfig.ratioHeight),
+                          width: 170 * SizeConfig.ratioWidth,
+                          height: 80 * SizeConfig.ratioHeight,
+                          child: CustomizeDatePicker(
+                            name: "Đến ngày",
+                            fontColor: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            initDateTime: endDate,
+                            okBtnClickedFunction: (pickedTime) {
+                              endDate = pickedTime;
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     CustomizedButton(
                         text: "Truy xuất",

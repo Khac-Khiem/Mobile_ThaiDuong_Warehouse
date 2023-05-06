@@ -174,14 +174,14 @@ class AppRoute {
                       create: (context) => injector()),
                 ], child: const FillInfoEntryIssueScreen()));
 
-      case '/fill_main_info_issue_screen':
-        return MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<CreateIssueBloc>(
-                      create: (context) => injector()),
-                  BlocProvider<FillInfoIssueEntryBloc>(
-                      create: (context) => injector()),
-                ], child: const FillMainInFoIssueScreen()));
+      // case '/fill_main_info_issue_screen':
+      //   return MaterialPageRoute(
+      //       builder: (context) => MultiBlocProvider(providers: [
+      //             BlocProvider<CreateIssueBloc>(
+      //                 create: (context) => injector()),
+      //             BlocProvider<FillInfoIssueEntryBloc>(
+      //                 create: (context) => injector()),
+      //           ], child: const FillMainInFoIssueScreen()));
       case '/list_goods_issue_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
