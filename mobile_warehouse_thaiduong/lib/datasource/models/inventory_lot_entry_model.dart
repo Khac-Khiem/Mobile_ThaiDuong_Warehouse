@@ -3,7 +3,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/inventory_log_entry.d
 import 'item_model.dart';
 
 class InventoryLogEntryModel extends InventoryLogEntry {
-  InventoryLogEntryModel(super.item, super.beforeQuantity, super.changedQuantity,
+  const InventoryLogEntryModel(super.item, super.beforeQuantity, super.changedQuantity,
       super.timestamp, super.itemLot);
   factory InventoryLogEntryModel.fromJson(Map<String, dynamic> json) {
     return InventoryLogEntryModel(

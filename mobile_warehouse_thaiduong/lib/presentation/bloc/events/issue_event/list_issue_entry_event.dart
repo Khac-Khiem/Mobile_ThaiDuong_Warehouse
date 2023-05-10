@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/goods_issue.dart';
@@ -9,6 +11,5 @@ class LoadGoodsIssueEntryEvent extends GoodsIssueEntryEvent {
   GoodsIssue goodsIssue;
   LoadGoodsIssueEntryEvent(this.timestamp,this.goodsIssue);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

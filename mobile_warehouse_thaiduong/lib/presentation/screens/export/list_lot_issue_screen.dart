@@ -72,7 +72,6 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
               // }, 20, 15, () {}, false)
               //     .show();
               //     }
-              // TODO: implement listener
             }, builder: (context, state) {
               if (state is LoadGoodsIssueLotsSuccessState) {
                 return SingleChildScrollView(
@@ -86,7 +85,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ListTile(
                                   shape: RoundedRectangleBorder(
-                                    side: BorderSide(width: 2),
+                                    side: const BorderSide(width: 2),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   leading: const Icon(Icons.list),
@@ -207,7 +206,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                               };
                                       }
                                     },
-                                    child: Text('Xác nhận'))
+                                    child: const Text('Xác nhận'))
                               ],
                             )))
                         .toList(),
@@ -228,7 +227,6 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                 }, 20, 15, () {}, false)
                     .show();
               }
-              // TODO: implement listener
             }, builder: (context, state) {
               if (state is LoadGoodsIssueLotsSuccessState) {
                 return Column(
@@ -242,7 +240,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
                                 shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 2),
+                                  side: const BorderSide(width: 2),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 leading: const Icon(Icons.list),

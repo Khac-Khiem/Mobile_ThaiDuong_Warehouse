@@ -20,7 +20,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/create_new_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/export_function_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/fill_info_lot_issue_screen.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_lot_exported_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_completed_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/export/list_good_issue_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/history/export_history_entry_screen.dart';
@@ -42,10 +41,8 @@ import '../bloc/blocs/inventory_bloc.dart';
 import '../bloc/blocs/isolation_bloc.dart';
 import '../bloc/blocs/shelve_bloc.dart';
 import '../bloc/blocs/warning_bloc.dart';
-import '../bloc/events/issue_event/list_lot_issue_event.dart';
 import '../screens/adjustment/lot_adjust_screen.dart';
 import '../screens/adjustment/scan_adjustment_screen.dart';
-import '../screens/export/fill_main_info_issue_screen.dart';
 import '../screens/export/list_lot_issue_completed.dart';
 import '../screens/export/list_lot_issue_screen.dart';
 import '../screens/history/export_history_screen.dart';
@@ -106,7 +103,7 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<FillReceiptLotBloc>(
                       create: (context) => injector()),
-                ], child: FillInfoLotReceiptScreen()));
+                ], child: const FillInfoLotReceiptScreen()));
       case '/importing_receipt_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
@@ -132,7 +129,7 @@ class AppRoute {
                       create: (context) => injector()),
                   BlocProvider<ExportingReceiptLotBloc>(
                       create: (context) => injector()),
-                ], child: UpdateInfoLotReceiptScreen()));
+                ], child: const UpdateInfoLotReceiptScreen()));
       case '/imported_receipt_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [

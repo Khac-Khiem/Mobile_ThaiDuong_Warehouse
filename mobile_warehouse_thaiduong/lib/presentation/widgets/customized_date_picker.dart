@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -16,10 +18,10 @@ class CustomizeDatePicker extends StatefulWidget {
       required this.fontWeight,
       required this.initDateTime});
   @override
-  _CustomizeDatePickerState createState() => _CustomizeDatePickerState();
+  CustomizeDatePickerState createState() => CustomizeDatePickerState();
 }
 
-class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
+class CustomizeDatePickerState extends State<CustomizeDatePicker> {
   String reference = '';
   @override
   Widget build(BuildContext context) {
@@ -40,12 +42,9 @@ class _CustomizeDatePickerState extends State<CustomizeDatePicker> {
         setState(() {
           widget.initDateTime = picked;
           reference = picked.toString();
-          print(widget.initDateTime.toString());
         });
       }
-      if (widget.okBtnClickedFunction != null) {
-        widget.okBtnClickedFunction(widget.initDateTime);
-      }
+      widget.okBtnClickedFunction(widget.initDateTime);
     }
 
     return TextButton(

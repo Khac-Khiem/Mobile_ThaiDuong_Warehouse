@@ -1,4 +1,5 @@
-import 'package:mobile_warehouse_thaiduong/datasource/models/item_lot_model.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 class LocationModel extends Location {

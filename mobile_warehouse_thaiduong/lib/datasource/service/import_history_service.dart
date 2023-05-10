@@ -12,7 +12,6 @@ class ImportHistoryService {
         '${Constants.baseUrl}api/InventoryHistories/ByPO/Import?purchaseOrderNumber=$poNumber'));
     // 'api/stockcardentries/?StartTime=$startDate&EndTime=$endDate'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ImportHistoryEntryModel> entries = body
           .map(
@@ -33,7 +32,6 @@ class ImportHistoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/BySupplier/Import?supplier=$supplier&StartTime=$start&EndTime=$end'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ImportHistoryEntryModel> entries = body
           .map(
@@ -55,7 +53,6 @@ class ImportHistoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/Import?itemClassId=$warehouseId&StartTime=$start&EndTime=$end&itemId=$itemId'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ImportHistoryEntryModel> entries = body
           .map(

@@ -18,7 +18,6 @@ class ListGoodIssueScreen extends StatefulWidget {
 }
 
 class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
-  int _index = 0;
   List<GoodsIssue> goodsIssue = [];
 
   @override

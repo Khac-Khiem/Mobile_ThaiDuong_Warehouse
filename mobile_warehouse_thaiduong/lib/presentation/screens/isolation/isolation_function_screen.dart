@@ -6,7 +6,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.da
 
 import '../../bloc/blocs/isolation_bloc.dart';
 import '../../bloc/events/isolation_events.dart';
-import 'isolation_item_screen.dart';
 
 class IsolationFunctionScreen extends StatelessWidget {
   const IsolationFunctionScreen({super.key});

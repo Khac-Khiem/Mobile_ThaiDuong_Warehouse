@@ -1,7 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
+// ignore_for_file: must_be_immutable
 
-import '../../../domain/entities/item.dart';
+import 'package:equatable/equatable.dart';
+
 
 abstract class IsolationEvent extends Equatable {}
 

@@ -5,12 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/adjustment_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/dialog/dialog_two_button.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 
-import '../../bloc/events/adjustment_events.dart';
 import '../../bloc/events/inventory_events.dart';
 import '../../widgets/barcode_input_widget.dart';
 import '../../widgets/customized_date_picker.dart';
@@ -31,7 +29,6 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#e60000', 'Cancel', true, ScanMode.QR);
-      print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -123,7 +120,7 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
                           child: CustomizeDatePicker(
@@ -136,7 +133,7 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
                             },
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
                           child: CustomizeDatePicker(

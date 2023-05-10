@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
@@ -6,8 +8,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/login_bloc.da
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/login_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/login_states.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/drawer_widget.dart';
-
 import '../../widgets/main_app_name.dart';
 
 class LoginScreen extends StatelessWidget {

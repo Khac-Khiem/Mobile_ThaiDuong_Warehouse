@@ -64,7 +64,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                           showSearchBox: true,
                           label: "Mã sản phẩm",
                           onChanged: (value) {
-                            print(value);
                             selectedItem = null;
                             setState(() {
                               selectedItem = state.items.firstWhere(
@@ -87,7 +86,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                         showSearchBox: true,
                         label: "Tên sản phẩm",
                         onChanged: (value) {
-                          print(value);
                           setState(() {
                             selectedItem = state.items.firstWhere(
                                 (element) => element.itemName == value);
@@ -133,8 +131,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                           label: "Mã sản phẩm",
                           // hint: "country in menu mode",
                           onChanged: (value) {
-                            print(value);
-                            print(value);
                             setState(() {
                               selectedItem = state.item.firstWhere(
                                   (element) => element.itemId == value);
@@ -157,7 +153,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                         label: "Tên sản phẩm",
                         // hint: "country in menu mode",
                         onChanged: (value) {
-                          print(value);
                           setState(() {
                             selectedItem = state.item.firstWhere(
                                 (element) => element.itemName == value);
@@ -347,7 +342,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       showSearchBox: true,
                       label: "Tên sản phẩm",
                       onChanged: (value) {
-                        print(value);
                         // setState(() {
                         //   selectedItem = state.item.firstWhere(
                         //       (element) => element.itemName == value);

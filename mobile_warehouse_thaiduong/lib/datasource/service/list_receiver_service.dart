@@ -7,13 +7,11 @@ class ReceiverListService{
     final res = await http.get(Uri.parse('${Constants.baseUrl}api/GoodsIssues/Receivers'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-      print(body.toString());
       List<String> listReceiver  = body
           .map(
             (dynamic item) => item.toString(),
           )
           .toList();
-      print(listReceiver.toString());
       return listReceiver;
     } else {
       throw "Unable to retrieve posts.";

@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class UncompletedReceiptLotEvent extends Equatable {}
 
@@ -9,7 +10,6 @@ class LoadUncompletedReceiptLotEvent extends UncompletedReceiptLotEvent {
   GoodsReceipt receipt;
   LoadUncompletedReceiptLotEvent(this.timestamp, this.receipt);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 

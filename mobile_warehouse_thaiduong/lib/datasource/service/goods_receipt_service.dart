@@ -4,11 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/goods_receipt_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 import 'package:http/http.dart' as http;
 
 import '../../constant.dart';
-import '../../domain/entities/error_package.dart';
 
 class GoodsReceiptService {
   // Future<ErrorPackageModel> postNewGoodsReceipt(

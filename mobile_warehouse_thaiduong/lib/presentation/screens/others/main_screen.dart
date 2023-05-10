@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/screens/shelves/shelves_function_screen.dart';
 
 import '../../widgets/button_widget.dart';
-import '../history/history_function_screen.dart';
-import '../isolation/isolation_function_screen.dart';
-import '../warning/warning_function_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);

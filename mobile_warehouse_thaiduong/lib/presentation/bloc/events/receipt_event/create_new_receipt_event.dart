@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/goods_receipt.dart';
-import '../../../../domain/entities/item_lot.dart';
 
 abstract class CreateReceiptEvent extends Equatable {}
 
@@ -31,7 +32,6 @@ class UpdateLotReceiptEvent extends CreateReceiptEvent {
 
   UpdateLotReceiptEvent(this.itemLot, this.goodsReceipt, this.index);
   @override
-  // TODO: implement props
   List<Object?> get props => [itemLot];
 }
 

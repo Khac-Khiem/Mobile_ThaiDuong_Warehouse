@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/adjustment_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/adjustment_states.dart';
 
-import '../../bloc/events/adjustment_events.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
 
@@ -43,9 +40,7 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
       body: Builder(
         builder: (BuildContext context) {
           return BlocConsumer<AdjustmentBloc, AdjustmentState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
+            listener: (context, state) {            },
             builder: (context, state) {
               if (state is GetLotDetailSuccessState) {
                 return Column(

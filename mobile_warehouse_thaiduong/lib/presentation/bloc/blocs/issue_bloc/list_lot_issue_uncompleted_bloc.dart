@@ -16,9 +16,8 @@ class ListGoodsIssueLotUncompletedBloc
       try {
         final List<ItemLot> itemLotsSuggest =
             await itemLotUsecase.getItemLotsByItemId(event.itemId);
-        print(itemLotsSuggest);
         emit(LoadGoodsIssueLotsSuccessState(DateTime.now(), event.goodsIssueId,
-            event.itemId, itemLotsSuggest, []));
+            event.itemId, itemLotsSuggest, const []));
       } catch (e) {
         emit(LoadGoodsIssueLotsFailState(DateTime.now()));
         // emit(LoadReceiptExportingStateFail(

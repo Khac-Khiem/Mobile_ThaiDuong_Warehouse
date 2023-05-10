@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import '../../../constant.dart';
 import '../../bloc/blocs/inventory_bloc.dart';
-import '../../bloc/events/inventory_events.dart';
 import '../../bloc/states/inventory_states.dart';
 import '../../widgets/button_widget.dart';
 
@@ -113,7 +112,6 @@ class _ListInventoryScreenState extends State<ListInventoryScreen> {
                     ],
                   );
                 } else {
-                  print(state);
                   return const Center(child: CircularProgressIndicator());
                 }
               })

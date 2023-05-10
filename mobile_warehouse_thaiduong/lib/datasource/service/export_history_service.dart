@@ -13,7 +13,6 @@ class ExportHistoryService {
         '${Constants.baseUrl}api/InventoryHistories/ByPO/Export?purchaseOrderNumber=$poNumber'));
     // 'api/stockcardentries/?StartTime=$startDate&EndTime=$endDate'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ExportHistoryEntryModel> entries = body
           .map(
@@ -34,7 +33,6 @@ class ExportHistoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/ByReceiver/Export?receiver=$receiver&StartTime=$start&EndTime=$end'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ExportHistoryEntryModel> entries = body
           .map(
@@ -61,7 +59,6 @@ class ExportHistoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/Export?itemClassId=$warehouseId&StartTime=$start&EndTime=$end&itemId=$itemId'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<ExportHistoryEntryModel> entries = body
           .map(

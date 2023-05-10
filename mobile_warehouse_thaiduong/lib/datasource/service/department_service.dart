@@ -14,7 +14,7 @@ class DepartmentService {
             (dynamic item) => DepartmentModel.fromJson(item),
           )
           .toList();
-      print(items.toString());
+      //print(items.toString());
       return items;
     } else {
       throw "Unable to retrieve posts.";

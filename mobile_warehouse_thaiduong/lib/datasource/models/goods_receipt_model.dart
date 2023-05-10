@@ -1,4 +1,5 @@
-import 'package:intl/intl.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 
@@ -28,7 +29,7 @@ class GoodsReceiptLotModel extends GoodsReceiptLot {
       //json['employee'],
       // json['location'] = Location('', <ItemLot>[]),
       json['employee'] == null
-          ? EmployeeModel("", "")
+          ? const EmployeeModel("", "")
           : EmployeeModel.fromJson(json["employee"]),
       json['locationId'],
       //  == null
@@ -56,7 +57,7 @@ class GoodsReceiptModel extends GoodsReceipt {
     //  DateFormat('dd-MM-yy').parse(json['timestamp'],),
       DateTime.tryParse(json['timestamp'].toString()),
      json['employee'] == null
-          ? EmployeeModel("", "")
+          ? const EmployeeModel("", "")
           : EmployeeModel.fromJson(json["employee"]),
       json['isConfirmed'],
     );

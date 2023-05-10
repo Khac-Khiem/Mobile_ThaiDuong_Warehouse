@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/completed_receipt_lot_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/completed_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
@@ -13,8 +12,6 @@ class ListCompletedLotReceiptScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    List<GoodsReceiptLot> goodsReceiptLot;
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

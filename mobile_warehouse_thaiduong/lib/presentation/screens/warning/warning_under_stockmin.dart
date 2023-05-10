@@ -67,7 +67,6 @@ class _WarningUnderStockminScreenSate
                           showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             selectedWarehouse = null;
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(
@@ -121,7 +120,6 @@ class _WarningUnderStockminScreenSate
                           showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             selectedWarehouse = null;
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(
@@ -311,7 +309,6 @@ class _WarningUnderStockminScreenSate
                           showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             selectedWarehouse = null;
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(
@@ -367,7 +364,6 @@ class _WarningUnderStockminScreenSate
                           showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             selectedWarehouse = null;
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(
@@ -415,9 +411,8 @@ class _WarningUnderStockminScreenSate
                               .map((e) => e.warehouseName)
                               .toList(),
                           showSearchBox: true,
-                          label: "Kho hàng",
+                        //  label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             selectedWarehouse = null;
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 
@@ -8,7 +10,6 @@ class LoadCompletedGoodsIssueInitState extends CompletedGoodsIssueState {
   LoadCompletedGoodsIssueInitState(this.timestamp);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -16,7 +17,6 @@ class LoadCompletedGoodsIssuesLoadingState extends CompletedGoodsIssueState {
   DateTime timestamp;
   LoadCompletedGoodsIssuesLoadingState(this.timestamp);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -25,7 +25,6 @@ class LoadCompletedGoodsIssuesSuccessState extends CompletedGoodsIssueState {
   List<GoodsIssue> goodsIssues;
   LoadCompletedGoodsIssuesSuccessState(this.timestamp, this.goodsIssues);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -34,6 +33,5 @@ class LoadCompletedGoodsIssuesFailState extends CompletedGoodsIssueState {
   String detail;
   LoadCompletedGoodsIssuesFailState(this.timestamp, this.detail);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

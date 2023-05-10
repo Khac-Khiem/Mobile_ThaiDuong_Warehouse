@@ -2,8 +2,6 @@ import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model
 import 'package:mobile_warehouse_thaiduong/datasource/models/lot_adjustment_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
-
 import '../../constant.dart';
 import '../../domain/entities/item_lot.dart';
 

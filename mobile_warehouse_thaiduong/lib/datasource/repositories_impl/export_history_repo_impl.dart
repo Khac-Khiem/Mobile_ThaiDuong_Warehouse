@@ -8,7 +8,6 @@ class ExportHistoryRepoImpl implements ExportHistoryRepoitory {
   @override
   Future<List<ExportHistoryEntry>> getExportHistoryByItem(
       String warehouseId, String itemId, DateTime startDate, DateTime endDate) {
-    // TODO: implement getExportHistoryByItem
     final entries = exportHistoryService.getExportHistoryByItem(
         startDate, endDate, itemId, warehouseId);
     return entries;
@@ -16,7 +15,6 @@ class ExportHistoryRepoImpl implements ExportHistoryRepoitory {
 
   @override
   Future<List<ExportHistoryEntry>> getExportHistoryByPO(String poNumber) {
-    // TODO: implement getExportHistoryByPO
     final entries = exportHistoryService.getExportHistoryByPo(poNumber);
     return entries;
   }
@@ -24,7 +22,6 @@ class ExportHistoryRepoImpl implements ExportHistoryRepoitory {
   @override
   Future<List<ExportHistoryEntry>> getExportHistoryByReceiver(
       String receiver, DateTime startDate, DateTime endDate) {
-    // TODO: implement getExportHistoryByReceiver
     final entries = exportHistoryService.getExportHistoryByReceiver(
         startDate, endDate, receiver);
     return entries;

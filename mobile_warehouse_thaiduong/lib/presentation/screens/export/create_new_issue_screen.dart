@@ -1,4 +1,3 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -11,9 +10,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/fill_info_issue_entry_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/create_new_issue_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
-import '../../dialog/dialog_one_button.dart';
 import '../../widgets/exception_widget.dart';
-import '../../widgets/text_input_widget.dart';
 
 class CreateNewIssueScreen extends StatefulWidget {
   const CreateNewIssueScreen({super.key});
@@ -24,7 +21,7 @@ class CreateNewIssueScreen extends StatefulWidget {
 
 class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
   GoodsIssue goodsIssue =
-     GoodsIssue('', '',DateTime.now() , false, '', null, []);
+     GoodsIssue('', '',DateTime.now() , false, '', null, const []);
   var issueId = TextEditingController();
   var receiver = TextEditingController();
 

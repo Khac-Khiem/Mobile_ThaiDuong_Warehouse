@@ -12,7 +12,6 @@ class InventoryService {
         '${Constants.baseUrl}api/InventoryLogEntries?StartDate=$startDate&EndDate=$endDate'));
     // 'api/stockcardentries/?StartTime=$startDate&EndTime=$endDate'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<InventoryLogEntryModel> stockcard = body
           .map(
@@ -31,7 +30,6 @@ class InventoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/stockcardentries/?StartTime=$startDate&EndTime=$endDate&itemClassId=$itemClassId'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<InventoryLogEntryModel> stockcard = body
           .map(
@@ -53,7 +51,6 @@ class InventoryService {
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryLogEntries/$itemId?StartTime=$start&EndTime=$end'));
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
       List<InventoryLogEntryModel> stockcard = body
           .map(

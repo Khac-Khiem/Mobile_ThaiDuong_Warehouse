@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/import_history_bloc.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/history_state/import_history_state.dart';
 import '../../../constant.dart';
 import '../../bloc/blocs/history_bloc/export_history_bloc.dart';
 import '../../bloc/states/history_state/export_history_state.dart';
@@ -63,7 +60,7 @@ class _ExportHistoryEntryScreenState extends State<ExportHistoryEntryScreen> {
                       scrollDirection: Axis.vertical,
                       
                           child: DataTable(
-                            columns: [
+                            columns:const [
                               DataColumn(label: Text('Bộ phận')),
                               DataColumn(label: Text('Mã lô')),
                               DataColumn(label: Text('SP')),

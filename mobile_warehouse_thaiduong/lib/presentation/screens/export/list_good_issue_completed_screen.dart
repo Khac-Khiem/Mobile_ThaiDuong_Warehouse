@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_goods_issue_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/list_lot_issue_completed_event.dart';
-import '../../../domain/entities/goods_issue.dart';
 import '../../../function.dart';
 import '../../bloc/blocs/issue_bloc/list_goods_issue_completed_bloc.dart';
 import '../../bloc/blocs/issue_bloc/list_lot_issue_completed_bloc.dart';
@@ -83,7 +81,6 @@ class _ListGoodIssueCompletedScreenState
                     initDateTime: endDate,
                     okBtnClickedFunction: (pickedTime) {
                       endDate = pickedTime;
-                      print(endDate);
                     },
                   ),
                 ),

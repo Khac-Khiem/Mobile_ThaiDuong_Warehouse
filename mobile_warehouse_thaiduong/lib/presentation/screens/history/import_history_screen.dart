@@ -112,7 +112,6 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                     label: "Kho hàng",
                                     onChanged: (value) {
                                       selectedItem = null;
-                                      print(value);
                                       setState(() {
                                         selectedWarehouse = state.warehouse
                                             .firstWhere((element) =>
@@ -193,7 +192,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       // margin: EdgeInsets.symmetric(
                                       //     vertical: 5 * SizeConfig.ratioHeight),
                                       width: 170 * SizeConfig.ratioWidth,
@@ -208,7 +207,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                         },
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       // margin: EdgeInsets.symmetric(
                                       //     vertical: 5 * SizeConfig.ratioHeight),
                                       width: 170 * SizeConfig.ratioWidth,
@@ -329,7 +328,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
+                            SizedBox(
                               // margin: EdgeInsets.symmetric(
                               //     vertical: 5 * SizeConfig.ratioHeight),
                               width: 170 * SizeConfig.ratioWidth,
@@ -344,7 +343,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                 },
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               // margin: EdgeInsets.symmetric(
                               //     vertical: 5 * SizeConfig.ratioHeight),
                               width: 170 * SizeConfig.ratioWidth,

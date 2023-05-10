@@ -1,16 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/error_package.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
-import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
-import 'package:mobile_warehouse_thaiduong/domain/usecases/inventory_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/adjustment_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/adjustment_states.dart';
 
-import '../../../domain/usecases/location_usecase.dart';
 import '../../../domain/usecases/lot_adjustment_usecase.dart';
 
 class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {

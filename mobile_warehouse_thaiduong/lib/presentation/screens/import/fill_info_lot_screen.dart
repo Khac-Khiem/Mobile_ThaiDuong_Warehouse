@@ -4,18 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/create_new_receipt_event.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/uncompleted_receipt_lot_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/fill_info_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/barcode_input_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_picker.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
-import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../dialog/dialog_one_button.dart';
 
 class FillInfoLotReceiptScreen extends StatefulWidget {
@@ -288,7 +285,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
                           child: CustomizeDatePicker(
@@ -304,7 +301,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                             },
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
                           child: CustomizeDatePicker(

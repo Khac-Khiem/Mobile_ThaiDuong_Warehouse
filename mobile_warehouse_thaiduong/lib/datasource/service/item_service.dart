@@ -8,13 +8,11 @@ class ItemService {
     final res = await http.get(Uri.parse('${Constants.baseUrl}api/Items'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-      print(body.toString());
       List<ItemModel> items = body
           .map(
             (dynamic item) => ItemModel.fromJson(item),
           )
           .toList();
-      print(items.toString());
       return items;
     } else {
       throw "Unable to retrieve posts.";

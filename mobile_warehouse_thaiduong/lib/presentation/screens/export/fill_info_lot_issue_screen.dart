@@ -47,7 +47,6 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
       ),
       body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
         listener: (context, state) {
-          // TODO: implement listener
         },
         builder: (context, state) {
           if (state is LoadItemDataSuccessState) {
@@ -272,7 +271,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                     context, '/create_issue_screen');
                                 //Navigator.of(context).pop();
                               },
-                              child: Text('Tạo mới'),
+                              child: const Text('Tạo mới'),
                             ),
                           )
                         : Padding(
@@ -302,7 +301,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                     context, '/create_issue_screen');
                                 //Navigator.of(context).pop();
                               },
-                              child: Text('Cập nhật'),
+                              child: const Text('Cập nhật'),
                             ),
                           )
                   ],
@@ -310,7 +309,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

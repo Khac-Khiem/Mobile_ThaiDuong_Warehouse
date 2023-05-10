@@ -7,7 +7,6 @@ import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import '../../bloc/states/receipt_state/uncompleted_receipt_lot_state.dart';
 import '../../widgets/button_widget.dart';
-import '../../widgets/lot_detail_component.dart';
 
 class ListUncompletedLotReceiptScreen extends StatefulWidget {
   const ListUncompletedLotReceiptScreen({super.key});
@@ -22,7 +21,7 @@ class _ListUncompletedLotReceiptScreenState
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    bool showExpand = false;
+    //bool showExpand = false;
 
     return Scaffold(
       appBar: AppBar(

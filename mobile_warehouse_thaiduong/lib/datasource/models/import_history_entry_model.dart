@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/import_history_entry.dart';
 
-import '../../domain/entities/item.dart';
 
 class ImportHistoryEntryModel extends ImportHistoryEntry {
   ImportHistoryEntryModel({super.supplier, super.timestamp, super.lots});

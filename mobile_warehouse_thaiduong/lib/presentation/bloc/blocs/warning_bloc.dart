@@ -34,7 +34,7 @@ class WarningBloc extends Bloc<WarningStockLevelEvent, WarningState> {
         final warehouse = await locationUsecase.getAllWarehouseId();
         emit(GetWarehouseSuccessState(DateTime.now(), warehouse));
       } catch (e) {
-        emit(GetWarehouseFailState(DateTime.now(),[]));
+        emit(GetWarehouseFailState(DateTime.now(),const []));
       }
     });
 

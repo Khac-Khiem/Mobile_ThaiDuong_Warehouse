@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 
@@ -9,7 +11,6 @@ class ImportHistoryEntry extends Equatable {
   ImportHistoryEntry({this.supplier, this.timestamp, this.lots});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -27,7 +28,6 @@ class LotsHistory extends Equatable {
       this.item,
       this.note});
   @override
-  // TODO: implement props
   List<Object?> get props => [goodsReceiptLotId];
 }
 

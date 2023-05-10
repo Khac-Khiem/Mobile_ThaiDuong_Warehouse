@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 
@@ -8,7 +10,6 @@ class CompletedReceiptLotLoadingState extends CompletedReceiptLotState {
   CompletedReceiptLotLoadingState(this.timestamp);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -17,7 +18,6 @@ class LoadGoodsReceiptLotSuccessState extends CompletedReceiptLotState {
   DateTime timestamp;
   LoadGoodsReceiptLotSuccessState(this.goodsReceipt, this.timestamp);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -26,7 +26,6 @@ class LoadGoodsReceiptLotFailState extends CompletedReceiptLotState {
   LoadGoodsReceiptLotFailState(this.timestamp);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 

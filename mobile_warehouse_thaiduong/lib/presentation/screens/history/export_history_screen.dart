@@ -9,7 +9,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/history_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/history_event/export_history_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/history_event/import_history_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/history_state/export_history_state.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/history_state/import_history_state.dart';
 import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
 import '../../dialog/dialog_one_button.dart';
@@ -113,7 +112,6 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                     label: "Kho hàng",
                                     onChanged: (value) {
                                       selectedItem = null;
-                                      print(value);
                                       setState(() {
                                         selectedWarehouse = state.warehouse
                                             .firstWhere((element) =>
@@ -174,7 +172,6 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                     label: "Tên sản phẩm",
                                     // hint: "country in menu mode",
                                     onChanged: (value) {
-                                      print(value);
                                       setState(() {
                                         selectedItem = state.itemSort
                                             .firstWhere((element) =>
@@ -191,7 +188,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     // margin: EdgeInsets.symmetric(
                                     //     vertical: 5 * SizeConfig.ratioHeight),
                                     width: 170 * SizeConfig.ratioWidth,
@@ -206,7 +203,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       },
                                     ),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     // margin: EdgeInsets.symmetric(
                                     //     vertical: 5 * SizeConfig.ratioHeight),
                                     width: 170 * SizeConfig.ratioWidth,
@@ -328,7 +325,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
+                            SizedBox(
                               // margin: EdgeInsets.symmetric(
                               //     vertical: 5 * SizeConfig.ratioHeight),
                               width: 170 * SizeConfig.ratioWidth,
@@ -343,7 +340,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 },
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               // margin: EdgeInsets.symmetric(
                               //     vertical: 5 * SizeConfig.ratioHeight),
                               width: 170 * SizeConfig.ratioWidth,

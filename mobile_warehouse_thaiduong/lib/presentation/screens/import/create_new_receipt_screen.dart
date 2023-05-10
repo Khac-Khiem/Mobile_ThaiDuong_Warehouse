@@ -11,7 +11,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_even
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/create_new_receipt_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/exception_widget.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/lot_detail_component.dart';
 
 import '../../dialog/dialog_one_button.dart';
 
@@ -24,7 +23,7 @@ class CreateNewReceiptScreen extends StatefulWidget {
 
 class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
   GoodsReceipt goodsReceipt =
-      GoodsReceipt('', '', [], DateTime.now(), null, false);
+      GoodsReceipt('', '', const [], DateTime.now(), null, false);
   var receiptId = TextEditingController();
   var supplyId = TextEditingController();
 

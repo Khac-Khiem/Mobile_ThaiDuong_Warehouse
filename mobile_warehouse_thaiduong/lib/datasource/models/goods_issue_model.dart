@@ -1,4 +1,6 @@
 
+// ignore_for_file: must_be_immutable
+
 import 'package:mobile_warehouse_thaiduong/datasource/models/employee_model.dart';
 import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
@@ -13,7 +15,7 @@ class GoodsIssueLotModel extends GoodsIssueLot {
      double.tryParse( json['sublotSize'].toString())  ,
       json['employee']
       == null
-          ? null as EmployeeModel
+          ? const EmployeeModel('', '')
           : EmployeeModel.fromJson(json["employee"]),
       json['note'],
     );
@@ -49,7 +51,7 @@ class GoodsIssueModel extends GoodsIssue {
       json['isConfirmed'],
       json['receiver'],
        json['employee'] == null
-          ? EmployeeModel("", "")
+          ? const EmployeeModel("", "")
           : EmployeeModel.fromJson(json["employee"]),
       json['entries'] == null
           ? []

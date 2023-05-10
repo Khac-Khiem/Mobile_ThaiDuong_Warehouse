@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
-import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 class InventoryLogEntry extends Equatable {
  final Item item;
@@ -11,6 +10,5 @@ class InventoryLogEntry extends Equatable {
  const InventoryLogEntry(
       this.item, this.beforeQuantity, this.changedQuantity, this.timestamp, this.itemLot);
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }

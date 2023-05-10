@@ -15,28 +15,24 @@ class InfoRepoImpl implements InfoRepository {
       this.receiverListService, this.supplierService);
   @override
   Future<List<DepartmentModel>> getAllDepartment() {
-    // TODO: implement getAllDepartment
     final departments = departmentService.getDepartments();
     return departments;
   }
 
   @override
   Future<List<String>> getAllPO() {
-    // TODO: implement getAllPO
     final listPo = poDataService.getAllPO();
     return listPo;
   }
 
   @override
   Future<List<String>> getAllReceiver() {
-    // TODO: implement getAllReceiver
     final listReciever = receiverListService.getAllReceiverId();
     return listReciever;
   }
 
   @override
   Future<List<String>> getAllSupplier() {
-    // TODO: implement getAllSupplier
     final listSuppier = supplierService.getAllSupplierId();
     return listSuppier;
   }

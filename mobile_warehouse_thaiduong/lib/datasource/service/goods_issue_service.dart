@@ -106,7 +106,7 @@ class GoodsIssueService {
 
   Future<GoodsIssueModel> getGoodsIssueById(String goodsIssueId) async {
     final res = await http.get(
-        Uri.parse(Constants.baseUrl + 'api/goodsissues/$goodsIssueId'),
+        Uri.parse('${Constants.baseUrl}api/goodsissues/$goodsIssueId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': '*/*',

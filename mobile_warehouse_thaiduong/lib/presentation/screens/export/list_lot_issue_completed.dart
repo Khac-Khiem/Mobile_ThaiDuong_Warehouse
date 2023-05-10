@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/lot_detail_component.dart';
 
 import '../../bloc/blocs/issue_bloc/list_lot_issue_completed_bloc.dart';
 import '../../bloc/states/issue_state/list_completed_lots_issue_state.dart';
@@ -36,7 +35,6 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
         body: BlocConsumer<ListGoodsIssueLotCompletedBloc,
             CompletedGoodsIssueLotState>(
           listener: (context, state) {
-            // TODO: implement listener
           },
           builder: (context, state) {
             if (state is LoadCompletedGoodsIssueLotSuccessState) {
@@ -105,7 +103,7 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                               ),
                               ListView.builder(
                                   shrinkWrap: true,
-                                  physics: ScrollPhysics(),
+                                  physics: const ScrollPhysics(),
                                   itemCount: state
                                       .goodsIssue.entries![index].lots!.length,
                                   itemBuilder: (BuildContext context, int int) {

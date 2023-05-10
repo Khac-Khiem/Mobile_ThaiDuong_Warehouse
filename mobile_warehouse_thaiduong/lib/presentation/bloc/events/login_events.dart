@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 abstract class LoginEvent extends Equatable {}
@@ -32,6 +34,5 @@ class LoginEventFetchToken extends LoginEvent {
   // Uri responseUrl;
   LoginEventFetchToken(this.userName, this.password, this.timestamp);
   @override
-  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

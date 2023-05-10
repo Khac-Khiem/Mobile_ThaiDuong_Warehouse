@@ -55,9 +55,7 @@ class AlertDialogOneBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  if (onPressedBtn != null) {
-                    onPressedBtn();
-                  }
+                  onPressedBtn();
                 },
               ),
             ],

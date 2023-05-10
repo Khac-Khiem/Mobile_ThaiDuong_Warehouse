@@ -27,7 +27,6 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#e60000', 'Cancel', true, ScanMode.QR);
-      print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }

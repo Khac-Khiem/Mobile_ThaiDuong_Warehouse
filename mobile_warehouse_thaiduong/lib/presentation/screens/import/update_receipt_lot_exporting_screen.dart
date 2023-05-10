@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -250,7 +252,7 @@ class _UpdateInfoLotReceiptScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           // padding: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
                           // margin: EdgeInsets.symmetric(
@@ -278,7 +280,7 @@ class _UpdateInfoLotReceiptScreenState
                             },
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           // padding: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
                           // margin: EdgeInsets.symmetric(

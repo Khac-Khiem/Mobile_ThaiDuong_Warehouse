@@ -1,8 +1,9 @@
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -77,7 +78,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                           showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             setState(() {
                               selectedWarehouse = state.warehouse.firstWhere(
                                   (element) => element.warehouseId == value);
@@ -106,7 +106,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                         showSearchBox: true,
                         label: "Mã sản phẩm",
                         onChanged: (value) {
-                          print(value);
                           selectedItem = null;
                           setState(() {
                             selectedItem = state.item.firstWhere(
@@ -130,7 +129,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                           showSearchBox: true,
                           label: "Tên sản phẩm",
                           onChanged: (value) {
-                            print(value);
                             setState(() {
                               selectedItem = state.item.firstWhere(
                                   (element) => element.itemName == value);
@@ -145,7 +143,7 @@ class _StockcardScreenState extends State<StockcardScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                        SizedBox(
                           // margin: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
                           width: 170 * SizeConfig.ratioWidth,
@@ -160,7 +158,7 @@ class _StockcardScreenState extends State<StockcardScreen> {
                             },
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           // margin: EdgeInsets.symmetric(
                           //     vertical: 5 * SizeConfig.ratioHeight),
                           width: 170 * SizeConfig.ratioWidth,
@@ -216,7 +214,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                               label: "Kho hàng",
                                onChanged: (value) {
                                         selectedItem = null;
-                                        print(value);
                                         setState(() {
                                           selectedWarehouse = state.warehouse
                                               .firstWhere((element) =>
@@ -250,8 +247,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                                 label: "Mã sản phẩm",
                                 // hint: "country in menu mode",
                                 onChanged: (value) {
-                                  print(value);
-                                  print(value);
                                   setState(() {
                                     selectedItem = state.item.firstWhere(
                                         (element) => element.itemId == value);
@@ -276,7 +271,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                                   label: "Tên sản phẩm",
                                   // hint: "country in menu mode",
                                   onChanged: (value) {
-                                    print(value);
                                     setState(() {
                                       selectedItem = state.item.firstWhere(
                                           (element) =>
@@ -376,7 +370,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                           // showSearchBox: true,
                           label: "Kho hàng",
                           onChanged: (value) {
-                            print(value);
                             setState(() {
                               // selectedWarehouse = state.warehouse.firstWhere(
                               //     (element) => element.warehouseId == value);
@@ -429,7 +422,6 @@ class _StockcardScreenState extends State<StockcardScreen> {
                           showSearchBox: true,
                           label: "Tên sản phẩm",
                           onChanged: (value) {
-                            print(value);
                             // setState(() {
                             //   selectedItem = state.item.firstWhere(
                             //       (element) => element.itemName == value);

@@ -29,14 +29,12 @@ class LocationService {
         await http.get(Uri.parse('${Constants.baseUrl}/api/Warehouses'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-      print(body.toString());
       List<WarehouseModel> warehouse = body
           .map(
             (dynamic item) => WarehouseModel.fromJson(item),
           )
           .toList();
 
-      print(warehouse.toString());
       return warehouse;
     } else {
       throw "Unable to retrieve posts.";
