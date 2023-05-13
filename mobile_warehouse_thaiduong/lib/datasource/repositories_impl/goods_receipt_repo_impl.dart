@@ -7,8 +7,10 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
   final GoodsReceiptService goodsReceiptService;
   GoodsReceiptRepoImpl(this.goodsReceiptService);
   @override
-  Future<List<GoodsReceipt>> getCompletedGoodsReceipts(DateTime startDate, DateTime endDate) {
-    final goodsReceipts = goodsReceiptService.getCompletedGoodsReceipts(startDate,endDate);
+  Future<List<GoodsReceipt>> getCompletedGoodsReceipts(
+      DateTime startDate, DateTime endDate) {
+    final goodsReceipts =
+        goodsReceiptService.getCompletedGoodsReceipts(startDate, endDate);
     return goodsReceipts;
   }
 
@@ -19,32 +21,14 @@ class GoodsReceiptRepoImpl implements GoodsReceiptRepository {
   }
 
   @override
-  Future<ErrorPackage> postNewGoodsReceipt(
-      GoodsReceipt goodsReceipt) {
-    final status = goodsReceiptService.postNewGoodsReceipt(
-         goodsReceipt);
+  Future<ErrorPackage> postNewGoodsReceipt(GoodsReceipt goodsReceipt) {
+    final status = goodsReceiptService.postNewGoodsReceipt(goodsReceipt);
     return status;
   }
 
   @override
-  Future<ErrorPackage> updateDetailLotReceipt(
-      String goodsReceiptLotId,
-      String itemId,
-      double quantity,
-      double? sublotSize,
-      String purchaseOrderNumber,
-      String? locationId,
-      DateTime? productionDate,
-      DateTime? expirationDate) {
-    final status = goodsReceiptService.updateDetailLotReceipt(
-        goodsReceiptLotId,
-        itemId,
-        quantity,
-        sublotSize,
-        purchaseOrderNumber,
-        locationId,
-        productionDate,
-        expirationDate);
+  Future<ErrorPackage> updateDetailLotReceipt(GoodsReceipt goodsReceipt) {
+    final status = goodsReceiptService.update(goodsReceipt);
     return status;
   }
 }

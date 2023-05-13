@@ -13,43 +13,49 @@ class WarningFunctionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      
-      appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.west_outlined),
-            onPressed: () {
-              Navigator.pushNamed(context, '/main_screen');
-            },
+    return WillPopScope(
+       onWillPop: () async {
+        Navigator.pushReplacementNamed(context, "/main_screen");
+        return false;
+      },
+      child: Scaffold(
+        
+        appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.west_outlined),
+              onPressed: () {
+                Navigator.pushNamed(context, '/main_screen');
+              },
+            ),
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Cảnh báo',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Cảnh báo',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+           IconCustomizedButton(
+                icon: Icons.alarm_off_outlined,
+                text: "CẢNH BÁO HẠN SỬ DỤNG",
+                onPressed: () {
+                  // BlocProvider.of<WarningBloc>(context)
+                  //     .add(ExpirationWarningEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/warning_expired_screen');        
+                }),  
+            IconCustomizedButton(
+                icon: Icons.production_quantity_limits_rounded,
+                text: "CẢNH BÁO STOCKMIN",
+                onPressed: () {
+                  BlocProvider.of<WarningBloc>(context)
+                      .add(GetWarehouseEvent(DateTime.now()) );
+                  Navigator.pushNamed(context, '/warning_under_stockmin');    
+                }),
+          ],
+        )),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-         IconCustomizedButton(
-              icon: Icons.alarm_off_outlined,
-              text: "CẢNH BÁO HẠN SỬ DỤNG",
-              onPressed: () {
-                // BlocProvider.of<WarningBloc>(context)
-                //     .add(ExpirationWarningEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/warning_expired_screen');        
-              }),  
-          IconCustomizedButton(
-              icon: Icons.production_quantity_limits_rounded,
-              text: "CẢNH BÁO STOCKMIN",
-              onPressed: () {
-                BlocProvider.of<WarningBloc>(context)
-                    .add(GetWarehouseEvent(DateTime.now()) );
-                Navigator.pushNamed(context, '/warning_under_stockmin');    
-              }),
-        ],
-      )),
     );
   }
 }

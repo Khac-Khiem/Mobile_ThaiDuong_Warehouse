@@ -23,7 +23,7 @@ class CreateNewReceiptScreen extends StatefulWidget {
 
 class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
   GoodsReceipt goodsReceipt =
-      GoodsReceipt('', '', const [], DateTime.now(), null, false);
+      GoodsReceipt('', '',  [], DateTime.now(), null, false);
   var receiptId = TextEditingController();
   var supplyId = TextEditingController();
 
@@ -54,14 +54,14 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
             AlertDialogOneBtnCustomized(context, 'Thành công',
                     'Đã hoàn thành việc tạo đơn', 'Tiếp tục','Success_image.png', () {
               Navigator.pushNamed(context, '/main_receipt_screen');
-            }, 20, 15, () {}, false)
+            }, 15, 20, () {}, false)
                 .show();
           }
           if (state is PostReceiptStateFailure) {
             AlertDialogOneBtnCustomized(context, 'Thất bại',
                     'Không thể hoàn thành việc tạo đơn', 'Trở lại','Fail_image.png', () {
               // Navigator.pushNamed(context, '/main_receipt_screen');
-            }, 20, 15, () {}, false)
+            }, 15, 20, () {}, false)
                 .show();
           }
         },
@@ -72,7 +72,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is UpdateLotReceiptStateSuccess || state is PostReceiptStateFailure|| state is PostReceiptStateSuccess || state is PostReceiptStateFailure) {
+          if (state is UpdateLotReceiptStateSuccess || state is PostReceiptStateFailure) {
             goodsReceipt = state.goodsReceipt as GoodsReceipt;
             receiptId.text = goodsReceipt.goodsReceiptId.toString();
             supplyId.text = goodsReceipt.supply.toString();
@@ -295,7 +295,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       
                     state.goodsReceipt!.goodsReceiptId == '' ?
                       AlertDialogOneBtnCustomized(context, 'Cảnh báo',
-                              'Vui lòng nhập Mã Lô', 'Tiếp tục','', () {
+                              'Vui lòng nhập Mã Lô', 'Tiếp tục','warning_image.png', () {
                        
                       }, 20, 15, () {}, false)
                           .show(): BlocProvider.of<CreateReceiptBloc>(context).add(

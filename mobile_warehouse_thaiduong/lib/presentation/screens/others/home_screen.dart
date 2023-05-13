@@ -3,6 +3,8 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 
 
 import '../../../constant.dart';
+import '../../dialog/dialog_one_button.dart';
+import '../../dialog/dialog_two_button.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/main_app_name.dart';
 
@@ -30,11 +32,14 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
-            height: 600 * SizeConfig.ratioHeight,
+           // height: 400 * SizeConfig.ratioHeight,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                 SizedBox(
+                  height: 80 * SizeConfig.ratioHeight,
+                ),
                 const MainAppName(),
                 SizedBox(
                   height: 80 * SizeConfig.ratioHeight,
@@ -51,10 +56,15 @@ class HomeScreen extends StatelessWidget {
                     //                     'Trở lại',
                     //                     () async {}, () {
                     //               Navigator.pushNamed(
-                    //                   context, '/receipt_screen');
+                    //                   context, '/main_receipt_screen');
                     //             }, 18, 22)
                     //                 .show();
-                     Navigator.pushNamed(context, '//');
+            //           AlertDialogOneBtnCustomized(context, 'Thất bại',
+            //         'Không thể hoàn thành việc tạo đơn', 'Trở lại','Fail_image.png', () {
+            //   // Navigator.pushNamed(context, '/main_receipt_screen');
+            // }, 20, 15, () {}, false)
+            //     .show();
+                    Navigator.pushNamed(context, '//');
                    
                   },
                 ),

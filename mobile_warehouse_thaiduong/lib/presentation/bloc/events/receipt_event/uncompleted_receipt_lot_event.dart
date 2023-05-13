@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
@@ -22,15 +21,10 @@ class LoadShelfIdEvent extends UncompletedReceiptLotEvent {
 
 // cập nhật view
 class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
- 
   int index;
   GoodsReceiptLot itemLot;
   GoodsReceipt goodsReceipt;
-  UpdateReceiptLotEvent(
-     
-      this.index,
-      this.itemLot,
-      this.goodsReceipt);
+  UpdateReceiptLotEvent(this.index, this.itemLot, this.goodsReceipt);
   @override
   List<Object> get props => [];
 }
@@ -38,8 +32,8 @@ class UpdateReceiptLotEvent extends UncompletedReceiptLotEvent {
 // post
 class PostReceiptChangedEvent extends UncompletedReceiptLotEvent {
   DateTime timestamp;
-  List<GoodsReceiptLot> itemLots;
-  PostReceiptChangedEvent(this.timestamp, this.itemLots);
+  GoodsReceipt goodsReceipt;
+  PostReceiptChangedEvent(this.timestamp, this.goodsReceipt);
   @override
   List<Object> get props => [timestamp];
 }

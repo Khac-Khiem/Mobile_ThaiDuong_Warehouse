@@ -22,8 +22,8 @@ class GetAllItemIdByWarehouseEvent extends InventoryEvent {
   List<Item> listAllItem;
   List<Item> lisstItemByWarehouse;
   List<Warehouse> warehouse;
-  GetAllItemIdByWarehouseEvent(
-      this.timestamp, this.warehouseId,this.listAllItem, this.lisstItemByWarehouse, this.warehouse);
+  GetAllItemIdByWarehouseEvent(this.timestamp, this.warehouseId,
+      this.listAllItem, this.lisstItemByWarehouse, this.warehouse);
   @override
   List<Object?> get props => [timestamp];
 }
@@ -42,4 +42,12 @@ class LoadInventoryEvent extends InventoryEvent {
   );
   @override
   List<Object> get props => [timestamp];
+}
+
+class GetReportInventory extends InventoryEvent {
+  String itemId;
+  GetReportInventory(this.itemId);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [itemId];
 }

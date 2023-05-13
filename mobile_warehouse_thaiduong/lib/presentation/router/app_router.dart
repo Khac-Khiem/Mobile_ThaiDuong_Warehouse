@@ -30,6 +30,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_comp
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_completed_receipt_lot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/import/list_uncompleted_receipt_lot_screen.dart';
+import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/report_inventory_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/inventory/scan_item_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/isolation/list_isolated_itemlot_screen.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/screens/others/home_screen.dart';
@@ -50,7 +51,7 @@ import '../screens/history/history_function_screen.dart';
 import '../screens/history/import_history_entries_screen.dart';
 import '../screens/history/import_history_screen.dart';
 import '../screens/import/update_receipt_lot_exporting_screen.dart';
-import '../screens/inventory/product_inventory_screen.dart';
+import '../screens/inventory/history_product_inventory_screen.dart';
 import '../screens/inventory/sort_detail_inventory_screen.dart';
 import '../screens/inventory/stockcard_function_screen.dart';
 import '../screens/isolation/isolation_function_screen.dart';
@@ -242,6 +243,11 @@ class AppRoute {
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider<InventoryBloc>(create: (context) => injector()),
                 ], child: const BarcodeScannerItemScreen()));
+      case '/report_inventory_screen':
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<InventoryBloc>(create: (context) => injector()),
+                ], child: const ReportInventoryScreen()));
       case '/inventory_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
@@ -270,7 +276,8 @@ class AppRoute {
       case '/list_import_history_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<ImportHistoryBloc>(create: (context) => injector()),
+                  BlocProvider<ImportHistoryBloc>(
+                      create: (context) => injector()),
                 ], child: const ImportHistoryEntryScreen()));
       case '/export_history_screen':
         return MaterialPageRoute(
@@ -281,7 +288,8 @@ class AppRoute {
       case '/list_export_history_screen':
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
-                  BlocProvider<ExportHistoryBloc>(create: (context) => injector()),
+                  BlocProvider<ExportHistoryBloc>(
+                      create: (context) => injector()),
                 ], child: const ExportHistoryEntryScreen()));
       //
       case '/shelves_function_screen':

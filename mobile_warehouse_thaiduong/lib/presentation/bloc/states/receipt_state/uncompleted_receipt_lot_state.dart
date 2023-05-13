@@ -14,23 +14,13 @@ class LoadReceiptLotsLoadingState extends UncompletedReceiptLotState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-// class LoadReceiptLotsSuccessState extends UncompletedReceiptLotState {
+// class LoadShelfIdsCuccessState extends UncompletedReceiptLotState {
+//   List<String> shelfIds;
 //   DateTime timestamp;
-//   GoodsReceipt goodsReceipt;
-//   LoadReceiptLotsSuccessState(this.timestamp, this.goodsReceipt);
+//   LoadShelfIdsCuccessState(this.shelfIds, this.timestamp);
 //   @override
-//   List<Object?> get props => throw UnimplementedError();
+//   List<Object?> get props => [timestamp];
 // }
-// => gộp 2 state loadlotssuccess và updatelotsuccess
-//-------------
-
-class LoadShelfIdsCuccessState extends UncompletedReceiptLotState {
-  List<String> shelfIds;
-  DateTime timestamp;
-  LoadShelfIdsCuccessState(this.shelfIds, this.timestamp);
-  @override
-  List<Object?> get props => [timestamp];
-}
 //----------------------------
 class UpdateReceiptLotSuccessState extends UncompletedReceiptLotState {
   GoodsReceipt goodsReceipt;

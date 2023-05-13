@@ -8,11 +8,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => const MyApp(), // Wrap your app
-    ),
-    // MyApp(), 
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => const MyApp(), // Wrap your app
+    // ),
+     MyApp(), 
   );
 }
 

@@ -26,115 +26,310 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.west_outlined),
-            onPressed: () {
-              Navigator.pushNamed(context, '/shelves_function_screen');
-            },
+    return WillPopScope(
+       onWillPop: () async {
+        Navigator.pushNamed(context, "/shelves_function_screen");
+        return false;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.west_outlined),
+              onPressed: () {
+                Navigator.pushNamed(context, '/shelves_function_screen');
+              },
+            ),
+            backgroundColor: Constants.mainColor,
+            title: Text(
+              'Kệ kho',
+              style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
+            ),
           ),
-          backgroundColor: Constants.mainColor,
-          title: Text(
-            'Kệ kho',
-            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
-          ),
-        ),
-        body: Column(
-          children: [
-            BlocConsumer<ShelveBloc, ShelveState>(listener: (context, state) {
-              // if (state is GetAllItemIdSuccessState) {
-              //   itemsDropdownData = state.items;
-              // }
-              // if (state is GetLotByItemIdSuccessState) {
-              //   itemsDropdownData = state.item;
-              // }
-            }, builder: (context, state) {
-              if (state is GetAllItemIdSuccessState) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
+          body: Column(
+            children: [
+              BlocConsumer<ShelveBloc, ShelveState>(listener: (context, state) {
+                // if (state is GetAllItemIdSuccessState) {
+                //   itemsDropdownData = state.items;
+                // }
+                // if (state is GetLotByItemIdSuccessState) {
+                //   itemsDropdownData = state.item;
+                // }
+              }, builder: (context, state) {
+                if (state is GetAllItemIdSuccessState) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 350 * SizeConfig.ratioWidth,
+                          height: 60 * SizeConfig.ratioHeight,
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            items: state.items.map((e) => e.itemId).toList(),
+                            showSearchBox: true,
+                            label: "Mã sản phẩm",
+                            onChanged: (value) {
+                              selectedItem = null;
+                              setState(() {
+                                selectedItem = state.items.firstWhere(
+                                    (element) => element.itemId == value);
+                              });
+                            },
+                            selectedItem:
+                                selectedItem == null ? '' : selectedItem!.itemId,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
                         width: 350 * SizeConfig.ratioWidth,
                         height: 60 * SizeConfig.ratioHeight,
                         child: DropdownSearch<String>(
                           mode: Mode.MENU,
-                          items: state.items.map((e) => e.itemId).toList(),
+                          items: state.items
+                              .map((e) => e.itemName.toString())
+                              .toList(),
                           showSearchBox: true,
-                          label: "Mã sản phẩm",
+                          label: "Tên sản phẩm",
                           onChanged: (value) {
-                            selectedItem = null;
                             setState(() {
                               selectedItem = state.items.firstWhere(
-                                  (element) => element.itemId == value);
+                                  (element) => element.itemName == value);
                             });
                           },
                           selectedItem:
-                              selectedItem == null ? '' : selectedItem!.itemId,
+                              selectedItem == null ? '' : selectedItem!.itemName,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 350 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        items: state.items
-                            .map((e) => e.itemName.toString())
-                            .toList(),
-                        showSearchBox: true,
-                        label: "Tên sản phẩm",
-                        onChanged: (value) {
-                          setState(() {
-                            selectedItem = state.items.firstWhere(
-                                (element) => element.itemName == value);
-                          });
-                        },
-                        selectedItem:
-                            selectedItem == null ? '' : selectedItem!.itemName,
+                      CustomizedButton(
+                          text: "Truy xuất",
+                          onPressed: () {
+                            BlocProvider.of<ShelveBloc>(context).add(
+                                GetLotByItemIdEvent(DateTime.now(),
+                                    selectedItem!.itemId, state.items
+    
+                                    //state.warehouse
+                                    ));
+                          }),
+                      const Divider(
+                        indent: 30,
+                        endIndent: 30,
+                        color: Constants.mainColor,
+                        thickness: 1,
                       ),
-                    ),
-                    CustomizedButton(
-                        text: "Truy xuất",
-                        onPressed: () {
-                          BlocProvider.of<ShelveBloc>(context).add(
-                              GetLotByItemIdEvent(DateTime.now(),
-                                  selectedItem!.itemId, state.items
-
-                                  //state.warehouse
-                                  ));
-                        }),
-                    const Divider(
-                      indent: 30,
-                      endIndent: 30,
-                      color: Constants.mainColor,
-                      thickness: 1,
-                    ),
-                  ],
-                );
-              }
-              if (state is GetLotByItemIdSuccessState) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
+                    ],
+                  );
+                }
+                if (state is GetLotByItemIdSuccessState) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 350 * SizeConfig.ratioWidth,
+                          height: 60 * SizeConfig.ratioHeight,
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            items: state.item
+                                .map((e) => e.itemId.toString())
+                                .toList(),
+                            showSearchBox: true,
+                            label: "Mã sản phẩm",
+                            // hint: "country in menu mode",
+                            onChanged: (value) {
+                              setState(() {
+                                selectedItem = state.item.firstWhere(
+                                    (element) => element.itemId == value);
+                              });
+                            },
+                            selectedItem:
+                                selectedItem == null ? '' : selectedItem!.itemId,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
                         width: 350 * SizeConfig.ratioWidth,
                         height: 60 * SizeConfig.ratioHeight,
                         child: DropdownSearch<String>(
                           mode: Mode.MENU,
                           items: state.item
-                              .map((e) => e.itemId.toString())
+                              .map((e) => e.itemName.toString())
                               .toList(),
                           showSearchBox: true,
-                          label: "Mã sản phẩm",
+                          label: "Tên sản phẩm",
                           // hint: "country in menu mode",
                           onChanged: (value) {
                             setState(() {
                               selectedItem = state.item.firstWhere(
-                                  (element) => element.itemId == value);
+                                  (element) => element.itemName == value);
                             });
+                          },
+                          selectedItem:
+                              selectedItem == null ? '' : selectedItem!.itemName,
+                        ),
+                      ),
+                      CustomizedButton(
+                          text: "Truy xuất",
+                          onPressed: () {
+                            BlocProvider.of<ShelveBloc>(context).add(
+                                GetLotByItemIdEvent(DateTime.now(),
+                                    selectedItem!.itemId, state.item));
+                          }),
+                      const Divider(
+                        indent: 30,
+                        endIndent: 30,
+                        color: Constants.mainColor,
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 330 * SizeConfig.ratioHeight,
+                        child: ListView.builder(
+                            itemCount: state.itemLot.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ListTile(
+                                    trailing: Icon(Icons.edit,
+                                        size: 17 * SizeConfig.ratioFont),
+                                    title: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 8.0, 0, 8.0),
+                                      child: Text(
+                                        "Mã lô : ${state.itemLot[index].lotId}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16 * SizeConfig.ratioFont,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    subtitle: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 150 * SizeConfig.ratioWidth,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Mã SP: ${state.itemLot[index].item!.itemId}"),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Số lượng: ${state.itemLot[index].quantity}"),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Vị trí: ${state.itemLot[index].location ?? '...'}"),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "NSX: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].productionDate as DateTime)}"),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 150 * SizeConfig.ratioWidth,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Tên SP: ${state.itemLot[index].item!.itemName}"),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Định mức: ${state.itemLot[index].sublotSize ?? '...'}  "),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "Số PO: ${state.itemLot[index].purchaseOrderNumber ?? '...'}"),
+                                              Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize:
+                                                        16 * SizeConfig.ratioFont,
+                                                    color: Colors.black,
+                                                  ),
+                                                  "HSD: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].expirationDate as DateTime)}"),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    isThreeLine: true,
+                                    onTap: () {},
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 350 * SizeConfig.ratioWidth,
+                        height: 60 * SizeConfig.ratioHeight,
+                        child: DropdownSearch<String>(
+                          mode: Mode.MENU,
+                          // items: state.item.map((e) => e.itemId).toList(),
+                          // showSearchBox: true,
+                          label: "Mã sản phẩm",
+                          onChanged: (value) {
+                            // print(value);
+                            // setState(() {
+                            //   selectedItem = state.item.firstWhere(
+                            //       (element) => element.itemId == value);
+                            // });
                           },
                           selectedItem:
                               selectedItem == null ? '' : selectedItem!.itemId,
@@ -146,222 +341,33 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                       height: 60 * SizeConfig.ratioHeight,
                       child: DropdownSearch<String>(
                         mode: Mode.MENU,
-                        items: state.item
-                            .map((e) => e.itemName.toString())
-                            .toList(),
+                        // items: state.item
+                        //     .map((e) => e.itemName.toString())
+                        //     .toList(),
                         showSearchBox: true,
                         label: "Tên sản phẩm",
-                        // hint: "country in menu mode",
                         onChanged: (value) {
-                          setState(() {
-                            selectedItem = state.item.firstWhere(
-                                (element) => element.itemName == value);
-                          });
+                          // setState(() {
+                          //   selectedItem = state.item.firstWhere(
+                          //       (element) => element.itemName == value);
+                          // });
                         },
                         selectedItem:
                             selectedItem == null ? '' : selectedItem!.itemName,
                       ),
                     ),
-                    CustomizedButton(
-                        text: "Truy xuất",
-                        onPressed: () {
-                          BlocProvider.of<ShelveBloc>(context).add(
-                              GetLotByItemIdEvent(DateTime.now(),
-                                  selectedItem!.itemId, state.item));
-                        }),
+                    CustomizedButton(text: "Truy xuất", onPressed: () {}),
                     const Divider(
                       indent: 30,
                       endIndent: 30,
                       color: Constants.mainColor,
                       thickness: 1,
                     ),
-                    SizedBox(
-                      height: 330 * SizeConfig.ratioHeight,
-                      child: ListView.builder(
-                          itemCount: state.itemLot.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: ListTile(
-                                  trailing: Icon(Icons.edit,
-                                      size: 17 * SizeConfig.ratioFont),
-                                  title: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0, 8.0, 0, 8.0),
-                                    child: Text(
-                                      "Mã lô : ${state.itemLot[index].lotId}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16 * SizeConfig.ratioFont,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  subtitle: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: 150 * SizeConfig.ratioWidth,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Mã SP: ${state.itemLot[index].item!.itemId}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Số lượng: ${state.itemLot[index].quantity}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Vị trí: ${state.itemLot[index].location ?? '...'}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "NSX: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].productionDate as DateTime)}"),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 150 * SizeConfig.ratioWidth,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Tên SP: ${state.itemLot[index].item!.itemName}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Định mức: ${state.itemLot[index].sublotSize ?? '...'}  "),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "Số PO: ${state.itemLot[index].purchaseOrderNumber ?? '...'}"),
-                                            Text(
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize:
-                                                      16 * SizeConfig.ratioFont,
-                                                  color: Colors.black,
-                                                ),
-                                                "HSD: ${DateFormat('yyyy-MM-dd').format(state.itemLot[index].expirationDate as DateTime)}"),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  isThreeLine: true,
-                                  onTap: () {},
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                  ],
-                );
-              } else {
-                return Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 350 * SizeConfig.ratioWidth,
-                      height: 60 * SizeConfig.ratioHeight,
-                      child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        // items: state.item.map((e) => e.itemId).toList(),
-                        // showSearchBox: true,
-                        label: "Mã sản phẩm",
-                        onChanged: (value) {
-                          // print(value);
-                          // setState(() {
-                          //   selectedItem = state.item.firstWhere(
-                          //       (element) => element.itemId == value);
-                          // });
-                        },
-                        selectedItem:
-                            selectedItem == null ? '' : selectedItem!.itemId,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 350 * SizeConfig.ratioWidth,
-                    height: 60 * SizeConfig.ratioHeight,
-                    child: DropdownSearch<String>(
-                      mode: Mode.MENU,
-                      // items: state.item
-                      //     .map((e) => e.itemName.toString())
-                      //     .toList(),
-                      showSearchBox: true,
-                      label: "Tên sản phẩm",
-                      onChanged: (value) {
-                        // setState(() {
-                        //   selectedItem = state.item.firstWhere(
-                        //       (element) => element.itemName == value);
-                        // });
-                      },
-                      selectedItem:
-                          selectedItem == null ? '' : selectedItem!.itemName,
-                    ),
-                  ),
-                  CustomizedButton(text: "Truy xuất", onPressed: () {}),
-                  const Divider(
-                    indent: 30,
-                    endIndent: 30,
-                    color: Constants.mainColor,
-                    thickness: 1,
-                  ),
-                ]);
-              }
-            }),
-          ],
-        ));
+                  ]);
+                }
+              }),
+            ],
+          )),
+    );
   }
 }

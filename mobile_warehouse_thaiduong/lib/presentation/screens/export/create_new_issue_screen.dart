@@ -10,6 +10,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/fill_info_issue_entry_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/create_new_issue_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
+import '../../dialog/dialog_one_button.dart';
 import '../../widgets/exception_widget.dart';
 
 class CreateNewIssueScreen extends StatefulWidget {
@@ -48,7 +49,20 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
       ),
       body: BlocConsumer<CreateIssueBloc, CreaNewIssueState>(
         listener: (context, state) {
-         
+          if (state is PostNewGoodsIssueSuccessState) {
+              AlertDialogOneBtnCustomized(context, 'Thành công',
+                      'Đã hoàn thành việc tạo đơn', 'Tiếp tục','Success_image.png', () {
+                Navigator.pushNamed(context, '/export_main_screen');
+              }, 20, 15, () {}, false)
+                  .show();
+            }
+            if (state is PostNewGoodsIssueFailState) {
+              AlertDialogOneBtnCustomized(context, 'Thất bại',
+                      'Không thể hoàn thành việc tạo đơn', 'Tiếp tục','Fail_image.png', () {
+                Navigator.pushNamed(context, '/export_main_screen');
+              }, 20, 15, () {}, false)
+                  .show();
+            } 
         },
         builder: (context, state) {
         

@@ -164,7 +164,7 @@ Future<void> initializeDependencies() async {
       AdjustmentBloc(injector(), injector()));
   //invenory
   injector.registerSingleton<InventoryBloc>(
-      InventoryBloc(injector(), injector(), injector()));
+      InventoryBloc(injector(), injector(), injector(), injector()));
   // history
   injector.registerSingleton<ImportHistoryBloc>(
       ImportHistoryBloc(injector(), injector(), injector(), injector()));

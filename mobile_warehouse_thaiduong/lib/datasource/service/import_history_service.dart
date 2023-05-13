@@ -25,9 +25,9 @@ class ImportHistoryService {
     }
   }
 
-  Future<List<ImportHistoryEntryModel>> getImportHistoryBySupplier (
-      DateTime startDate, DateTime endDate, String supplier ) async {
-         final start = DateFormat('yyyy-MM-dd').format(startDate);
+  Future<List<ImportHistoryEntryModel>> getImportHistoryBySupplier(
+      DateTime startDate, DateTime endDate, String supplier) async {
+    final start = DateFormat('yyyy-MM-dd').format(startDate);
     final end = DateFormat('yyyy-MM-dd').format(endDate);
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/BySupplier/Import?supplier=$supplier&StartTime=$start&EndTime=$end'));
@@ -46,10 +46,16 @@ class ImportHistoryService {
   }
 
   Future<List<ImportHistoryEntryModel>> getImportHistoryByItem(
-      DateTime startDate, DateTime endDate, String itemId, String warehouseId) async {
+      DateTime startDate,
+      DateTime endDate,
+      String itemId,
+      String warehouseId) async {
     final start = DateFormat('yyyy-MM-dd').format(startDate);
     final end = DateFormat('yyyy-MM-dd').format(endDate);
 
+    if (itemId != '') {
+      warehouseId = '';
+    }
     final res = await http.get(Uri.parse(
         '${Constants.baseUrl}api/InventoryHistories/Import?itemClassId=$warehouseId&StartTime=$start&EndTime=$end&itemId=$itemId'));
     if (res.statusCode == 200) {

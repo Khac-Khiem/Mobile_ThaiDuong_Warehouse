@@ -16,19 +16,17 @@ class FillReceiptLotEvent extends FillInfoLotReceiptEvent {
   GoodsReceipt goodsReceipt;
   // thứ tự của lô cần xử lý, nếu = -1 => thêm lô mới
   int index;
-  // function = true => fill, function = false => refill => một trang cho 2 chức năng
-  //bool function;
   FillReceiptLotEvent(this.timestamp, this.goodsReceipt, this.index);
   @override
   List<Object> get props => [timestamp];
 }
 
 // dành cho khi sửa phiếu đã gửi
-// class RefillReceiptLotEvent extends FillInfoLotReceiptEvent {
-//   DateTime timestamp;
-//   List<GoodsReceiptLot> lots;
-//   int index;
-//   RefillReceiptLotEvent(this.timestamp, this.lots, this.index);
-//   @override
-//   List<Object> get props => [timestamp];
-// }
+class RefillReceiptLotEvent extends FillInfoLotReceiptEvent {
+  DateTime timestamp;
+  GoodsReceipt goodsReceipt;
+  int index;
+  RefillReceiptLotEvent(this.timestamp, this.goodsReceipt, this.index);
+  @override
+  List<Object> get props => [timestamp];
+}

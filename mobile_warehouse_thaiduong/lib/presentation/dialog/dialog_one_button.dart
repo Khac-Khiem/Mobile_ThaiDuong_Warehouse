@@ -23,8 +23,9 @@ class AlertDialogOneBtnCustomized {
       //  this.bgBtn ,
       // this.fgBtn ,
       this.onPressedBtn,
-      this.titleFSize,
+     
       this.descFSize,
+       this.titleFSize,
       this.closePressed,
       this.onWillPopActive);
   void show() {

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/goods_issue_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
@@ -14,10 +15,10 @@ class ListGoodsIssueLotUncompletedBloc
     on<LoadGoodsIssueLotEvent>((event, emit) async {
       emit(LoadingGoodsIssueLotsState(DateTime.now()));
       try {
-        final List<ItemLot> itemLotsSuggest =
+         List<ItemLot> itemLotsSuggest =
             await itemLotUsecase.getItemLotsByItemId(event.itemId);
         emit(LoadGoodsIssueLotsSuccessState(DateTime.now(), event.goodsIssueId,
-            event.itemId, itemLotsSuggest, const []));
+            event.itemId, itemLotsSuggest,  []));
       } catch (e) {
         emit(LoadGoodsIssueLotsFailState(DateTime.now()));
         // emit(LoadReceiptExportingStateFail(
@@ -29,10 +30,10 @@ class ListGoodsIssueLotUncompletedBloc
       try {
         final postStatus = await goodsIssueUseCase.addLotToGoodsIssue(
             event.goodsIssueId, event.itemId, event.lots);
-
+            postStatus.detail == "success" ?
         emit(PostIssueLotsSuccessState(
-          DateTime.now(),
-        ));
+          DateTime.now()
+        )): emit(LoadGoodsIssueLotsFailState(DateTime.now()));
       } catch (e) {
         emit(LoadGoodsIssueLotsFailState(DateTime.now()));
         // emit(LoadReceiptExportingStateFail(
@@ -43,12 +44,14 @@ class ListGoodsIssueLotUncompletedBloc
       // bool check = true;
       int index1;
       int index2;
+      List<GoodsIssueLot> listLot = [];
       emit(LoadingGoodsIssueLotsState(DateTime.now()));
       try {
         index2 = event.listLotExported.indexWhere((element) =>
             element.goodsIssueLotId == event.goodsIssueLot.goodsIssueLotId);
         index2 == -1
-            ? {event.listLotExported.add(event.goodsIssueLot)}
+            ? {
+              event.listLotExported.add(event.goodsIssueLot)}
             : {
                 event.listLotExported[index2].quantity =
                     (event.listLotExported[index2].quantity! +

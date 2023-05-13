@@ -23,7 +23,7 @@ class FillInfoEntryIssueScreen extends StatefulWidget {
 class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
   // List<Item> itemsDropdownData = [];
   //Item? selectedItem;
-  GoodsIssueEntry issueEntryView = GoodsIssueEntry(null, null, null, null);
+  GoodsIssueEntry issueEntryView = GoodsIssueEntry(null, null, null, null, null);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -257,7 +257,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                             context,
                                             "Cảnh báo",
                                             "Vui lòng điền đầy đủ các thông tin",
-                                            "Trở lại",'',
+                                            "Trở lại",'warning_image.png',
                                             () {},
                                             18,
                                             22,

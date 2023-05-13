@@ -5,14 +5,7 @@ abstract class GoodsReceiptRepository {
   Future<ErrorPackage> postNewGoodsReceipt(
        GoodsReceipt goodsReceipt);
   Future<ErrorPackage> updateDetailLotReceipt(
-      String goodsReceiptLotId,
-      String itemId,
-      double quantity,
-      double? sublotSize,
-      String purchaseOrderNumber,
-      String? locationId,
-      DateTime? productionDate,
-      DateTime? expirationDate);
+  GoodsReceipt goodsReceipt  );
   Future<List<GoodsReceipt>> getCompletedGoodsReceipts(DateTime startDate, DateTime endDate);
   Future<List<GoodsReceipt>> getUnCompletedGoodsReceipts();
 }

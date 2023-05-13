@@ -93,62 +93,56 @@ class _ListGoodIssueScreenState extends State<ListGoodIssueScreen> {
                                             return Padding(
                                               padding:
                                                   const EdgeInsets.all(5.0),
-                                              child: ListTile(
-                                                shape: RoundedRectangleBorder(
-                                                  side: const BorderSide(
-                                                      width: 2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
+                                              child: Container(
+                                                
+                                                 decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                                                child: ListTile(
+                                                  // shape: RoundedRectangleBorder(
+                                                  //   side: const BorderSide(
+                                                  //       width: 2),
+                                                  //   borderRadius:
+                                                  //       BorderRadius.circular(20),
+                                                  // ),
+                                                  //  leading: const Icon(Icons.list),
+                                                  trailing: e.entries![index].requestQuantity == e.entries![index].actualQuantity ? Column(
+                                                    children: const[
+                                                       Icon(
+                                                          Icons.check),
+                                                          Text('Đã xuất')
+                                                    ],
+                                                  ): const Icon(
+                                                      Icons.post_add_outlined),
+                                                  isThreeLine: true,
+                                                  title: Text(
+                                                      "Sản phẩm : ${e.entries![index].item!.itemName}"),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                          "Số lượng yêu cầu : ${e.entries![index].requestQuantity} \nĐịnh mức yêu cầu : ${e.entries![index].requestSublotSize.toString()} "),
+                                                     
+                                                           Text(
+                                                              "Số lượng đã xuất :  ${e.entries![index].actualQuantity}"),
+                                                    ],
+                                                  ),
+                                                  onTap: () {
+                                                    BlocProvider.of<
+                                                                ListGoodsIssueLotUncompletedBloc>(
+                                                            context)
+                                                        .add(LoadGoodsIssueLotEvent(
+                                                            DateTime.now(),
+                                                            e.entries![index]
+                                                                .item!.itemId,
+                                                                e.goodsIssueId.toString()
+                                                          ));
+                                                    Navigator.pushNamed(context,
+                                                        '/list_goods_issue_lot_screen');
+                                                  },
                                                 ),
-                                                //  leading: const Icon(Icons.list),
-                                                trailing: const Icon(
-                                                    Icons.post_add_outlined),
-                                                isThreeLine: true,
-                                                title: Text(
-                                                    "Sản phẩm : ${e.entries![index].item!.itemName}"),
-                                                subtitle: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                        "Số lượng yêu cầu : ${e.entries![index].requestQuantity} \nĐịnh mức yêu cầu : ${e.entries![index].requestSublotSize.toString()} "),
-                                                    // Text(
-                                                    //     "Số lượng đã xuất : ${e.entries![index]} "),
-                                                    // e.entries![index].lots!
-                                                    //         .isNotEmpty
-                                                    //     ? 
-                                                        // ListView.builder(
-                                                        //     itemCount: e
-                                                        //         .entries![index]
-                                                        //         .lots!
-                                                        //         .length,
-                                                        //     itemBuilder:
-                                                        //         (BuildContext
-                                                        //                 context,
-                                                        //             int int) {
-                                                        //       return Text(
-                                                        //           "Số lượng đã xuất : ${e.entries![index].lots![int].quantity} ");
-                                                        //     })
-                                                        // Text(
-                                                        //            "Số lượng đã xuất : ${e.entries![index].lots!.} ")
-                                                        //: 
-                                                        const Text(
-                                                            "Số lượng đã xuất : 0 "),
-                                                  ],
-                                                ),
-                                                onTap: () {
-                                                  BlocProvider.of<
-                                                              ListGoodsIssueLotUncompletedBloc>(
-                                                          context)
-                                                      .add(LoadGoodsIssueLotEvent(
-                                                          DateTime.now(),
-                                                          e.entries![index]
-                                                              .item!.itemId,
-                                                              e.goodsIssueId.toString()
-                                                        ));
-                                                  Navigator.pushNamed(context,
-                                                      '/list_goods_issue_lot_screen');
-                                                },
                                               ),
                                             );
                                           }),

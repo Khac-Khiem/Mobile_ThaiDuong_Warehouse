@@ -12,9 +12,22 @@ class ListGoodsIssueUncompletedBloc
       emit(LoadGoodsIssuesLoadingState(DateTime.now()));
       try {
         final issues = await goodsIssueUseCase.getUncompletedGoodsIssue();
+        for (var element in issues) {
+          for (var e in element.entries!) {
+            e.lots!.isNotEmpty
+                ? {
+                    for (var a in e.lots!)
+                      {
+                        e.actualQuantity = e.actualQuantity! +
+                            double.parse(a.quantity.toString())
+                      }
+                  }
+                : {};
+          }
+        }
         issues.isEmpty
-            ? emit(
-                LoadGoodsIssuesFailState(DateTime.now(), 'Không có danh sách hiển thị'))
+            ? emit(LoadGoodsIssuesFailState(
+                DateTime.now(), 'Không có danh sách hiển thị'))
             : emit(LoadGoodsIssuesSuccessState(DateTime.now(), issues));
       } catch (e) {
         emit(LoadGoodsIssuesFailState(DateTime.now(), 'Lỗi hệ thống'));

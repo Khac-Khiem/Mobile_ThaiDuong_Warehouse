@@ -14,23 +14,9 @@ class GoodsReceiptUsecase {
   }
 
   Future<ErrorPackage> updateDetailLotReceipt(
-      String goodsReceiptLotId,
-      String itemId,
-      double quantity,
-      double? sublotSize,
-      String purchaseOrderNumber,
-      String? locationId,
-      DateTime? productionDate,
-      DateTime? expirationDate) async {
+    GoodsReceipt goodsReceipt) async {
     final status = goodsReceiptRepository.updateDetailLotReceipt(
-        goodsReceiptLotId,
-        itemId,
-        quantity,
-        sublotSize,
-        purchaseOrderNumber,
-        locationId,
-        productionDate,
-        expirationDate);
+       goodsReceipt);
     return status;
   }
 

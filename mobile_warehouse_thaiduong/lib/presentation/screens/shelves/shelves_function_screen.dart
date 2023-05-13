@@ -13,42 +13,48 @@ class ShelveFunctionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: const Icon(Icons.west_outlined),
-            onPressed: () {
-              Navigator.pushNamed(context, '/main_screen');
-            },
+    return WillPopScope(
+       onWillPop: () async {
+        Navigator.pushNamed(context, "/main_screen");
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              icon: const Icon(Icons.west_outlined),
+              onPressed: () {
+                Navigator.pushNamed(context, '/main_screen');
+              },
+            ),
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Kệ kho',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Kệ kho',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
+        body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconCustomizedButton(
+                icon: Icons.manage_search_outlined,
+                text: "TÌM KIẾM THEO SẢN PHẨM",
+                onPressed: ()async {
+                  BlocProvider.of<ShelveBloc>(context)
+                      .add(GetAllItemIdEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/search_item_screen');    
+                }),
+            IconCustomizedButton(
+                icon: Icons.location_on,
+                text: "TRUY XUẤT VỊ TRÍ",
+                onPressed: () async {
+                  BlocProvider.of<ShelveBloc>(context)
+                      .add(GetAllLocationEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/search_shelf_screen');    
+                }),
+          ],
+        )),
       ),
-      body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconCustomizedButton(
-              icon: Icons.manage_search_outlined,
-              text: "TÌM KIẾM THEO SẢN PHẨM",
-              onPressed: ()async {
-                BlocProvider.of<ShelveBloc>(context)
-                    .add(GetAllItemIdEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/search_item_screen');    
-              }),
-          IconCustomizedButton(
-              icon: Icons.location_on,
-              text: "TRUY XUẤT VỊ TRÍ",
-              onPressed: () async {
-                BlocProvider.of<ShelveBloc>(context)
-                    .add(GetAllLocationEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/search_shelf_screen');    
-              }),
-        ],
-      )),
     );
   }
 }

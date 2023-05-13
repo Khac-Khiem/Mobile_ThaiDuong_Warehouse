@@ -42,144 +42,123 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-     DateTime startDate =(DateFormat('yyyy-MM-dd').parse(DateTime.now().toString()));
-    DateTime endDate = (DateFormat('yyyy-MM-dd').parse(DateTime.now().toString()));
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
+   
+    return WillPopScope(
+       onWillPop: () async {
+        Navigator.pushNamed(context, "/stockcard_function_screen");
+        return false;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.west, //mũi tên back
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/stockcard_function_screen');
+              },
             ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/stockcard_function_screen');
-            },
+            // leading: IconButton(
+            //     icon: const Icon(Icons.west_outlined),
+            //     onPressed: () {
+            //       // if (scanResult != "-1") {
+            //       //   AlertDialogTwoBtnCustomized(
+            //       //           context,
+            //       //           'Bạn có chắc',
+            //       //           'Khi nhấn trở lại, mọi dữ liệu sẽ không được lưu',
+            //       //           'Trở lại',
+            //       //           'Tiếp tục', () {
+            //       //     Navigator.pushNamed(context, '///');
+            //       //   }, () {}, 18, 22)
+            //       //       .show();
+            //       // } else {
+            //       //   Navigator.of(context).pop();
+            //       // }
+            //     }),
+            backgroundColor: Constants.mainColor,
+            title: Text(
+              'Quét mã',
+              style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
+            ),
           ),
-          // leading: IconButton(
-          //     icon: const Icon(Icons.west_outlined),
-          //     onPressed: () {
-          //       // if (scanResult != "-1") {
-          //       //   AlertDialogTwoBtnCustomized(
-          //       //           context,
-          //       //           'Bạn có chắc',
-          //       //           'Khi nhấn trở lại, mọi dữ liệu sẽ không được lưu',
-          //       //           'Trở lại',
-          //       //           'Tiếp tục', () {
-          //       //     Navigator.pushNamed(context, '///');
-          //       //   }, () {}, 18, 22)
-          //       //       .show();
-          //       // } else {
-          //       //   Navigator.of(context).pop();
-          //       // }
-          //     }),
-          backgroundColor: Constants.mainColor,
-          title: Text(
-            'Quét mã',
-            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
-          ),
-        ),
-        //endDrawer: DrawerUser(),
-        body: Builder(builder: (BuildContext context) {
-          return Container(
-              alignment: Alignment.center,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Text(
-                    //     scanResult != '-1'
-                    //         ? 'Kết quả : $scanResult\n'
-                    //         : 'Vui lòng quét mã sản phẩm',
-                    //     style: TextStyle(
-                    //         fontSize: 22 * SizeConfig.ratioFont,
-                    //         color: scanResult != '-1'
-                    //             ? Colors.black
-                    //             : Colors.red)),
-                    // SizedBox(
-                    //   height: 20 * SizeConfig.ratioHeight,
-                    // ),
-                    // CustomizedButton(
-                    //   onPressed: () {
-                    //     scanResult = '1';
-                    //     scanQR();
-                    //   },
-                    //   text: "Quét mã",
-                    // ),
-                    // SizedBox(
-                    //   height: 10 * SizeConfig.ratioHeight,
-                    // ),
-                    BarcodeinputWidget(
-                      textController: scanResult,
-                      textLabel: "Mã lô",
-                      onChange: ((data) {
-                       scanResult = data;
-                      }),
-                      onScan: ((data) {
-                        scanResult = data;
-                      }),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 175 * SizeConfig.ratioWidth,
-                          height: 80 * SizeConfig.ratioHeight,
-                          child: CustomizeDatePicker(
-                            name: "NSX",
-                            fontColor: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            initDateTime: startDate ,
-                            okBtnClickedFunction: (pickedTime) {
-                              startDate = pickedTime;
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 175 * SizeConfig.ratioWidth,
-                          height: 80 * SizeConfig.ratioHeight,
-                          child: CustomizeDatePicker(
-                            name: "HSD",
-                            fontColor: Colors.black,
-                            fontWeight: FontWeight.normal,
-                             initDateTime: endDate ,
-                            okBtnClickedFunction: (pickedTime) {
-                              endDate = pickedTime;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    CustomizedButton(
-                        onPressed: scanResult == '-1'
-                            ? () {
-                                AlertDialogTwoBtnCustomized(
-                                        context,
-                                        'Bạn có chắc',
-                                        'Chưa có lô được quét? Ấn tiếp tục để quét lại',
-                                        'Success_image.png',
-                                        'Tiếp tục',
-                                        'Trở lại',
-                                        () async {}, () {
+          //endDrawer: DrawerUser(),
+          body: Builder(builder: (BuildContext context) {
+            return Container(
+                alignment: Alignment.center,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          scanResult != '-1'
+                              ? 'Kết quả : $scanResult\n'
+                              : 'Vui lòng quét mã sản phẩm',
+                          style: TextStyle(
+                              fontSize: 22 * SizeConfig.ratioFont,
+                              color: scanResult != '-1'
+                                  ? Colors.black
+                                  : Colors.red)),
+                      SizedBox(
+                        height: 20 * SizeConfig.ratioHeight,
+                      ),
+                      CustomizedButton(
+                        onPressed: () {
+                          scanResult = '1';
+                          scanQR();
+                        },
+                        text: "Quét mã",
+                      ),
+                      SizedBox(
+                        height: 10 * SizeConfig.ratioHeight,
+                      ),
+                      // BarcodeinputWidget(
+                      //   textController: scanResult,
+                      //   textLabel: "Mã lô",
+                      //   onChange: ((data) {
+                      //    scanResult = data;
+                      //   }),
+                      //   onScan: ((data) {
+                      //     scanResult = data;
+                      //   }),
+                      // ),
+                     
+                      CustomizedButton(
+                          onPressed: scanResult == '-1'
+                              ? () {
+                                //  BlocProvider.of<InventoryBloc>(context).add(
+                                //       GetReportInventory(
+                                //           'CPD001',
+                                //           ));
+                                //   Navigator.pushNamed(
+                                //     context,
+                                //     '/report_inventory_screen',
+                                //   );
+                                  AlertDialogTwoBtnCustomized(
+                                          context,
+                                          'Chưa quét mã',
+                                          'Ấn tiếp tục để quét mã',
+                                          'warning_image.png',
+                                          'Tiếp tục',
+                                          'Trở lại',
+                                          () async {}, () {
+                                    Navigator.pushNamed(
+                                        context, '/receipt_screen');
+                                  }, 18, 22)
+                                      .show();
+                                }
+                              : () {
+                                  BlocProvider.of<InventoryBloc>(context).add(
+                                      GetReportInventory(
+                                          scanResult,
+                                          ));
                                   Navigator.pushNamed(
-                                      context, '/receipt_screen');
-                                }, 18, 22)
-                                    .show();
-                              }
-                            : () {
-                                BlocProvider.of<InventoryBloc>(context).add(
-                                    LoadInventoryEvent(
-                                        DateTime.now(),
-                                        scanResult,
-                                        startDate,
-                                        endDate
-                                        //state.warehouse
-                                        ));
-                                Navigator.pushNamed(
-                                  context,
-                                  '/list_inventory_screen',
-                                );
-                              },
-                        text: 'Xác nhận')
-                  ]));
-        }));
+                                    context,
+                                    '/report_inventory_screen',
+                                  );
+                                },
+                          text: 'Xác nhận')
+                    ]));
+          })),
+    );
   }
 }

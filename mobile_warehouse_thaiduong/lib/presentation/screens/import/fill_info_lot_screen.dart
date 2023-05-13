@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
@@ -10,7 +9,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_event/create_new_receipt_event.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/fill_info_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/barcode_input_widget.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_picker.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import '../../dialog/dialog_one_button.dart';
@@ -28,6 +26,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
   // String unit = '';
   GoodsReceiptLot goodsReceiptLot = GoodsReceiptLot(
       '', null, null, null, null, null, null, null, null, null, null);
+  
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
   // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
@@ -255,82 +254,56 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         ),
                       ],
                     ),
-                    // Container(
-                    //   width: 350 * SizeConfig.ratioWidth,
-                    //   height: 60 * SizeConfig.ratioHeight,
-                    //   margin: EdgeInsets.symmetric(
-                    //       vertical: 5 * SizeConfig.ratioHeight),
-                    //   child: TextField(
-                    //     controller: TextEditingController(
-                    //         text: goodsReceiptLot.sublotSize == null || goodsReceiptLot.sublotSize == 0
-                    //             ? ''
-                    //             : (goodsReceiptLot.quantity! 
-                    //                     )
-                    //                 .toString()),
-                    //     // state.index == -1
-                    //     //     ? TextEditingController()
-                    //     //     : TextEditingController(
-                    //     //         text: state
-                    //     //             .lots[state.index].purchaseOrderNumber
-                    //     //             .toString(),
-                    //     //       ),
-                    //     decoration: InputDecoration(
-                    //         border: OutlineInputBorder(
-                    //             borderRadius: BorderRadius.circular(5)),
-                    //         // filled: true,
-                    //         // fillColor: Constants.buttonColor,
-                    //         labelText: ""),
-                    //   ),
+            
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    //     SizedBox(
+                    //       width: 175 * SizeConfig.ratioWidth,
+                    //       height: 80 * SizeConfig.ratioHeight,
+                    //       child: CustomizeDatePicker(
+                    //         name: "NSX",
+                    //         fontColor: Colors.black,
+                    //         fontWeight: FontWeight.normal,
+                    //         initDateTime: goodsReceiptLot.productionDate == null
+                    //             ? DateFormat('yyyy-MM-dd')
+                    //                 .parse(DateTime.now().toString())
+                    //             : goodsReceiptLot.productionDate as DateTime,
+                    //         okBtnClickedFunction: (pickedTime) {
+                    //           goodsReceiptLot.productionDate = pickedTime;
+                    //         },
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 175 * SizeConfig.ratioWidth,
+                    //       height: 80 * SizeConfig.ratioHeight,
+                    //       child: CustomizeDatePicker(
+                    //         name: "HSD",
+                    //         fontColor: Colors.black,
+                    //         fontWeight: FontWeight.normal,
+                    //         initDateTime: goodsReceiptLot.expirationDate == null
+                    //             ? DateFormat('yyyy-MM-dd')
+                    //                 .parse(DateTime.now().toString())
+                    //             : goodsReceiptLot.expirationDate as DateTime,
+                    //         okBtnClickedFunction: (pickedTime) {
+                    //           goodsReceiptLot.expirationDate = pickedTime;
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
                     // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 175 * SizeConfig.ratioWidth,
-                          height: 80 * SizeConfig.ratioHeight,
-                          child: CustomizeDatePicker(
-                            name: "NSX",
-                            fontColor: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            initDateTime: goodsReceiptLot.productionDate == null
-                                ? DateFormat('yyyy-MM-dd')
-                                    .parse(DateTime.now().toString())
-                                : goodsReceiptLot.productionDate as DateTime,
-                            okBtnClickedFunction: (pickedTime) {
-                              goodsReceiptLot.productionDate = pickedTime;
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 175 * SizeConfig.ratioWidth,
-                          height: 80 * SizeConfig.ratioHeight,
-                          child: CustomizeDatePicker(
-                            name: "HSD",
-                            fontColor: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            initDateTime: goodsReceiptLot.expirationDate == null
-                                ? DateFormat('yyyy-MM-dd')
-                                    .parse(DateTime.now().toString())
-                                : goodsReceiptLot.expirationDate as DateTime,
-                            okBtnClickedFunction: (pickedTime) {
-                              goodsReceiptLot.expirationDate = pickedTime;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    BarcodeinputWidget(
-                      textController: goodsReceiptLot.location == null
-                          ? ''
-                          : goodsReceiptLot.location.toString(),
-                      textLabel: "Vị trí",
-                      onChange: ((data) {
-                        goodsReceiptLot.location = data;
-                      }),
-                      onScan: ((data) {
-                        goodsReceiptLot.location = data;
-                      }),
-                    ),
+                    // BarcodeinputWidget(
+                    //   textController: goodsReceiptLot.location == null
+                    //       ? ''
+                    //       : goodsReceiptLot.location.toString(),
+                    //   textLabel: "Vị trí",
+                    //   onChange: ((data) {
+                    //     goodsReceiptLot.location = data;
+                    //   }),
+                    //   onScan: ((data) {
+                    //     goodsReceiptLot.location = data;
+                    //   }),
+                    // ),
                     Row(children: [
                       Text(
                         overflow: TextOverflow.ellipsis,
@@ -386,7 +359,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                   "Cảnh báo",
                                   "Vui lòng điền đầy đủ các thông tin trong phần bắt buộc",
                                   "Trở lại",
-                                  '', () {
+                                  'warning_image.png', () {
                             // Navigator.pushNamed(
                             //   context,
                             //   '/fill_main_info_issue_screen',

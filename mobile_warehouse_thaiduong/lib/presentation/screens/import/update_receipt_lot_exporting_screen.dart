@@ -29,8 +29,8 @@ class _UpdateInfoLotReceiptScreenState
     extends State<UpdateInfoLotReceiptScreen> {
 //  Item? selectedItem;
   String unit = '';
-  GoodsReceiptLot goodsReceiptLot =
-      GoodsReceiptLot('', null,null, null, null, null, null, '', null, null, null);
+  GoodsReceiptLot goodsReceiptLot = GoodsReceiptLot(
+      '', null, null, null, null, null, null, '', null, null, null);
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
   // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
@@ -86,10 +86,10 @@ class _UpdateInfoLotReceiptScreenState
                       textController: goodsReceiptLot.goodsReceiptLotId,
                       textLabel: "Mã lô",
                       onChange: ((data) {
-                        goodsReceiptLot.goodsReceiptLotId = data;
+                        //   goodsReceiptLot.goodsReceiptLotId = data;
                       }),
                       onScan: ((data) {
-                        goodsReceiptLot.goodsReceiptLotId = data;
+                        //  goodsReceiptLot.goodsReceiptLotId = data;
                       }),
                     ),
                     SizedBox(
@@ -103,19 +103,15 @@ class _UpdateInfoLotReceiptScreenState
                         // hint: "country in menu mode",
                         onChanged: (value) {
                           //  print(value);
-                          setState(() {
-                            goodsReceiptLot.item = state.items.firstWhere(
-                                (element) => element.itemId == value);
-                            goodsReceiptLot.item!.itemId = value.toString();
-                          });
+                          // setState(() {
+                          //   goodsReceiptLot.item = state.items.firstWhere(
+                          //       (element) => element.itemId == value);
+                          //   goodsReceiptLot.item!.itemId = value.toString();
+                          // });
                         },
                         selectedItem: goodsReceiptLot.item == null
                             ? ''
                             : goodsReceiptLot.item!.itemId,
-                        //  goodsReceiptLot.itemId
-                        // state.index == -1
-                        //     ? goodsReceiptLot.itemId
-                        //     : state.lots[state.index].itemId.toString(),
                       ),
                     ),
                     Padding(
@@ -131,12 +127,12 @@ class _UpdateInfoLotReceiptScreenState
                           // hint: "country in menu mode",
                           onChanged: (value) {
                             //  print(value);
-                            setState(() {
-                              goodsReceiptLot.item = state.items.firstWhere(
-                                  (element) => element.itemName == value);
-                              goodsReceiptLot.item!.itemId =
-                                  goodsReceiptLot.item!.itemId;
-                            });
+                            // setState(() {
+                            //   goodsReceiptLot.item = state.items.firstWhere(
+                            //       (element) => element.itemName == value);
+                            //   goodsReceiptLot.item!.itemId =
+                            //       goodsReceiptLot.item!.itemId;
+                            // });
                           },
                           selectedItem: goodsReceiptLot.item == null
                               ? ''
@@ -204,8 +200,8 @@ class _UpdateInfoLotReceiptScreenState
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            // onChanged: (value) => goodsReceiptLot.sublotSize =
-                            //     double.parse(value),
+                            onChanged: (value) => goodsReceiptLot.sublotSize =
+                                double.parse(value),
                           ),
                         ),
                         Container(
@@ -220,12 +216,7 @@ class _UpdateInfoLotReceiptScreenState
                                 text: goodsReceiptLot.quantity == null
                                     ? ''
                                     : goodsReceiptLot.quantity.toString()),
-                            // state.index == -1
-                            //     ? TextEditingController()
-                            //     :
-                            // TextEditingController(
-                            //         text: goodsReceiptLot.sublotSize
-                            //             .toString()),
+                         
                             onSubmitted: (value) => value != ''
                                 ? goodsReceiptLot.quantity = double.parse(value)
                                 : goodsReceiptLot.quantity = double.parse('0'),
@@ -243,8 +234,8 @@ class _UpdateInfoLotReceiptScreenState
                               FilteringTextInputFormatter.allow(
                                   RegExp('[0-9.,]')),
                             ],
-                            // onChanged: (value) =>
-                            //     goodsReceiptLot.quantity = double.parse(value),
+                            onChanged: (value) =>
+                                goodsReceiptLot.quantity = double.parse(value),
                           ),
                         )
                       ],
@@ -253,20 +244,8 @@ class _UpdateInfoLotReceiptScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SizedBox(
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // margin: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // decoration: BoxDecoration(
-                          //     color: Constants.buttonColor,
-                          //     border: Border.all(
-                          //         width: 1, color: Constants.buttonColor),
-                          //     borderRadius:
-                          //         const BorderRadius.all(Radius.circular(5))),
                           child: CustomizeDatePicker(
                             name: "NSX",
                             fontColor: Colors.black,
@@ -281,19 +260,8 @@ class _UpdateInfoLotReceiptScreenState
                           ),
                         ),
                         SizedBox(
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // margin: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
                           width: 175 * SizeConfig.ratioWidth,
                           height: 80 * SizeConfig.ratioHeight,
-                          // padding: EdgeInsets.symmetric(
-                          //     vertical: 5 * SizeConfig.ratioHeight),
-                          // decoration: BoxDecoration(
-                          //     color: Constants.buttonColor,
-                          //     border: Border.all(width: 1, color: Colors.grey),
-                          //     borderRadius:
-                          //         const BorderRadius.all(Radius.circular(5))),
                           child: CustomizeDatePicker(
                             name: "HSD",
                             fontColor: Colors.black,
@@ -309,17 +277,36 @@ class _UpdateInfoLotReceiptScreenState
                         ),
                       ],
                     ),
-                    BarcodeinputWidget(
-                      textController: goodsReceiptLot.location == null
-                          ? ''
-                          : goodsReceiptLot.location.toString(),
-                      textLabel: "Vị trí",
-                      onChange: ((data) {
-                        goodsReceiptLot.location = data;
-                      }),
-                      onScan: ((data) {
-                        goodsReceiptLot.location = data;
-                      }),
+                    // BarcodeinputWidget(
+                    //   textController: goodsReceiptLot.location == null
+                    //       ? ''
+                    //       : goodsReceiptLot.location.toString(),
+                    //   textLabel: "Vị trí",
+                    //   onChange: ((data) {
+                    //     goodsReceiptLot.location = data;
+                    //   }),
+                    //   onScan: ((data) {
+                    //     goodsReceiptLot.location = data;
+                    //   }),
+                    // ),
+                      SizedBox(
+                      width: 350 * SizeConfig.ratioWidth,
+                      height: 60 * SizeConfig.ratioHeight,
+                      child: DropdownSearch<String>(
+                        mode: Mode.MENU,
+                        items:
+                            state.locations.map((e) => e.locationId.toString()).toList(),
+                        showSearchBox: true,
+                        label: "Vị trí",
+                        // hint: "country in menu mode",
+                        onChanged: (value) {
+                          //  print(value);
+                          setState(() {
+                            goodsReceiptLot.location = value.toString();
+                          });
+                        },
+                        selectedItem: goodsReceiptLot.location ?? '',
+                      ),
                     ),
                     Row(children: [
                       Text(
@@ -349,13 +336,6 @@ class _UpdateInfoLotReceiptScreenState
                       child: TextField(
                         controller: TextEditingController(
                             text: goodsReceiptLot.purchaseOrderNumber),
-                        // state.index == -1
-                        //     ? TextEditingController()
-                        //     : TextEditingController(
-                        //         text: state
-                        //             .lots[state.index].purchaseOrderNumber
-                        //             .toString(),
-                        //       ),
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5)),
@@ -375,7 +355,8 @@ class _UpdateInfoLotReceiptScreenState
                                   context,
                                   "Cảnh báo",
                                   "Vui lòng điền đầy đủ các thông tin trong phần bắt buộc",
-                                  "Trở lại",'', () {
+                                  "Trở lại",
+                                  '', () {
                             // Navigator.pushNamed(
                             //   context,
                             //   '/fill_main_info_issue_screen',

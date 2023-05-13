@@ -23,6 +23,7 @@ class ListUncompletedGoodReceiptScreen extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
+            
             Navigator.pushNamed(context, '/main_receipt_screen');
           },
         ),

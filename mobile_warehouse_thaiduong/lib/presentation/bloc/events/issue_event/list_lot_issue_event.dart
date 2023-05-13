@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_issue.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
@@ -13,6 +11,7 @@ class LoadGoodsIssueLotEvent extends GoodsIssueLotEvent {
 //  List<GoodsIssueLot> lotsExpected;
   LoadGoodsIssueLotEvent(this.timestamp, this.itemId, this.goodsIssueId);
   @override
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -34,6 +33,7 @@ class AddGoodsIssueLotEvent extends GoodsIssueLotEvent {
       this.listLotsSuggest,
       this.listLotExported);
   @override
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }
 
@@ -46,5 +46,6 @@ class PostGoodsIssueLotEvent extends GoodsIssueLotEvent {
   PostGoodsIssueLotEvent(
       this.timestamp, this.itemId, this.goodsIssueId, this.lots);
   @override
+  // TODO: implement props
   List<Object?> get props => [timestamp];
 }

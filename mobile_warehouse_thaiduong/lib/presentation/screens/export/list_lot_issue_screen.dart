@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,22 +99,6 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                             body: Column(
                               children: [
                                 Container(
-                                  width: 300 * SizeConfig.ratioWidth,
-                                  height: 60 * SizeConfig.ratioHeight,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 5 * SizeConfig.ratioHeight),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        // filled: true,
-                                        // fillColor: Constants.buttonColor,
-                                        labelText: "Ghi chú"),
-                                    onChanged: (value) => note = value,
-                                  ),
-                                ),
-                                Container(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5 * SizeConfig.ratioHeight),
                                   alignment: Alignment.centerRight,
@@ -138,13 +121,34 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[0-9.,]')),
                                     ],
-                                    onChanged: (value) =>
-                                        value != ''
-                                        ? quantity = double.parse(value)
-                                        : quantity = double.parse('0'),
+                                    onChanged: (value) => setState(() {
+                                      value == e.quantity.toString()
+                                          ? {note = "Xuất cả lô"}
+                                          : {note = "Xuất một phần"};
+                                      value != ''
+                                          ? quantity = double.parse(value)
+                                          : quantity = double.parse('0');
+                                    }),
                                     onSubmitted: (value) => value != ''
                                         ? quantity = double.parse(value)
                                         : quantity = double.parse('0'),
+                                  ),
+                                ),
+                                Container(
+                                  width: 300 * SizeConfig.ratioWidth,
+                                  height: 60 * SizeConfig.ratioHeight,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5 * SizeConfig.ratioHeight),
+                                  child: TextField(
+                                    controller: TextEditingController(text: note),
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        // filled: true,
+                                        // fillColor: Constants.buttonColor,
+                                        labelText: "Ghi chú"),
+                                    onChanged: (value) => note = value,
                                   ),
                                 ),
                                 TextButton(
@@ -154,7 +158,8 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                                 context,
                                                 'Không hợp lệ',
                                                 'Số lượng nhập không phù hợp',
-                                                'Trở lại','', () {
+                                                'Trở lại',
+                                                'warning_image.png', () {
                                           // Navigator.pushNamed(context, '/main_receipt_screen');
                                         }, 15, 20, () {}, false)
                                             .show();
@@ -221,8 +226,15 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
             BlocConsumer<ListGoodsIssueLotUncompletedBloc, GoodsIssueLotState>(
                 listener: (context, state) {
               if (state is PostIssueLotsSuccessState) {
-                AlertDialogOneBtnCustomized(context, 'Thành công',
-                        'Đã hoàn thành việc xuất lô', 'Tiếp tục','', () {
+                AlertDialogOneBtnCustomized(context, 'Thành công', 'Đã xuất lô',
+                        'Tiếp tục', 'Success_image.png', () {
+                  Navigator.pushNamed(context, '/export_main_screen');
+                }, 20, 15, () {}, false)
+                    .show();
+              }
+              if (state is PostGoodsIssueLotsFailState) {
+                AlertDialogOneBtnCustomized(context, 'Thất bại',
+                        'Không thể xuất lô', 'Tiếp tục', 'Fail_image.png', () {
                   Navigator.pushNamed(context, '/export_main_screen');
                 }, 20, 15, () {}, false)
                     .show();

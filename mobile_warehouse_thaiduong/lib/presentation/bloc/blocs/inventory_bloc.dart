@@ -1,5 +1,5 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_warehouse_thaiduong/domain/usecases/item_lot_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/item_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/domain/usecases/inventory_usecase.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/inventory_events.dart';
@@ -11,8 +11,10 @@ import '../../../domain/usecases/location_usecase.dart';
 class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   ItemUsecase itemUsecase;
   Inventoryusecase inventoryUsecase;
+  ItemLotUsecase itemLotUsecase;
   LocationUsecase locationUsecase;
-  InventoryBloc(this.inventoryUsecase, this.locationUsecase, this.itemUsecase)
+  InventoryBloc(this.inventoryUsecase, this.locationUsecase,
+      this.itemLotUsecase, this.itemUsecase)
       : super(GetWarehouseIdLoadingState(DateTime.now())) {
     // hiển thị list kho hàng
     on<GetWarehouseIdEvent>((event, emit) async {
@@ -55,19 +57,27 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       }
     });
 
-    // thử giao diện
-    // on<LoadInventoryLotEvent>((event, emit) async {
-    //   emit(LoadInventoryLotLoadingState(DateTime.now()));
-    //   try {
-    //     {
-    //       final itemLots = await inventoryUsecase.getInventoryByItemClass(
-    //           event.timestamp, event.warehouseName);
-
-    //       emit(LoadInventoryLotSuccessState(DateTime.now(), itemLots));
-    //     }
-    //   } catch (e) {
-    //     emit(LoadInventoryLotFailState(DateTime.now()));
-    //   }
-    // });
+    on<GetReportInventory>((event, emit) async {
+      double totalQuantity = 0;
+      emit(LoadReportInventoryLotLoadingState(DateTime.now()));
+      try {
+        {
+          final itemLots =
+              await itemLotUsecase.getItemLotsByItemId(event.itemId);
+          for (var element in itemLots) {
+            totalQuantity =
+                totalQuantity + double.parse(element.quantity.toString());
+          }
+          itemLots.isNotEmpty
+              ? {
+                  emit(LoadReportInventoryLotSuccessState(
+                      DateTime.now(), itemLots, totalQuantity))
+                }
+              : { emit(LoadInventoryFailState(DateTime.now()))};
+        }
+      } catch (e) {
+        emit(LoadInventoryFailState(DateTime.now()));
+      }
+    });
   }
 }
