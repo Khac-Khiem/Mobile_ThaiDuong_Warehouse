@@ -29,11 +29,11 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
         final itemLot = await itemLotUsecase.getItemLotsByItemId(event.itemId);
         itemLot.isNotEmpty
             ? emit(GetLotByItemIdSuccessState(DateTime.now(), itemLot,
-                event.listItem, event.itemId, event.listItem))
-            : emit(GetLotByItemIdFailState(DateTime.now(), ''));
+                event.itemId, event.listItem))
+            : emit(GetLotByItemIdFailState(DateTime.now(), '', event.listItem));
       } catch (e) {
         emit(GetLotByItemIdFailState(
-            DateTime.now(), 'Không truy xuất được dữ liệu'));
+            DateTime.now(), 'Không truy xuất được dữ liệu', event.listItem));
       }
     });
     // lấy list vị trí
@@ -49,7 +49,7 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
         }
         emit(GetAllLocationSuccessState(DateTime.now(), locations));
       } catch (e) {
-        emit(GetAllLocationFailState(DateTime.now()));
+        emit(GetAllLocationFailState(DateTime.now(),));
       }
     });
     // lọc lô theo vị trí
@@ -60,12 +60,12 @@ class ShelveBloc extends Bloc<ShelveEvent, ShelveState> {
             await itemLotUsecase.getItemLotsByLocation(event.locations);
         itemLot.isNotEmpty
             ? emit(GetLotByLocationSuccessState(DateTime.now(), itemLot,
-                event.listLocation, event.locations))
+                event.listLocation))
             : emit(GetLotByLocationFailState(
-                DateTime.now(), 'Không có lô ở vị trí này'));
+                DateTime.now(), 'Không có lô ở vị trí này', event.listLocation));
       } catch (e) {
         emit(GetLotByLocationFailState(
-            DateTime.now(), 'Không truy xuất được dữ liệu'));
+            DateTime.now(), 'Không truy xuất được dữ liệu', event.listLocation));
       }
     });
   }

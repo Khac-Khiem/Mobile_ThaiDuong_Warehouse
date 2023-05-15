@@ -136,27 +136,25 @@ class _ImportHistoryEntryScreenState extends State<ImportHistoryEntryScreen> {
                     );
                   }
                   if (state is AccessImportHistoryLoadingState) {
-                    return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-    
-                      children: [
-                        ExceptionErrorState(
-                          icon: Icons.wifi_protected_setup_sharp,
-                          title: 'Loading',
-                          message: "Vui lòng đợi....",
+                  return Dialog(
+                        // The background color
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              // The loading indicator
+                              CircularProgressIndicator(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              // Some text
+                              Text('Loading...')
+                            ],
+                          ),
                         ),
-                        CustomizedButton(
-                        onPressed: () {
-                         
-                          Navigator.pushNamed(
-                            context,
-                            '/import_history_screen',
-                          );
-                        },
-                        text: "Trở lại",
-                      )
-                      ],
-                    );
+                      );
                   } else {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,16 +163,16 @@ class _ImportHistoryEntryScreenState extends State<ImportHistoryEntryScreen> {
                           title: 'Lỗi hệ thống',
                           message: "Vui lòng thử lại sau",
                         ),
-                        CustomizedButton(
-                        onPressed: () {
+                      //   CustomizedButton(
+                      //   onPressed: () {
                         
-                          Navigator.pushNamed(
-                            context,
-                            '/import_history_screen',
-                          );
-                        },
-                        text: "Trở lại",
-                      )
+                      //     Navigator.pushNamed(
+                      //       context,
+                      //       '/import_history_screen',
+                      //     );
+                      //   },
+                      //   text: "Trở lại",
+                      // )
                       ],
                     );
                   }

@@ -399,7 +399,25 @@ class _WarningUnderStockminScreenSate
                         color: Constants.mainColor,
                         thickness: 1,
                       ),
-                      const Center(child: CircularProgressIndicator()),
+                       Dialog(
+                        // The background color
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              // The loading indicator
+                              CircularProgressIndicator(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              // Some text
+                              Text('Loading...')
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   );
                 } else {

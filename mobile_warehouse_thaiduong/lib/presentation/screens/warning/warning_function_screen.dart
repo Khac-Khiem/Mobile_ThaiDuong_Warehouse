@@ -15,7 +15,7 @@ class WarningFunctionScreen extends StatelessWidget {
     SizeConfig().init(context);
     return WillPopScope(
        onWillPop: () async {
-        Navigator.pushReplacementNamed(context, "/main_screen");
+        Navigator.pushNamed(context, "/main_screen");
         return false;
       },
       child: Scaffold(

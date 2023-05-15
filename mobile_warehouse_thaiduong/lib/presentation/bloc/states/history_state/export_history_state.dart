@@ -7,7 +7,7 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
 abstract class ExportHistoryState extends Equatable {
-   List<Warehouse> warehouse;
+  List<Warehouse> warehouse;
   List<String> poNumber;
   List<String> receiver;
   List<Item> listAllItem;

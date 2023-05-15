@@ -177,7 +177,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                                         GoodsIssueLot(
                                                             e.lotId,
                                                             quantity,
-                                                            double.parse(e
+                                                            double.tryParse(e
                                                                 .sublotSize
                                                                 .toString()),
                                                             null,
@@ -199,7 +199,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                                         GoodsIssueLot(
                                                             e.lotId,
                                                             quantity,
-                                                            double.parse(e
+                                                            double.tryParse(e
                                                                 .sublotSize
                                                                 .toString()),
                                                             null,

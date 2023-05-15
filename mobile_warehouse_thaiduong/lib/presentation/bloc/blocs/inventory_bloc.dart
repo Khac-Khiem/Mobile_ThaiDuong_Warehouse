@@ -38,7 +38,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
             DateTime.now(), item, event.listAllItem, event.warehouse));
       } catch (e) {
         emit(GetAllItemByWarehouseFailState(
-          DateTime.now(),
+          DateTime.now(),event.listAllItem, event.warehouse
         ));
       }
     });
@@ -50,10 +50,10 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
         {
           final itemLots = await inventoryUsecase.getInventoryByItemId(
               event.startDate, event.endDate, event.itemId);
-          emit(LoadInventorySuccessState(DateTime.now(), itemLots));
+          emit(LoadInventorySuccessState(DateTime.now(), itemLots, event.listAllItem, event.warehouse));
         }
       } catch (e) {
-        emit(LoadInventoryFailState(DateTime.now()));
+        emit(LoadInventoryFailState(DateTime.now(), event.listAllItem, event.warehouse));
       }
     });
 
@@ -73,10 +73,10 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
                   emit(LoadReportInventoryLotSuccessState(
                       DateTime.now(), itemLots, totalQuantity))
                 }
-              : { emit(LoadInventoryFailState(DateTime.now()))};
+              : { emit(LoadReportInventoryLotFailState(DateTime.now()))};
         }
       } catch (e) {
-        emit(LoadInventoryFailState(DateTime.now()));
+        emit(LoadReportInventoryLotFailState(DateTime.now()));
       }
     });
   }

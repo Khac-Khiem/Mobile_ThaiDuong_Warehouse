@@ -20,7 +20,7 @@ class _ListInventoryScreenState extends State<ListInventoryScreen> {
     SizeConfig().init(context);
 
     return WillPopScope(
-         onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/inventory_screen");
         return false;
       },
@@ -53,7 +53,7 @@ class _ListInventoryScreenState extends State<ListInventoryScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             overflow: TextOverflow.ellipsis,
-                            "Lịch sử tồn kho",
+                            "Lịch sử xuất nhập tồn",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 20 * SizeConfig.ratioFont,
@@ -62,45 +62,91 @@ class _ListInventoryScreenState extends State<ListInventoryScreen> {
                           ),
                         ),
                         SizedBox(
-                            height: 500 * SizeConfig.ratioHeight,
-                            child: ListView.builder(
-                              itemCount: state.itemLots.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 110.0 * SizeConfig.ratioHeight,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: ListTile(
-                                        leading: Text(DateFormat('yyyy-MM-dd')
-                                            .format(
-                                                state.itemLots[index].timestamp)),
-                                        // trailing: Icon(
-                                        //     Icons.arrow_drop_down_sharp,
-                                        //     size: 15 * SizeConfig.ratioFont),
-                                        title: Text(
-                                            "Mã lô : ${state.itemLots[index].itemLot}"),
-                                        subtitle: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                                "Sản phẩm : ${state.itemLots[index].item.itemName.toString()}  \nSố lượng ban đầu : ${state.itemLots[index].beforeQuantity.toString()}   \nSố lượng thay đổi : ${state.itemLots[index].changedQuantity.toString()}"),
-                                            // Text(
-                                            //     "nĐịnh mức : ${state.itemLots[index].itemLot.sublotSize.toString()}"),
-                                          ],
-                                        ),
-                                        isThreeLine: true,
-                                        onTap: () {}),
-                                  ),
-                                );
-                              },
-                            )),
+                          height: 500 * SizeConfig.ratioHeight,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: DataTable(
+                                columns: const [
+                                  DataColumn(label: Text('Thời gian')),
+                                  DataColumn(label: Text('Mã lô')),
+                                  DataColumn(label: Text('SL Nhập')),
+                                  DataColumn(label: Text('SL Xuất')),
+                                ],
+                                rows: state
+                                    .itemLots // Loops through dataColumnText, each iteration assigning the value to element
+                                    .map(
+                                      ((element) => DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(Text(DateFormat(
+                                                      'yyyy-MM-dd')
+                                                  .format(element
+                                                      .timestamp))), //Extracting from Map element the value
+                                              DataCell(Text(
+                                                  element.itemLot.toString())),
+                                              DataCell(Text(
+                                                  element.changedQuantity < 0
+                                                      ? "0"
+                                                      : element.changedQuantity
+                                                          .toString())),
+                                              DataCell(Text(
+                                                  element.changedQuantity > 0
+                                                      ? "0"
+                                                      : (
+                                                          0 -
+                                                              element
+                                                                  .changedQuantity
+                                                                  
+                                              ).toString())),
+                                            ],
+                                          )),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // SizedBox(
+                        //     height: 500 * SizeConfig.ratioHeight,
+                        //     child: ListView.builder(
+                        //       itemCount: state.itemLots.length,
+                        //       itemBuilder: (BuildContext context, int index) {
+                        //         return Padding(
+                        //           padding: const EdgeInsets.all(8.0),
+                        //           child: Container(
+                        //             height: 110.0 * SizeConfig.ratioHeight,
+                        //             decoration: BoxDecoration(
+                        //               border: Border.all(
+                        //                 width: 1,
+                        //               ),
+                        //               borderRadius: BorderRadius.circular(10),
+                        //             ),
+                        //             child: ListTile(
+                        //                 leading: Text(DateFormat('yyyy-MM-dd')
+                        //                     .format(
+                        //                         state.itemLots[index].timestamp)),
+                        //                 // trailing: Icon(
+                        //                 //     Icons.arrow_drop_down_sharp,
+                        //                 //     size: 15 * SizeConfig.ratioFont),
+                        //                 title: Text(
+                        //                     "Mã lô : ${state.itemLots[index].itemLot}"),
+                        //                 subtitle: Row(
+                        //                   mainAxisAlignment:
+                        //                       MainAxisAlignment.spaceBetween,
+                        //                   children: [
+                        //                     Text(
+                        //                         "Sản phẩm : ${state.itemLots[index].item.itemName.toString()}  \nSố lượng ban đầu : ${state.itemLots[index].beforeQuantity.toString()}   \nSố lượng thay đổi : ${state.itemLots[index].changedQuantity.toString()}"),
+                        //                     // Text(
+                        //                     //     "nĐịnh mức : ${state.itemLots[index].itemLot.sublotSize.toString()}"),
+                        //                   ],
+                        //                 ),
+                        //                 isThreeLine: true,
+                        //                 onTap: () {}),
+                        //           ),
+                        //         );
+                        //       },
+                        //     )),
                         CustomizedButton(
                           onPressed: () {
                             // BlocProvider.of<HistoryBloc>(context)

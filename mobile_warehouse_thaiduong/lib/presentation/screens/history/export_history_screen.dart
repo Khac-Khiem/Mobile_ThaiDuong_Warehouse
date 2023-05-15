@@ -24,15 +24,15 @@ class ExportHistoryScreen extends StatefulWidget {
 
 class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
   List<Item> itemsDropdownData = [];
-  Item? selectedItem;
+  Item selectedItem = Item('', '', '', '', 0, 0);
   // String warehouse = '';
   //List<String> supplierDropdownData = [];
   String? selectedReceiver;
   //List<Warehouse> warehouseDropdownData = [];
-  Warehouse? selectedWarehouse;
+  Warehouse selectedWarehouse = Warehouse('', '', []);
   String? selectedPo;
-  DateTime startDate = DateFormat('yyyy-MM-dd')
-      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+  DateTime startDate = DateFormat('yyyy-MM-dd').parse(DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().subtract(const Duration(days: 30))));
   DateTime endDate = DateFormat('yyyy-MM-dd')
       .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
   @override
@@ -40,7 +40,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
     SizeConfig().init(context);
 
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/history_function_screen");
         return false;
       },
@@ -116,25 +116,27 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       showSearchBox: true,
                                       label: "Kho hàng",
                                       onChanged: (value) {
-                                        selectedItem = null;
                                         setState(() {
                                           selectedWarehouse = state.warehouse
                                               .firstWhere((element) =>
                                                   element.warehouseId == value);
-                                          BlocProvider.of<ImportHistoryBloc>(
+                                          BlocProvider.of<ExportHistoryBloc>(
                                                   context)
-                                              .add(GetImportItemByWarehouseEvent(
-                                                  DateTime.now(),
-                                                  state.poNumber,
-                                                  selectedWarehouse!.warehouseId,
-                                                  state.listAllItem,
-                                                  state.warehouse,
-                                                  state.receiver));
+                                              .add(
+                                                  GetExportItemByWarehouseEvent(
+                                                      DateTime.now(),
+                                                      selectedWarehouse
+                                                          .warehouseId,
+                                                      state.poNumber,
+                                                      state.listAllItem,
+                                                      state.itemSort,
+                                                      state.warehouse,
+                                                      state.receiver));
                                         });
                                       },
                                       selectedItem: selectedWarehouse == null
                                           ? ''
-                                          : selectedWarehouse!.warehouseName,
+                                          : selectedWarehouse.warehouseName,
                                     ),
                                   ),
                                 ),
@@ -159,7 +161,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       },
                                       selectedItem: selectedItem == null
                                           ? ''
-                                          : selectedItem!.itemId,
+                                          : selectedItem.itemId,
                                     ),
                                   ),
                                 ),
@@ -185,7 +187,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                       },
                                       selectedItem: selectedItem == null
                                           ? ''
-                                          : selectedItem!.itemName,
+                                          : selectedItem.itemName,
                                     ),
                                   ),
                                 ),
@@ -228,32 +230,30 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 CustomizedButton(
                                     text: "Truy xuất",
                                     onPressed: () {
-                                      selectedWarehouse == null
+                                      selectedWarehouse.warehouseId == '' &&
+                                              selectedItem.itemName == ''
                                           ? {
                                               AlertDialogOneBtnCustomized(
                                                       context,
                                                       'Cảnh báo',
                                                       'Vui lòng chọn kho hàng để truy xuất',
-                                                      'Trở lại','', () {
+                                                      'Trở lại',
+                                                      '', () {
                                                 // Navigator.pushNamed(context, '/main_receipt_screen');
                                               }, 20, 15, () {}, false)
                                                   .show()
                                             }
                                           : {
-                                              if (selectedItem == null)
-                                                {
-                                                  selectedItem =
-                                                      Item('', '', '', '', 0, 0)
-                                                },
-                                              BlocProvider.of<ExportHistoryBloc>(
+                                              BlocProvider.of<
+                                                          ExportHistoryBloc>(
                                                       context)
                                                   .add(
                                                       AccessExportHistoryByItemIdEvent(
                                                           DateTime.now(),
                                                           startDate,
                                                           endDate,
-                                                          selectedItem!.itemId,
-                                                          selectedWarehouse!
+                                                          selectedItem.itemId,
+                                                          selectedWarehouse
                                                               .warehouseId,
                                                           state.warehouse,
                                                           state.itemSort,
@@ -268,7 +268,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                     }),
                               ],
                             );
-    
+
                             // else {
                             //   return const CircularProgressIndicator();
                             // }
@@ -319,8 +319,9 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 label: "Người nhận",
                                 onChanged: (value) {
                                   setState(() {
-                                    selectedReceiver = state.receiver.firstWhere(
-                                        (element) => element == value);
+                                    selectedReceiver = state.receiver
+                                        .firstWhere(
+                                            (element) => element == value);
                                   });
                                 },
                                 selectedItem: selectedReceiver ?? '',
@@ -365,21 +366,37 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                           CustomizedButton(
                               text: "Truy xuất",
                               onPressed: () {
-                                BlocProvider.of<ExportHistoryBloc>(context).add(
-                                    AccessExportHistoryByReceiverEvent(
-                                        DateTime.now(),
-                                        startDate,
-                                        endDate,
-                                        selectedReceiver!,
-                                        state.warehouse,
-                                        state.itemSort,
-                                        state.listAllItem,
-                                        state.poNumber,
-                                        state.receiver));
-                                Navigator.pushNamed(
-                                  context,
-                                  '/list_export_history_screen',
-                                );
+                                selectedReceiver == null
+                                    ? {
+                                        AlertDialogOneBtnCustomized(
+                                                context,
+                                                'Cảnh báo',
+                                                'Vui lòng chọn thông tin để truy xuất',
+                                                'Trở lại',
+                                                'warning_image.png', () {
+                                          // Navigator.pushNamed(context, '/main_receipt_screen');
+                                        }, 15, 20, () {}, false)
+                                            .show()
+                                      }
+                                    : {
+                                        BlocProvider.of<ExportHistoryBloc>(
+                                                context)
+                                            .add(
+                                                AccessExportHistoryByReceiverEvent(
+                                                    DateTime.now(),
+                                                    startDate,
+                                                    endDate,
+                                                    selectedReceiver!,
+                                                    state.warehouse,
+                                                    state.itemSort,
+                                                    state.listAllItem,
+                                                    state.poNumber,
+                                                    state.receiver)),
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/list_export_history_screen',
+                                        )
+                                      };
                               })
                         ]);
                         // }
@@ -429,7 +446,9 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                                 items: state.poNumber.map((e) => e).toList(),
                                 showSearchBox: true,
                                 label: "PO",
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  selectedPo = value;
+                                },
                                 selectedItem: selectedPo ?? '',
                               ),
                             ),

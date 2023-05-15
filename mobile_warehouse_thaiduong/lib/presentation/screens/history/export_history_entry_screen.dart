@@ -131,26 +131,25 @@ class _ExportHistoryEntryScreenState extends State<ExportHistoryEntryScreen> {
                     );
                   }
                   if (state is AccessExportHistoryLoadingState) {
-                    return Center(
-                      child: Column(
-                        children: [
-                          ExceptionErrorState(
-                            icon: Icons.wifi_protected_setup_sharp,
-                            title: 'Loading',
-                            message: "Vui lòng đợi....",
+                   return Dialog(
+                        // The background color
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              // The loading indicator
+                              CircularProgressIndicator(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              // Some text
+                              Text('Loading...')
+                            ],
                           ),
-                            CustomizedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/import_history_screen',
-                            );
-                          },
-                          text: "Trở lại",
-                        )
-                        ],
-                      ),
-                    );
+                        ),
+                      );
                   } else {
                     return Center(
                       child: Column(
@@ -159,15 +158,15 @@ class _ExportHistoryEntryScreenState extends State<ExportHistoryEntryScreen> {
                             title: 'Lỗi hệ thống',
                             message: "Vui lòng thử lại sau",
                           ),
-                            CustomizedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/import_history_screen',
-                            );
-                          },
-                          text: "Trở lại",
-                        )
+                        //     CustomizedButton(
+                        //   onPressed: () {
+                        //     Navigator.pushNamed(
+                        //       context,
+                        //       '/import_history_screen',
+                        //     );
+                        //   },
+                        //   text: "Trở lại",
+                        // )
                         ],
                       ),
                     );

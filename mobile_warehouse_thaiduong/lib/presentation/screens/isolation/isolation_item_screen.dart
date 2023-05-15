@@ -7,9 +7,9 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/isolation_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/isolation_events.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/isolation_states.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/dialog/dialog_two_button.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import '../../dialog/dialog_one_button.dart';
+import '../../widgets/barcode_input_widget.dart';
 import '../../widgets/exception_widget.dart';
 
 class IsolatedNewItemLotScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/isolation_function_screen");
         return false;
       },
@@ -70,28 +70,41 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
                       context,
                       'Xác nhận',
                       'Bạn có chắc muốn cách ly lô hàng $scanResult',
-                      'Tiếp tục','', () {
+                      'Tiếp tục',
+                      'warning_image.png', () {
                 Navigator.pushNamed(context, '/isolation_function_screen');
               }, 20, 15, () {}, false)
                   .show();
             }
             if (state is GetAllIsolationLotFailState) {
-              AlertDialogOneBtnCustomized(context, 'Cảnh báo',
-                      'Lô hàng hiện không tồn tại', 'Tiếp tục','warning_image.png', () {
+              AlertDialogOneBtnCustomized(
+                      context,
+                      'Cảnh báo',
+                      'Lô hàng hiện không tồn tại',
+                      'Tiếp tục',
+                      'warning_image.png', () {
                 Navigator.pushNamed(context, '/isolation_function_screen');
               }, 20, 15, () {}, false)
                   .show();
             }
             if (state is PostNewIsolationSuccessState) {
-              AlertDialogOneBtnCustomized(context, 'Thành công',
-                      'Đã hoàn thành việc cách ly', 'Tiếp tục','Success_image.png', () {
+              AlertDialogOneBtnCustomized(
+                      context,
+                      'Thành công',
+                      'Đã hoàn thành việc cách ly',
+                      'Tiếp tục',
+                      'Success_image.png', () {
                 Navigator.pushNamed(context, '/isolation_function_screen');
               }, 20, 15, () {}, false)
                   .show();
             }
             if (state is PostNewIsolationFailState) {
-              AlertDialogOneBtnCustomized(context, 'Thất bại',
-                      'Không thể tiến hành cách ly', 'Tiếp tục','Fail_image.png', () {
+              AlertDialogOneBtnCustomized(
+                      context,
+                      'Thất bại',
+                      'Không thể tiến hành cách ly',
+                      'Tiếp tục',
+                      'Fail_image.png', () {
                 Navigator.pushNamed(context, '/isolation_function_screen');
               }, 20, 15, () {}, false)
                   .show();
@@ -189,59 +202,236 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
                             text: 'Xác nhận')
                       ]));
             } else {
-              return Container(
-                  alignment: Alignment.center,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                            scanResult != '-1'
-                                ? 'Kết quả : $scanResult\n'
-                                : 'Vui lòng quét mã lô',
-                            style: TextStyle(
-                                fontSize: 22 * SizeConfig.ratioFont,
-                                color: scanResult != '-1'
-                                    ? Colors.black
-                                    : Colors.red)),
-                        SizedBox(
-                          height: 20 * SizeConfig.ratioHeight,
-                        ),
-                        CustomizedButton(
-                          onPressed: () {
-                            scanResult = '1';
-                            scanQR();
-                          },
-                          text: "Quét mã",
-                        ),
-                        SizedBox(
-                          height: 10 * SizeConfig.ratioHeight,
-                        ),
-                        CustomizedButton(
-                            onPressed: scanResult == '-1'
-                                ? () {
-                                    // BlocProvider.of<IsolationBloc>(context).add(
-                                    //     PostNewIsolationEvent(
-                                    //         DateTime.now(), "Lo001"));
-                                    AlertDialogTwoBtnCustomized(
-                                            context,
-                                            'Bạn có chắc',
-                                            'Chưa có lô được quét? Ấn tiếp tục để quét lại',
-                                            'Success_image.png',
-                                            'Tiếp tục',
-                                            'Trở lại',
-                                            () async {}, () {
-                                      Navigator.pushNamed(
-                                          context, '/isolation_function_screen');
-                                    }, 18, 22)
-                                        .show();
-                                  }
-                                : () {
-                                    BlocProvider.of<IsolationBloc>(context).add(
-                                        GetLotByLotIdEvent(
-                                            DateTime.now(), scanResult));
-                                  },
-                            text: 'Xác nhận')
-                      ]));
+              return SingleChildScrollView(
+                child: Container(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            padding:
+                                EdgeInsets.all(10 * SizeConfig.ratioHeight),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "Thông tin lô hàng",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20 * SizeConfig.ratioFont,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10 * SizeConfig.ratioHeight,
+                                ),
+                                Column(
+                                  children: [
+                                    BarcodeinputWidget(
+                                      textController: scanResult,
+                                      textLabel: "Mã lô",
+                                      onChange: ((data) {
+                                        scanResult = data;
+                                        BlocProvider.of<IsolationBloc>(context)
+                                            .add(GetLotByLotIdEvent(
+                                                DateTime.now(), scanResult));
+                                      }),
+                                      onScan: ((data) {
+                                        scanResult = data;
+                                        BlocProvider.of<IsolationBloc>(context)
+                                            .add(GetLotByLotIdEvent(
+                                                DateTime.now(), scanResult));
+                                      }),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          25, 10, 0, 0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            "Mã sản phẩm:    ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:
+                                                  20 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 160 * SizeConfig.ratioWidth,
+                                            height: 45 * SizeConfig.ratioHeight,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Constants.buttonColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8.0))),
+                                            child: Center(
+                                              child: Text(
+                                                '',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize:
+                                                      22 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          25, 10, 0, 0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            "Số lượng:            ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:
+                                                  20 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Container(
+                                            // padding:
+                                            // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                            width: 160 * SizeConfig.ratioWidth,
+                                            height: 45 * SizeConfig.ratioHeight,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Constants.buttonColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8.0))),
+                                            child: Center(
+                                              child: Text(
+                                                '',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize:
+                                                      22 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          25, 10, 0, 0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            "PO cũ:                 ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:
+                                                  20 * SizeConfig.ratioFont,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Container(
+                                            // padding:
+                                            // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                            width: 160 * SizeConfig.ratioWidth,
+                                            height: 45 * SizeConfig.ratioHeight,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Constants.buttonColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8.0))),
+                                            child: Center(
+                                              child: Text(
+                                                '',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize:
+                                                      22 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CustomizedButton(
+                                      text: "Xác nhận", onPressed: () {}),
+                                )
+                              ],
+                            ),
+                          ),
+                        ])),
+              );
+              // return Container(
+              //     alignment: Alignment.center,
+              //     child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: <Widget>[
+              //           Text(
+              //               scanResult != '-1'
+              //                   ? 'Kết quả : $scanResult\n'
+              //                   : 'Vui lòng quét mã lô',
+              //               style: TextStyle(
+              //                   fontSize: 22 * SizeConfig.ratioFont,
+              //                   color: scanResult != '-1'
+              //                       ? Colors.black
+              //                       : Colors.red)),
+              //           SizedBox(
+              //             height: 20 * SizeConfig.ratioHeight,
+              //           ),
+              //           CustomizedButton(
+              //             onPressed: () {
+              //               scanResult = '1';
+              //               scanQR();
+              //             },
+              //             text: "Quét mã",
+              //           ),
+              //           SizedBox(
+              //             height: 10 * SizeConfig.ratioHeight,
+              //           ),
+              //           CustomizedButton(
+              //               onPressed: scanResult == '-1'
+              //                   ? () {
+              //                       // BlocProvider.of<IsolationBloc>(context).add(
+              //                       //     PostNewIsolationEvent(
+              //                       //         DateTime.now(), "Lo001"));
+              //                       AlertDialogTwoBtnCustomized(
+              //                               context,
+              //                               'Bạn có chắc',
+              //                               'Chưa có lô được quét? Ấn tiếp tục để quét lại',
+              //                               'Success_image.png',
+              //                               'Tiếp tục',
+              //                               'Trở lại',
+              //                               () async {}, () {
+              //                         Navigator.pushNamed(
+              //                             context, '/isolation_function_screen');
+              //                       }, 18, 22)
+              //                           .show();
+              //                     }
+              //                   : () {
+              //                       BlocProvider.of<IsolationBloc>(context).add(
+              //                           GetLotByLotIdEvent(
+              //                               DateTime.now(), scanResult));
+              //                     },
+              //               text: 'Xác nhận')
+              //         ]));
             }
           }))),
     );

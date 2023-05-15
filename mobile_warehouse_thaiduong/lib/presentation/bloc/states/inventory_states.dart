@@ -6,28 +6,34 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/location.dart';
 
-abstract class InventoryState extends Equatable {}
+abstract class InventoryState extends Equatable {
+  List<Warehouse> warehouse;
+  List<Item> item;
+  List<Item> listSortItem;
+  InventoryState(this.item, this.warehouse, this.listSortItem);
+}
 
 // List kho hàng
 class GetWarehouseIdSuccessState extends InventoryState {
   DateTime timestamp;
   List<Warehouse> warehouse;
   List<Item> item;
-  GetWarehouseIdSuccessState(this.timestamp, this.warehouse, this.item);
+  GetWarehouseIdSuccessState(this.timestamp, this.warehouse, this.item)
+      : super(item, warehouse, item);
   @override
   List<Object?> get props => [timestamp];
 }
 
 class GetWarehouseIdLoadingState extends InventoryState {
   DateTime timestamp;
-  GetWarehouseIdLoadingState(this.timestamp);
+  GetWarehouseIdLoadingState(this.timestamp) : super([], [],[]);
   @override
   List<Object?> get props => [timestamp];
 }
 
 class GetWarehouseIdFailState extends InventoryState {
   DateTime timestamp;
-  GetWarehouseIdFailState(this.timestamp);
+  GetWarehouseIdFailState(this.timestamp) : super([], [],[]);
   @override
   List<Object?> get props => [timestamp];
 }
@@ -39,21 +45,25 @@ class GetAllItemByWarehouseSuccessState extends InventoryState {
   List<Item> listAllItem;
   List<Item> item;
   GetAllItemByWarehouseSuccessState(
-      this.timestamp, this.item, this.listAllItem, this.warehouse);
+      this.timestamp, this.item, this.listAllItem, this.warehouse)
+      : super(listAllItem, warehouse, item);
   @override
   List<Object?> get props => [timestamp];
 }
 
 class GetAllItemByWarehouseLoadingState extends InventoryState {
   DateTime timestamp;
-  GetAllItemByWarehouseLoadingState(this.timestamp);
+  GetAllItemByWarehouseLoadingState(this.timestamp) : super([], [], []);
   @override
   List<Object?> get props => [timestamp];
 }
 
 class GetAllItemByWarehouseFailState extends InventoryState {
   DateTime timestamp;
-  GetAllItemByWarehouseFailState(this.timestamp);
+  List<Warehouse> warehouse;
+  List<Item> item;
+  GetAllItemByWarehouseFailState(this.timestamp, this.item, this.warehouse)
+      : super(item, warehouse,[]);
   @override
   List<Object?> get props => [timestamp];
 }
@@ -62,14 +72,21 @@ class GetAllItemByWarehouseFailState extends InventoryState {
 class LoadInventorySuccessState extends InventoryState {
   DateTime timestamp;
   List<InventoryLogEntry> itemLots;
-  LoadInventorySuccessState(this.timestamp, this.itemLots);
+  List<Warehouse> warehouse;
+  List<Item> item;
+  LoadInventorySuccessState(
+      this.timestamp, this.itemLots, this.item, this.warehouse)
+      : super(item, warehouse,item);
   @override
   List<Object?> get props => [timestamp];
 }
 
 class LoadInventoryFailState extends InventoryState {
   DateTime timestamp;
-  LoadInventoryFailState(this.timestamp);
+  List<Warehouse> warehouse;
+  List<Item> item;
+  LoadInventoryFailState(this.timestamp, this.item, this.warehouse)
+      : super(item, warehouse, item);
   @override
   List<Object?> get props => [timestamp];
 }
@@ -80,7 +97,7 @@ class LoadInventoryLoadingState extends InventoryState {
   LoadInventoryLoadingState(
     this.timestamp,
     // this.status
-  );
+  ) : super([], [],[]);
   @override
   List<Object?> get props => [
         timestamp,
@@ -94,10 +111,8 @@ class LoadReportInventoryLotSuccessState extends InventoryState {
   double totalQuantity;
   //  List<ItemClass> listItemClass;
   LoadReportInventoryLotSuccessState(
-    this.timestamp,
-    this.itemLots,
-    this.totalQuantity
-  );
+      this.timestamp, this.itemLots, this.totalQuantity)
+      : super([], [],[]);
   @override
   List<Object> get props => [timestamp];
 }
@@ -107,7 +122,7 @@ class LoadReportInventoryLotFailState extends InventoryState {
 
   LoadReportInventoryLotFailState(
     this.timestamp,
-  );
+  ) : super([], [],[]);
   @override
   List<Object> get props => [timestamp];
 }
@@ -116,7 +131,7 @@ class LoadReportInventoryLotLoadingState extends InventoryState {
   DateTime timestamp;
   LoadReportInventoryLotLoadingState(
     this.timestamp,
-  );
+  ) : super([], [],[]);
   @override
   List<Object?> get props => [
         timestamp,

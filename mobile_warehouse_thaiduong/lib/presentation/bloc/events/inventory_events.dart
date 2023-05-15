@@ -34,11 +34,14 @@ class LoadInventoryEvent extends InventoryEvent {
   String itemId;
   DateTime startDate;
   DateTime endDate;
+  List<Item> listAllItem;
+  List<Warehouse> warehouse;
   LoadInventoryEvent(
     this.timestamp,
     this.itemId,
     this.startDate,
     this.endDate,
+    this.listAllItem, this.warehouse
   );
   @override
   List<Object> get props => [timestamp];

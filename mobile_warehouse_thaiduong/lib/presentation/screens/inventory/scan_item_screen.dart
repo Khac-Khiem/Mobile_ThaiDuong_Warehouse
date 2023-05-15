@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_bloc.dart';
@@ -10,8 +9,6 @@ import 'package:mobile_warehouse_thaiduong/presentation/dialog/dialog_two_button
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 
 import '../../bloc/events/inventory_events.dart';
-import '../../widgets/barcode_input_widget.dart';
-import '../../widgets/customized_date_picker.dart';
 
 class BarcodeScannerItemScreen extends StatefulWidget {
   const BarcodeScannerItemScreen({super.key});

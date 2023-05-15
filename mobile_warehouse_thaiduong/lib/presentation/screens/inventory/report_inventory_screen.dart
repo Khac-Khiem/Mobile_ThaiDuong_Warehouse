@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/inventory_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/inventory_states.dart';
-
 import '../../../constant.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';

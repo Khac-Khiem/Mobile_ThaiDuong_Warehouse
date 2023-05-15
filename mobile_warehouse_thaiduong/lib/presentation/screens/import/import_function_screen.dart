@@ -13,58 +13,64 @@ class ImportFunctionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: AppBar(
-         leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
+    return WillPopScope(
+       onWillPop: () async {
+        Navigator.pushNamed(context, "/main_screen");
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+           leading: IconButton(
+              icon: const Icon(
+                Icons.west, //mũi tên back
+                color: Colors.white,
+              ),
+              onPressed: () {
+               Navigator.pushNamed(context, '/main_screen');
+              },
             ),
-            onPressed: () {
-             Navigator.pushNamed(context, '/main_screen');
-            },
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Nhập kho',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Nhập kho',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconCustomizedButton(
+                icon: Icons.note_add,
+                text: "TẠO PHIẾU MỚI",
+                onPressed: () {
+                  // BlocProvider.of<CreateReceiptBloc>(context)
+                  //     .add(GetAllItemEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/create_receipt_screen');
+                }),
+            IconCustomizedButton(
+                icon: Icons.add_location_alt,
+                text: "DS PHIẾU CHƯA HOÀN THÀNH",
+                onPressed: () {
+                  BlocProvider.of<ExportingReceiptBloc>(context)
+                      .add(LoadUncompletedGoodsReceiptEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/importing_receipt_screen');
+    
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           const ListUncompletedGoodReceiptScreen()),
+                  // );
+                }),
+            IconCustomizedButton(
+                icon: Icons.list_alt_outlined,
+                text: "DS PHIẾU ĐÃ HOÀN THÀNH",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/imported_receipt_screen');
+                }),
+          ],
+        )),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconCustomizedButton(
-              icon: Icons.note_add,
-              text: "TẠO PHIẾU MỚI",
-              onPressed: () {
-                // BlocProvider.of<CreateReceiptBloc>(context)
-                //     .add(GetAllItemEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/create_receipt_screen');
-              }),
-          IconCustomizedButton(
-              icon: Icons.add_location_alt,
-              text: "DS PHIẾU CHƯA HOÀN THÀNH",
-              onPressed: () {
-                BlocProvider.of<ExportingReceiptBloc>(context)
-                    .add(LoadUncompletedGoodsReceiptEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/importing_receipt_screen');
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) =>
-                //           const ListUncompletedGoodReceiptScreen()),
-                // );
-              }),
-          IconCustomizedButton(
-              icon: Icons.list_alt_outlined,
-              text: "DS PHIẾU ĐÃ HOÀN THÀNH",
-              onPressed: () {
-                Navigator.pushNamed(context, '/imported_receipt_screen');
-              }),
-        ],
-      )),
     );
   }
 }

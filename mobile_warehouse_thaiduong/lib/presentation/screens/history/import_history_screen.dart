@@ -32,7 +32,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
   Warehouse selectedWarehouse = Warehouse('', '', []);
   String? selectedPo;
   DateTime startDate = DateFormat('yyyy-MM-dd')
-      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 30))));
   DateTime endDate = DateFormat('yyyy-MM-dd')
       .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
   // void _moveToScreen2(BuildContext context) =>
@@ -43,7 +43,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushNamed (context, "/history_function_screen");
+        Navigator.pushNamed(context, "/history_function_screen");
         return false;
       },
       child: Scaffold(
@@ -240,7 +240,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                                       'Trở lại',
                                                       'warning_image.png', () {
                                                 // Navigator.pushNamed(context, '/main_receipt_screen');
-                                              }, 20, 15, () {}, false)
+                                              }, 15, 20, () {}, false)
                                                   .show()
                                             }
                                           : {
@@ -371,6 +371,19 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                           CustomizedButton(
                               text: "Truy xuất",
                               onPressed: () {
+                                 selectedSupplier == null
+                                          ? {
+                                              AlertDialogOneBtnCustomized(
+                                                      context,
+                                                      'Cảnh báo',
+                                                      'Vui lòng chọn thông tin để truy xuất',
+                                                      'Trở lại',
+                                                      'warning_image.png', () {
+                                                // Navigator.pushNamed(context, '/main_receipt_screen');
+                                              }, 15, 20, () {}, false)
+                                                  .show()
+                                            }
+                                          : {
                                 BlocProvider.of<ImportHistoryBloc>(context).add(
                                     AccessImportHistoryBySupplierEvent(
                                         DateTime.now(),
@@ -381,11 +394,11 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                         state.itemSort,
                                         state.listAllItem,
                                         state.poNumber,
-                                        state.supplier));
+                                        state.supplier)),
                                 Navigator.pushNamed(
                                   context,
                                   '/list_import_history_screen',
-                                );
+                                )};
                               })
                         ]);
                         // }
@@ -435,7 +448,9 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                                 items: state.poNumber.map((e) => e).toList(),
                                 showSearchBox: true,
                                 label: "PO",
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  selectedPo = value;
+                                },
                                 selectedItem: selectedPo ?? '',
                               ),
                             ),

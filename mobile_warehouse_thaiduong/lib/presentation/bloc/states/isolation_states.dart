@@ -6,30 +6,6 @@ import 'package:mobile_warehouse_thaiduong/domain/entities/item_lot.dart';
 
 abstract class IsolationState extends Equatable {}
 
-// Lấy tất cả lô hàng
-// class GetAllItemSuccessState extends IsolationState {
-//   DateTime timestamp;
-//   List<Item> item;
-//   GetAllItemSuccessState(this.timestamp, this.item,
-//   );
-//   @override
-//   List<Object> get props => [timestamp];
-// }
-
-// class GetAllItemLoadingState extends IsolationState {
-//   DateTime timestamp;
-//   GetAllItemLoadingState(this.timestamp);
-//   @override
-//   List<Object> get props => [timestamp];
-// }
-
-// class GetAllItemFailState extends IsolationState {
-//   DateTime timestamp;
-//   ErrorPackage status;
-//   GetAllItemFailState(this.timestamp, this.status);
-//   @override
-//   List<Object> get props => [timestamp];
-// }
 class IsolationInitState extends IsolationState {
   DateTime timestamp;
   IsolationInitState(this.timestamp);

@@ -26,7 +26,7 @@ class GetAllInfoExportEvent extends ExportHistoryEvent {
 class GetExportItemByWarehouseEvent extends ExportHistoryEvent {
   DateTime timestamp;
   String warehouseId;
-  List<Department> department;
+ // List<Department> department;
   List<String> receiver;
   List<String> poNumber;
   List<Item> listAllItem;
@@ -39,7 +39,7 @@ class GetExportItemByWarehouseEvent extends ExportHistoryEvent {
       this.listAllItem,
       this.lisstItemByWarehouse,
       this.warehouse,
-      this.department,
+    //  this.department,
       this.receiver);
   @override
   List<Object> get props => [timestamp];

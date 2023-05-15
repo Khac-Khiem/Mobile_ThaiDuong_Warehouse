@@ -15,7 +15,7 @@ class LoadingGoodsIssueLotsState extends GoodsIssueLotState {
 class LoadGoodsIssueLotsSuccessState extends GoodsIssueLotState {
   DateTime timestamp;
   String goodsIssueId;
-    String itemId;
+  String itemId;
 
   List<ItemLot> lotsSuggest;
   List<GoodsIssueLot> lotsExpected;
