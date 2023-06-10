@@ -101,7 +101,7 @@ class _ExportHistoryEntryScreenState extends State<ExportHistoryEntryScreen> {
                           onPressed: () {
                             Navigator.pushNamed(
                               context,
-                              '/import_history_screen',
+                              '/export_history_screen',
                             );
                           },
                           text: "Trở lại",

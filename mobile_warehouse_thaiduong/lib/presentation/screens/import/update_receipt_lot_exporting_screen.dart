@@ -169,7 +169,42 @@ class _UpdateInfoLotReceiptScreenState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                        
                           Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10 * SizeConfig.ratioHeight),
+                            alignment: Alignment.centerRight,
+                            width: 160 * SizeConfig.ratioWidth,
+                            height: 80 * SizeConfig.ratioHeight,
+                            //color: Colors.grey[200],
+                            child: TextField(
+                              controller: TextEditingController(
+                                  text: goodsReceiptLot.quantity == null
+                                      ? ''
+                                      : goodsReceiptLot.quantity.toString()),
+                           
+                              onSubmitted: (value) => value != ''
+                                  ? goodsReceiptLot.quantity = double.parse(value)
+                                  : goodsReceiptLot.quantity = double.parse('0'),
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  // filled: true,
+                                  // fillColor: Constants.buttonColor,
+                                  labelStyle: TextStyle(
+                                      fontSize: 15 * SizeConfig.ratioFont),
+                                  labelText: "Tổng lượng"),
+                              keyboardType: const TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9.,]')),
+                              ],
+                              onChanged: (value) =>
+                                  goodsReceiptLot.quantity = double.parse(value),
+                            ),
+                          ),
+                            Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 10 * SizeConfig.ratioHeight),
                             alignment: Alignment.centerRight,
@@ -209,40 +244,6 @@ class _UpdateInfoLotReceiptScreenState
                                   double.parse(value),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10 * SizeConfig.ratioHeight),
-                            alignment: Alignment.centerRight,
-                            width: 160 * SizeConfig.ratioWidth,
-                            height: 80 * SizeConfig.ratioHeight,
-                            //color: Colors.grey[200],
-                            child: TextField(
-                              controller: TextEditingController(
-                                  text: goodsReceiptLot.quantity == null
-                                      ? ''
-                                      : goodsReceiptLot.quantity.toString()),
-                           
-                              onSubmitted: (value) => value != ''
-                                  ? goodsReceiptLot.quantity = double.parse(value)
-                                  : goodsReceiptLot.quantity = double.parse('0'),
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  // filled: true,
-                                  // fillColor: Constants.buttonColor,
-                                  labelStyle: TextStyle(
-                                      fontSize: 15 * SizeConfig.ratioFont),
-                                  labelText: "Tổng lượng"),
-                              keyboardType: const TextInputType.numberWithOptions(
-                                  decimal: true),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9.,]')),
-                              ],
-                              onChanged: (value) =>
-                                  goodsReceiptLot.quantity = double.parse(value),
-                            ),
-                          )
                         ],
                       ),
                       Row(
@@ -282,37 +283,37 @@ class _UpdateInfoLotReceiptScreenState
                           ),
                         ],
                       ),
-                      // BarcodeinputWidget(
-                      //   textController: goodsReceiptLot.location == null
-                      //       ? ''
-                      //       : goodsReceiptLot.location.toString(),
-                      //   textLabel: "Vị trí",
-                      //   onChange: ((data) {
-                      //     goodsReceiptLot.location = data;
-                      //   }),
-                      //   onScan: ((data) {
-                      //     goodsReceiptLot.location = data;
-                      //   }),
-                      // ),
-                        SizedBox(
-                        width: 350 * SizeConfig.ratioWidth,
-                        height: 60 * SizeConfig.ratioHeight,
-                        child: DropdownSearch<String>(
-                          mode: Mode.MENU,
-                          items:
-                              state.locations.map((e) => e.locationId.toString()).toList(),
-                          showSearchBox: true,
-                          label: "Vị trí",
-                          // hint: "country in menu mode",
-                          onChanged: (value) {
-                            //  print(value);
-                            setState(() {
-                              goodsReceiptLot.location = value.toString();
-                            });
-                          },
-                          selectedItem: goodsReceiptLot.location ?? '',
-                        ),
+                      BarcodeinputWidget(
+                        textController: goodsReceiptLot.location == null
+                            ? ''
+                            : goodsReceiptLot.location.toString(),
+                        textLabel: "Vị trí",
+                        onChange: ((data) {
+                          goodsReceiptLot.location = data;
+                        }),
+                        onScan: ((data) {
+                          goodsReceiptLot.location = data;
+                        }),
                       ),
+                      //   SizedBox(
+                      //   width: 350 * SizeConfig.ratioWidth,
+                      //   height: 60 * SizeConfig.ratioHeight,
+                      //   child: DropdownSearch<String>(
+                      //     mode: Mode.MENU,
+                      //     items:
+                      //         state.locations.map((e) => e.locationId.toString()).toList(),
+                      //     showSearchBox: true,
+                      //     label: "Vị trí",
+                      //     // hint: "country in menu mode",
+                      //     onChanged: (value) {
+                      //       //  print(value);
+                      //       setState(() {
+                      //         goodsReceiptLot.location = value.toString();
+                      //       });
+                      //     },
+                      //     selectedItem: goodsReceiptLot.location ?? '',
+                      //   ),
+                      // ),
                       Row(children: [
                         Text(
                           overflow: TextOverflow.ellipsis,

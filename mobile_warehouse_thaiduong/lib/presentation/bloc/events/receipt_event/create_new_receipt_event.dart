@@ -42,3 +42,10 @@ class PostNewReceiptEvent extends CreateReceiptEvent {
   @override
   List<Object> get props => [timestamp];
 }
+class UpdateReceiptFailEvent extends CreateReceiptEvent {
+  DateTime timestamp;
+  GoodsReceipt goodsReceipt;
+  UpdateReceiptFailEvent( this.timestamp, this.goodsReceipt);
+  @override
+  List<Object> get props => [timestamp];
+}

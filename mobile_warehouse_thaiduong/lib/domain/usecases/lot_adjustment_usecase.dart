@@ -7,8 +7,8 @@ import '../entities/item_lot.dart';
 class LotAdjustmentUsecase {
   final LotAdjustmentRepository lotAdjustmentRepository;
   LotAdjustmentUsecase(this.lotAdjustmentRepository);
-  Future<ErrorPackage> postNewLotAdjustment(ItemLot itemLot, String employeename, String newPO, String note, double newQuantity) async {
-    final status = lotAdjustmentRepository.postNewLotAdjustment(itemLot, employeename, newPO, note,newQuantity);
+  Future<ErrorPackage> postNewLotAdjustment( String employeename, LotAdjustment lotAdjustment) async {
+    final status = lotAdjustmentRepository.postNewLotAdjustment( employeename, lotAdjustment);
     return status;
   }
 

@@ -66,3 +66,12 @@ class PostNewGoodsIssueEvent extends CreateNewIssueEvent {
   @override
   List<Object?> get props => [timestamp];
 }
+class UpdateIssueFailEvent extends CreateNewIssueEvent {
+  DateTime timestamp;
+  GoodsIssue goodsIssue;
+  
+  UpdateIssueFailEvent(
+      this.goodsIssue,  this.timestamp);
+  @override
+  List<Object?> get props => [timestamp];
+}

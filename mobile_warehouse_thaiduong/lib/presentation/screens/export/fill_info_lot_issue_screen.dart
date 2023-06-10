@@ -27,293 +27,299 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.west, //mũi tên back
-            color: Colors.white,
+    return WillPopScope(
+        onWillPop: () async {
+        Navigator.pushNamed(context,'/create_issue_screen');
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.west, //mũi tên back
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/create_issue_screen');
+            },
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/create_issue_screen');
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Nhập kho',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
+          ),
+        ),
+        body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
+          listener: (context, state) {
           },
-        ),
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Nhập kho',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
-        ),
-      ),
-      body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
-        listener: (context, state) {
-        },
-        builder: (context, state) {
-          if (state is LoadItemDataSuccessState) {
-            if (state.index != -1) {
-              issueEntryView = state.goodsIssue!.entries![state.index];
-            }
-            return SingleChildScrollView(
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(10 * SizeConfig.ratioHeight),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      "Thông tin hàng hóa cần xuất",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20 * SizeConfig.ratioFont,
-                        color: Colors.black,
+          builder: (context, state) {
+            if (state is LoadItemDataSuccessState) {
+              if (state.index != -1) {
+                issueEntryView = state.goodsIssue!.entries![state.index];
+              }
+              return SingleChildScrollView(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(10 * SizeConfig.ratioHeight),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        "Thông tin hàng hóa cần xuất",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20 * SizeConfig.ratioFont,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10 * SizeConfig.ratioHeight,
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 350 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                                items:
-                                    state.items.map((e) => e.itemId).toList(),
-                                showSearchBox: true,
-                                label: "Mã sản phẩm",
-                                // hint: "country in menu mode",
-                                onChanged: (value) {
-                                  //  print(value);
-                                  setState(() {
-                                    issueEntryView.item = state.items
-                                        .firstWhere((element) =>
-                                            element.itemId == value);
-                                    // issueEntryView.item!.itemName =
-                                    //     value.toString();
-                                  });
-                                },
-                                selectedItem: issueEntryView.item == null
-                                    ? ''
-                                    : issueEntryView.item!.itemId),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 350 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                                items:
-                                    state.items.map((e) => e.itemName).toList(),
-                                showSearchBox: true,
-                                label: "Tên sản phẩm",
-                                // hint: "country in menu mode",
-                                onChanged: (value) {
-                                  //  print(value);
-                                  setState(() {
-                                    issueEntryView.item = state.items
-                                        .firstWhere((element) =>
-                                            element.itemName == value);
-                                    // issueEntryView.item!.itemName =
-                                    //     issueEntryView.item!.itemName;
-                                  });
-                                },
-                                selectedItem: issueEntryView.item == null
-                                    ? ''
-                                    : issueEntryView.item!.itemName),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 350 * SizeConfig.ratioWidth,
-                            height: 60 * SizeConfig.ratioHeight,
-                            child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              items: state.items
-                                  .map((e) => e.unit!.toString())
-                                  .toList(),
-                              showSearchBox: true,
-                              label: "Đơn vị",
-                              // hint: "country in menu mode",
-                              onChanged: (value) {
-                                //  print(value);
-                                setState(() {
-                                  issueEntryView.item!.unit = value;
-
-                                  //  unit = value.toString();
-                                });
-                              },
-                              selectedItem: issueEntryView.item == null
-                                  ? ''
-                                  : issueEntryView.item!.unit,
+                      SizedBox(
+                        height: 10 * SizeConfig.ratioHeight,
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: 350 * SizeConfig.ratioWidth,
+                              height: 60 * SizeConfig.ratioHeight,
+                              child: DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                                  items:
+                                      state.items.map((e) => e.itemId).toList(),
+                                  showSearchBox: true,
+                                  label: "Mã sản phẩm",
+                                  // hint: "country in menu mode",
+                                  onChanged: (value) {
+                                    //  print(value);
+                                    setState(() {
+                                      issueEntryView.item = state.items
+                                          .firstWhere((element) =>
+                                              element.itemId == value);
+                                      // issueEntryView.item!.itemName =
+                                      //     value.toString();
+                                    });
+                                  },
+                                  selectedItem: issueEntryView.item == null
+                                      ? ''
+                                      : issueEntryView.item!.itemId),
                             ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5 * SizeConfig.ratioHeight),
-                              alignment: Alignment.centerRight,
-                              width: 160 * SizeConfig.ratioWidth,
-                              height: 55 * SizeConfig.ratioHeight,
-                              //color: Colors.grey[200],
-                              child: TextField(
-                              
-                                controller: TextEditingController(
-                                    text:
-                                        issueEntryView.requestSublotSize == null
-                                            ? ''
-                                            : issueEntryView.requestSublotSize
-                                                .toString()),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    // filled: true,
-                                    // fillColor: Constants.buttonColor,
-                                    labelText: "Lượng định mức"),
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[0-9.,]')),
-                                ],
-                                onSubmitted: (value) => value != ''
-                                    ? issueEntryView.requestSublotSize =
-                                        double.parse(value)
-                                    : issueEntryView.requestSublotSize =
-                                        double.parse('0'),
-                                onChanged: (value) => value != ''
-                                    ? issueEntryView.requestSublotSize =
-                                        double.parse(value)
-                                    : issueEntryView.requestSublotSize =
-                                        double.parse('0'),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: 350 * SizeConfig.ratioWidth,
+                              height: 60 * SizeConfig.ratioHeight,
+                              child: DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                                  items:
+                                      state.items.map((e) => e.itemName).toList(),
+                                  showSearchBox: true,
+                                  label: "Tên sản phẩm",
+                                  // hint: "country in menu mode",
+                                  onChanged: (value) {
+                                    //  print(value);
+                                    setState(() {
+                                      issueEntryView.item = state.items
+                                          .firstWhere((element) =>
+                                              element.itemName == value);
+                                      // issueEntryView.item!.itemName =
+                                      //     issueEntryView.item!.itemName;
+                                    });
+                                  },
+                                  selectedItem: issueEntryView.item == null
+                                      ? ''
+                                      : issueEntryView.item!.itemName),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: 350 * SizeConfig.ratioWidth,
+                              height: 60 * SizeConfig.ratioHeight,
+                              child: DropdownSearch<String>(
+                                mode: Mode.MENU,
+                                items: state.items
+                                    .map((e) => e.unit!.toString())
+                                    .toList(),
+                                showSearchBox: true,
+                                label: "Đơn vị",
+                                // hint: "country in menu mode",
+                                onChanged: (value) {
+                                  //  print(value);
+                                  setState(() {
+                                    issueEntryView.item!.unit = value;
+    
+                                    //  unit = value.toString();
+                                  });
+                                },
+                                selectedItem: issueEntryView.item == null
+                                    ? ''
+                                    : issueEntryView.item!.unit,
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5 * SizeConfig.ratioHeight),
-                              alignment: Alignment.centerRight,
-                              width: 160 * SizeConfig.ratioWidth,
-                              height: 55 * SizeConfig.ratioHeight,
-                              //color: Colors.grey[200],
-                              child: TextField(
-                                // controller: state.index == -1
-                                //     ? TextEditingController()
-                                //     : TextEditingController(
-                                //         text: issueEntryView.requestQuantity
-                                //             .toString()),
-                                controller: TextEditingController(
-                                    text: issueEntryView.requestQuantity == null
-                                        ? ''
-                                        : issueEntryView.requestQuantity
-                                            .toString()),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    // filled: true,
-                                    // fillColor: Constants.buttonColor,
-                                    labelText: "Nhập tổng lượng"),
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[0-9.,]')),
-                                ],
-                                onSubmitted: (value) => value != ''
-                                    ? issueEntryView.requestQuantity =
-                                        double.parse(value)
-                                    : issueEntryView.requestQuantity =
-                                        double.parse('0'),
-                                onChanged: (value) => value != ''
-                                    ? issueEntryView.requestQuantity =
-                                        double.parse(value)
-                                    : issueEntryView.requestQuantity =
-                                        double.parse('0'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5 * SizeConfig.ratioHeight),
+                                alignment: Alignment.centerRight,
+                                width: 160 * SizeConfig.ratioWidth,
+                                height: 55 * SizeConfig.ratioHeight,
+                                //color: Colors.grey[200],
+                                child: TextField(
+                                
+                                  controller: TextEditingController(
+                                      text:
+                                          issueEntryView.requestSublotSize == null
+                                              ? ''
+                                              : issueEntryView.requestSublotSize
+                                                  .toString()),
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      // filled: true,
+                                      // fillColor: Constants.buttonColor,
+                                      labelText: "Lượng định mức"),
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[0-9.,]')),
+                                  ],
+                                  onSubmitted: (value) => value != ''
+                                      ? issueEntryView.requestSublotSize =
+                                          double.parse(value)
+                                      : issueEntryView.requestSublotSize =
+                                          double.parse('0'),
+                                  onChanged: (value) => value != ''
+                                      ? issueEntryView.requestSublotSize =
+                                          double.parse(value)
+                                      : issueEntryView.requestSublotSize =
+                                          double.parse('0'),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5 * SizeConfig.ratioHeight),
+                                alignment: Alignment.centerRight,
+                                width: 160 * SizeConfig.ratioWidth,
+                                height: 55 * SizeConfig.ratioHeight,
+                                //color: Colors.grey[200],
+                                child: TextField(
+                                  // controller: state.index == -1
+                                  //     ? TextEditingController()
+                                  //     : TextEditingController(
+                                  //         text: issueEntryView.requestQuantity
+                                  //             .toString()),
+                                  controller: TextEditingController(
+                                      text: issueEntryView.requestQuantity == null
+                                          ? ''
+                                          : issueEntryView.requestQuantity
+                                              .toString()),
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      // filled: true,
+                                      // fillColor: Constants.buttonColor,
+                                      labelText: "Nhập tổng lượng"),
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[0-9.,]')),
+                                  ],
+                                  onSubmitted: (value) => value != ''
+                                      ? issueEntryView.requestQuantity =
+                                          double.parse(value)
+                                      : issueEntryView.requestQuantity =
+                                          double.parse('0'),
+                                  onChanged: (value) => value != ''
+                                      ? issueEntryView.requestQuantity =
+                                          double.parse(value)
+                                      : issueEntryView.requestQuantity =
+                                          double.parse('0'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      state.index == -1
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  issueEntryView.item == null ||
+                                          issueEntryView.requestQuantity == null
+                                      ? AlertDialogOneBtnCustomized(
+                                              context,
+                                              "Cảnh báo",
+                                              "Vui lòng điền đầy đủ các thông tin",
+                                              "Trở lại",'warning_image.png',
+                                              () {},
+                                              18,
+                                              22,
+                                              () {},
+                                              false)
+                                          .show()
+                                      : BlocProvider.of<CreateIssueBloc>(context)
+                                          .add(AddIssueEntryEvent(issueEntryView,
+                                              state.goodsIssue as GoodsIssue, DateTime.now()));
+                                  Navigator.pushNamed(
+                                      context, '/create_issue_screen');
+                                  //Navigator.of(context).pop();
+                                },
+                                child: const Text('Tạo mới'),
                               ),
                             )
-                          ],
-                        ),
-                      ],
-                    ),
-                    state.index == -1
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                issueEntryView.item == null ||
-                                        issueEntryView.requestQuantity == null
-                                    ? AlertDialogOneBtnCustomized(
-                                            context,
-                                            "Cảnh báo",
-                                            "Vui lòng điền đầy đủ các thông tin",
-                                            "Trở lại",'warning_image.png',
-                                            () {},
-                                            18,
-                                            22,
-                                            () {},
-                                            false)
-                                        .show()
-                                    : BlocProvider.of<CreateIssueBloc>(context)
-                                        .add(AddIssueEntryEvent(issueEntryView,
-                                            state.goodsIssue as GoodsIssue, DateTime.now()));
-                                Navigator.pushNamed(
-                                    context, '/create_issue_screen');
-                                //Navigator.of(context).pop();
-                              },
-                              child: const Text('Tạo mới'),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                issueEntryView.item == null ||
-                                        issueEntryView.requestQuantity == null
-                                    ? AlertDialogOneBtnCustomized(
-                                            context,
-                                            "Cảnh báo",
-                                            "Vui lòng điền đầy đủ các thông tin",
-                                            "Trở lại",'',
-                                            () {},
-                                            18,
-                                            22,
-                                            () {},
-                                            false)
-                                        .show()
-                                    : BlocProvider.of<CreateIssueBloc>(context)
-                                        .add(UpdateIssueEntryEvent(
-                                            issueEntryView,
-                                            state.goodsIssue as GoodsIssue,
-                                            state.index,
-                                            DateTime.now()));
-                                Navigator.pushNamed(
-                                    context, '/create_issue_screen');
-                                //Navigator.of(context).pop();
-                              },
-                              child: const Text('Cập nhật'),
-                            ),
-                          )
-                  ],
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  issueEntryView.item == null ||
+                                          issueEntryView.requestQuantity == null
+                                      ? AlertDialogOneBtnCustomized(
+                                              context,
+                                              "Cảnh báo",
+                                              "Vui lòng điền đầy đủ các thông tin",
+                                              "Trở lại",'',
+                                              () {},
+                                              18,
+                                              22,
+                                              () {},
+                                              false)
+                                          .show()
+                                      : BlocProvider.of<CreateIssueBloc>(context)
+                                          .add(UpdateIssueEntryEvent(
+                                              issueEntryView,
+                                              state.goodsIssue as GoodsIssue,
+                                              state.index,
+                                              DateTime.now()));
+                                  Navigator.pushNamed(
+                                      context, '/create_issue_screen');
+                                  //Navigator.of(context).pop();
+                                },
+                                child: const Text('Cập nhật'),
+                              ),
+                            )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

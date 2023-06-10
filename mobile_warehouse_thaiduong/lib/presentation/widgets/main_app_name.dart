@@ -10,7 +10,7 @@ class MainAppName extends StatelessWidget {
     SizeConfig().init(context);
 
     return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+       // mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -21,11 +21,28 @@ class MainAppName extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Constants.mainColor),
           ),
-        // SizedBox(height: 10 * SizeConfig.ratioHeight),
-          Image(
+            Image(
             image: const AssetImage('lib/assets/Logo_demo.png'),
             width: 400 * SizeConfig.ratioWidth,
           ),
+        //  SizedBox(height: 10 * SizeConfig.ratioHeight),
+        //   Container(
+        //     width: 200 * SizeConfig.ratioWidth,
+        //     alignment: Alignment.center,
+        //     child: Row(
+        //       children: [
+                
+        //         Image(
+        //           image: const AssetImage('lib/assets/Logo_BK.png'),
+        //           width: 100 * SizeConfig.ratioWidth,
+        //         ),
+        //         Image(
+        //           image: const AssetImage('lib/assets/logoBoMonNew.png'),
+        //           width: 100 * SizeConfig.ratioWidth,
+        //         ),
+        //       ],
+        //     ),
+        //   ),
         ]);
   }
 }

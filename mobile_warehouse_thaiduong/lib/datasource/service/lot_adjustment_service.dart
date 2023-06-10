@@ -2,12 +2,13 @@ import 'package:mobile_warehouse_thaiduong/datasource/models/error_package_model
 import 'package:mobile_warehouse_thaiduong/datasource/models/lot_adjustment_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import '../../constant.dart';
 import '../../domain/entities/item_lot.dart';
 
 class LotAdjustmentService {
   Future<ErrorPackageModel> postNewLotAdjustment(
-      ItemLot itemLot, String employeename, String newPO, String note, double newQuantity) async {
+       String employeename, LotAdjustment lotAdjustment) async {
     final res =
         await http.post(Uri.parse('${Constants.baseUrl}api/LotAdjustments'),
             headers: <String, String>{
@@ -16,15 +17,15 @@ class LotAdjustmentService {
             },
             body: jsonEncode(
               <String, dynamic>{
-                "lotId": itemLot.lotId.toString(),
-                "itemId": itemLot.item!.itemId.toString(),
-                "beforeQuantity": double.tryParse(itemLot.quantity.toString()),
-                "afterQuantity": double.tryParse(newQuantity.toString()),
-                "oldPurchaseOrderNumber": itemLot.purchaseOrderNumber.toString(),
-                "newPurchaseOrderNumber": newPO.toString(),
-                "unit": itemLot.item!.unit.toString(),
+                "lotId": lotAdjustment.lotId.toString(),
+                "itemId": lotAdjustment.item!.itemId.toString(),
+                "beforeQuantity": double.tryParse(lotAdjustment.beforeQuantity.toString()),
+                "afterQuantity": double.tryParse(lotAdjustment.afterQuantity.toString()),
+                "oldPurchaseOrderNumber": lotAdjustment.oldPoNumber.toString(),
+                "newPurchaseOrderNumber": lotAdjustment.newPoNumber.toString(),
+                "unit": lotAdjustment.item!.unit.toString(),
                 "employeeName": "Trần Như Toàn",
-                "note": note.toString()
+                "note": lotAdjustment.note.toString()
               },
             ));
     if (res.statusCode == 200) {

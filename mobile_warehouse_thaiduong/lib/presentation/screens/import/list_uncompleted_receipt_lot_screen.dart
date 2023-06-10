@@ -9,6 +9,7 @@ import '../../bloc/events/receipt_event/fill_info_receipt_lot_event.dart';
 import '../../bloc/states/receipt_state/uncompleted_receipt_lot_state.dart';
 import '../../dialog/dialog_one_button.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/exception_widget.dart';
 
 class ListUncompletedLotReceiptScreen extends StatefulWidget {
   const ListUncompletedLotReceiptScreen({super.key});
@@ -26,7 +27,7 @@ class _ListUncompletedLotReceiptScreenState
     //bool showExpand = false;
 
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/importing_receipt_screen");
         return false;
       },
@@ -83,31 +84,52 @@ class _ListUncompletedLotReceiptScreenState
                     AlertDialogOneBtnCustomized(
                             context,
                             'Thất bại',
-                            'Không thể hoàn thành việc tạo đơn',
+                            'Không thể hoàn thành việc cập nhật',
                             'Trở lại',
                             'Fail_image.png', () {
-                      // Navigator.pushNamed(context, '/main_receipt_screen');
-                    }, 20, 15, () {}, false)
+                       Navigator.pushNamed(context, '/main_receipt_screen');
+                    }, 15, 20, () {}, false)
                         .show();
                   }
                   if (state is ConfirmReceiptLotChangedSuccessState) {
                     AlertDialogOneBtnCustomized(
                             context,
                             'Thành công',
-                            'Đã hoàn thành việc tạo đơn',
+                            'Đã hoàn thành việc cập nhật',
                             'Tiếp tục',
                             'Success_image.png', () {
                       Navigator.pushNamed(context, '/main_receipt_screen');
-                    }, 20, 15, () {}, false)
+                    }, 15, 20, () {}, false)
                         .show();
                   }
                 },
                 builder: (context, state) {
+                  if (state is ConfirmReceiptLotChangedSuccessState) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ExceptionErrorState(
+                          title: "Thành công",
+                          message: "Đã hoàn thành việc cập nhật",
+                        ),
+                        CustomizedButton(
+                            text: "Trở về",
+                            onPressed: () {
+                              //  _showForm('', state.items);
+
+                              Navigator.pushNamed(
+                                context,
+                                '/main_receipt_screen',
+                              );
+                            }),
+                      ],
+                    );
+                  }
                   if (state is UpdateReceiptLotSuccessState) {
                     return Column(
                       children: [
                         SizedBox(
-                            height: 470 * SizeConfig.ratioHeight,
+                            height: 460 * SizeConfig.ratioHeight,
                             child: ListView.builder(
                                 itemCount: state.goodsReceipt.lots.length,
                                 itemBuilder: (BuildContext context, int index) {
@@ -133,7 +155,8 @@ class _ListUncompletedLotReceiptScreenState
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
-                                              width: 150 * SizeConfig.ratioWidth,
+                                              width:
+                                                  150 * SizeConfig.ratioWidth,
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -145,7 +168,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Mã SP: ${state.goodsReceipt.lots[index].item!.itemId}"),
@@ -156,7 +180,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Số lượng: ${state.goodsReceipt.lots[index].quantity}"),
@@ -167,7 +192,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Vị trí: ${state.goodsReceipt.lots[index].location ?? '...'}"),
@@ -178,7 +204,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "NSX: ${state.goodsReceipt.lots[index].productionDate ?? '...'}"),
@@ -186,7 +213,8 @@ class _ListUncompletedLotReceiptScreenState
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 130 * SizeConfig.ratioWidth,
+                                              width:
+                                                  130 * SizeConfig.ratioWidth,
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -198,7 +226,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Tên SP: ${state.goodsReceipt.lots[index].item!.itemName}"),
@@ -209,7 +238,8 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Định mức: ${state.goodsReceipt.lots[index].sublotSize ?? '...'}  "),
@@ -220,18 +250,20 @@ class _ListUncompletedLotReceiptScreenState
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "Số PO: ${state.goodsReceipt.lots[index].purchaseOrderNumber ?? '...'}"),
                                                   Text(
-                                                     overflow:
+                                                      overflow:
                                                           TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w100,
                                                         fontSize: 16 *
-                                                            SizeConfig.ratioFont,
+                                                            SizeConfig
+                                                                .ratioFont,
                                                         color: Colors.black,
                                                       ),
                                                       "HSD: ${state.goodsReceipt.lots[index].expirationDate ?? '...'}"),
@@ -275,8 +307,24 @@ class _ListUncompletedLotReceiptScreenState
                       ],
                     );
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Dialog(
+                      // The background color
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            // The loading indicator
+                            CircularProgressIndicator(),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            // Some text
+                            Text('Loading...')
+                          ],
+                        ),
+                      ),
                     );
                   }
                 },

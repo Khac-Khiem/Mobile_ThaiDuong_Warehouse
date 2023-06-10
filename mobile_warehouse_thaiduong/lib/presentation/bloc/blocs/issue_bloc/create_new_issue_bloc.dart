@@ -61,18 +61,31 @@ class CreateIssueBloc extends Bloc<CreateNewIssueEvent, CreaNewIssueState> {
     on<PostNewGoodsIssueEvent>((event, emit) async {
       emit(PostNewGoodsIssueLoadingState(DateTime.now()));
       try {
-        final status = await goodsIssueUseCase.postNewGoodsIssue(
-         event.goodsIssue);
+        final status =
+            await goodsIssueUseCase.postNewGoodsIssue(event.goodsIssue);
         if (status.detail == 'success') {
           emit(PostNewGoodsIssueSuccessState(
-            DateTime.now(),
-            'success',event.goodsIssue
-          ));
+              DateTime.now(), 'success', event.goodsIssue));
         } else {
-          emit(PostNewGoodsIssueFailState(DateTime.now(), 'fail',event.goodsIssue));
+          emit(PostNewGoodsIssueFailState(
+              DateTime.now(), 'fail', event.goodsIssue));
         }
       } catch (e) {
-        emit(PostNewGoodsIssueFailState(DateTime.now(), 'fail',event.goodsIssue));
+        emit(PostNewGoodsIssueFailState(
+            DateTime.now(), 'fail', event.goodsIssue));
+      }
+    });
+    on<UpdateIssueFailEvent>((event, emit) async {
+      try {
+        event.goodsIssue.goodsIssueId == ''
+            ? emit(CreateNewIssueInitialState(null))
+            : emit(UpdateEntryToGoodsIssueSuccess(
+                DateTime.now(),
+                event.goodsIssue,
+              ));
+      } catch (e) {
+        emit(CreateNewIssueInitialState(null));
+        // emit(LoginStateLoginFailure(DateTime.now()));
       }
     });
   }

@@ -29,7 +29,7 @@ class _BarcodeinputWidgetState extends State<BarcodeinputWidget> {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#e60000', 'Cancel', true, ScanMode.QR);
+          '#e60000', 'Cancel', true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }

@@ -60,7 +60,9 @@ class AlertDialogTwoBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  onPressedBtn1();
+                   if (onPressedBtn1 != '') {
+                    onPressedBtn1();
+                  }
                 },
               ),
               DialogButton(
@@ -72,7 +74,9 @@ class AlertDialogTwoBtnCustomized {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  onPressedBtn2();
+                   if (onPressedBtn2 != null) {
+                    onPressedBtn2();
+                  }
                 },
               )
             ],

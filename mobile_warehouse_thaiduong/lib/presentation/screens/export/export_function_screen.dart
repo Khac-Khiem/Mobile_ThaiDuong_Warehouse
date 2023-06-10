@@ -12,69 +12,75 @@ class ExportFunctionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.west, //mũi tên back
-              color: Colors.white,
+    return WillPopScope(
+        onWillPop: () async {
+        Navigator.pushNamed(context,'/main_screen');
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.west, //mũi tên back
+                color: Colors.white,
+              ),
+              onPressed: () {
+               Navigator.pushNamed(context, '/main_screen');
+              },
             ),
-            onPressed: () {
-             Navigator.pushNamed(context, '/main_screen');
-            },
+          backgroundColor: Constants.mainColor,
+          title: Text(
+            'Xuất kho',
+            style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
           ),
-        backgroundColor: Constants.mainColor,
-        title: Text(
-          'Xuất kho',
-          style: TextStyle(fontSize: 22 * SizeConfig.ratioFont),
         ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconCustomizedButton(
+                icon: Icons.note_add,
+                text: "TẠO PHIẾU MỚI",
+                onPressed: () {
+                  //  BlocProvider.of<CreateIssueBloc>(context)
+                  //     .add(LoadDepartmentIdsEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/create_issue_screen');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const CreateNewIssueScreen()),
+                  // );
+                }),
+            IconCustomizedButton(
+                icon: Icons.list_alt_outlined,
+                text: "DANH SÁCH PHIẾU CẦN XUẤT",
+                onPressed: () {
+                   BlocProvider.of<ListGoodsIssueUncompletedBloc>(context)
+                      .add(LoadGoodsIssuesEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/list_goods_issue_screen');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ListGoodIssueScreen()),
+                  // );
+                }),
+            IconCustomizedButton(
+                icon: Icons.fact_check_outlined,
+                text: "DANH SÁCH PHIẾU ĐÃ XUẤT",
+                onPressed: () {
+                      // BlocProvider.of<ListGoodsIssueCompletedBloc>(context)
+                      // .add(LoadCompletedGoodsIssuesEvent(DateTime.now()));
+                  Navigator.pushNamed(context, '/list_goods_issue_completed_screen');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           const ListGoodIssueCompletedScreen()),
+                  // );
+                }),
+          ],
+        )),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconCustomizedButton(
-              icon: Icons.note_add,
-              text: "TẠO PHIẾU MỚI",
-              onPressed: () {
-                //  BlocProvider.of<CreateIssueBloc>(context)
-                //     .add(LoadDepartmentIdsEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/create_issue_screen');
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const CreateNewIssueScreen()),
-                // );
-              }),
-          IconCustomizedButton(
-              icon: Icons.list_alt_outlined,
-              text: "DANH SÁCH PHIẾU CẦN XUẤT",
-              onPressed: () {
-                 BlocProvider.of<ListGoodsIssueUncompletedBloc>(context)
-                    .add(LoadGoodsIssuesEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/list_goods_issue_screen');
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const ListGoodIssueScreen()),
-                // );
-              }),
-          IconCustomizedButton(
-              icon: Icons.fact_check_outlined,
-              text: "DANH SÁCH PHIẾU ĐÃ XUẤT",
-              onPressed: () {
-                    // BlocProvider.of<ListGoodsIssueCompletedBloc>(context)
-                    // .add(LoadCompletedGoodsIssuesEvent(DateTime.now()));
-                Navigator.pushNamed(context, '/list_goods_issue_completed_screen');
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) =>
-                //           const ListGoodIssueCompletedScreen()),
-                // );
-              }),
-        ],
-      )),
     );
   }
 }

@@ -296,7 +296,7 @@ class _ImportHistoryScreenSate extends State<ImportHistoryScreen> {
                             size: 36.0,
                           ),
                           Text(
-                            'Truy xuất theo bộ phận         ',
+                            'Truy xuất theo nhà cung cấp   ',
                             style: TextStyle(
                               //fontFamily: 'MyFont',
                               fontSize: 18,

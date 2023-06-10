@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/constant.dart';
+import 'package:mobile_warehouse_thaiduong/datasource/models/item_model.dart';
 import 'package:mobile_warehouse_thaiduong/domain/entities/goods_receipt.dart';
+import 'package:mobile_warehouse_thaiduong/domain/entities/item.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/create_new_receipt_bloc.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/fill_info_receipt_lot_bloc.dart';
@@ -91,6 +93,14 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         }),
                         onScan: ((data) {
                           goodsReceiptLot.goodsReceiptLotId = data;
+                          var string = data.split('-').first;
+                            setState(() {
+                              goodsReceiptLot.item = state.items.firstWhere(
+                                  (element) => element.itemId == string, orElse: () => ItemModel('', '', '', '', null, null));
+                              goodsReceiptLot.unit =
+                                  goodsReceiptLot.item!.unit.toString();
+    
+                            });
                         }),
                       ),
                       SizedBox(
@@ -400,9 +410,25 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                 ),
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+             return Dialog(
+                        // The background color
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              // The loading indicator
+                              CircularProgressIndicator(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              // Some text
+                              Text('Loading...')
+                            ],
+                          ),
+                        ),
+                      );
             }
           },
         ),

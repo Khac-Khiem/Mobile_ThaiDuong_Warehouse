@@ -23,7 +23,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#e60000', 'Cancel', true, ScanMode.QR);
+          '#e60000', 'Cancel', true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -110,20 +110,20 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                               ? () {
                                   AlertDialogTwoBtnCustomized(
                                           context,
-                                          'Bạn có chắc',
-                                          'Chưa có sản phẩm được quét? Ấn tiếp tục để quét lại',
+                                          'Chưa có sản phẩm được quét',
+                                          'Ấn tiếp tục để quét lại',
                                           'Fail_image.png',
                                           'Tiếp tục',
                                           'Trở lại',
                                           () async {}, () {
                                     Navigator.pushNamed(
-                                        context, '/receipt_screen');
+                                        context, '/main_receipt_screen');
                                   }, 18, 22)
                                       .show();
-                                     BlocProvider.of<AdjustmentBloc>(context).add(
-                                      GetLotEvent(DateTime.now(), "CPD001"));
-                                  Navigator.pushNamed(
-                                      context, '/lot_adjustment_screen');
+                                  //    BlocProvider.of<AdjustmentBloc>(context).add(
+                                  //     GetLotEvent(DateTime.now(), "Lo008"));
+                                  // Navigator.pushNamed(
+                                  //     context, '/lot_adjustment_screen');
                                 }
                               : () {
                                   BlocProvider.of<AdjustmentBloc>(context).add(

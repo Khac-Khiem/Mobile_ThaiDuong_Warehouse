@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const MainAppName(),
                 SizedBox(
-                  height: 80 * SizeConfig.ratioHeight,
+                  height: 180 * SizeConfig.ratioHeight,
                 ),
                 CustomizedButton(
                   text: "Đăng nhập",

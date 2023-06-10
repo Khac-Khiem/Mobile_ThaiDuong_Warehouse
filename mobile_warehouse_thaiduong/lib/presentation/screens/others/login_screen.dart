@@ -149,7 +149,7 @@ class LoginScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: 40 * SizeConfig.ratioHeight,
+                  height: 100 * SizeConfig.ratioHeight,
                 ),
                 CustomizedButton(
                   text: "Đăng nhập",

@@ -41,7 +41,7 @@ class IsolationFunctionScreen extends StatelessWidget {
           children: [
             IconCustomizedButton(
                 icon: Icons.remove_moderator_outlined,
-                text: "CÁCH LY HÀNG HÓA",
+                text: "THÊM MỚI",
                 onPressed: () {
                   Navigator.pushNamed(context, '/isolation_item_screen');
                   //  Navigator.push(

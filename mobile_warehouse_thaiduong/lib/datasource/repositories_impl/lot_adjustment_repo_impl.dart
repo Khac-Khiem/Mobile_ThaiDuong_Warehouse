@@ -15,8 +15,8 @@ class LotAjustmentRepoImpl implements LotAdjustmentRepository {
   }
 
   @override
-  Future<ErrorPackage> postNewLotAdjustment(ItemLot itemLot, String employeename, String newPO, String note, double newQuantity) {
-    final lotAdjust = lotAdjustmentService.postNewLotAdjustment(itemLot, employeename, newPO, note,newQuantity);
+  Future<ErrorPackage> postNewLotAdjustment(String employeename, LotAdjustment lotAdjustment) {
+    final lotAdjust = lotAdjustmentService.postNewLotAdjustment( employeename, lotAdjustment);
     return lotAdjust;
   }
 }

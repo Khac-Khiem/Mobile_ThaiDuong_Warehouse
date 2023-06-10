@@ -12,8 +12,11 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return DefaultTabController(
-      length: 2,
+    return WillPopScope(
+        onWillPop: () async {
+        Navigator.pushNamed(context,'/list_goods_issue_completed_screen');
+        return false;
+      },
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -34,8 +37,7 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
         ),
         body: BlocConsumer<ListGoodsIssueLotCompletedBloc,
             CompletedGoodsIssueLotState>(
-          listener: (context, state) {
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             if (state is LoadCompletedGoodsIssueLotSuccessState) {
               return Column(
@@ -59,17 +61,17 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                     thickness: 1,
                   ),
                   SizedBox(
-                    height: 470 * SizeConfig.ratioHeight,
+                    height: 500 * SizeConfig.ratioHeight,
                     child: ListView.builder(
                         itemCount: state.goodsIssue.entries!.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
                               Container(
-                                   decoration: BoxDecoration(
-                              border: Border.all(width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                                //        decoration: BoxDecoration(
+                                //   border: Border.all(width: 1),
+                                //   borderRadius: BorderRadius.circular(10),
+                                // ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ListTile(
@@ -109,7 +111,6 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                                   itemBuilder: (BuildContext context, int int) {
                                     return Column(
                                       children: [
-                                      
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
@@ -119,9 +120,9 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                                                   BorderRadius.circular(10),
                                             ),
                                             child: ListTile(
-                                              trailing: Icon(Icons.edit,
-                                                  size: 17 *
-                                                      SizeConfig.ratioFont),
+                                              // trailing: Icon(Icons.edit,
+                                              //     size: 17 *
+                                              //         SizeConfig.ratioFont),
                                               title: Padding(
                                                 padding:
                                                     const EdgeInsets.fromLTRB(
@@ -136,22 +137,17 @@ class ListLotIssueCompletedScreen extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              subtitle: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                              subtitle: Column(
+                                                // mainAxisAlignment:
+                                                //     MainAxisAlignment
+                                                //         .spaceBetween,
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                          "Số lượng : ${state.goodsIssue.entries![index].lots![int].quantity} "),
-                                                 Text(
-                                                          "Định mức : ${state.goodsIssue.entries![index].lots![int].sublotSize} "),
-                                                Text(
-                                                          "Ghi chú : ${state.goodsIssue.entries![index].lots![int].note}"),
-                                                
-                                                    ],
-                                                  ),
+                                                  Text(
+                                                      "Số lượng : ${state.goodsIssue.entries![index].lots![int].quantity} "),
+                                                  Text(
+                                                      "Định mức : ${state.goodsIssue.entries![index].lots![int].sublotSize} "),
+                                                  Text(
+                                                      "Ghi chú : ${state.goodsIssue.entries![index].lots![int].note}"),
                                                 ],
                                               ),
                                               isThreeLine: true,

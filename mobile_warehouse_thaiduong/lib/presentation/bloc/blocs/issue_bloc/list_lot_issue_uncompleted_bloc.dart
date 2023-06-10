@@ -33,9 +33,9 @@ class ListGoodsIssueLotUncompletedBloc
             postStatus.detail == "success" ?
         emit(PostIssueLotsSuccessState(
           DateTime.now()
-        )): emit(LoadGoodsIssueLotsFailState(DateTime.now()));
+        )): emit(PostGoodsIssueLotsFailState(DateTime.now()));
       } catch (e) {
-        emit(LoadGoodsIssueLotsFailState(DateTime.now()));
+        emit(PostGoodsIssueLotsFailState(DateTime.now()));
         // emit(LoadReceiptExportingStateFail(
         //     DateTime.now(), 'Không truy xuất được dữ liệu'));
       }

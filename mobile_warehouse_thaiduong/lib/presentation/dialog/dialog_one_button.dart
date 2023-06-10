@@ -28,6 +28,9 @@ class AlertDialogOneBtnCustomized {
        this.titleFSize,
       this.closePressed,
       this.onWillPopActive);
+  void closeDialogBelowNotAbove() {
+    Navigator.of(context).pop();
+  }
   void show() {
     Alert(
             onWillPopActive: onWillPopActive,
@@ -55,11 +58,16 @@ class AlertDialogOneBtnCustomized {
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
-                  Navigator.of(context).pop();
-                  onPressedBtn();
+                 Navigator.of(context).pop();
+                   if (onPressedBtn != '') {
+                    onPressedBtn
+                    ();
+                  }
+                
                 },
               ),
             ],
+
             style: AlertStyle(
                 descStyle: TextStyle(
                     fontSize: descFSize * SizeConfig.ratioFont,

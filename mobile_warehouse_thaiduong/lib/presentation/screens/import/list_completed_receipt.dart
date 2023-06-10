@@ -26,7 +26,7 @@ class _ListCompletedReceiptScreenState
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     DateTime startDate = DateFormat('yyyy-MM-dd')
-        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        .parse(DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 30))));
     DateTime endDate = DateFormat('yyyy-MM-dd')
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     return WillPopScope(
@@ -216,12 +216,12 @@ class _ListCompletedReceiptScreenState
                         SizedBox(
                           height: 150 * SizeConfig.ratioHeight,
                         ),
-                        CustomizedButton(
-                            text: "Trở lại",
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, '/main_receipt_screen');
-                            })
+                        // CustomizedButton(
+                        //     text: "Trở lại",
+                        //     onPressed: () {
+                        //       Navigator.pushNamed(
+                        //           context, '/main_receipt_screen');
+                        //     })
                       ],
                     ));
                   }

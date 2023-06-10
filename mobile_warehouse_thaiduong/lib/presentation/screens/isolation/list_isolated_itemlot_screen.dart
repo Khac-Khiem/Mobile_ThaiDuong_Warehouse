@@ -209,7 +209,7 @@ class _ListIsolatedItemLotScreenState extends State<ListIsolatedItemLotScreen> {
                   );
                 }
                 if (state is GetAllIsolationLotLoadingState) {
-                  return SingleChildScrollView(
+                  return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -224,7 +224,7 @@ class _ListIsolatedItemLotScreenState extends State<ListIsolatedItemLotScreen> {
                   );
                 }
                 if (state is GetAllIsolationLotFailState) {
-                  return SingleChildScrollView(
+                  return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -237,7 +237,7 @@ class _ListIsolatedItemLotScreenState extends State<ListIsolatedItemLotScreen> {
                     ),
                   );
                 } else {
-                  return SingleChildScrollView(
+                  return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

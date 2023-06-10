@@ -18,21 +18,35 @@ class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
       List<LotAdjustment> listLotAjustment = [];
       emit(GetLotDetailLoadingState(DateTime.now()));
       try {
-        final List<ItemLot> lotsAdjust =
-            await itemLotUsecase.getItemLotsByItemId(event.itemId);
-        for (var element in lotsAdjust) {
-          listLotAjustment.add(LotAdjustment(
-              element.lotId,
+        // final List<ItemLot> lotsAdjust =
+        //     await itemLotUsecase.getItemLotsByItemId(event.lotId);
+        // for (var element in lotsAdjust) {
+        //   listLotAjustment.add(LotAdjustment(
+        //       element.lotId,
+        //       '',
+        //       null,
+        //       null,
+        //       null,
+        //       element.quantity,
+        //       element.purchaseOrderNumber,
+        //       null,
+        //       element.item,
+        //       null));
+        // }
+         
+        final ItemLot lot =
+            await itemLotUsecase.getItemLotById(event.lotId);
+             listLotAjustment.add(LotAdjustment(
+              lot.lotId,
               '',
               null,
               null,
               null,
-              element.quantity,
-              element.purchaseOrderNumber,
+              lot.quantity,
+              lot.purchaseOrderNumber,
               null,
-              element.item,
+              lot.item,
               null));
-        }
         emit(GetLotDetailSuccessState(DateTime.now(), listLotAjustment));
       } catch (e) {
         emit(GetLotDetailFailState(DateTime.now()));
@@ -43,8 +57,8 @@ class AdjustmentBloc extends Bloc<AdjustmentEvent, AdjustmentState> {
       emit(UpdateLotQuantityLoadingState(DateTime.now()));
       try {
         final ErrorPackage postNewAdjust =
-            await lotAdjustmentUsecase.postNewLotAdjustment(event.itemLot,
-                event.employeeName, event.newPo, event.note, event.newQuantity);
+            await lotAdjustmentUsecase.postNewLotAdjustment(
+                event.employeeName, event.lotAdjustment);
         if (postNewAdjust.detail == 'success') {
           emit(UpdateLotQuantitySuccessState(
             DateTime.now(),
