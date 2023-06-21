@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -399,14 +401,14 @@ class _WarningUnderStockminScreenSate
                         color: Constants.mainColor,
                         thickness: 1,
                       ),
-                       Dialog(
+                       const Dialog(
                         // The background color
                         backgroundColor: Colors.white,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
+                            children: [
                               // The loading indicator
                               CircularProgressIndicator(),
                               SizedBox(

@@ -5,7 +5,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/blocs/receipt_bloc/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/completed_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import '../../../function.dart';
-
+// danh sách các lô hàng đã hoàn thành
 class ListCompletedLotReceiptScreen extends StatelessWidget {
   const ListCompletedLotReceiptScreen({super.key});
 

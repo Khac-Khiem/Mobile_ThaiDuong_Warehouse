@@ -26,7 +26,7 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushReplacementNamed(context, "/scan_adjustment_screen");
         return false;
       },
@@ -47,424 +47,445 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
         body: Builder(
           builder: (BuildContext context) {
             return BlocConsumer<AdjustmentBloc, AdjustmentState>(
-              listener: (context, state) {            },
+              listener: (context, state) {},
               builder: (context, state) {
                 if (state is GetLotDetailSuccessState) {
-                    return SingleChildScrollView(
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.center,
-                              padding:
-                                  EdgeInsets.all(10 * SizeConfig.ratioHeight),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    "Thông tin lô cần điều chỉnh",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20 * SizeConfig.ratioFont,
-                                      color: Colors.black,
+                  return SingleChildScrollView(
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.center,
+                                padding:
+                                    EdgeInsets.all(10 * SizeConfig.ratioHeight),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Thông tin lô cần điều chỉnh",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20 * SizeConfig.ratioFont,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10 * SizeConfig.ratioHeight,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Mã lô:                  ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
+                                    SizedBox(
+                                      height: 10 * SizeConfig.ratioHeight,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Mã lô:                  ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      0, 10, 10, 10),
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  color: Constants.buttonColor,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              8.0))),
-                                              child: Center(
-                                                child: Text(
-                                                  state.itemLots[0].lotId.toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 22 *
-                                                        SizeConfig.ratioFont,
-                                                    color: Colors.black,
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 10, 10, 10),
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    45 * SizeConfig.ratioHeight,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                8.0))),
+                                                child: Center(
+                                                  child: Text(
+                                                    state.itemLots[0].lotId
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 20 *
+                                                          SizeConfig.ratioFont,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Mã sản phẩm:    ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Container(
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    45 * SizeConfig.ratioHeight,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                8.0))),
+                                                child: Center(
+                                                  child: Text(
+                                                    state.itemLots[0].item!
+                                                        .itemId
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 20 *
+                                                          SizeConfig.ratioFont,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Lượng cũ:            ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Container(
+                                                // padding:
+                                                // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    45 * SizeConfig.ratioHeight,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                8.0))),
+                                                child: Center(
+                                                  child: Text(
+                                                    state.itemLots[0]
+                                                        .beforeQuantity
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 20 *
+                                                          SizeConfig.ratioFont,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Lượng mới:         ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5 *
+                                                        SizeConfig.ratioHeight),
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    50 * SizeConfig.ratioHeight,
+                                                //color: Colors.grey[200],
+                                                child: TextField(
+                                                  controller: TextEditingController(
+                                                      text: state.itemLots[0]
+                                                                  .afterQuantity ==
+                                                              null
+                                                          ? ''
+                                                          : state.itemLots[0]
+                                                              .afterQuantity
+                                                              .toString()),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    8.0))),
+                                                  ),
+                                                  keyboardType:
+                                                      const TextInputType
+                                                              .numberWithOptions(
+                                                          decimal: true),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(
+                                                            RegExp('[0-9.,]')),
+                                                  ],
+                                                  // onSubmitted: (value) =>
+                                                  //     value != ''
+                                                  //         ? controllerQuantity =
+                                                  //             double.parse(value)
+                                                  //         : controllerQuantity =
+                                                  //             double.parse('0'),
+                                                  onChanged: (value) => value !=
+                                                          ''
+                                                      ? state.itemLots[0]
+                                                              .afterQuantity =
+                                                          double.parse(value)
+                                                      : state.itemLots[0]
+                                                              .afterQuantity =
+                                                          double.parse('0'),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "PO cũ:                 ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Container(
+                                                // padding:
+                                                // const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    45 * SizeConfig.ratioHeight,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                8.0))),
+                                                child: Center(
+                                                  child: Text(
+                                                    state
+                                                        .itemLots[0].oldPoNumber
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 22 *
+                                                          SizeConfig.ratioFont,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "PO mới:               ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5 *
+                                                        SizeConfig.ratioHeight),
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    50 * SizeConfig.ratioHeight,
+                                                //color: Colors.grey[200],
+                                                child: TextField(
+                                                  controller: TextEditingController(
+                                                      text: state.itemLots[0]
+                                                                  .newPoNumber ==
+                                                              null
+                                                          ? ''
+                                                          : state.itemLots[0]
+                                                              .newPoNumber
+                                                              .toString()
+                                                              .toString()),
+                                                  onChanged: (value) {
+                                                    state.itemLots[0]
+                                                        .newPoNumber = value;
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    8.0))),
+                                                 
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Mã sản phẩm:    ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              25, 10, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Ghi chú:              ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      20 * SizeConfig.ratioFont,
+                                                  color: Colors.black,
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  color: Constants.buttonColor,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              8.0))),
-                                              child: Center(
-                                                child: Text(
-                                                  state.itemLots[0].item!.itemId
-                                                      .toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 22 *
-                                                        SizeConfig.ratioFont,
-                                                    color: Colors.black,
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5 *
+                                                        SizeConfig.ratioHeight),
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                width:
+                                                    160 * SizeConfig.ratioWidth,
+                                                height:
+                                                    50 * SizeConfig.ratioHeight,
+                                                //color: Colors.grey[200],
+                                                child: TextField(
+                                                  controller:
+                                                      TextEditingController(
+                                                          text: state
+                                                                      .itemLots[
+                                                                          0]
+                                                                      .note ==
+                                                                  null
+                                                              ? ''
+                                                              : state
+                                                                  .itemLots[0]
+                                                                  .note
+                                                                  .toString()),
+                                                  onChanged: (value) {
+                                                    state.itemLots[0].note =
+                                                        value;
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        
+                                                   border:
+                                                        OutlineInputBorder(
+                                                          
+                                                          borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8.0))
+                                                        ), 
+                                                       
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Lượng cũ:            ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Container(
-                                              // padding:
-                                              // const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  color: Constants.buttonColor,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              8.0))),
-                                              child: Center(
-                                                child: Text(
-                                                  state.itemLots[0].beforeQuantity
-                                                      .toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 22 *
-                                                        SizeConfig.ratioFont,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Lượng mới:         ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 5 *
-                                                      SizeConfig.ratioHeight),
-                                              alignment: Alignment.centerRight,
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              //color: Colors.grey[200],
-                                              child: TextField(
-                                                controller: TextEditingController(
-                                                    text:
-                                                         state.itemLots[0].afterQuantity
-                                                       == null
-                                                            ? ''
-                                                            :  state.itemLots[0].afterQuantity
-                                                      .toString()),
-                                                decoration:
-                                                    const InputDecoration(
-                                                  filled: true,
-                                                  fillColor:
-                                                      Constants.buttonColor,
-                                                  // labelText: "Nhập lượng mới"
-                                                ),
-                                                keyboardType:
-                                                    const TextInputType
-                                                            .numberWithOptions(
-                                                        decimal: true),
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter
-                                                      .allow(RegExp('[0-9.,]')),
-                                                ],
-                                                // onSubmitted: (value) =>
-                                                //     value != ''
-                                                //         ? controllerQuantity =
-                                                //             double.parse(value)
-                                                //         : controllerQuantity =
-                                                //             double.parse('0'),
-                                                onChanged: (value) =>
-                                                    value != ''
-                                                        ?  state.itemLots[0].afterQuantity
-                                                       =
-                                                            double.parse(value)
-                                                        :  state.itemLots[0].afterQuantity
-                                                       =
-                                                            double.parse('0'),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "PO cũ:                 ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Container(
-                                              // padding:
-                                              // const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  color: Constants.buttonColor,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              8.0))),
-                                              child: Center(
-                                                child: Text(
-                                                  state.itemLots[0]
-                                                      .oldPoNumber
-                                                      .toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 22 *
-                                                        SizeConfig.ratioFont,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "PO mới:               ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 5 *
-                                                      SizeConfig.ratioHeight),
-                                              alignment: Alignment.centerRight,
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              //color: Colors.grey[200],
-                                              child: TextField(
-                                                controller:
-                                                    TextEditingController(
-                                                        text:  state.itemLots[0].newPoNumber
-                                                       == null
-                                                            ? ''
-                                                            :  state.itemLots[0].newPoNumber
-                                                      .toString()
-                                                                .toString()),
-                                                onChanged: (value) {
-                                                   state.itemLots[0].newPoNumber
-                                                       = value;
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  // labelText: "PO mới",
-                                                  // labelStyle: TextStyle(
-                                                  //   color:
-                                                  //       Color.fromRGBO(136, 136, 136, 1),
-                                                  //   fontSize: 18,
-                                                  // ),
-                                                  filled: true,
-                                                  fillColor:
-                                                      Constants.buttonColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 10, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Ghi chú:              ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize:
-                                                    20 * SizeConfig.ratioFont,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 5 *
-                                                      SizeConfig.ratioHeight),
-                                              alignment: Alignment.centerRight,
-                                              width:
-                                                  160 * SizeConfig.ratioWidth,
-                                              height:
-                                                  45 * SizeConfig.ratioHeight,
-                                              //color: Colors.grey[200],
-                                              child: TextField(
-                                                controller:
-                                                    TextEditingController(
-                                                        text:  state.itemLots[0].note
-                                                      ==null
-                                                              
-                                                            ? ''
-                                                            :  state.itemLots[0].note
-                                                      .toString()),
-                                                onChanged: (value) {
-                                                 state.itemLots[0].note
-                                                       = value;
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  // labelText: "Ghi chú",
-                                                  // labelStyle: TextStyle(
-                                                  //   color:
-                                                  //       Color.fromRGBO(136, 136, 136, 1),
-                                                  //   fontSize: 18,
-                                                  // ),
-                                                  filled: true,
-                                                  fillColor:
-                                                      Constants.buttonColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CustomizedButton(
-                                        text: "Xác nhận",
-                                        onPressed: () {
-                                        
-                                          BlocProvider.of<AdjustmentBloc>(
-                                                  context)
-                                              .add(
-                                                  UpdateLotAdjustmentQuantityEvent(
-                                                      DateTime.now(),
-                                                      '',
-                                                      state.itemLots[0],
-                                                      ));
-                                        }),
-                                  )
-                                ],
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: CustomizedButton(
+                                          text: "Xác nhận",
+                                          onPressed: () {
+                                            BlocProvider.of<AdjustmentBloc>(
+                                                    context)
+                                                .add(
+                                                    UpdateLotAdjustmentQuantityEvent(
+                                              DateTime.now(),
+                                              '',
+                                              state.itemLots[0],
+                                            ));
+                                          }),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ])),
-                );
+                            ])),
+                  );
                   // return Column(
                   //   children: [
                   //     SingleChildScrollView(
@@ -522,7 +543,7 @@ class _LotAdjustmentScreenState extends State<LotAdjustmentScreen> {
                   //   ],
                   // );
                 }
-    
+
                 if (state is GetLotDetailFailState) {
                   return Center(
                     child: Column(

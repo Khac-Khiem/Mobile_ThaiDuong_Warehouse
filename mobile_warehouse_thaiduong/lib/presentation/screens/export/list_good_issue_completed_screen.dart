@@ -11,7 +11,7 @@ import '../../bloc/states/issue_state/list_completed_goods_issue_state.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/customized_date_picker.dart';
 import '../../widgets/exception_widget.dart';
-
+// danh sách các phiếu nhập đã hoàn thành
 class ListGoodIssueCompletedScreen extends StatefulWidget {
   const ListGoodIssueCompletedScreen({super.key});
 

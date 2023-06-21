@@ -19,6 +19,7 @@ class GetWarehouseIdEvent extends InventoryEvent {
 class GetAllItemIdByWarehouseEvent extends InventoryEvent {
   DateTime timestamp;
   String warehouseId;
+  // biến lưu state để hiển thị trong cùng một trang
   List<Item> listAllItem;
   List<Item> lisstItemByWarehouse;
   List<Warehouse> warehouse;

@@ -1,10 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-import 'package:mobile_warehouse_thaiduong/presentation/dialog/loading_dialog.dart';
-
 import '../../../constant.dart';
 import '../../../domain/entities/item.dart';
 import '../../bloc/blocs/shelve_bloc.dart';
@@ -67,8 +67,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                               .map((e) => e.itemId.toString())
                               .toList(),
                           showSearchBox: true,
-                          label: "Mã sản phẩm",
-                          // hint: "country in menu mode",
+                          label: "Mã sản phẩm",                    
                           onChanged: (value) {
                             setState(() {
                               selectedItem = state.items.firstWhere(
@@ -90,7 +89,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                             .toList(),
                         showSearchBox: true,
                         label: "Tên sản phẩm",
-                        // hint: "country in menu mode",
                         onChanged: (value) {
                           setState(() {
                             selectedItem = state.items.firstWhere(
@@ -127,7 +125,6 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                     text: "Trở về",
                                     onPressed: () {
                                       // reset lại trang tạo phiếu
-
                                       Navigator.pushNamed(
                                         context,
                                         '/shelves_function_screen',

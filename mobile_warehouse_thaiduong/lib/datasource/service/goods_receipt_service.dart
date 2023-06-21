@@ -32,19 +32,7 @@ class GoodsReceiptService {
             double.tryParse(goodsReceipt.lots[i].sublotSize.toString()),
         "sublotUnit": "",
 
-        // "productionDate": goodsReceipt.lots[i].productionDate.toString(),
-        // "expirationDate": goodsReceipt.lots[i].expirationDate.toString(),
-        //  "goodsReceiptLotId": "lo1_0004",
-        //         "quantity": 5,
-        //         "unit": "KG",
-        //         "itemId": "610-6C",
-        //         "purchaseOrderNumber": "121212",
-        //         "employeeId": "NV01",
-        //         "note": "meomeo",
-        //         "locationId": "null",
-        //         "sublotSize": 5,
-        //         "productionDate": null,
-        //         "expirationDate": "2023-12-22",
+    
       };
       bodyJson.add(dimensionJson);
     }
@@ -57,6 +45,7 @@ class GoodsReceiptService {
             body: jsonEncode(
               <String, dynamic>{
                 "goodsReceiptId": goodsReceipt.goodsReceiptId,
+                "timestamp": DateFormat('yyyy-MM-dd').format(DateTime.now()),
                 "supplier": goodsReceipt.supply,
                 "employeeId": "NV01",
                 "goodsReceiptLots": bodyJson

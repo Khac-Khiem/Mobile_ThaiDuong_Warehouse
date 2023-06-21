@@ -8,7 +8,7 @@ import '../../../function.dart';
 import '../../bloc/events/receipt_event/uncompleted_receipt_lot_event.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
-
+// danh sách phiếu chưa hoàn thành
 class ListUncompletedGoodReceiptScreen extends StatelessWidget {
   const ListUncompletedGoodReceiptScreen({super.key});
 

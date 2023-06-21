@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -20,7 +22,7 @@ class BarcodeScannerItemScreen extends StatefulWidget {
 
 class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
   String scanResult = '-1'; //Scan QR ra
-
+// hàm scan qr code
   Future<void> scanQR() async {
     String barcodeScanRes;
     try {
@@ -29,9 +31,7 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
     if (!mounted) return;
-
     setState(() {
       scanResult = barcodeScanRes;
     });
@@ -39,9 +39,8 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/stockcard_function_screen");
         return false;
       },
@@ -118,18 +117,11 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
                       //     scanResult = data;
                       //   }),
                       // ),
-                     
+
                       CustomizedButton(
                           onPressed: scanResult == '-1'
                               ? () {
-                                //  BlocProvider.of<InventoryBloc>(context).add(
-                                //       GetReportInventory(
-                                //           'CPD001',
-                                //           ));
-                                //   Navigator.pushNamed(
-                                //     context,
-                                //     '/report_inventory_screen',
-                                //   );
+                                 // không nhận được qr => cảnh báo
                                   AlertDialogTwoBtnCustomized(
                                           context,
                                           'Chưa quét mã',
@@ -144,10 +136,11 @@ class _BarcodeScannerItemScreenState extends State<BarcodeScannerItemScreen> {
                                       .show();
                                 }
                               : () {
-                                  BlocProvider.of<InventoryBloc>(context).add(
-                                      GetReportInventory(
-                                          scanResult,
-                                          ));
+                                // nếu quét đúng mã sản phẩm => chuyển sang trang kế tiếp
+                                  BlocProvider.of<InventoryBloc>(context)
+                                      .add(GetReportInventory(
+                                    scanResult,
+                                  ));
                                   Navigator.pushNamed(
                                     context,
                                     '/report_inventory_screen',

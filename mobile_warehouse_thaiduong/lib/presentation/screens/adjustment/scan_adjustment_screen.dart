@@ -86,7 +86,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
                       Text(
                           scanResult != '-1'
                               ? 'Kết quả : $scanResult\n'
-                              : 'Quét mã sản phẩm cần kiểm kê',
+                              : 'Quét mã lô cần kiểm kê',
                           style: TextStyle(
                               fontSize: 22 * SizeConfig.ratioFont,
                               color: scanResult != '-1'

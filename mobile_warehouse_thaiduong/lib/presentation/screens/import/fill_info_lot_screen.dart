@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +14,9 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_even
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/fill_info_receipt_lot_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/barcode_input_widget.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-
 import '../../dialog/dialog_one_button.dart';
 
+// điền thông tin lô
 class FillInfoLotReceiptScreen extends StatefulWidget {
   const FillInfoLotReceiptScreen({super.key});
 
@@ -28,7 +30,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
   // String unit = '';
   GoodsReceiptLot goodsReceiptLot = GoodsReceiptLot(
       '', null, null, null, null, null, null, null, null, null, null);
-  
+
   // String lotId = '', poNumber = '';
   // double sublotSize = 0, quantity = 0;
   // DateTime productionDate = DateFormat('yyyy-MM-dd').parse('');
@@ -38,12 +40,12 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         Navigator.pushNamed(context, "/create_receipt_screen");
         return false;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -94,13 +96,14 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         onScan: ((data) {
                           goodsReceiptLot.goodsReceiptLotId = data;
                           var string = data.split('-').first;
-                            setState(() {
-                              goodsReceiptLot.item = state.items.firstWhere(
-                                  (element) => element.itemId == string, orElse: () => ItemModel('', '', '', '', null, null));
-                              goodsReceiptLot.unit =
-                                  goodsReceiptLot.item!.unit.toString();
-    
-                            });
+                          setState(() {
+                            goodsReceiptLot.item = state.items.firstWhere(
+                                (element) => element.itemId == string,
+                                orElse: () =>
+                                    ItemModel('', '', '', '', null, null));
+                            goodsReceiptLot.unit =
+                                goodsReceiptLot.item!.unit.toString();
+                          });
                         }),
                       ),
                       SizedBox(
@@ -119,7 +122,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                   (element) => element.itemId == value);
                               goodsReceiptLot.unit =
                                   goodsReceiptLot.item!.unit.toString();
-    
+
                               //  goodsReceiptLot.item!.itemId = value.toString();
                             });
                           },
@@ -165,8 +168,9 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         height: 60 * SizeConfig.ratioHeight,
                         child: DropdownSearch<String>(
                           mode: Mode.MENU,
-                          items:
-                              state.items.map((e) => e.unit!.toString()).toList(),
+                          items: state.items
+                              .map((e) => e.unit!.toString())
+                              .toList(),
                           showSearchBox: true,
                           label: "Đơn vị",
                           // hint: "country in menu mode",
@@ -203,8 +207,10 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                               //         text: goodsReceiptLot.sublotSize
                               //             .toString()),
                               onSubmitted: (value) => value != ''
-                                  ? goodsReceiptLot.quantity = double.parse(value)
-                                  : goodsReceiptLot.quantity = double.parse('0'),
+                                  ? goodsReceiptLot.quantity =
+                                      double.parse(value)
+                                  : goodsReceiptLot.quantity =
+                                      double.parse('0'),
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5)),
@@ -213,15 +219,18 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                   labelStyle: TextStyle(
                                       fontSize: 15 * SizeConfig.ratioFont),
                                   labelText: "Tổng lượng"),
-                              keyboardType: const TextInputType.numberWithOptions(
-                                  decimal: true),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp('[0-9.,]')),
                               ],
                               onChanged: (value) => value != ''
-                                  ? goodsReceiptLot.quantity = double.parse(value)
-                                  : goodsReceiptLot.quantity = double.parse('0'),
+                                  ? goodsReceiptLot.quantity =
+                                      double.parse(value)
+                                  : goodsReceiptLot.quantity =
+                                      double.parse('0'),
                             ),
                           ),
                           Container(
@@ -254,8 +263,9 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                   labelStyle: TextStyle(
                                       fontSize: 15 * SizeConfig.ratioFont),
                                   labelText: "Định mức "),
-                              keyboardType: const TextInputType.numberWithOptions(
-                                  decimal: true),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp('[0-9.,]')),
@@ -269,7 +279,7 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                           ),
                         ],
                       ),
-              
+
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                       //   children: [
@@ -331,8 +341,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                         ),
                         Expanded(
                           child: Container(
-                              margin:
-                                  const EdgeInsets.only(left: 20.0, right: 10.0),
+                              margin: const EdgeInsets.only(
+                                  left: 20.0, right: 10.0),
                               child: const Divider(
                                 color: Colors.black,
                                 height: 36,
@@ -386,7 +396,8 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                                 ? {
                                     BlocProvider.of<CreateReceiptBloc>(context)
                                         .add(AddLotToGoodsReceiptEvent(
-                                            goodsReceiptLot, state.goodsReceipt)),
+                                            goodsReceiptLot,
+                                            state.goodsReceipt)),
                                     Navigator.pushNamed(
                                         context, '/create_receipt_screen')
                                   }
@@ -410,25 +421,25 @@ class _FillInfoLotReceiptScreenState extends State<FillInfoLotReceiptScreen> {
                 ),
               );
             } else {
-             return Dialog(
-                        // The background color
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              // The loading indicator
-                              CircularProgressIndicator(),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              // Some text
-                              Text('Loading...')
-                            ],
-                          ),
-                        ),
-                      );
+              return const Dialog(
+                // The background color
+                backgroundColor: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // The loading indicator
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      // Some text
+                      Text('Loading...')
+                    ],
+                  ),
+                ),
+              );
             }
           },
         ),

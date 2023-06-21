@@ -131,14 +131,14 @@ class _ExportHistoryEntryScreenState extends State<ExportHistoryEntryScreen> {
                     );
                   }
                   if (state is AccessExportHistoryLoadingState) {
-                   return Dialog(
+                   return const Dialog(
                         // The background color
                         backgroundColor: Colors.white,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
+                            children: [
                               // The loading indicator
                               CircularProgressIndicator(),
                               SizedBox(

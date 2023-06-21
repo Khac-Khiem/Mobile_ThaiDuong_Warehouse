@@ -11,7 +11,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/issue_event/
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/fill_info_lot_issue_state.dart';
 import '../../dialog/dialog_one_button.dart';
 
-
+// điền thông tin hàng hóa cần xuất
 class FillInfoEntryIssueScreen extends StatefulWidget {
   const FillInfoEntryIssueScreen({super.key});
 
@@ -23,17 +23,18 @@ class FillInfoEntryIssueScreen extends StatefulWidget {
 class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
   // List<Item> itemsDropdownData = [];
   //Item? selectedItem;
-  GoodsIssueEntry issueEntryView = GoodsIssueEntry(null, null, null, null, null);
+  GoodsIssueEntry issueEntryView =
+      GoodsIssueEntry(null, null, null, null, null);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
-        onWillPop: () async {
-        Navigator.pushNamed(context,'/create_issue_screen');
+      onWillPop: () async {
+        Navigator.pushNamed(context, '/create_issue_screen');
         return false;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -51,8 +52,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
           ),
         ),
         body: BlocConsumer<FillInfoIssueEntryBloc, FillInfoIssueEntryState>(
-          listener: (context, state) {
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             if (state is LoadItemDataSuccessState) {
               if (state.index != -1) {
@@ -114,8 +114,9 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                               height: 60 * SizeConfig.ratioHeight,
                               child: DropdownSearch<String>(
                                   mode: Mode.MENU,
-                                  items:
-                                      state.items.map((e) => e.itemName).toList(),
+                                  items: state.items
+                                      .map((e) => e.itemName)
+                                      .toList(),
                                   showSearchBox: true,
                                   label: "Tên sản phẩm",
                                   // hint: "country in menu mode",
@@ -151,7 +152,7 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   //  print(value);
                                   setState(() {
                                     issueEntryView.item!.unit = value;
-    
+
                                     //  unit = value.toString();
                                   });
                                 },
@@ -172,19 +173,19 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                 height: 55 * SizeConfig.ratioHeight,
                                 //color: Colors.grey[200],
                                 child: TextField(
-                                
                                   controller: TextEditingController(
-                                      text:
-                                          issueEntryView.requestSublotSize == null
-                                              ? ''
-                                              : issueEntryView.requestSublotSize
-                                                  .toString()),
+                                      text: issueEntryView.requestSublotSize ==
+                                              null
+                                          ? ''
+                                          : issueEntryView.requestSublotSize
+                                              .toString()),
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(5)),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
                                       // filled: true,
                                       // fillColor: Constants.buttonColor,
-                                      labelText: "Lượng định mức"),
+                                      labelText: "Định mức"),
                                   keyboardType:
                                       const TextInputType.numberWithOptions(
                                           decimal: true),
@@ -218,16 +219,18 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                   //         text: issueEntryView.requestQuantity
                                   //             .toString()),
                                   controller: TextEditingController(
-                                      text: issueEntryView.requestQuantity == null
-                                          ? ''
-                                          : issueEntryView.requestQuantity
-                                              .toString()),
+                                      text:
+                                          issueEntryView.requestQuantity == null
+                                              ? ''
+                                              : issueEntryView.requestQuantity
+                                                  .toString()),
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(5)),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
                                       // filled: true,
                                       // fillColor: Constants.buttonColor,
-                                      labelText: "Nhập tổng lượng"),
+                                      labelText: "Tổng lượng"),
                                   keyboardType:
                                       const TextInputType.numberWithOptions(
                                           decimal: true),
@@ -262,16 +265,20 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                               context,
                                               "Cảnh báo",
                                               "Vui lòng điền đầy đủ các thông tin",
-                                              "Trở lại",'warning_image.png',
+                                              "Trở lại",
+                                              'warning_image.png',
                                               () {},
                                               18,
                                               22,
                                               () {},
                                               false)
                                           .show()
-                                      : BlocProvider.of<CreateIssueBloc>(context)
-                                          .add(AddIssueEntryEvent(issueEntryView,
-                                              state.goodsIssue as GoodsIssue, DateTime.now()));
+                                      : BlocProvider.of<CreateIssueBloc>(
+                                              context)
+                                          .add(AddIssueEntryEvent(
+                                              issueEntryView,
+                                              state.goodsIssue as GoodsIssue,
+                                              DateTime.now()));
                                   Navigator.pushNamed(
                                       context, '/create_issue_screen');
                                   //Navigator.of(context).pop();
@@ -289,14 +296,16 @@ class _FillInfoEntryIssueScreenState extends State<FillInfoEntryIssueScreen> {
                                               context,
                                               "Cảnh báo",
                                               "Vui lòng điền đầy đủ các thông tin",
-                                              "Trở lại",'',
+                                              "Trở lại",
+                                              '',
                                               () {},
                                               18,
                                               22,
                                               () {},
                                               false)
                                           .show()
-                                      : BlocProvider.of<CreateIssueBloc>(context)
+                                      : BlocProvider.of<CreateIssueBloc>(
+                                              context)
                                           .add(UpdateIssueEntryEvent(
                                               issueEntryView,
                                               state.goodsIssue as GoodsIssue,

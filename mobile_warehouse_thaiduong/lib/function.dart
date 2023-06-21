@@ -21,7 +21,7 @@ class SizeConfig {
   static double ratioWidth =0;
 
   ///Tỉ lệ chiều dọc của điện thoại chạy ứng dụng/điện thoại tham chiếu Pixel 3
-  static double ratioHeight=0;
+  static double ratioHeight =0;
 
   static double ratioFont = 0;
   static double ratioRadius = 0;

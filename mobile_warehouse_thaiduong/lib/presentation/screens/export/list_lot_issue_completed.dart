@@ -5,7 +5,7 @@ import 'package:mobile_warehouse_thaiduong/function.dart';
 
 import '../../bloc/blocs/issue_bloc/list_lot_issue_completed_bloc.dart';
 import '../../bloc/states/issue_state/list_completed_lots_issue_state.dart';
-
+// danh sách các lô hàng đã xuất
 class ListLotIssueCompletedScreen extends StatelessWidget {
   const ListLotIssueCompletedScreen({super.key});
 

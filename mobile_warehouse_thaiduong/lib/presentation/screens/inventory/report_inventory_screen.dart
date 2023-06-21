@@ -6,7 +6,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/inventory_st
 import '../../../constant.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
-
+// quét qr, chuyển sang trang báo cáo tồn kho cho sản phẩm được quét thành công
 class ReportInventoryScreen extends StatefulWidget {
   const ReportInventoryScreen({super.key});
 

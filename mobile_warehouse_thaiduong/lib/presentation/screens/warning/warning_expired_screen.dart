@@ -11,7 +11,7 @@ import '../../bloc/states/warning_states.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
 
-const List<String> expirationDate = <String>['6 tháng', '1 năm', '2 năm'];
+
 
 class WarningExpiredScreen extends StatefulWidget {
   const WarningExpiredScreen({super.key});
@@ -283,14 +283,14 @@ class _WarningExpiredScreenState extends State<WarningExpiredScreen> {
                 );
               }
                 if (state is ExpirationWarningLoadingState) {
-             return Dialog(
+             return const Dialog(
                         // The background color
                         backgroundColor: Colors.white,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
+                            children: [
                               // The loading indicator
                               CircularProgressIndicator(),
                               SizedBox(

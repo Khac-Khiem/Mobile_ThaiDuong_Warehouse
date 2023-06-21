@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_warehouse_thaiduong/function.dart';
-
 import '../../../constant.dart';
 import '../../../domain/entities/location.dart';
 import '../../bloc/blocs/shelve_bloc.dart';
@@ -49,7 +50,7 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
           body:
               BlocConsumer<ShelveBloc, ShelveState>(listener: (context, state) {
             if (state is GetLotByLocationLoadingState) {
-              CircularProgressIndicator();
+              const CircularProgressIndicator();
             }
           }, builder: (context, state) {
             return SingleChildScrollView(
@@ -116,7 +117,6 @@ class _SearchShelfScreennState extends State<SearchShelfScreen> {
                                   text: "Trở về",
                                   onPressed: () {
                                     // reset lại trang tạo phiếu
-
                                     Navigator.pushNamed(
                                       context,
                                       '/shelves_function_screen',

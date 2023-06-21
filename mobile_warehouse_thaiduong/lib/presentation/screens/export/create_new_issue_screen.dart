@@ -12,17 +12,16 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/issue_state/
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import '../../dialog/dialog_one_button.dart';
 import '../../widgets/exception_widget.dart';
-
+// trang tạo phiếu xuất kho chính
 class CreateNewIssueScreen extends StatefulWidget {
   const CreateNewIssueScreen({super.key});
-
   @override
   State<CreateNewIssueScreen> createState() => _CreateNewIssueScreenState();
 }
 
 class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
   GoodsIssue goodsIssue =
-      GoodsIssue('', '', DateTime.now(), false, '', null, []);
+      GoodsIssue('', '', DateTime.now(), false, '', null,  []);
   var issueId = TextEditingController();
   var receiver = TextEditingController();
 
@@ -71,14 +70,14 @@ class _CreateNewIssueScreenState extends State<CreateNewIssueScreen> {
           builder: (context, state) {
             if (state is PostNewGoodsIssueLoadingState ||
                 state is UpdateEntryToGoodsIssueLoading) {
-              return Dialog(
+              return const Dialog(
                 // The background color
                 backgroundColor: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       // The loading indicator
                       CircularProgressIndicator(),
                       SizedBox(

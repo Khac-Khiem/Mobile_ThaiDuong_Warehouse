@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -16,6 +18,7 @@ import '../../dialog/dialog_two_button.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
 
+// danh sách xuất hàng hóa đề xuất và dự kiến
 class ListLotIssueScreen extends StatefulWidget {
   const ListLotIssueScreen({super.key});
 
@@ -149,7 +152,7 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                     isThreeLine: true,
                                     title: Text("Mã lô : ${e.lotId}"),
                                     subtitle: Text(
-                                        "Sản phẩm : ${e.item!.itemId.toString()} \nVị trí : ${e.location.toString()} \nSố lượng : ${e.quantity.toString()} \nSố PO : ${e.purchaseOrderNumber.toString()}"),
+                                        "Sản phẩm : ${e.item!.itemId.toString()} \nVị trí : ${e.location!.locationId.toString()} \nSố lượng : ${e.quantity.toString()} \nSố PO : ${e.purchaseOrderNumber.toString()}"),
                                     //onTap: () {},
                                   ),
                                 );
@@ -177,13 +180,20 @@ class _ListLotIssueScreenState extends State<ListLotIssueScreen> {
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
                                             RegExp('[0-9.,]')),
-                                      ],
-                                      onChanged: (value) => setState(() {
+                                      ],                                  
+                                      onChanged: (value) => setState(() {                                       
                                         double.tryParse(value) ==
                                                 double.parse(
                                                     e.quantity.toString())
                                             ? {note = "Xuất cả lô"}
-                                            : {note = "Xuất một phần"};
+                                            : {
+                                                double.tryParse(value)! <
+                                                        double.parse(e.quantity
+                                                            .toString())
+                                                    ? {note = "Xuất một phần"}
+                                                    : {note = "Số lượng không hợp lệ"}
+                                              };
+
                                         value != ''
                                             ? quantity = double.parse(value)
                                             : quantity = double.parse('0');

@@ -11,11 +11,11 @@ class LoadingAlertDialog {
     Alert(
      
       context: context,
-      image: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+      image: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             // The loading indicator
             CircularProgressIndicator(),
             SizedBox(

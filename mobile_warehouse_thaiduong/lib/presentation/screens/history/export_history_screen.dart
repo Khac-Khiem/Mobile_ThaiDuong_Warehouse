@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +33,7 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
   //List<Warehouse> warehouseDropdownData = [];
   Warehouse selectedWarehouse = Warehouse('', '', []);
   String? selectedPo;
+  // truy xuất trong 1 tháng
   DateTime startDate = DateFormat('yyyy-MM-dd').parse(DateFormat('yyyy-MM-dd')
       .format(DateTime.now().subtract(const Duration(days: 30))));
   DateTime endDate = DateFormat('yyyy-MM-dd')
@@ -282,9 +285,9 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                     return SizedBox(
                       width: 370 * SizeConfig.ratioHeight,
                       height: 60 * SizeConfig.ratioHeight,
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.add_home_outlined,
                             color: Colors.black,
@@ -411,9 +414,9 @@ class _ExportHistoryScreenSate extends State<ExportHistoryScreen> {
                     return SizedBox(
                       width: 370 * SizeConfig.ratioHeight,
                       height: 60 * SizeConfig.ratioHeight,
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.document_scanner_outlined,
                             color: Colors.black,

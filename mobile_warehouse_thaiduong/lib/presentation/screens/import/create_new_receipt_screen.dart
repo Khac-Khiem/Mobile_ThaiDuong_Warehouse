@@ -11,10 +11,9 @@ import 'package:mobile_warehouse_thaiduong/presentation/bloc/events/receipt_even
 import 'package:mobile_warehouse_thaiduong/presentation/bloc/states/receipt_state/create_new_receipt_state.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/exception_widget.dart';
-
 import '../../dialog/dialog_one_button.dart';
 
-// mark
+// trang tạo phiếu nhập kho, nhập mã ncc và số phiếu
 class CreateNewReceiptScreen extends StatefulWidget {
   const CreateNewReceiptScreen({super.key});
 
@@ -24,7 +23,7 @@ class CreateNewReceiptScreen extends StatefulWidget {
 
 class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
   GoodsReceipt goodsReceipt =
-      GoodsReceipt('', '', [], DateTime.now(), null, false);
+      GoodsReceipt('', '',  [], DateTime.now(), null, false);
   var receiptId = TextEditingController();
   var supplyId = TextEditingController();
 
@@ -90,14 +89,14 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
             if (state is AddLotToGoodsReceiptStateLoading ||
                 state is UpdateLotReceiptStateLoading ||
                 state is PostReceiptStateLoadingState) {
-              return Dialog(
+              return const Dialog(
                 // The background color
                 backgroundColor: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       // The loading indicator
                       CircularProgressIndicator(),
                       SizedBox(
@@ -126,7 +125,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                            BlocProvider.of<CreateReceiptBloc>(context)
                               .add(UpdateReceiptFailEvent(
                             DateTime.now(),
-                          GoodsReceipt('', '', [], null, null, false),
+                          GoodsReceipt('', '', const [], null, null, false),
                           ));
                           Navigator.pushNamed(
                             context,
@@ -161,7 +160,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                             BlocProvider.of<CreateReceiptBloc>(context)
                               .add(UpdateReceiptFailEvent(
                             DateTime.now(),
-                          GoodsReceipt('', '', [], null, null, false),
+                          GoodsReceipt('', '', const [], null, null, false),
                           ));
                           Navigator.pushNamed(
                             context,
@@ -217,7 +216,9 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                           // fillColor: Constants.buttonColor,
                           labelText: "Số phiếu"),
                       controller: receiptId,
-                      onChanged: (value) => goodsReceipt.goodsReceiptId = value,
+                      onChanged: (value)  {goodsReceipt.goodsReceiptId = value;
+                      print(goodsReceipt.goodsReceiptId);
+                      }
                     ),
                   ),
                   // const Divider(
@@ -432,7 +433,7 @@ class _CreateNewReceiptScreenState extends State<CreateNewReceiptScreen> {
                       onChanged: (value) => {
                         goodsReceipt.supply = value,
                         receiptId.text =
-                            "${DateFormat('dd-MM-yy').format(DateTime.now())}-$value",
+                            "${DateFormat('yyMMdd').format(DateTime.now())}-$value",
                         goodsReceipt.goodsReceiptId = receiptId.text,
                       },
                     ),

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_warehouse_thaiduong/domain/entities/lot_adjustment.dart';
 import '../../constant.dart';
-import '../../domain/entities/item_lot.dart';
 
 class LotAdjustmentService {
   Future<ErrorPackageModel> postNewLotAdjustment(

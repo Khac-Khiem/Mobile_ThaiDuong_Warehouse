@@ -16,7 +16,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 
 import '../../bloc/blocs/receipt_bloc/uncompleted_receipt_lot_bloc.dart';
 import '../../dialog/dialog_one_button.dart';
-
+// cập nhật thông tin chi tiết danh sách lô chưa hoàn thành
 class UpdateInfoLotReceiptScreen extends StatefulWidget {
   const UpdateInfoLotReceiptScreen({super.key});
 
@@ -45,7 +45,7 @@ class _UpdateInfoLotReceiptScreenState
         return false;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -79,6 +79,8 @@ class _UpdateInfoLotReceiptScreenState
                 goodsReceiptLot = state.goodsReceipt.lots[state.index];
               }
               return SingleChildScrollView(
+                reverse: true,
+                
                 child: Container(
                   // height: 300*SizeConfig.ratioHeight,
                   alignment: Alignment.center,
@@ -168,8 +170,7 @@ class _UpdateInfoLotReceiptScreenState
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                        
+                        children: [                      
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 10 * SizeConfig.ratioHeight),
@@ -181,8 +182,7 @@ class _UpdateInfoLotReceiptScreenState
                               controller: TextEditingController(
                                   text: goodsReceiptLot.quantity == null
                                       ? ''
-                                      : goodsReceiptLot.quantity.toString()),
-                           
+                                      : goodsReceiptLot.quantity.toString()),                         
                               onSubmitted: (value) => value != ''
                                   ? goodsReceiptLot.quantity = double.parse(value)
                                   : goodsReceiptLot.quantity = double.parse('0'),

@@ -10,7 +10,7 @@ import '../../bloc/states/receipt_state/uncompleted_receipt_lot_state.dart';
 import '../../dialog/dialog_one_button.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
-
+// danh sách các lô hàng chưa hoàn thành
 class ListUncompletedLotReceiptScreen extends StatefulWidget {
   const ListUncompletedLotReceiptScreen({super.key});
 
@@ -307,14 +307,14 @@ class _ListUncompletedLotReceiptScreenState
                       ],
                     );
                   } else {
-                    return Dialog(
+                    return const Dialog(
                       // The background color
                       backgroundColor: Colors.white,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             // The loading indicator
                             CircularProgressIndicator(),
                             SizedBox(

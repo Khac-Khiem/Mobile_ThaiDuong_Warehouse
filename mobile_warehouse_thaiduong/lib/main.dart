@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_warehouse_thaiduong/injector.dart';
 import 'package:mobile_warehouse_thaiduong/presentation/router/app_router.dart';
@@ -12,7 +13,7 @@ void main() async {
     //   enabled: !kReleaseMode,
     //   builder: (context) => const MyApp(), // Wrap your app
     // ),
-     MyApp(), 
+     const MyApp(), 
   );
 }
 

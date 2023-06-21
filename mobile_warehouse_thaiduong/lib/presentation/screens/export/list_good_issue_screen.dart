@@ -9,7 +9,7 @@ import '../../bloc/blocs/issue_bloc/list_goods_issue_uncompleted_bloc.dart';
 import '../../bloc/events/issue_event/list_lot_issue_event.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/exception_widget.dart';
-
+// danh sách phiếu cần xuất
 class ListGoodIssueScreen extends StatefulWidget {
   const ListGoodIssueScreen({super.key});
 

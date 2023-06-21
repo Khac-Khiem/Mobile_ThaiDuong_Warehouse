@@ -31,9 +31,7 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
     if (!mounted) return;
-
     setState(() {
       scanResult = barcodeScanRes;
     });
@@ -400,7 +398,7 @@ class _IsolatedNewItemLotScreenState extends State<IsolatedNewItemLotScreen> {
                         CustomizedButton(
                           onPressed: () {
                             scanResult = '1';
-                            scanQR();
+                            scanQR(); // gọi hàm scan qr
                           },
                           text: "Quét mã",
                         ),

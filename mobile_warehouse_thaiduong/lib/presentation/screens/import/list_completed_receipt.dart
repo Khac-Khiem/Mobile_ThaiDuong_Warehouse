@@ -11,7 +11,7 @@ import 'package:mobile_warehouse_thaiduong/presentation/widgets/button_widget.da
 import 'package:mobile_warehouse_thaiduong/presentation/widgets/customized_date_picker.dart';
 import '../../../function.dart';
 import '../../widgets/exception_widget.dart';
-
+// danh sách các phiếu đã nhập
 class ListCompletedReceiptScreen extends StatefulWidget {
   const ListCompletedReceiptScreen({super.key});
 

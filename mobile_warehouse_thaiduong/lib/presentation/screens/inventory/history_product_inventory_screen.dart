@@ -6,7 +6,7 @@ import '../../../constant.dart';
 import '../../bloc/blocs/inventory_bloc.dart';
 import '../../bloc/states/inventory_states.dart';
 import '../../widgets/button_widget.dart';
-
+// hiển thị lịch sử xuất nhập tồn từ kho hàng, mã sp, thời gian.
 class ListInventoryScreen extends StatefulWidget {
   const ListInventoryScreen({super.key});
 
